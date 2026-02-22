@@ -17,6 +17,9 @@ from src.outputs.obsidian import write_obsidian_daily
 from src.outputs.tts_edge import tts_text_to_mp3_chunked
 from src.outputs.audio import concat_mp3_ffmpeg
 
+from src.utils.text import clean_for_tts
+import shutil
+
 
 def load_config(path: Path) -> Dict[str, Any]:
     with path.open("r", encoding="utf-8") as f:
@@ -74,22 +77,32 @@ def main() -> int:
     script_text = build_podcast_script_llm(date_str=today, items=ranked, cfg=cfg)
     script_path = out_dir / f"podcast_script_{today}_llm.txt"
     write_text(script_path, script_text)
+    script_text_clean = clean_for_tts(script_text)
+    script_path_clean = out_dir / f"podcast_script_{today}_llm_clean.txt"
+    write_text(script_path_clean, script_text_clean)
+
 
     # 6) TTS chunk + merge
-    if cfg.get("podcast", {}).get("enabled", True) and script_text.strip():
+    if cfg.get("podcast", {}).get("enabled", True) and script_text_clean.strip():
         voice = cfg["podcast"]["voice"]
         chunk_chars = int(cfg["podcast"]["tts_chunk_chars"])
         parts_dir = out_dir / "tts_parts"
         ensure_dir(parts_dir)
 
         part_files = tts_text_to_mp3_chunked(
-            text=script_text,
+            text=script_text_clean,
             out_dir=parts_dir,
             voice=voice,
             chunk_chars=chunk_chars,
         )
         final_mp3 = out_dir / f"podcast_{today}.mp3"
         concat_mp3_ffmpeg(part_files, final_mp3)
+        spotify_folder = repo_dir / 'spotify'
+        episodes_dir = spotify_folder / 'episodes'
+        ensure_dir(episodes_dir)
+        dst_mp3 = episodes_dir / final_mp3.name
+        shutil.copy2(final_mp3, dst_mp3)
+
 
     status = {
         "date": today,

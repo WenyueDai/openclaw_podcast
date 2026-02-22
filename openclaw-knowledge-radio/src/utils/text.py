@@ -60,3 +60,38 @@ def _split_buf(buf: str, max_chars: int) -> List[str]:
             for i in range(0, len(p), max_chars):
                 out.append(p[i:i+max_chars])
     return out
+
+import re
+
+_URL_RE = re.compile(r"https?://\S+")
+_MD_LINK_RE = re.compile(r"\[([^\]]+)\]\((https?://[^\)]+)\)")
+
+def clean_for_tts(text: str) -> str:
+    """
+    Make a TTS-friendly version:
+    - remove raw URLs
+    - convert markdown links [title](url) -> title
+    - remove "来源清单" section if present (optional but recommended)
+    """
+    if not text:
+        return ""
+
+    # [title](url) -> title
+    text = _MD_LINK_RE.sub(r"\1", text)
+
+    # remove raw urls
+    text = _URL_RE.sub("", text)
+
+    # OPTIONAL: drop trailing sources section if you keep one
+    # adjust these keywords to your script style
+    cut_keywords = ["来源清单", "Sources list", "Sources:", "References:"]
+    for kw in cut_keywords:
+        idx = text.find(kw)
+        if idx != -1:
+            text = text[:idx].rstrip()
+            break
+
+    # cleanup excessive spaces / blank lines
+    text = re.sub(r"[ \t]+\n", "\n", text)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()

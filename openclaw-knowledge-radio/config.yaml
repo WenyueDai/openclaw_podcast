@@ -1,5 +1,5 @@
 timezone: "Europe/London"
-lookback_hours: 48
+lookback_hours: 480
 
 paths:
   # workspace base (used only for clarity; not required)
@@ -22,17 +22,94 @@ rss_sources:
     url: "https://arxiv.org/rss/q-bio.BM"
     tags: ["protein-design", "preprint", "arxiv"]
     bucket: "protein"
-  - name: "bioRxiv biochemistry"
-    url: "https://www.biorxiv.org/rss/subject/biochemistry.xml"
-    tags: ["protein", "preprint", "biorxiv"]
+
+  - name: "Nature (main journal)"
+    url: "https://www.nature.com/nature.rss"
+    tags: ["protein-design", "nature", "journal"]
     bucket: "protein"
-  - name: "Nature protein design"
-    url: "https://www.nature.com/subjects/protein-design/rss"
-    tags: ["protein-design", "nature"]
+
+  - name: "arXiv q-bio.BM"
+    url: "https://arxiv.org/rss/q-bio.BM"
+    tags: ["protein-design", "preprint", "arxiv"]
     bucket: "protein"
-  - name: "Owl Posting"
-    url: "https://owlposting.substack.com/feed"
-    tags: ["blog", "bio-ml"]
+
+  - name: "arXiv q-bio.QM"
+    url: "https://arxiv.org/rss/q-bio.QM"
+    tags: ["quantitative-biology", "preprint", "arxiv"]
+    bucket: "protein"
+
+  - name: "Nature Biotechnology"
+    url: "https://www.nature.com/nbt.rss"
+    tags: ["biotech", "journal"]
+    bucket: "journal"
+
+  - name: "Nature Chemical Biology"
+    url: "https://www.nature.com/nchembio.rss"
+    tags: ["chemical-biology", "journal"]
+    bucket: "journal"
+
+  - name: "PNAS"
+    url: "https://www.pnas.org/rss/current.xml"
+    tags: ["biology", "journal"]
+    bucket: "journal"
+
+  - name: "arXiv cs.LG (AI/ML)"
+    url: "https://arxiv.org/rss/cs.LG"
+    tags: ["machine-learning", "arxiv"]
+    bucket: "ai_bio"
+
+  - name: "arXiv stat.ML"
+    url: "https://arxiv.org/rss/stat.ML"
+    tags: ["machine-learning", "statistics"]
+    bucket: "ai_bio"
+
+  - name: "arXiv q-bio.PE"
+    url: "https://arxiv.org/rss/q-bio.PE"
+    tags: ["evolution", "protein"]
+    bucket: "protein"
+
+  - name: "Journal of Molecular Biology"
+    url: "https://rss.sciencedirect.com/publication/science/00222836"
+    tags: ["molecular-biology"]
+    bucket: "protein"
+
+  - name: "Nature News"
+    url: "https://www.nature.com/nature/articles?type=news&format=rss"
+    tags: ["science-news"]
+    bucket: "news"
+
+  - name: "Scientific American - Health"
+    url: "https://feeds.feedburner.com/ScientificAmerican-Health"
+    tags: ["science-news"]
+    bucket: "news"
+
+  # -------------------------
+  # Key Researchers (Author RSS)
+  # -------------------------
+
+  - name: "David Baker (arXiv)"
+    url: "https://arxiv.org/search/?query=David+Baker&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss"
+    tags: ["protein-design", "diffusion", "author"]
+    bucket: "protein"
+
+  - name: "Sergey Ovchinnikov (arXiv)"
+    url: "https://arxiv.org/search/?query=Sergey+Ovchinnikov&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss"
+    tags: ["protein-design", "inverse-folding", "author"]
+    bucket: "protein"
+
+  - name: "Mohamed AlQuraishi (arXiv)"
+    url: "https://arxiv.org/search/?query=Mohamed+AlQuraishi&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss"
+    tags: ["structure-prediction", "ML", "author"]
+    bucket: "ai_bio"
+
+  - name: "Alexander Rives (arXiv)"
+    url: "https://arxiv.org/search/?query=Alexander+Rives&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss"
+    tags: ["protein-LLM", "esm", "author"]
+    bucket: "ai_bio"
+
+  - name: "Frances Arnold (Google Scholar)"
+    url: "https://scholar.google.com/scholar?q=Frances+Arnold&hl=en&as_sdt=0,5&output=rss"
+    tags: ["directed-evolution", "author"]
     bucket: "protein"
 
 daily_knowledge:
@@ -51,4 +128,4 @@ llm:
   model: "openai/gpt-oss-120b"
   api_key_env: "OPENROUTER_API_KEY"
   temperature: 0.25
-  max_output_tokens: 5200
+  max_output_tokens: 10400

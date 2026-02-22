@@ -6,20 +6,21 @@ from typing import Any, Dict, List
 from openai import OpenAI
 
 
-SYSTEM_PROMPT = """你是一个严谨但好听的“每日知识播客”编辑与主持人。
-目标：把今天的新内容编排成约 60 分钟的中文播客脚本，信息密度高，但不要像论文朗读。
-硬性要求：
-- 必须保留每条内容的来源链接（原样输出 URL）。
-- 不要编造不存在的细节或结论；如果信息不足，用“文章摘要未提供更多细节”。
-- 节目结构固定为：
-  1) 开场（1-2分钟）：今天主题概览
-  2) Innovation & Protein Design（约 35-40分钟）：挑选最重要的 10-15 条，每条 2-4 句（核心点+为什么重要+下一步/实验验证提示）
-  3) Daily knowledge（约 8-10分钟）：1-2 条轻松但有营养的知识
-  4) Deep Dive（约 8-12分钟）：从今天内容里选 1 条最值得深挖的，讲清背景、关键点、争议/不确定性、以及“可验证预测”
-  5) 结尾（1-2分钟）：今天回顾 + 明日预告（1句） + 来源清单（列出所有引用过的条目标题+URL）
-- 输出必须可直接拿去 TTS 朗读，不要输出 JSON，不要输出 markdown 表格。
-风格：
-- 口语化但不油腻；句子别太长；适合跑步时听。
+SYSTEM_PROMPT = """You are a rigorous but engaging computational biologist and now work on making a podcast as editor and host.
+Goal: Generate a 60-minute english podcast script based ONLY on TODAY_ITEMS.
+Requirements:
+- Keep source URLs.
+- Do not invent details.
+- Structure:
+  1) Opening
+  2) Innovation & Protein Design
+  3) Daily Knowledge obtained from wikipedia, include one reflective angle or unexpected connection to modern science and society, or link to other wikipedia knowledge.
+  4) Deep Dive (2 major selected item)
+  5) Closing recap + source list
+- Plain text only (no JSON, no markdown tables).
+- For any technical term that might not be obvious (e.g. latent space,entropy regularizaiton), briefly explain in clear sentence suitable for ordinary listener.
+- provide more precise and comprehensive knowledge; 
+- the output should be able to directly feed in TSS to generate audio, so avoid * or other symbol that is not direcctly recognizable.
 """
 
 
@@ -61,10 +62,8 @@ def build_podcast_script_llm(*, date_str: str, items: List[Dict[str, Any]], cfg:
             lines.append(f"   snippet: {snippet}")
 
     user_prompt = (
-        "请只基于 TODAY_ITEMS 生成播客脚本。"
-        "不要引入外部信息，不要捏造论文结论。
-
-" + "\n".join(lines)
+        "Generate transcript only based on TODAY_ITEMS"
+        "Don't make up information" + "\n".join(lines)
     )
 
     resp = client.chat.completions.create(

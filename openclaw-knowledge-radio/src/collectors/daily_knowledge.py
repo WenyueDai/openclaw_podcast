@@ -1,53 +1,50 @@
-from __future__ import annotations
-
 from datetime import datetime
-from typing import Any, Dict, List
-
 import requests
+from typing import List, Dict
 
+def collect_daily_knowledge_items(*, tz) -> List[Dict]:
+    items = []
 
-def collect_daily_knowledge_items(*, tz) -> List[Dict[str, Any]]:
-    # Wikipedia "On this day" REST API (events)
+    # 1️⃣ On This Day
     now = datetime.now(tz)
     mm = f"{now.month:02d}"
     dd = f"{now.day:02d}"
+
     url = f"https://en.wikipedia.org/api/rest_v1/feed/onthisday/all/{mm}/{dd}"
-
-    out: List[Dict[str, Any]] = []
     try:
-        r = requests.get(url, timeout=20, headers={"User-Agent": "Mozilla/5.0"})
-        r.raise_for_status()
+        r = requests.get(url, timeout=20)
         data = r.json()
-        events = data.get("events", []) or []
-        for ev in events[:2]:
+        for ev in data.get("events", [])[:2]:
             year = ev.get("year")
-            text = (ev.get("text") or "").strip()
-            pages = ev.get("pages") or []
-            link = ""
-            title = ""
+            text = ev.get("text", "")
+            pages = ev.get("pages", [])
             if pages:
-                title = pages[0].get("normalizedtitle") or pages[0].get("title") or ""
-                content_urls = pages[0].get("content_urls") or {}
-                link = (content_urls.get("desktop") or {}).get("page") or ""
-            if not title:
-                title = f"On this day: {year}" if year else "On this day"
-            if not link:
-                link = "https://en.wikipedia.org/wiki/Main_Page"
-
-            one = f"{year}: {text}" if year else text
-            if len(one) > 280:
-                one = one[:277] + "..."
-            out.append(
-                {
+                title = pages[0].get("title")
+                link = pages[0]["content_urls"]["desktop"]["page"]
+                items.append({
                     "bucket": "daily",
                     "source": "Wikipedia On This Day",
-                    "source_type": "wiki",
                     "title": title,
                     "url": link,
-                    "one_liner": one,
-                    "tags": ["daily-knowledge"],
-                }
-            )
+                    "one_liner": f"{year}: {text}",
+                    "tags": ["history", "wikipedia"]
+                })
     except Exception:
-        return []
-    return out
+        pass
+
+    # 2️⃣ Random Article
+    try:
+        r = requests.get("https://en.wikipedia.org/api/rest_v1/page/random/summary")
+        data = r.json()
+        items.append({
+            "bucket": "daily",
+            "source": "Wikipedia Random",
+            "title": data.get("title"),
+            "url": data.get("content_urls", {}).get("desktop", {}).get("page"),
+            "one_liner": data.get("extract"),
+            "tags": ["random", "wikipedia"]
+        })
+    except Exception:
+        pass
+
+    return items
