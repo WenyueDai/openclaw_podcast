@@ -1,0 +1,54 @@
+timezone: "Europe/London"
+lookback_hours: 48
+
+paths:
+  # workspace base (used only for clarity; not required)
+  base_dir: "/home/eva/openclaw_workspace"
+  # where this repo lives
+  repo_dir: "/home/eva/openclaw_workspace/openclaw-knowledge-radio"
+  data_dir: "/home/eva/openclaw_workspace/openclaw-knowledge-radio/data"
+  output_dir: "/home/eva/openclaw_workspace/openclaw-knowledge-radio/output"
+  state_dir: "/home/eva/openclaw_workspace/openclaw-knowledge-radio/state"
+  # your Obsidian vault directory (must exist or will be created)
+  obsidian_vault: "/home/eva/openclaw_workspace/obsidian_vault"
+
+limits:
+  max_items_total: 40
+  max_items_protein: 25
+  max_items_daily_knowledge: 2
+
+rss_sources:
+  - name: "arXiv q-bio.BM"
+    url: "https://arxiv.org/rss/q-bio.BM"
+    tags: ["protein-design", "preprint", "arxiv"]
+    bucket: "protein"
+  - name: "bioRxiv biochemistry"
+    url: "https://www.biorxiv.org/rss/subject/biochemistry.xml"
+    tags: ["protein", "preprint", "biorxiv"]
+    bucket: "protein"
+  - name: "Nature protein design"
+    url: "https://www.nature.com/subjects/protein-design/rss"
+    tags: ["protein-design", "nature"]
+    bucket: "protein"
+  - name: "Owl Posting"
+    url: "https://owlposting.substack.com/feed"
+    tags: ["blog", "bio-ml"]
+    bucket: "protein"
+
+daily_knowledge:
+  enabled: true
+
+podcast:
+  enabled: true
+  target_minutes: 60
+  # Change voice if you want Mandarin etc. Example: "zh-CN-XiaoxiaoNeural"
+  voice: "en-US-GuyNeural"
+  tts_chunk_chars: 2800
+
+llm:
+  enabled: true
+  provider: "openrouter"
+  model: "openai/gpt-oss-120b"
+  api_key_env: "OPENROUTER_API_KEY"
+  temperature: 0.25
+  max_output_tokens: 5200
