@@ -12,14 +12,22 @@ from src.utils.dedup import SeenStore
 from src.collectors.rss import collect_rss_items
 from src.collectors.daily_knowledge import collect_daily_knowledge_items
 from src.processing.rank import rank_and_limit
-from src.processing.script_llm import build_podcast_script_llm
+from src.processing.script_llm import build_podcast_script_llm_chunked
 from src.outputs.obsidian import write_obsidian_daily
 from src.outputs.tts_edge import tts_text_to_mp3_chunked
 from src.outputs.audio import concat_mp3_ffmpeg
 
 from src.utils.text import clean_for_tts
-import shutil
 
+from src.processing.article_extract import extract_article_text
+from src.processing.article_analysis import analyze_article
+
+
+import shutil
+import os
+
+#  DEBUG=true python run_daily.py
+DEBUG_MODE = os.environ.get('DEBUG', 'false').lower() == 'true'
 
 def load_config(path: Path) -> Dict[str, Any]:
     with path.open("r", encoding="utf-8") as f:
@@ -57,11 +65,18 @@ def main() -> int:
     new_items: List[Dict[str, Any]] = []
     for it in items:
         url = (it.get("url") or "").strip()
+
         if not url:
             continue
-        if seen.has(url):
+        if not DEBUG_MODE and seen.has(url):
             continue
         seen.add(url)
+        body = extract_article_text(url)
+        it['extracted_chars'] = len(body or "")
+        it['has_fulltext'] = bool(body and len(body) > 1500)
+        analysis = analyze_article(url, body)
+        it['analysis'] = analysis
+
         new_items.append(it)
     seen.save()
 
@@ -74,7 +89,7 @@ def main() -> int:
     daily_md = write_obsidian_daily(vault_dir=vault_dir, date_str=today, items=ranked, output_dir=out_dir)
 
     # 5) LLM podcast script
-    script_text = build_podcast_script_llm(date_str=today, items=ranked, cfg=cfg)
+    script_text = build_podcast_script_llm_chunked(date_str=today, items=ranked, cfg=cfg)
     script_path = out_dir / f"podcast_script_{today}_llm.txt"
     write_text(script_path, script_text)
     script_text_clean = clean_for_tts(script_text)

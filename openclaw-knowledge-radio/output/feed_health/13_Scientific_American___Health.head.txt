@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+	xmlns:media="http://search.yahoo.com/mrss/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+	<channel>
+		<title>Scientific American</title> 
+		<link>http://www.scientificamerican.com</link>
+		<description>Science news and technology updates from Scientific American</description> 
+		<image><url>https://static.scientificamerican.com/sciam/assets/Image/newsletter/salogo.png</url><title>Scientific American</title><link>http://www.scientificamerican.com</link></image> 
+		<pubDate>Tue, 07 Sep 2021 15:21:24 GMT</pubDate> 
+		<language>en-us</language>
+		<copyright>Scientific American, a Division of Springer Nature America, Inc.</copyright>
+		<itunes:author>Scientific American</itunes:author>
+		<item>
+			<title>The Absurd Pregnancy Math behind the Texas &apos;Six-Week&apos; Abortion Ban</title>
+			<link>https://www.scientificamerican.com/article/the-absurd-pregnancy-math-behind-the-lsquo-six-week-rsquo-abortion-ban/</link>
+			<guid isPermaLink="false">896AA491-21F4-4253-93A9183D676256F4</guid>
+			<pubDate>Sat, 04 Sep 2021 12:00:00 GMT</pubDate>
+			<description>&lt;p&gt;The law the Supreme Court just failed to block is not just a blow to women; it&amp;rsquo;s biologically nonsensical&lt;/p&gt;</description>
+			<media:content url="https://static.scientificamerican.com/sciam/cache/file/15D98AA3-1CC1-4879-9BFA5296BE962790_source.jpg" fileSize="2892898" type="image/jpeg" expression="full" width="790" height="496">
+				
+				<media:credit><![CDATA[Elijah Nouvelage <em>Getty Images</em>]]></media:credit>
+			</media:content><dc:creator>Michelle Rodrigues</dc:creator><category>Health</category><category>Reproduction</category></item>
+		<item>
+			<title>You Have Probably Eaten This Natural Food Additive without Knowing It</title>
+			<link>https://www.scientificamerican.com/video/you-have-probably-eaten-this-natural-food-additive-without-knowing-it/</link>
+			<guid isPermaLink="false">AAC1FD8B-67D1-4BDA-A6CCAE09BCAE0B0E</guid>
+			<pubDate>Thu, 02 Sep 2021 20:00:00 GMT</pubDate>
+			<description>&lt;p&gt;A new video series from &lt;em&gt;Scientific American&lt;/em&gt; and &lt;a href=&quot;https://www.spektrum.de/&quot; target=&quot;_blank&quot;&gt;&lt;em&gt;Spektrum der Wissenschaft&lt;/em&gt;&lt;/a&gt; gives you a serving of science. In this episode, we take a look at something called inulin.&lt;/p&gt;</description>
+			<media:content url="https://static.scientificamerican.com/sciam/cache/file/C2EAB1D3-C315-4F0D-8CF7E3E853465881_source.jpg" fileSize="1377990" type="image/jpeg" expression="full" width="790" height="496">
+				
+				
+			</media:content><dc:creator>Spektrum, Scientific American Staff</dc:creator><category>Health</category><category>Nutrition</category></item>
+		<item>
+			<title>Abortion Rights Are at the Greatest Risk since Roe v. Wade Was Decided in 1972</title>
+			<link>https://www.scientificamerican.com/article/abortion-rights-are-at-the-greatest-risk-since-roe-v-wade-was-decided-in-19721/</link>
+			<guid isPermaLink="false">170C0123-D85D-466A-AB29078AB49CAB83</guid>
+			<pubDate>Thu, 02 Sep 2021 16:40:00 GMT</pubDate>
+			<description>&lt;p&gt;The Supreme Court will hear a case in the upcoming term that could officially overturn that historic ruling&lt;/p&gt;</description>
+			<media:content url="https://static.scientificamerican.com/sciam/cache/file/E27BCBEF-BC29-4E20-883B35AC21FEFCCD_source.jpg" fileSize="4304806" type="image/jpeg" expression="full" width="790" height="496">
+				<media:description type="html"><![CDATA[Activists demonstrate outside the Supreme Court during the &quot;March for Life&quot; in Washington, DC, on January 24, 2020.]]></media:description>
+				<media:credit><![CDATA[Olivier Douliery <em>Getty Images</em>]]></media:credit>
+			</media:content><dc:creator>Elizabeth Nash</dc:creator><category>Health</category><category>Policy</category></item

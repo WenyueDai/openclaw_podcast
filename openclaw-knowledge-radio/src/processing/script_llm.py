@@ -1,79 +1,425 @@
-from __future__ import annotations
-
 import os
-from typing import Any, Dict, List
+import time
+from typing import Any, Dict, List, Optional, Tuple
 
 from openai import OpenAI
 
 
-SYSTEM_PROMPT = """You are a rigorous but engaging computational biologist and now work on making a podcast as editor and host.
-Goal: Generate a 60-minute english podcast script based ONLY on TODAY_ITEMS.
-Requirements:
-- Keep source URLs.
-- Do not invent details.
-- Structure:
-  1) Opening
-  2) Innovation & Protein Design
-  3) Daily Knowledge obtained from wikipedia, include one reflective angle or unexpected connection to modern science and society, or link to other wikipedia knowledge.
-  4) Deep Dive (2 major selected item)
-  5) Closing recap + source list
-- Plain text only (no JSON, no markdown tables).
-- For any technical term that might not be obvious (e.g. latent space,entropy regularizaiton), briefly explain in clear sentence suitable for ordinary listener.
-- provide more precise and comprehensive knowledge; 
-- the output should be able to directly feed in TSS to generate audio, so avoid * or other symbol that is not direcctly recognizable.
-"""
-
+# =========================
+# Client (OpenRouter / OpenAI-compatible)
+# =========================
 
 def _client_from_config(cfg: Dict[str, Any]) -> OpenAI:
     api_key_env = cfg.get("llm", {}).get("api_key_env", "OPENROUTER_API_KEY")
     api_key = os.environ.get(api_key_env)
     if not api_key:
         raise RuntimeError(f"Missing env var {api_key_env} for OpenRouter API key")
-
-    # OpenRouter is OpenAI-compatible
     return OpenAI(
         base_url="https://openrouter.ai/api/v1",
         api_key=api_key,
     )
 
 
+def _chat_complete(
+    client: OpenAI,
+    *,
+    model: str,
+    system: str,
+    user: str,
+    temperature: float,
+    max_tokens: int,
+    retries: int = 3,
+) -> str:
+    err: Optional[Exception] = None
+    for attempt in range(1, retries + 1):
+        try:
+            resp = client.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": user},
+                ],
+                temperature=temperature,
+                max_tokens=max_tokens,
+            )
+            return (resp.choices[0].message.content or "").strip()
+        except Exception as e:
+            err = e
+            if attempt < retries:
+                time.sleep(1.5 * attempt)
+            else:
+                raise
+    raise err  # pragma: no cover
+
+
+# =========================
+# Helpers
+# =========================
+
+def _safe_int(x: Any, default: int = 0) -> int:
+    try:
+        return int(x)
+    except Exception:
+        return default
+
+
+def _clip(s: str, n: int) -> str:
+    s = (s or "").strip()
+    if n <= 0 or len(s) <= n:
+        return s
+    return s[: max(0, n - 3)] + "..."
+
+
+def _chunk(xs: List[Any], n: int) -> List[List[Any]]:
+    if n <= 0:
+        return [xs]
+    return [xs[i : i + n] for i in range(0, len(xs), n)]
+
+
+def _item_meta(it: Dict[str, Any]) -> Tuple[str, str, str, str, str, int, bool]:
+    title = (it.get("title") or "").strip()
+    url = (it.get("url") or "").strip()
+    src = (it.get("source") or "").strip()
+    bucket = (it.get("bucket") or "").strip()
+    snippet = (it.get("one_liner") or it.get("snippet") or "").strip()
+    extracted_chars = _safe_int(it.get("extracted_chars", 0), 0)
+    has_fulltext = bool(it.get("has_fulltext", False))
+    return title, url, src, bucket, snippet, extracted_chars, has_fulltext
+
+
+def _fulltext_ok(it: Dict[str, Any], threshold_chars: int) -> bool:
+    _, _, _, _, _, extracted_chars, has_fulltext = _item_meta(it)
+    return has_fulltext or (extracted_chars >= threshold_chars)
+
+
+def _analysis_text(it: Dict[str, Any]) -> str:
+    """
+    What we feed the LLM for understanding.
+    Prefer per-article analysis if you have it; fallback to snippet.
+    """
+    a = it.get("analysis")
+    if isinstance(a, str) and a.strip():
+        return a.strip()
+    # Some users store analysis as dict; be defensive
+    if isinstance(a, dict):
+        # keep it compact
+        parts = []
+        for k in ["core_claim", "method", "results", "why_it_matters", "limitations", "terms"]:
+            v = a.get(k)
+            if v:
+                parts.append(f"{k.upper()}: {str(v)}")
+        if parts:
+            return "\n".join(parts).strip()
+    # fallback
+    return (it.get("one_liner") or it.get("snippet") or "").strip()
+
+
+def _format_item_block(it: Dict[str, Any]) -> str:
+    title, url, src, bucket, snippet, extracted_chars, has_fulltext = _item_meta(it)
+    tags = it.get("tags") or []
+    tags_str = ", ".join([str(t) for t in tags]) if isinstance(tags, list) else str(tags)
+
+    lines: List[str] = []
+    lines.append(f"TITLE: {title}")
+    if src:
+        lines.append(f"SOURCE: {src}")
+    if bucket:
+        lines.append(f"BUCKET: {bucket}")
+    if tags_str:
+        lines.append(f"TAGS: {tags_str}")
+    if url:
+        lines.append(f"URL: {url}")
+    if snippet:
+        lines.append(f"RSS_SNIPPET: {_clip(snippet, 420)}")
+    lines.append(f"EXTRACTED_CHARS: {extracted_chars}")
+    lines.append(f"HAS_FULLTEXT: {has_fulltext}")
+    notes = _analysis_text(it)
+    if notes:
+        lines.append("NOTES_FROM_PIPELINE:")
+        lines.append(_clip(notes, 4000))  # keep prompts bounded
+    else:
+        lines.append("NOTES_FROM_PIPELINE: (none)")
+    return "\n".join(lines)
+
+
+# =========================
+# Prompts (ENGLISH ONLY)
+# =========================
+
+SYSTEM_DEEP_DIVE = """You are an expert English podcast host and not you are hosting 'colorful biology'.
+This segment MUST be based ONLY on the provided item block and notes.
+
+Hard rules:
+- Do NOT invent methods/results.
+- If details are missing, explicitly say: "The available text does not provide details on X."
+- Write for audio narration: short paragraphs, clear transitions, no academic run-on sentences.
+- Explain any uncommon term in one sentence.
+
+Length requirement:
+- Minimum ~700 words for the deep dive (unless the provided notes are extremely short).
+
+- Don't add asterisk or any other character that is not suit for TTS text to speech.
+
+"""
+
+SYSTEM_ROUNDUP = """You are an English podcast host doing a mid-depth roundup.
+Use ONLY the provided item blocks and notes.
+
+Rules:
+- For EACH item: 120–220 words.
+- Be concrete but never invent details.
+- Explain one uncommon term briefly if present.
+- Don't add asterisk or any other character that is not suit for TTS text to speech.
+"""
+
+SYSTEM_OPENING = """You are an English podcast host.
+Write a short opening (120–180 words) for today's episode.
+You will be given a list of the segments included. Do NOT invent facts.
+"""
+
+SYSTEM_CLOSING = """You are an English podcast host.
+Write a short closing (90–140 words) that recaps the episode and encourages curiosity.
+Do NOT invent facts.
+"""
+
+# Optional merge via LLM (disabled by default). If enabled, it must not delete content.
+SYSTEM_MERGE_NO_DELETE = """You are the editor-in-chief assembling a final podcast script.
+
+CRITICAL RULES:
+- You MUST NOT delete or summarize away any substantive information.
+- You MAY ONLY:
+  - add very short transitions (1–2 sentences) between segments
+  - reorder segments if needed
+  - fix obvious formatting issues (whitespace)
+- The final length should be approximately the sum of all segments (no compression).
+
+Output in English, TTS-friendly.
+"""
+
+
+# =========================
+# Single-call version (kept for compatibility)
+# =========================
+
 def build_podcast_script_llm(*, date_str: str, items: List[Dict[str, Any]], cfg: Dict[str, Any]) -> str:
+    """
+    Kept for backwards compatibility (one call). Still English-only.
+    """
     client = _client_from_config(cfg)
     model = cfg["llm"]["model"]
     temperature = float(cfg["llm"].get("temperature", 0.25))
     max_tokens = int(cfg["llm"].get("max_output_tokens", 5200))
 
-    # Compact input to avoid huge prompts
-    lines: List[str] = []
-    lines.append(f"DATE: {date_str}")
-    lines.append("TODAY_ITEMS (title/url/source/snippet only):")
-    for i, it in enumerate(items, start=1):
-        title = (it.get("title") or "").strip()
-        url = (it.get("url") or "").strip()
-        src = (it.get("source") or "").strip()
-        bucket = (it.get("bucket") or "").strip()
-        snippet = (it.get("one_liner") or "").strip()
-        if len(snippet) > 420:
-            snippet = snippet[:417] + "..."
-        lines.append(f"{i}. [{bucket}] {title}")
-        lines.append(f"   source: {src}")
-        lines.append(f"   url: {url}")
-        if snippet:
-            lines.append(f"   snippet: {snippet}")
+    blocks = []
+    for i, it in enumerate(items, 1):
+        blocks.append(f"=== ITEM {i} ===\n{_format_item_block(it)}")
 
-    user_prompt = (
-        "Generate transcript only based on TODAY_ITEMS"
-        "Don't make up information" + "\n".join(lines)
+    user = (
+        f"DATE: {date_str}\n\n"
+        "Generate an English podcast script ONLY from the items below.\n"
+        "Do not invent details.\n"
+        "Keep it TTS-friendly.\n\n"
+        + "\n\n".join(blocks)
     )
 
-    resp = client.chat.completions.create(
+    # Use roundup prompt style for a single call
+    return _chat_complete(
+        client,
         model=model,
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": user_prompt},
-        ],
+        system=SYSTEM_ROUNDUP,
+        user=user,
         temperature=temperature,
         max_tokens=max_tokens,
-    )
-    out = resp.choices[0].message.content or ""
-    return out.strip()
+    ).strip()
+
+
+# =========================
+# Chunked multi-call version (Deep dive only if fulltext)
+# =========================
+
+def build_podcast_script_llm_chunked(*, date_str: str, items: List[Dict[str, Any]], cfg: Dict[str, Any]) -> str:
+    """
+    Multi-call pipeline that increases detail.
+
+    Policy:
+    - Deep dive ONLY for items with full text signal:
+        has_fulltext == True OR extracted_chars >= fulltext_threshold_chars
+    - Mid-depth roundup for next items
+    - Remaining items -> headlines only (no LLM)
+
+    Final assembly defaults to deterministic concatenation (no compression).
+    Optional merge LLM can be enabled, but is constrained to no-delete behavior.
+    """
+    client = _client_from_config(cfg)
+    model = cfg["llm"]["model"]
+    temperature = float(cfg["llm"].get("temperature", 0.25))
+    max_tokens = int(cfg["llm"].get("max_output_tokens", 5200))
+
+    # knobs
+    podcast_cfg = (cfg.get("podcast") or {})
+    chunk_cfg = (podcast_cfg.get("chunking") or {})
+
+    fulltext_threshold = int(chunk_cfg.get("fulltext_threshold_chars", 2500))
+    deep_dive_max = int(chunk_cfg.get("tierA_max", 3))          # deep dives count
+    roundup_max = int(chunk_cfg.get("tierB_max", 15))           # roundup items count
+    roundup_batch_size = int(chunk_cfg.get("tierB_batch_size", 5))
+
+    deep_max_tokens = int(chunk_cfg.get("deep_dive_max_tokens", 2600))
+    roundup_max_tokens = int(chunk_cfg.get("roundup_max_tokens", 2200))
+    opening_max_tokens = int(chunk_cfg.get("opening_max_tokens", 450))
+    closing_max_tokens = int(chunk_cfg.get("closing_max_tokens", 350))
+
+    # merge behavior
+    use_merge_llm = bool(chunk_cfg.get("use_merge_llm", False))
+    merge_max_tokens = int(chunk_cfg.get("merge_max_tokens", max_tokens))
+
+    ranked = list(items)  # already ranked upstream
+
+    # ---- Select Deep Dive candidates: only fulltext-ok, in ranked order
+    deep_items: List[Dict[str, Any]] = []
+    rest: List[Dict[str, Any]] = []
+    for it in ranked:
+        if len(deep_items) < deep_dive_max and _fulltext_ok(it, fulltext_threshold):
+            deep_items.append(it)
+        else:
+            rest.append(it)
+
+    # ---- Roundup items: next roundup_max from rest
+    roundup_items = rest[:roundup_max]
+    headline_items = rest[roundup_max:]
+
+    # ---- Opening (one small call)
+    opening_user = [
+        f"DATE: {date_str}",
+        "Episode plan:",
+        f"- Deep dives: {len(deep_items)} item(s) (only items with full text)",
+        f"- Roundup: {len(roundup_items)} item(s)",
+        f"- Headlines: {len(headline_items)} item(s)",
+        "Write an opening with a clear overview and an energetic but calm tone."
+    ]
+    opening = _chat_complete(
+        client,
+        model=model,
+        system=SYSTEM_OPENING,
+        user="\n".join(opening_user),
+        temperature=temperature,
+        max_tokens=opening_max_tokens,
+    ).strip()
+
+    # ---- Deep dive segments (one call per item)
+    deep_segments: List[str] = []
+    for idx, it in enumerate(deep_items, 1):
+        block = _format_item_block(it)
+        user = (
+            f"DATE: {date_str}\n"
+            f"DEEP DIVE #{idx}\n\n"
+            f"{block}\n\n"
+            "Write a deep-dive segment that would take ~6–10 minutes to narrate.\n"
+            "Be strict about what is known vs unknown.\n"
+        )
+        seg = _chat_complete(
+            client,
+            model=model,
+            system=SYSTEM_DEEP_DIVE,
+            user=user,
+            temperature=temperature,
+            max_tokens=deep_max_tokens,
+        ).strip()
+        deep_segments.append(seg)
+
+    # ---- Roundup segments (batched)
+    roundup_segments: List[str] = []
+    for b_i, batch in enumerate(_chunk(roundup_items, roundup_batch_size), 1):
+        blocks = []
+        for j, it in enumerate(batch, 1):
+            blocks.append(f"=== ITEM {j} ===\n{_format_item_block(it)}")
+        user = (
+            f"DATE: {date_str}\n"
+            f"ROUNDUP BATCH #{b_i}\n\n"
+            + "\n\n".join(blocks)
+            + "\n\nWrite a mid-depth roundup for each item."
+        )
+        seg = _chat_complete(
+            client,
+            model=model,
+            system=SYSTEM_ROUNDUP,
+            user=user,
+            temperature=temperature,
+            max_tokens=roundup_max_tokens,
+        ).strip()
+        roundup_segments.append(seg)
+
+    # ---- Headlines (no LLM)
+    headlines_lines: List[str] = []
+    if headline_items:
+        headlines_lines.append("=== Quick Headlines ===")
+        for it in headline_items:
+            title, url, src, bucket, snippet, extracted_chars, has_fulltext = _item_meta(it)
+            one = _clip(snippet, 180)
+            if one:
+                headlines_lines.append(f"- {title} ({src}) — {one}")
+            else:
+                headlines_lines.append(f"- {title} ({src})")
+            if url:
+                headlines_lines.append(f"  Source: {url}")
+        headlines = "\n".join(headlines_lines).strip()
+    else:
+        headlines = ""
+
+    # ---- Closing (one small call)
+    closing_user = [
+        f"DATE: {date_str}",
+        f"Deep dives covered: {len(deep_items)}",
+        f"Roundup covered: {len(roundup_items)}",
+        f"Headlines covered: {len(headline_items)}",
+        "Write a short closing that recaps the episode and hints at tomorrow."
+    ]
+    closing = _chat_complete(
+        client,
+        model=model,
+        system=SYSTEM_CLOSING,
+        user="\n".join(closing_user),
+        temperature=temperature,
+        max_tokens=closing_max_tokens,
+    ).strip()
+
+    # ---- Deterministic assembly (no compression)
+    parts: List[str] = []
+    parts.append(opening)
+    parts.append("")
+    if deep_segments:
+        parts.append("=== Deep Dives (full text available) ===")
+        parts.append("")
+        parts.extend(deep_segments)
+        parts.append("")
+    if roundup_segments:
+        parts.append("=== Roundup ===")
+        parts.append("")
+        parts.extend(roundup_segments)
+        parts.append("")
+    if headlines:
+        parts.append(headlines)
+        parts.append("")
+    parts.append(closing)
+
+    assembled = "\n".join([p for p in parts if p is not None]).strip()
+
+    # ---- Optional merge LLM: ONLY add transitions / formatting, no deletion
+    if use_merge_llm:
+        merge_user = (
+            f"DATE: {date_str}\n"
+            "You will receive a draft script. You must NOT delete content.\n"
+            "Only add short transitions and fix whitespace.\n\n"
+            "DRAFT:\n" + assembled
+        )
+        merged = _chat_complete(
+            client,
+            model=model,
+            system=SYSTEM_MERGE_NO_DELETE,
+            user=merge_user,
+            temperature=temperature,
+            max_tokens=merge_max_tokens,
+        ).strip()
+        return merged
+
+    return assembled

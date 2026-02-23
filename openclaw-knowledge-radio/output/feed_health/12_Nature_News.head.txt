@@ -1,0 +1,29 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>406 Not Acceptable</title>
+    <script type="text/javascript" src="/utterlyidle/rendering/matchFailure.js"></script>
+    <link rel="stylesheet" href="/utterlyidle/rendering/style.css" type="text/css"/>
+</head>
+<body>
+<h1>406 Not Acceptable</h1>
+<p>Did you mean one of these?</p>
+
+<ul class="resources">
+    <li class="resource"><form action="/articles" method="GET">
+    <span class="method">GET</span>
+    /articles?
+    <input type="submit" value="Submit"/>
+</form></li> <li class="resource"><form action="/" method="GET">
+    <span class="method">GET</span>
+    /?
+    <input type="submit" value="Submit"/>
+</form></li> <li class="resource"><form action="/" method="GET">
+    <span class="method">GET</span>
+    /?
+    <input type="submit" value="Submit"/>
+</form></li> 
+</ul>
+
+</body>
+</html>

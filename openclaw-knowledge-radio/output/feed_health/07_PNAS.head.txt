@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://purl.org/rss/1.0/"
+         xmlns:cc="http://web.resource.org/cc/"
+         xmlns:content="http://purl.org/rss/1.0/modules/content/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/">
+   <channel rdf:about="https://www.pnas.org/loi/pnas?af=R">
+      <title>Proceedings of the National Academy of Sciences: Proceedings of the National Academy of Sciences: Table of Contents</title>
+      <description>Table of Contents for Proceedings of the National Academy of Sciences. List of articles from both the latest and ahead of print issues.</description>
+      <link>https://www.pnas.org/loi/pnas?af=R</link>
+      <dc:title>Proceedings of the National Academy of Sciences: Proceedings of the National Academy of Sciences: Table of Contents</dc:title>
+      <dc:publisher>Proceedings of the National Academy of Sciences</dc:publisher>
+      <dc:language>en-US</dc:language>
+      <prism:publicationName>Proceedings of the National Academy of Sciences</prism:publicationName>
+      <items>
+         <rdf:Seq>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/iti0726123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2600779123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2601712123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2529376123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2524563123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2509776123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2517372123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2414948123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2534015123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2529774123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2524949123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2506699123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2522818123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2521417123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2512602123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2530977123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2505331123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2529018123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2518513123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2518857123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2516405123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2513856123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2513716123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2529141123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2517939123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2520566123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2512131123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2526369123?af=R"/>
+            <rdf:li rdf:resource="https://www.pnas.org/doi/abs/10.1073/pnas.2520490123?af=R"/>
+            <rdf:li rdf:resource="https://www.p

@@ -1,5 +1,5 @@
 timezone: "Europe/London"
-lookback_hours: 480
+lookback_hours: 48
 
 paths:
   # workspace base (used only for clarity; not required)
@@ -15,7 +15,7 @@ paths:
 limits:
   max_items_total: 40
   max_items_protein: 25
-  max_items_daily_knowledge: 2
+  max_items_daily_knowledge: 5
 
 rss_sources:
   - name: "arXiv q-bio.BM"
@@ -121,6 +121,15 @@ podcast:
   # Change voice if you want Mandarin etc. Example: "zh-CN-XiaoxiaoNeural"
   voice: "en-US-GuyNeural"
   tts_chunk_chars: 2800
+  chunking:
+    fulltext_threshold_chars: 2500
+    tierA_max: 999
+    tierB_max: 999
+    tierB_batch_size: 5
+    deep_dive_max_tokens: 2600
+    roundup_max_tokens: 2200
+    use_merge_llm: false
+
 
 llm:
   enabled: true
@@ -128,4 +137,22 @@ llm:
   model: "openai/gpt-oss-120b"
   api_key_env: "OPENROUTER_API_KEY"
   temperature: 0.25
-  max_output_tokens: 10400
+  max_output_tokens: 20800
+
+ranking:
+  absolute_sources:
+    - "Frances Arnold (Google Scholar)"
+    - "David Baker (arXiv)"
+  absolute_source_substrings:
+    - "david baker"
+    - "sergey ovchinnikov"
+    - "mohamed alquraishi"
+    - "alexander rives"
+
+  source_priority_rules:
+    - {contains: "nature biotechnology", priority: 1}
+    - {contains: "nature chemical biology", priority: 1}
+    - {contains: "pnas", priority: 2}
+    - {contains: "nature (main journal)", priority: 3}
+    - {contains: "arxiv", priority: 5}
+    - {contains: "sciencedirect", priority: 6}

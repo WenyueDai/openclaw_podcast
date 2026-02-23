@@ -1,0 +1,250 @@
+[
+  {
+    "name": "arXiv q-bio.BM",
+    "url": "https://arxiv.org/rss/q-bio.BM",
+    "status": 200,
+    "final_url": "https://export.arxiv.org/rss/q-bio.BM",
+    "looks_xml": true,
+    "n_entries_in_payload": 0,
+    "sample": [],
+    "ok": false,
+    "hint": "XML but zero entries in sampled payload. could be truncated preview; try fetching full body.",
+    "elapsed_s": 0.247
+  },
+  {
+    "name": "Nature (main journal)",
+    "url": "https://www.nature.com/nature.rss",
+    "status": 200,
+    "final_url": "https://www.nature.com/nature.rss",
+    "looks_xml": true,
+    "n_entries_in_payload": 0,
+    "sample": [],
+    "ok": false,
+    "hint": "XML but zero entries in sampled payload. could be truncated preview; try fetching full body.",
+    "elapsed_s": 0.087
+  },
+  {
+    "name": "arXiv q-bio.BM",
+    "url": "https://arxiv.org/rss/q-bio.BM",
+    "status": 200,
+    "final_url": "https://export.arxiv.org/rss/q-bio.BM",
+    "looks_xml": true,
+    "n_entries_in_payload": 0,
+    "sample": [],
+    "ok": false,
+    "hint": "XML but zero entries in sampled payload. could be truncated preview; try fetching full body.",
+    "elapsed_s": 0.107
+  },
+  {
+    "name": "arXiv q-bio.QM",
+    "url": "https://arxiv.org/rss/q-bio.QM",
+    "status": 200,
+    "final_url": "https://export.arxiv.org/rss/q-bio.QM",
+    "looks_xml": true,
+    "n_entries_in_payload": 0,
+    "sample": [],
+    "ok": false,
+    "hint": "XML but zero entries in sampled payload. could be truncated preview; try fetching full body.",
+    "elapsed_s": 0.115
+  },
+  {
+    "name": "Nature Biotechnology",
+    "url": "https://www.nature.com/nbt.rss",
+    "status": 200,
+    "final_url": "https://www.nature.com/nbt.rss",
+    "looks_xml": true,
+    "n_entries_in_payload": 1,
+    "sample": [
+      {
+        "title": "Microalgae as cellular factories for molecular crystals",
+        "link": "https://www.nature.com/articles/s41587-026-03017-3"
+      }
+    ],
+    "ok": true,
+    "elapsed_s": 0.062
+  },
+  {
+    "name": "Nature Chemical Biology",
+    "url": "https://www.nature.com/nchembio.rss",
+    "status": 200,
+    "final_url": "https://www.nature.com/nchembio.rss",
+    "looks_xml": true,
+    "n_entries_in_payload": 1,
+    "sample": [
+      {
+        "title": "Drug-controlled CAR T cells through the regulation of cell–cell interactions",
+        "link": "https://www.nature.com/articles/s41589-026-02152-x"
+      }
+    ],
+    "ok": true,
+    "elapsed_s": 0.057
+  },
+  {
+    "name": "PNAS",
+    "url": "https://www.pnas.org/rss/current.xml",
+    "status": 200,
+    "final_url": "https://www.pnas.org/action/showFeed?type=etoc&feed=rss&jc=PNAS",
+    "looks_xml": true,
+    "n_entries_in_payload": 0,
+    "sample": [],
+    "ok": false,
+    "hint": "XML but zero entries in sampled payload. could be truncated preview; try fetching full body.",
+    "elapsed_s": 0.262
+  },
+  {
+    "name": "arXiv cs.LG (AI/ML)",
+    "url": "https://arxiv.org/rss/cs.LG",
+    "status": 200,
+    "final_url": "https://export.arxiv.org/rss/cs.LG",
+    "looks_xml": true,
+    "n_entries_in_payload": 0,
+    "sample": [],
+    "ok": false,
+    "hint": "XML but zero entries in sampled payload. could be truncated preview; try fetching full body.",
+    "elapsed_s": 0.117
+  },
+  {
+    "name": "arXiv stat.ML",
+    "url": "https://arxiv.org/rss/stat.ML",
+    "status": 200,
+    "final_url": "https://export.arxiv.org/rss/stat.ML",
+    "looks_xml": true,
+    "n_entries_in_payload": 0,
+    "sample": [],
+    "ok": false,
+    "hint": "XML but zero entries in sampled payload. could be truncated preview; try fetching full body.",
+    "elapsed_s": 0.119
+  },
+  {
+    "name": "arXiv q-bio.PE",
+    "url": "https://arxiv.org/rss/q-bio.PE",
+    "status": 200,
+    "final_url": "https://export.arxiv.org/rss/q-bio.PE",
+    "looks_xml": true,
+    "n_entries_in_payload": 0,
+    "sample": [],
+    "ok": false,
+    "hint": "XML but zero entries in sampled payload. could be truncated preview; try fetching full body.",
+    "elapsed_s": 0.124
+  },
+  {
+    "name": "Journal of Molecular Biology",
+    "url": "https://rss.sciencedirect.com/publication/science/00222836",
+    "status": 200,
+    "final_url": "https://rss.sciencedirect.com/publication/science/00222836",
+    "looks_xml": true,
+    "n_entries_in_payload": 6,
+    "sample": [
+      {
+        "title": "Rising Star: Rewriting the Code of Life for the Future of Food",
+        "link": "https://www.sciencedirect.com/science/article/pii/S0022283626000562?dgcid=rss_sd_all"
+      },
+      {
+        "title": "CEP290 is Associated With Chromatin Accessibility of Hepatitis B virus cccDNA",
+        "link": "https://www.sciencedirect.com/science/article/pii/S0022283626000732?dgcid=rss_sd_all"
+      },
+      {
+        "title": "Oligomerization-Dependent Regulation of LrhA Controls Bacterial Flagellar Biosynthesis",
+        "link": "https://www.sciencedirect.com/science/article/pii/S0022283626000550?dgcid=rss_sd_all"
+      }
+    ],
+    "ok": true,
+    "elapsed_s": 0.147
+  },
+  {
+    "name": "Nature News",
+    "url": "https://www.nature.com/nature/articles?type=news&format=rss",
+    "status": 406,
+    "final_url": "https://www.nature.com/nature/articles?type=news&format=rss",
+    "looks_xml": false,
+    "n_entries_in_payload": 0,
+    "sample": [],
+    "ok": false,
+    "hint": "unknown; inspect saved prefix for clues.",
+    "elapsed_s": 0.33
+  },
+  {
+    "name": "Scientific American - Health",
+    "url": "https://feeds.feedburner.com/ScientificAmerican-Health",
+    "status": 200,
+    "final_url": "https://feeds.feedburner.com/ScientificAmerican-Health",
+    "looks_xml": true,
+    "n_entries_in_payload": 3,
+    "sample": [
+      {
+        "title": "The Absurd Pregnancy Math behind the Texas 'Six-Week' Abortion Ban",
+        "link": "https://www.scientificamerican.com/article/the-absurd-pregnancy-math-behind-the-lsquo-six-week-rsquo-abortion-ban/"
+      },
+      {
+        "title": "You Have Probably Eaten This Natural Food Additive without Knowing It",
+        "link": "https://www.scientificamerican.com/video/you-have-probably-eaten-this-natural-food-additive-without-knowing-it/"
+      },
+      {
+        "title": "Abortion Rights Are at the Greatest Risk since Roe v. Wade Was Decided in 1972",
+        "link": "https://www.scientificamerican.com/article/abortion-rights-are-at-the-greatest-risk-since-roe-v-wade-was-decided-in-19721/"
+      }
+    ],
+    "ok": true,
+    "elapsed_s": 0.291
+  },
+  {
+    "name": "David Baker (arXiv)",
+    "url": "https://arxiv.org/search/?query=David+Baker&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss",
+    "status": 200,
+    "final_url": "https://arxiv.org/search/?query=David+Baker&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss",
+    "looks_xml": false,
+    "n_entries_in_payload": 0,
+    "sample": [],
+    "ok": false,
+    "hint": "returned HTML not XML. RSS link may be wrong or blocked.",
+    "elapsed_s": 0.486
+  },
+  {
+    "name": "Sergey Ovchinnikov (arXiv)",
+    "url": "https://arxiv.org/search/?query=Sergey+Ovchinnikov&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss",
+    "status": 200,
+    "final_url": "https://arxiv.org/search/?query=Sergey+Ovchinnikov&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss",
+    "looks_xml": false,
+    "n_entries_in_payload": 0,
+    "sample": [],
+    "ok": false,
+    "hint": "returned HTML not XML. RSS link may be wrong or blocked.",
+    "elapsed_s": 0.431
+  },
+  {
+    "name": "Mohamed AlQuraishi (arXiv)",
+    "url": "https://arxiv.org/search/?query=Mohamed+AlQuraishi&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss",
+    "status": 200,
+    "final_url": "https://arxiv.org/search/?query=Mohamed+AlQuraishi&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss",
+    "looks_xml": false,
+    "n_entries_in_payload": 0,
+    "sample": [],
+    "ok": false,
+    "hint": "returned HTML not XML. RSS link may be wrong or blocked.",
+    "elapsed_s": 0.306
+  },
+  {
+    "name": "Alexander Rives (arXiv)",
+    "url": "https://arxiv.org/search/?query=Alexander+Rives&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss",
+    "status": 200,
+    "final_url": "https://arxiv.org/search/?query=Alexander+Rives&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss",
+    "looks_xml": false,
+    "n_entries_in_payload": 0,
+    "sample": [],
+    "ok": false,
+    "hint": "returned HTML not XML. RSS link may be wrong or blocked.",
+    "elapsed_s": 0.934
+  },
+  {
+    "name": "Frances Arnold (Google Scholar)",
+    "url": "https://scholar.google.com/scholar?q=Frances+Arnold&hl=en&as_sdt=0,5&output=rss",
+    "status": 200,
+    "final_url": "https://scholar.google.com/scholar?q=Frances+Arnold&hl=en&as_sdt=0,5&output=rss",
+    "looks_xml": false,
+    "n_entries_in_payload": 0,
+    "sample": [],
+    "ok": false,
+    "hint": "returned HTML not XML. RSS link may be wrong or blocked.",
+    "elapsed_s": 0.673
+  }
+]
