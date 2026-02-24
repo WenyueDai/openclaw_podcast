@@ -7,12 +7,29 @@
     <atom:link href="http://rss.arxiv.org/rss/q-bio.BM" rel="self" type="application/rss+xml"/>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <language>en-us</language>
-    <lastBuildDate>Sun, 22 Feb 2026 05:00:44 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 24 Feb 2026 05:00:46 +0000</lastBuildDate>
     <managingEditor>rss-help@arxiv.org</managingEditor>
-    <pubDate>Sun, 22 Feb 2026 00:00:00 -0500</pubDate>
+    <pubDate>Tue, 24 Feb 2026 00:00:00 -0500</pubDate>
     <skipDays>
-      <day>Saturday</day>
       <day>Sunday</day>
+      <day>Saturday</day>
     </skipDays>
-  </channel>
-</rss>
+    <item>
+      <title>BioLM-Score: Language-Prior Conditioned Probabilistic Geometric Potentials for Protein-Ligand Scoring</title>
+      <link>https://arxiv.org/abs/2602.18476</link>
+      <description>arXiv:2602.18476v1 Announce Type: new 
+Abstract: Protein-ligand scoring is a central component of structure-based drug design, underpinning molecular docking, virtual screening, and pose optimization. Conventional physics-based energy functions are often computationally expensive, limiting their utility in large-scale screening. In contrast, deep learning-based scoring models offer improved computational efficiency but frequently suffer from limited cross-target generalization and poor interpretability, which restrict their practical applicability. Here we present BioLM-Score, a simple yet generalizable protein-ligand scoring model that couples geometric modeling with representation learning. Specifically, it employs modality-specific and structure-aware encoders for proteins and ligands, each augmented with biomolecular language models to enrich structural and chemical representations. Subsequently, these representations are integrated through a mixture density network to predict multimodal interatomic distance distributions, from which statistically grounded likelihood-based scores are derived. Evaluations on the CASF-2016 benchmark demonstrate that BioLM-Score achieves significant improvements across docking, scoring, ranking, and screening tasks. Moreover, the proposed scoring function serves as an effective optimization objective for guiding docking protocols and conformational search. In summary, BioLM-Score provides a principled and practical alternative to existing scoring functions, combining efficiency, generalization, and interpretability for structure-based drug discovery.</description>
+      <guid isPermaLink="false">oai:arXiv.org:2602.18476v1</guid>
+      <category>q-bio.BM</category>
+      <category>cs.AI</category>
+      <category>cs.LG</category>
+      <pubDate>Tue, 24 Feb 2026 00:00:00 -0500</pubDate>
+      <arxiv:announce_type>new</arxiv:announce_type>
+      <dc:rights>http://creativecommons.org/licenses/by-nc-nd/4.0/</dc:rights>
+      <dc:creator>Zhangfan Yang, Baoyun Chen, Dong Xu, Jia Wang, Ruibin Bai, Junkai Ji, Zexuan Zhu</dc:creator>
+    </item>
+    <item>
+      <title>Distinguishing life from non-life via molecular frontier orbital energy gaps</title>
+      <link>https://arxiv.org/abs/2602.18490</link>
+      <description>arXiv:2602.18490v1 Announce Type: cross 
+Abstract: Amino acids (AAs) are a key target in the search for life beyond Earth due to their extensive role in the machinery of all known life, persistence over geologic timescales, and analytical detectability. However, AAs can also arise from abiotic processes on planets and in space. For example, material from asteroid Bennu contained 33 AAs, including 15 of the 20 proteinogenic AAs that are fundamental to life's functions. Distinguishing life from non-life based on AAs in a sample remains an unsolved problem, particularly when their isotopic and structural signatures (e.g

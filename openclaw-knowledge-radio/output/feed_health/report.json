@@ -5,15 +5,23 @@
     "status": 200,
     "final_url": "https://export.arxiv.org/rss/q-bio.BM",
     "looks_xml": true,
-    "n_entries_in_payload": 0,
-    "sample": [],
-    "ok": false,
-    "hint": "XML but zero entries in sampled payload. could be truncated preview; try fetching full body.",
-    "elapsed_s": 0.247
+    "n_entries_in_payload": 2,
+    "sample": [
+      {
+        "title": "BioLM-Score: Language-Prior Conditioned Probabilistic Geometric Potentials for Protein-Ligand Scoring",
+        "link": "https://arxiv.org/abs/2602.18476"
+      },
+      {
+        "title": "Distinguishing life from non-life via molecular frontier orbital energy gaps",
+        "link": "https://arxiv.org/abs/2602.18490"
+      }
+    ],
+    "ok": true,
+    "elapsed_s": 0.167
   },
   {
     "name": "Nature (main journal)",
-    "url": "https://www.nature.com/nature.rss",
+    "url": "https://www.nature.com/nature/current_issue/rss",
     "status": 200,
     "final_url": "https://www.nature.com/nature.rss",
     "looks_xml": true,
@@ -21,19 +29,7 @@
     "sample": [],
     "ok": false,
     "hint": "XML but zero entries in sampled payload. could be truncated preview; try fetching full body.",
-    "elapsed_s": 0.087
-  },
-  {
-    "name": "arXiv q-bio.BM",
-    "url": "https://arxiv.org/rss/q-bio.BM",
-    "status": 200,
-    "final_url": "https://export.arxiv.org/rss/q-bio.BM",
-    "looks_xml": true,
-    "n_entries_in_payload": 0,
-    "sample": [],
-    "ok": false,
-    "hint": "XML but zero entries in sampled payload. could be truncated preview; try fetching full body.",
-    "elapsed_s": 0.107
+    "elapsed_s": 0.104
   },
   {
     "name": "arXiv q-bio.QM",
@@ -41,11 +37,19 @@
     "status": 200,
     "final_url": "https://export.arxiv.org/rss/q-bio.QM",
     "looks_xml": true,
-    "n_entries_in_payload": 0,
-    "sample": [],
-    "ok": false,
-    "hint": "XML but zero entries in sampled payload. could be truncated preview; try fetching full body.",
-    "elapsed_s": 0.115
+    "n_entries_in_payload": 2,
+    "sample": [
+      {
+        "title": "Project Hermes: A Model-Agnostic Validation Layer for Wearable Health Prediction Systems",
+        "link": "https://arxiv.org/abs/2602.18643"
+      },
+      {
+        "title": "AAVGen: Precision Engineering of Adeno-associated Viral Capsids for Renal Selective Targeting",
+        "link": "https://arxiv.org/abs/2602.18915"
+      }
+    ],
+    "ok": true,
+    "elapsed_s": 0.148
   },
   {
     "name": "Nature Biotechnology",
@@ -56,12 +60,12 @@
     "n_entries_in_payload": 1,
     "sample": [
       {
-        "title": "Microalgae as cellular factories for molecular crystals",
-        "link": "https://www.nature.com/articles/s41587-026-03017-3"
+        "title": "Highly mutagenic continuous evolution in <i>E</i>. <i>coli</i> using a Φ29-based orthogonal replication system",
+        "link": "https://www.nature.com/articles/s41587-025-02944-x"
       }
     ],
     "ok": true,
-    "elapsed_s": 0.062
+    "elapsed_s": 0.076
   },
   {
     "name": "Nature Chemical Biology",
@@ -72,12 +76,12 @@
     "n_entries_in_payload": 1,
     "sample": [
       {
-        "title": "Drug-controlled CAR T cells through the regulation of cell–cell interactions",
-        "link": "https://www.nature.com/articles/s41589-026-02152-x"
+        "title": "Designing chemigenetic DNA nanotrap for norepinephrine dynamic imaging in organelles",
+        "link": "https://www.nature.com/articles/s41589-026-02158-5"
       }
     ],
     "ok": true,
-    "elapsed_s": 0.057
+    "elapsed_s": 0.291
   },
   {
     "name": "PNAS",
@@ -89,7 +93,7 @@
     "sample": [],
     "ok": false,
     "hint": "XML but zero entries in sampled payload. could be truncated preview; try fetching full body.",
-    "elapsed_s": 0.262
+    "elapsed_s": 0.26
   },
   {
     "name": "arXiv cs.LG (AI/ML)",
@@ -97,11 +101,19 @@
     "status": 200,
     "final_url": "https://export.arxiv.org/rss/cs.LG",
     "looks_xml": true,
-    "n_entries_in_payload": 0,
-    "sample": [],
-    "ok": false,
-    "hint": "XML but zero entries in sampled payload. could be truncated preview; try fetching full body.",
-    "elapsed_s": 0.117
+    "n_entries_in_payload": 2,
+    "sample": [
+      {
+        "title": "Revisiting the Seasonal Trend Decomposition for Enhanced Time Series Forecasting",
+        "link": "https://arxiv.org/abs/2602.18465"
+      },
+      {
+        "title": "Physiologically Informed Deep Learning: A Multi-Scale Framework for Next-Generation PBPK Modeling",
+        "link": "https://arxiv.org/abs/2602.18472"
+      }
+    ],
+    "ok": true,
+    "elapsed_s": 1.322
   },
   {
     "name": "arXiv stat.ML",
@@ -109,47 +121,19 @@
     "status": 200,
     "final_url": "https://export.arxiv.org/rss/stat.ML",
     "looks_xml": true,
-    "n_entries_in_payload": 0,
-    "sample": [],
-    "ok": false,
-    "hint": "XML but zero entries in sampled payload. could be truncated preview; try fetching full body.",
-    "elapsed_s": 0.119
-  },
-  {
-    "name": "arXiv q-bio.PE",
-    "url": "https://arxiv.org/rss/q-bio.PE",
-    "status": 200,
-    "final_url": "https://export.arxiv.org/rss/q-bio.PE",
-    "looks_xml": true,
-    "n_entries_in_payload": 0,
-    "sample": [],
-    "ok": false,
-    "hint": "XML but zero entries in sampled payload. could be truncated preview; try fetching full body.",
-    "elapsed_s": 0.124
-  },
-  {
-    "name": "Journal of Molecular Biology",
-    "url": "https://rss.sciencedirect.com/publication/science/00222836",
-    "status": 200,
-    "final_url": "https://rss.sciencedirect.com/publication/science/00222836",
-    "looks_xml": true,
-    "n_entries_in_payload": 6,
+    "n_entries_in_payload": 2,
     "sample": [
       {
-        "title": "Rising Star: Rewriting the Code of Life for the Future of Food",
-        "link": "https://www.sciencedirect.com/science/article/pii/S0022283626000562?dgcid=rss_sd_all"
+        "title": "Multiclass Calibration Assessment and Recalibration of Probability Predictions via the Linear Log Odds Calibration Funct",
+        "link": "https://arxiv.org/abs/2602.18573"
       },
       {
-        "title": "CEP290 is Associated With Chromatin Accessibility of Hepatitis B virus cccDNA",
-        "link": "https://www.sciencedirect.com/science/article/pii/S0022283626000732?dgcid=rss_sd_all"
-      },
-      {
-        "title": "Oligomerization-Dependent Regulation of LrhA Controls Bacterial Flagellar Biosynthesis",
-        "link": "https://www.sciencedirect.com/science/article/pii/S0022283626000550?dgcid=rss_sd_all"
+        "title": "Stochastic Gradient Variational Inference with Price's Gradient Estimator from Bures-Wasserstein to Parameter Space",
+        "link": "https://arxiv.org/abs/2602.18718"
       }
     ],
     "ok": true,
-    "elapsed_s": 0.147
+    "elapsed_s": 0.344
   },
   {
     "name": "Nature News",
@@ -161,7 +145,7 @@
     "sample": [],
     "ok": false,
     "hint": "unknown; inspect saved prefix for clues.",
-    "elapsed_s": 0.33
+    "elapsed_s": 0.284
   },
   {
     "name": "Scientific American - Health",
@@ -185,66 +169,134 @@
       }
     ],
     "ok": true,
-    "elapsed_s": 0.291
+    "elapsed_s": 0.286
+  },
+  {
+    "name": "Nature Methods",
+    "url": "https://www.nature.com/nmeth/current_issue/rss",
+    "status": 200,
+    "final_url": "https://www.nature.com/nmeth.rss",
+    "looks_xml": true,
+    "n_entries_in_payload": 1,
+    "sample": [
+      {
+        "title": "Author Correction: Single-cell multi-omic detection of DNA methylation and histone modifications reconstructs the dynami",
+        "link": "https://www.nature.com/articles/s41592-026-03031-y"
+      }
+    ],
+    "ok": true,
+    "elapsed_s": 0.077
+  },
+  {
+    "name": "Endpoints News",
+    "url": "https://endpts.com/feed/",
+    "status": 200,
+    "final_url": "https://endpoints.news/feed/",
+    "looks_xml": true,
+    "n_entries_in_payload": 4,
+    "sample": [
+      {
+        "title": "HHS commits up to $144M to study anti-aging approaches via ARPA-H",
+        "link": "https://endpoints.news/hhs-commits-up-to-144-million-to-study-anti-aging-approaches-via-arpa-h/"
+      },
+      {
+        "title": "Novo Nordisk to slash Wegovy list price in half in 2027",
+        "link": "https://endpoints.news/novo-nordisk-to-slash-wegovy-list-price-in-half-in-2027/"
+      },
+      {
+        "title": "Industry groups lay legal groundwork against pricing demos",
+        "link": "https://endpoints.news/industry-groups-lay-legal-groundwork-against-pricing-demos/"
+      }
+    ],
+    "ok": true,
+    "elapsed_s": 0.253
+  },
+  {
+    "name": "Quanta Magazine",
+    "url": "https://www.quantamagazine.org/feed/",
+    "status": 200,
+    "final_url": "https://www.quantamagazine.org/feed/",
+    "looks_xml": true,
+    "n_entries_in_payload": 2,
+    "sample": [
+      {
+        "title": "How Can Infinity Come in Many Sizes?",
+        "link": "https://www.quantamagazine.org/how-can-infinity-come-in-many-sizes-20260223/"
+      },
+      {
+        "title": "Climate Physicists Face the Ghosts in Their Machines: Clouds",
+        "link": "https://www.quantamagazine.org/climate-physicists-face-the-ghosts-in-their-machines-clouds-20260220/"
+      }
+    ],
+    "ok": true,
+    "elapsed_s": 0.128
+  },
+  {
+    "name": "Protein Science",
+    "url": "https://onlinelibrary.wiley.com/feed/1469896x/most-recent",
+    "status": 200,
+    "final_url": "https://onlinelibrary.wiley.com/feed/1469896x/most-recent",
+    "looks_xml": true,
+    "n_entries_in_payload": 1,
+    "sample": [
+      {
+        "title": "Predicting compatibility between ferredoxins and the Fe protein of nitrogenase using in silico protein modeling",
+        "link": "https://onlinelibrary.wiley.com/doi/10.1002/pro.70509?af=R"
+      }
+    ],
+    "ok": true,
+    "elapsed_s": 0.103
   },
   {
     "name": "David Baker (arXiv)",
-    "url": "https://arxiv.org/search/?query=David+Baker&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss",
+    "url": "http://export.arxiv.org/api/query?search_query=au:\"David+J.+Baker\"&sortBy=submittedDate&sortOrder=descending",
     "status": 200,
-    "final_url": "https://arxiv.org/search/?query=David+Baker&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss",
-    "looks_xml": false,
-    "n_entries_in_payload": 0,
-    "sample": [],
-    "ok": false,
-    "hint": "returned HTML not XML. RSS link may be wrong or blocked.",
-    "elapsed_s": 0.486
+    "final_url": "https://export.arxiv.org/api/query?search_query=au:%22David+J.+Baker%22&sortBy=submittedDate&sortOrder=descending",
+    "looks_xml": true,
+    "n_entries_in_payload": 1,
+    "sample": [
+      {
+        "title": "From physical assumptions to classical and quantum Hamiltonian and Lagrangian particle mechanics",
+        "link": "https://arxiv.org/abs/1702.07052v1"
+      }
+    ],
+    "ok": true,
+    "elapsed_s": 0.07
   },
   {
-    "name": "Sergey Ovchinnikov (arXiv)",
-    "url": "https://arxiv.org/search/?query=Sergey+Ovchinnikov&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss",
+    "name": "Sergey Ovchinnikov (arXiv API)",
+    "url": "http://export.arxiv.org/api/query?search_query=au:\"Sergey+Ovchinnikov\"&sortBy=submittedDate&sortOrder=descending&max_results=25",
     "status": 200,
-    "final_url": "https://arxiv.org/search/?query=Sergey+Ovchinnikov&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss",
-    "looks_xml": false,
-    "n_entries_in_payload": 0,
-    "sample": [],
-    "ok": false,
-    "hint": "returned HTML not XML. RSS link may be wrong or blocked.",
-    "elapsed_s": 0.431
+    "final_url": "https://export.arxiv.org/api/query?search_query=au:%22Sergey+Ovchinnikov%22&sortBy=submittedDate&sortOrder=descending&max_results=25",
+    "looks_xml": true,
+    "n_entries_in_payload": 2,
+    "sample": [
+      {
+        "title": "actifpTM: a refined confidence metric of AlphaFold2 predictions involving flexible regions",
+        "link": "https://arxiv.org/abs/2412.15970v1"
+      },
+      {
+        "title": "Effect of the spin crossover of local copper-oxygen states on the electronic structure of HTSC cuprates",
+        "link": "https://arxiv.org/abs/2402.00547v1"
+      }
+    ],
+    "ok": true,
+    "elapsed_s": 0.079
   },
   {
-    "name": "Mohamed AlQuraishi (arXiv)",
-    "url": "https://arxiv.org/search/?query=Mohamed+AlQuraishi&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss",
+    "name": "Alexander Rives (arXiv API)",
+    "url": "http://export.arxiv.org/api/query?search_query=au:\"Alexander+Rives\"&sortBy=submittedDate&sortOrder=descending&max_results=25",
     "status": 200,
-    "final_url": "https://arxiv.org/search/?query=Mohamed+AlQuraishi&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss",
-    "looks_xml": false,
-    "n_entries_in_payload": 0,
-    "sample": [],
-    "ok": false,
-    "hint": "returned HTML not XML. RSS link may be wrong or blocked.",
-    "elapsed_s": 0.306
-  },
-  {
-    "name": "Alexander Rives (arXiv)",
-    "url": "https://arxiv.org/search/?query=Alexander+Rives&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss",
-    "status": 200,
-    "final_url": "https://arxiv.org/search/?query=Alexander+Rives&searchtype=author&abstracts=show&order=-announced_date_first&size=50&format=rss",
-    "looks_xml": false,
-    "n_entries_in_payload": 0,
-    "sample": [],
-    "ok": false,
-    "hint": "returned HTML not XML. RSS link may be wrong or blocked.",
-    "elapsed_s": 0.934
-  },
-  {
-    "name": "Frances Arnold (Google Scholar)",
-    "url": "https://scholar.google.com/scholar?q=Frances+Arnold&hl=en&as_sdt=0,5&output=rss",
-    "status": 200,
-    "final_url": "https://scholar.google.com/scholar?q=Frances+Arnold&hl=en&as_sdt=0,5&output=rss",
-    "looks_xml": false,
-    "n_entries_in_payload": 0,
-    "sample": [],
-    "ok": false,
-    "hint": "returned HTML not XML. RSS link may be wrong or blocked.",
-    "elapsed_s": 0.673
+    "final_url": "https://export.arxiv.org/api/query?search_query=au:%22Alexander+Rives%22&sortBy=submittedDate&sortOrder=descending&max_results=25",
+    "looks_xml": true,
+    "n_entries_in_payload": 1,
+    "sample": [
+      {
+        "title": "Energy-based models for atomic-resolution protein conformations",
+        "link": "https://arxiv.org/abs/2004.13167v1"
+      }
+    ],
+    "ok": true,
+    "elapsed_s": 0.07
   }
 ]

@@ -1,4 +1,4 @@
-import os
+import os, json, requests
 import time
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -156,9 +156,11 @@ Hard rules:
 - Explain any uncommon term in one sentence.
 
 Length requirement:
-- Minimum ~700 words for the deep dive (unless the provided notes are extremely short).
+- Minimum ~500 words for the deep dive (unless the provided notes are extremely short like less than 500 words).
 
 - Don't add asterisk or any other character that is not suit for TTS text to speech.
+
+- Don't need the opening and closing for the podcast, go directly to the knowledge.
 
 """
 
@@ -170,16 +172,19 @@ Rules:
 - Be concrete but never invent details.
 - Explain one uncommon term briefly if present.
 - Don't add asterisk or any other character that is not suit for TTS text to speech.
+- Don't need the opening and closing for the podcast, go directly to the knowledge.
 """
 
 SYSTEM_OPENING = """You are an English podcast host.
 Write a short opening (120–180 words) for today's episode.
 You will be given a list of the segments included. Do NOT invent facts.
+- Don't need the opening and closing for the podcast, go directly to the knowledge.
 """
 
 SYSTEM_CLOSING = """You are an English podcast host.
 Write a short closing (90–140 words) that recaps the episode and encourages curiosity.
 Do NOT invent facts.
+- Don't need the opening and closing for the podcast, go directly to the knowledge.
 """
 
 # Optional merge via LLM (disabled by default). If enabled, it must not delete content.
@@ -194,6 +199,7 @@ CRITICAL RULES:
 - The final length should be approximately the sum of all segments (no compression).
 
 Output in English, TTS-friendly.
+- Don't need the opening and closing for the podcast, go directly to the knowledge.
 """
 
 
@@ -249,6 +255,7 @@ def build_podcast_script_llm_chunked(*, date_str: str, items: List[Dict[str, Any
 
     Final assembly defaults to deterministic concatenation (no compression).
     Optional merge LLM can be enabled, but is constrained to no-delete behavior.
+   Remove the opening or closure, go directly to the knowledge.
     """
     client = _client_from_config(cfg)
     model = cfg["llm"]["model"]

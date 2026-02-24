@@ -37,7 +37,7 @@ def analyze_article(url: str, text: str, model: str = "openai/gpt-oss-120b") -> 
     if not DEBUG_MODE and cache_file.exists():
         return cache_file.read_text()
 
-    client = OpenAI()
+    client = OpenAI(base_url="https://openrouter.ai/v1",api_key=os.environ['OPENROUTER_API_KEY']) 
 
     response = client.chat.completions.create(
         model=model,
@@ -49,6 +49,6 @@ def analyze_article(url: str, text: str, model: str = "openai/gpt-oss-120b") -> 
         max_tokens=1200
     )
 
-    analysis = response.choices[0].message.content
+    analysis = response
     cache_file.write_text(analysis)
     return analysis
