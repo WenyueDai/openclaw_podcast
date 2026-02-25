@@ -18,3 +18,10 @@ source /home/eva/openclaw_workspace/openclaw_podcast/openclaw-knowledge-radio/.v
 # 4) 跑主流程
 python /home/eva/openclaw_workspace/openclaw_podcast/openclaw-knowledge-radio/run_daily.py
 /home/eva/openclaw_workspace/openclaw_podcast/openclaw-knowledge-radio/send_output_telegram.sh
+
+# Optional: publish website + RSS to GitHub Pages repo
+if [ -n "${WEBSITE_REPO_DIR:-}" ]; then
+  /home/eva/openclaw_workspace/openclaw_podcast/openclaw-knowledge-radio/tools/publish_site.sh
+else
+  echo "INFO: WEBSITE_REPO_DIR not set, skipping website publish"
+fi
