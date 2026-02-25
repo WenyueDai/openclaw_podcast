@@ -84,7 +84,7 @@ def render_feed(episodes, site_url: str):
 
 
 def main():
-    site_url = "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO"
+    site_url = "https://wenyuedai.github.io/openclaw_podcast"
     SITE_DIR.mkdir(parents=True, exist_ok=True)
     AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 
