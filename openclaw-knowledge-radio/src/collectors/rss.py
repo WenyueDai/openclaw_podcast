@@ -17,7 +17,8 @@ def _parse_dt(dt_str: str) -> Optional[datetime]:
 
 
 def collect_rss_items(sources: List[Dict[str, Any]], *, tz, lookback_hours: int, now_ref: Optional[datetime] = None) -> List[Dict[str, Any]]:
-    cutoff = cutoff_datetime(tz, lookback_hours, now_dt=now_ref)
+    upper = now_ref or datetime.now(tz)
+    cutoff = cutoff_datetime(tz, lookback_hours, now_dt=upper)
     out: List[Dict[str, Any]] = []
 
     for src in sources:
@@ -38,7 +39,8 @@ def collect_rss_items(sources: List[Dict[str, Any]], *, tz, lookback_hours: int,
             if dt is not None:
                 try:
                     dt_local = dt.astimezone(tz)
-                    if dt_local < cutoff:
+                    # bounded window: [cutoff, upper)
+                    if dt_local < cutoff or dt_local >= upper:
                         continue
                 except Exception:
                     # if naive / weird, keep it (dedup handles repeats)
