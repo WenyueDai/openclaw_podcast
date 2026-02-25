@@ -4,6 +4,7 @@ set -euo pipefail
 BASE_DIR="/home/eva/openclaw_workspace/openclaw-knowledge-radio/output"
 OUTBOUND="$HOME/.openclaw/media/outbound"
 TARGET="8539595576"
+MAX_BYTES=$((10 * 1024 * 1024))  # 10MB
 
 TODAY=$(date +%Y-%m-%d)
 DAY_DIR="$BASE_DIR/$TODAY"
@@ -25,33 +26,59 @@ if [ ! -f "$FINAL_MP3" ]; then
   exit 1
 fi
 
-# Send a short text summary first
-SUMMARY="🎙️ Daily podcast is ready (${TODAY}).\n- Audio: podcast_${TODAY}.mp3\n- Script: podcast_script_${TODAY}_llm_clean.txt"
+SIZE=$(stat -c%s "$FINAL_MP3")
+echo "INFO: FINAL_MP3_SIZE=$SIZE bytes"
+
+# Send summary text first
+SUMMARY="🎙️ Daily podcast is ready (${TODAY})."
+if [ "$SIZE" -le "$MAX_BYTES" ]; then
+  SUMMARY+=$'\n- Delivery: single file'
+else
+  SUMMARY+=$'\n- Delivery: chunked files (size > 10MB)'
+fi
+SUMMARY+=$'\n- Script: podcast_script_'"${TODAY}"$'_llm_clean.txt'
+
 openclaw message send \
   --channel telegram \
   --target "$TARGET" \
   --message "$SUMMARY"
 
-# Send only the final merged mp3 (not chunk parts)
-MP3_SAFE="$OUTBOUND/$(basename "$FINAL_MP3")"
-cp "$FINAL_MP3" "$MP3_SAFE"
-openclaw message send \
-  --channel telegram \
-  --target "$TARGET" \
-  --media "$MP3_SAFE"
-
-# Send cleaned script if present
-if [ -f "$SCRIPT_TXT" ]; then
-  TXT_SAFE="$OUTBOUND/$(basename "$SCRIPT_TXT")"
-  cp "$SCRIPT_TXT" "$TXT_SAFE"
+send_media_file() {
+  local src="$1"
+  local safe="$OUTBOUND/$(basename "$src")"
+  cp "$src" "$safe"
   openclaw message send \
     --channel telegram \
     --target "$TARGET" \
-    --media "$TXT_SAFE"
-  rm -f "$TXT_SAFE"
+    --media "$safe"
+  rm -f "$safe"
+}
+
+if [ "$SIZE" -le "$MAX_BYTES" ]; then
+  echo "INFO: Sending single final MP3"
+  send_media_file "$FINAL_MP3"
+else
+  echo "INFO: Sending chunked MP3 files"
+  shopt -s nullglob
+  CHUNKS=("$DAY_DIR"/podcast_"$TODAY"_p*.mp3)
+  shopt -u nullglob
+
+  if [ ${#CHUNKS[@]} -eq 0 ]; then
+    echo "ERROR: No chunk files found in $DAY_DIR"
+    exit 1
+  fi
+
+  for chunk in "${CHUNKS[@]}"; do
+    echo "sending chunk: $chunk"
+    send_media_file "$chunk"
+  done
 fi
 
-rm -f "$MP3_SAFE"
+# Send cleaned script if present
+if [ -f "$SCRIPT_TXT" ]; then
+  send_media_file "$SCRIPT_TXT"
+fi
+
 find "$OUTBOUND" -type f -mtime +7 -print -delete
 
 echo "DONE"
