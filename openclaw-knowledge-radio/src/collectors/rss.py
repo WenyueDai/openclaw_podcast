@@ -16,8 +16,8 @@ def _parse_dt(dt_str: str) -> Optional[datetime]:
         return None
 
 
-def collect_rss_items(sources: List[Dict[str, Any]], *, tz, lookback_hours: int) -> List[Dict[str, Any]]:
-    cutoff = cutoff_datetime(tz, lookback_hours)
+def collect_rss_items(sources: List[Dict[str, Any]], *, tz, lookback_hours: int, now_ref: Optional[datetime] = None) -> List[Dict[str, Any]]:
+    cutoff = cutoff_datetime(tz, lookback_hours, now_dt=now_ref)
     out: List[Dict[str, Any]] = []
 
     for src in sources:

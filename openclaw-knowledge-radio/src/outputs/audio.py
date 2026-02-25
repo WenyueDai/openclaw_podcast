@@ -140,7 +140,5 @@ def concat_mp3_ffmpeg(part_files: List[Path], out_mp3: Path) -> None:
     if out_mp3.stat().st_size > THRESHOLD_BYTES:
         parts = _split_mp3_into_size_limited_parts(out_mp3, TARGET_BYTES)
 
-        # 如果确实被切成多个 part，那么删除原始大文件
-        # （保留策略：你也可以改成不删；但你说要“output into pieces”，通常代表替换）
-        if len(parts) > 1:
-            out_mp3.unlink(missing_ok=True)
+        # Keep original merged file for website/Spotify, while chunks are used for Telegram limits.
+        _ = parts

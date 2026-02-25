@@ -107,6 +107,41 @@ rss_sources:
     tags: ["protein-LLM", "esm", "author"]
     bucket: "ai_bio"
 
+  - name: "Brian Hie (arXiv API)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Brian+Hie\"&sortBy=submittedDate&sortOrder=descending&max_results=25"
+    tags: ["protein-LLM", "evolution", "author"]
+    bucket: "ai_bio"
+
+  - name: "Jure Leskovec (arXiv API)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Jure+Leskovec\"&sortBy=submittedDate&sortOrder=descending&max_results=25"
+    tags: ["graph-learning", "bio-ml", "author"]
+    bucket: "ai_bio"
+
+  - name: "Regina Barzilay (arXiv API)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Regina+Barzilay\"&sortBy=submittedDate&sortOrder=descending&max_results=25"
+    tags: ["ai-biomed", "author"]
+    bucket: "ai_bio"
+
+  - name: "Bonnie Berger (arXiv API)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Bonnie+Berger\"&sortBy=submittedDate&sortOrder=descending&max_results=25"
+    tags: ["computational-biology", "author"]
+    bucket: "ai_bio"
+
+  - name: "Tommi Jaakkola (arXiv API)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Tommi+Jaakkola\"&sortBy=submittedDate&sortOrder=descending&max_results=25"
+    tags: ["machine-learning", "bio-ml", "author"]
+    bucket: "ai_bio"
+
+  - name: "Pieter Abbeel (arXiv API)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Pieter+Abbeel\"&sortBy=submittedDate&sortOrder=descending&max_results=25"
+    tags: ["machine-learning", "author"]
+    bucket: "ai_bio"
+
+  - name: "Aviv Regev (arXiv API)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Aviv+Regev\"&sortBy=submittedDate&sortOrder=descending&max_results=25"
+    tags: ["single-cell", "computational-biology", "author"]
+    bucket: "ai_bio"
+
 daily_knowledge:
   enabled: true
 

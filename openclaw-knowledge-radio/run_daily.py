@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from typing import Any, Dict, List
+from datetime import datetime, time
 
 import yaml
 
@@ -39,7 +40,15 @@ def main() -> int:
     cfg = load_config(repo_dir / "config.yaml")
 
     tz = load_tz(cfg.get("timezone", "Europe/London"))
-    today = now_local_date(tz)
+
+    run_date_env = (os.environ.get("RUN_DATE") or "").strip()
+    if run_date_env:
+        # expected YYYY-MM-DD
+        today = run_date_env
+        run_anchor = datetime.combine(datetime.fromisoformat(today).date(), time.min, tz)
+    else:
+        today = now_local_date(tz)
+        run_anchor = datetime.now(tz)
 
     data_dir = Path(cfg["paths"]["data_dir"]) / today
     out_dir = Path(cfg["paths"]["output_dir"]) / today
@@ -53,11 +62,11 @@ def main() -> int:
 
     seen = SeenStore(state_dir / "seen_ids.json")
 
-    lookback_hours = int(cfg.get("lookback_hours", 48))
+    lookback_hours = int(os.environ.get("LOOKBACK_HOURS") or cfg.get("lookback_hours", 48))
 
     # 1) Collect
     items: List[Dict[str, Any]] = []
-    items.extend(collect_rss_items(cfg["rss_sources"], tz=tz, lookback_hours=lookback_hours))
+    items.extend(collect_rss_items(cfg["rss_sources"], tz=tz, lookback_hours=lookback_hours, now_ref=run_anchor))
     if cfg.get("daily_knowledge", {}).get("enabled", True):
         items.extend(collect_daily_knowledge_items(tz=tz))
 
@@ -124,6 +133,8 @@ def main() -> int:
         "time": iso_now_local(tz),
         "n_items_raw": len(new_items),
         "n_items_used": len(ranked),
+        "lookback_hours": lookback_hours,
+        "run_anchor": run_anchor.isoformat(timespec="seconds"),
         "obsidian_daily": str(daily_md),
         "output_dir": str(out_dir),
     }

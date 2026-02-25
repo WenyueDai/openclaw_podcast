@@ -16,5 +16,6 @@ def iso_now_local(tz: ZoneInfo) -> str:
     return datetime.now(tz).isoformat(timespec="seconds")
 
 
-def cutoff_datetime(tz: ZoneInfo, lookback_hours: int) -> datetime:
-    return datetime.now(tz) - timedelta(hours=lookback_hours)
+def cutoff_datetime(tz: ZoneInfo, lookback_hours: int, now_dt: datetime | None = None) -> datetime:
+    base = now_dt if now_dt is not None else datetime.now(tz)
+    return base - timedelta(hours=lookback_hours)
