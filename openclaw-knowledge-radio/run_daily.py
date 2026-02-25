@@ -13,10 +13,10 @@ from src.utils.dedup import SeenStore
 from src.collectors.rss import collect_rss_items
 from src.collectors.daily_knowledge import collect_daily_knowledge_items
 from src.processing.rank import rank_and_limit
-from src.processing.script_llm import build_podcast_script_llm_chunked
+from src.processing.script_llm import build_podcast_script_llm_chunked, TRANSITION_MARKER
 from src.outputs.obsidian import write_obsidian_daily
 from src.outputs.tts_edge import tts_text_to_mp3_chunked
-from src.outputs.audio import concat_mp3_ffmpeg
+from src.outputs.audio import concat_mp3_with_transitions
 
 from src.utils.text import clean_for_tts
 
@@ -106,21 +106,30 @@ def main() -> int:
     write_text(script_path_clean, script_text_clean)
 
 
-    # 6) TTS chunk + merge
+    # 6) TTS chunk + merge (transition SFX between papers/news, not between chunks)
     if cfg.get("podcast", {}).get("enabled", True) and script_text_clean.strip():
         voice = cfg["podcast"]["voice"]
         chunk_chars = int(cfg["podcast"]["tts_chunk_chars"])
         parts_dir = out_dir / "tts_parts"
         ensure_dir(parts_dir)
 
-        part_files = tts_text_to_mp3_chunked(
-            text=script_text_clean,
-            out_dir=parts_dir,
-            voice=voice,
-            chunk_chars=chunk_chars,
-        )
+        raw_segments = [s.strip() for s in script_text.split(TRANSITION_MARKER) if s and s.strip()]
+        groups = []
+        for i, seg in enumerate(raw_segments, 1):
+            seg_clean = clean_for_tts(seg)
+            seg_dir = parts_dir / f"seg_{i:03d}"
+            ensure_dir(seg_dir)
+            seg_parts = tts_text_to_mp3_chunked(
+                text=seg_clean,
+                out_dir=seg_dir,
+                voice=voice,
+                chunk_chars=chunk_chars,
+            )
+            if seg_parts:
+                groups.append(seg_parts)
+
         final_mp3 = out_dir / f"podcast_{today}.mp3"
-        concat_mp3_ffmpeg(part_files, final_mp3)
+        concat_mp3_with_transitions(groups, final_mp3)
         spotify_folder = repo_dir / 'spotify'
         episodes_dir = spotify_folder / 'episodes'
         ensure_dir(episodes_dir)

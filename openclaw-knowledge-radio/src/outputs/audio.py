@@ -107,38 +107,50 @@ def _split_mp3_into_size_limited_parts(mp3_path: Path, target_bytes: int) -> Lis
     return out_files
 
 
-def concat_mp3_ffmpeg(part_files: List[Path], out_mp3: Path) -> None:
-    if not part_files:
-        raise RuntimeError("No MP3 parts to merge")
-
-    # Insert a short transition cue between segments for a news-like flow.
-    sfx = _build_transition_sfx(out_mp3.parent)
-
-    seq: List[Path] = []
-    for i, p in enumerate(part_files):
-        seq.append(p)
-        if i < len(part_files) - 1:
-            seq.append(sfx)
-
+def _concat_sequence(seq: List[Path], out_mp3: Path) -> None:
     list_file = out_mp3.parent / "ffmpeg_concat_list.txt"
     lines = [f"file '{p.as_posix()}'" for p in seq]
     list_file.write_text("\n".join(lines), encoding="utf-8")
 
     cmd = [
-        "ffmpeg",
-        "-y",
-        "-f", "concat",
-        "-safe", "0",
+        "ffmpeg", "-y",
+        "-f", "concat", "-safe", "0",
         "-i", str(list_file),
-        "-codec:a", "libmp3lame",
-        "-q:a", "4",
+        "-codec:a", "libmp3lame", "-q:a", "4",
         str(out_mp3),
     ]
     subprocess.run(cmd, check=True)
 
-    # 2) 如果最终 out_mp3 > 10MB，则切成 <=9.9MB 的多段
-    if out_mp3.stat().st_size > THRESHOLD_BYTES:
-        parts = _split_mp3_into_size_limited_parts(out_mp3, TARGET_BYTES)
 
-        # Keep original merged file for website/Spotify, while chunks are used for Telegram limits.
-        _ = parts
+def concat_mp3_ffmpeg(part_files: List[Path], out_mp3: Path) -> None:
+    if not part_files:
+        raise RuntimeError("No MP3 parts to merge")
+
+    # Plain concat (no transitions) for backward compatibility.
+    _concat_sequence(part_files, out_mp3)
+
+    # If final >10MB, also generate chunk files for Telegram delivery limits.
+    if out_mp3.stat().st_size > THRESHOLD_BYTES:
+        _split_mp3_into_size_limited_parts(out_mp3, TARGET_BYTES)
+
+
+def concat_mp3_with_transitions(groups: List[List[Path]], out_mp3: Path) -> None:
+    """
+    Concat TTS audio with transition SFX BETWEEN logical groups (paper/news),
+    not between every internal TTS chunk.
+    """
+    non_empty = [g for g in groups if g]
+    if not non_empty:
+        raise RuntimeError("No MP3 groups to merge")
+
+    sfx = _build_transition_sfx(out_mp3.parent)
+    seq: List[Path] = []
+    for i, grp in enumerate(non_empty):
+        seq.extend(grp)
+        if i < len(non_empty) - 1:
+            seq.append(sfx)
+
+    _concat_sequence(seq, out_mp3)
+
+    if out_mp3.stat().st_size > THRESHOLD_BYTES:
+        _split_mp3_into_size_limited_parts(out_mp3, TARGET_BYTES)

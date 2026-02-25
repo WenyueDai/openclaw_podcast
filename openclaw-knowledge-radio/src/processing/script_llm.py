@@ -146,6 +146,8 @@ def _format_item_block(it: Dict[str, Any]) -> str:
 # Prompts (ENGLISH ONLY)
 # =========================
 
+TRANSITION_MARKER = "[[TRANSITION]]"
+
 SYSTEM_DEEP_DIVE = """You are an expert English podcast host for 'Colorful Biology'.
 This segment MUST be based ONLY on the provided item block and notes.
 
@@ -398,25 +400,17 @@ def build_podcast_script_llm_chunked(*, date_str: str, items: List[Dict[str, Any
     ).strip()
 
     # ---- Deterministic assembly (no compression)
-    parts: List[str] = []
-    parts.append(opening)
-    parts.append("")
-    if deep_segments:
-        parts.append("=== Deep Dives (full text available) ===")
-        parts.append("")
-        parts.extend(deep_segments)
-        parts.append("")
-    if roundup_segments:
-        parts.append("=== Roundup ===")
-        parts.append("")
-        parts.extend(roundup_segments)
-        parts.append("")
-    if headlines:
-        parts.append(headlines)
-        parts.append("")
-    parts.append(closing)
+    spoken_blocks: List[str] = []
+    if opening:
+        spoken_blocks.append(opening.strip())
+    spoken_blocks.extend([s.strip() for s in deep_segments if s and s.strip()])
+    spoken_blocks.extend([s.strip() for s in roundup_segments if s and s.strip()])
+    if headlines and headlines.strip():
+        spoken_blocks.append(headlines.strip())
+    if closing:
+        spoken_blocks.append(closing.strip())
 
-    assembled = "\n".join([p for p in parts if p is not None]).strip()
+    assembled = f"\n\n{TRANSITION_MARKER}\n\n".join(spoken_blocks).strip()
 
     # ---- Optional merge LLM: ONLY add transitions / formatting, no deletion
     if use_merge_llm:
