@@ -8,8 +8,12 @@ LOG="/home/eva/openclaw_workspace/openclaw_podcast/openclaw-knowledge-radio/cron
 export NODE="/home/eva/.nvm/versions/node/v22.22.0/bin/node"
 export PATH="/home/eva/.nvm/versions/node/v22.22.0/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
-source /home/eva.openclaw_env
-source "$NVM_DIR/nvm.sh" 
+if [ -f /home/eva/.openclaw_env ]; then
+  set -a
+  source /home/eva/.openclaw_env
+  set +a
+fi
+source "$NVM_DIR/nvm.sh"
 nvm use 22 >/dev/null
 
 source /home/eva/openclaw_workspace/openclaw_podcast/openclaw-knowledge-radio/.venv/bin/activate
