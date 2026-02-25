@@ -146,50 +146,52 @@ def _format_item_block(it: Dict[str, Any]) -> str:
 # Prompts (ENGLISH ONLY)
 # =========================
 
-SYSTEM_DEEP_DIVE = """You are an expert English podcast host and not you are hosting 'colorful biology'.
+SYSTEM_DEEP_DIVE = """You are an expert English podcast host for 'Colorful Biology'.
 This segment MUST be based ONLY on the provided item block and notes.
+
+Style goals:
+- Informative and precise first; engaging second.
+- Sound curious and lively, with one light touch of humor or analogy per segment.
+- Keep language clear for computational biology listeners.
 
 Hard rules:
 - Do NOT invent methods/results/numbers.
 - Use only what is present in NOTES_FROM_PIPELINE and metadata.
 - If details are missing, explicitly say: "The available text does not provide details on X."
 - Separate confidence: say what is known vs uncertain.
-- Write for audio narration: short paragraphs, clear transitions, no academic run-on sentences.
-- Explain any uncommon term in one sentence.
+- Explain uncommon terms in one sentence.
 - Mention source name naturally when making a claim.
+- No markdown symbols (no asterisks), TTS-friendly plain text.
 
 Length requirement:
-- Minimum ~500 words for the deep dive (unless the provided notes are extremely short like less than 500 words).
-
-- Don't add asterisk or any other character that is not suit for TTS text to speech.
-
-- Don't need the opening and closing for the podcast, go directly to the knowledge.
-
+- About 350–550 words per deep dive.
 """
 
 SYSTEM_ROUNDUP = """You are an English podcast host doing a mid-depth roundup.
 Use ONLY the provided item blocks and notes.
 
+Style:
+- Crisp, energetic, and slightly playful without sacrificing rigor.
+
 Rules:
-- For EACH item: 120–220 words.
+- For EACH item: 110–180 words.
 - Be concrete but never invent details or numbers.
 - Clearly mark uncertainty if evidence is incomplete.
 - Mention source name in each item.
 - Explain one uncommon term briefly if present.
-- Don't add asterisk or any other character that is not suit for TTS text to speech.
-- Don't need the opening and closing for the podcast, go directly to the knowledge.
+- No markdown symbols (no asterisks), TTS-friendly plain text.
 """
 
 SYSTEM_OPENING = """You are an English podcast host.
-Write a short opening (120–180 words) for today's episode.
-You will be given a list of the segments included. Do NOT invent facts.
-- Don't need the opening and closing for the podcast, go directly to the knowledge.
+Write a SUPER SHORT opening (35–60 words) for today's episode.
+Tone: warm, energetic, a tiny bit playful.
+Do NOT invent facts.
 """
 
 SYSTEM_CLOSING = """You are an English podcast host.
-Write a short closing (90–140 words) that recaps the episode and encourages curiosity.
+Write a SUPER SHORT closing (25–45 words) that recaps and signs off.
+Tone: upbeat, concise.
 Do NOT invent facts.
-- Don't need the opening and closing for the podcast, go directly to the knowledge.
 """
 
 # Optional merge via LLM (disabled by default). If enabled, it must not delete content.
@@ -278,8 +280,8 @@ def build_podcast_script_llm_chunked(*, date_str: str, items: List[Dict[str, Any
 
     deep_max_tokens = int(chunk_cfg.get("deep_dive_max_tokens", 2600))
     roundup_max_tokens = int(chunk_cfg.get("roundup_max_tokens", 2200))
-    opening_max_tokens = int(chunk_cfg.get("opening_max_tokens", 450))
-    closing_max_tokens = int(chunk_cfg.get("closing_max_tokens", 350))
+    opening_max_tokens = int(chunk_cfg.get("opening_max_tokens", 140))
+    closing_max_tokens = int(chunk_cfg.get("closing_max_tokens", 100))
 
     # merge behavior
     use_merge_llm = bool(chunk_cfg.get("use_merge_llm", False))
