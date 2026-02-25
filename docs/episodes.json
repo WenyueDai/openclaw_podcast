@@ -6,6 +6,12 @@
     "script": "podcast_script_2026-02-25_llm_clean.txt"
   },
   {
+    "date": "2026-02-24",
+    "title": "Daily Podcast 2026-02-24",
+    "audio": "audio/podcast_2026-02-24.mp3",
+    "script": "podcast_script_2026-02-24_llm_clean.txt"
+  },
+  {
     "date": "2026-02-23",
     "title": "Daily Podcast 2026-02-23",
     "audio": "audio/podcast_2026-02-23.mp3",
