@@ -8,6 +8,31 @@ THRESHOLD_BYTES = int(10.0 * 1024 * 1024)
 TARGET_BYTES = int(9.9 * 1024 * 1024)
 
 
+def _build_transition_sfx(out_dir: Path) -> Path:
+    """Generate a short news-like transition cue if missing."""
+    sfx = out_dir / "transition_sfx.mp3"
+    if sfx.exists() and sfx.stat().st_size > 0:
+        return sfx
+
+    # 0.12s beep -> 0.06s pause -> 0.12s beep
+    # Generated with ffmpeg lavfi so no external asset needed.
+    cmd = [
+        "ffmpeg", "-y",
+        "-f", "lavfi", "-i", "sine=frequency=1046:duration=0.12",
+        "-f", "lavfi", "-i", "anullsrc=r=24000:cl=mono:d=0.06",
+        "-f", "lavfi", "-i", "sine=frequency=1318:duration=0.12",
+        "-filter_complex", "[0:a][1:a][2:a]concat=n=3:v=0:a=1[a]",
+        "-map", "[a]",
+        "-ar", "24000",
+        "-ac", "1",
+        "-codec:a", "libmp3lame",
+        "-q:a", "4",
+        str(sfx),
+    ]
+    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    return sfx
+
+
 def _ffprobe_duration_seconds(mp3_path: Path) -> float:
     # ffprobe 输出时长（秒）
     cmd = [
@@ -86,9 +111,17 @@ def concat_mp3_ffmpeg(part_files: List[Path], out_mp3: Path) -> None:
     if not part_files:
         raise RuntimeError("No MP3 parts to merge")
 
-    # 1) 先按你原来逻辑合并成 out_mp3
+    # Insert a short transition cue between segments for a news-like flow.
+    sfx = _build_transition_sfx(out_mp3.parent)
+
+    seq: List[Path] = []
+    for i, p in enumerate(part_files):
+        seq.append(p)
+        if i < len(part_files) - 1:
+            seq.append(sfx)
+
     list_file = out_mp3.parent / "ffmpeg_concat_list.txt"
-    lines = [f"file '{p.as_posix()}'" for p in part_files]
+    lines = [f"file '{p.as_posix()}'" for p in seq]
     list_file.write_text("\n".join(lines), encoding="utf-8")
 
     cmd = [
@@ -97,7 +130,8 @@ def concat_mp3_ffmpeg(part_files: List[Path], out_mp3: Path) -> None:
         "-f", "concat",
         "-safe", "0",
         "-i", str(list_file),
-        "-c", "copy",
+        "-codec:a", "libmp3lame",
+        "-q:a", "4",
         str(out_mp3),
     ]
     subprocess.run(cmd, check=True)
