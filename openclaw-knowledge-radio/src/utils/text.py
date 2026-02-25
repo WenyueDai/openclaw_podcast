@@ -71,7 +71,8 @@ def clean_for_tts(text: str) -> str:
     Make a TTS-friendly version:
     - remove raw URLs
     - convert markdown links [title](url) -> title
-    - remove "来源清单" section if present (optional but recommended)
+    - strip markdown formatting tokens that TTS reads literally (#, *, _, backticks)
+    - remove references/sources section at tail
     """
     if not text:
         return ""
@@ -81,6 +82,11 @@ def clean_for_tts(text: str) -> str:
 
     # remove raw urls
     text = _URL_RE.sub("", text)
+
+    # remove markdown heading/bullet/strong markers frequently spoken by TTS
+    text = re.sub(r"^\s{0,3}#{1,6}\s*", "", text, flags=re.MULTILINE)
+    text = re.sub(r"[*_`~]{1,3}", "", text)
+    text = re.sub(r"^\s*[-*+]\s+", "", text, flags=re.MULTILINE)
 
     # OPTIONAL: drop trailing sources section if you keep one
     # adjust these keywords to your script style

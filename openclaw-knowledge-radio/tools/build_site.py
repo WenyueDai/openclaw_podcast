@@ -27,7 +27,9 @@ def discover_episodes():
             continue
         date = d.name
         mp3 = d / f"podcast_{date}.mp3"
-        script = d / f"podcast_script_{date}_llm_clean.txt"
+        script = d / f"podcast_script_{date}_llm.txt"
+        if not script.exists():
+            script = d / f"podcast_script_{date}_llm_clean.txt"
         if not mp3.exists():
             continue
         episodes.append({

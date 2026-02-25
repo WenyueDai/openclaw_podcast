@@ -99,6 +99,20 @@ def main() -> int:
 
     # 5) LLM podcast script
     script_text = build_podcast_script_llm_chunked(date_str=today, items=ranked, cfg=cfg)
+
+    # Append explicit citations to comprehensive script (for website readers / Spotify notes)
+    refs: List[str] = []
+    refs.append("\n\nReferences:")
+    for i, it in enumerate(ranked, 1):
+        title = (it.get("title") or "(untitled)").strip()
+        src = (it.get("source") or "unknown source").strip()
+        url = (it.get("url") or "").strip()
+        if url:
+            refs.append(f"[{i}] {title} — {src} — {url}")
+        else:
+            refs.append(f"[{i}] {title} — {src}")
+    script_text = script_text.rstrip() + "\n" + "\n".join(refs) + "\n"
+
     script_path = out_dir / f"podcast_script_{today}_llm.txt"
     write_text(script_path, script_text)
     script_text_clean = clean_for_tts(script_text)
