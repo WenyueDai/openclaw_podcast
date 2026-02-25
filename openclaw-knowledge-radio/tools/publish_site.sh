@@ -8,7 +8,7 @@ set -euo pipefail
 
 WEBSITE_REPO_DIR="${WEBSITE_REPO_DIR:-}"
 WEBSITE_BRANCH="${WEBSITE_BRANCH:-main}"
-PROJECT_REPO_DIR="/home/eva/openclaw_workspace/openclaw_podcast/openclaw-knowledge-radio"
+PROJECT_REPO_DIR="/home/eva/openclaw_workspace/openclaw_podcast"
 SRC_SITE_DIR="$PROJECT_REPO_DIR/docs"
 
 if [[ -z "$WEBSITE_REPO_DIR" ]]; then
@@ -21,7 +21,7 @@ python3 /home/eva/openclaw_workspace/openclaw_podcast/openclaw-knowledge-radio/t
 if [[ "$WEBSITE_REPO_DIR" == "$PROJECT_REPO_DIR" ]]; then
   # Same repo mode: publish by committing updated public_site in this repo.
   cd "$PROJECT_REPO_DIR"
-  git add docs tools/build_site.py tools/publish_site.sh
+  git add docs openclaw-knowledge-radio/tools/build_site.py openclaw-knowledge-radio/tools/publish_site.sh
 else
   # Separate repo mode: sync built site into dedicated website repo.
   mkdir -p "$WEBSITE_REPO_DIR"
