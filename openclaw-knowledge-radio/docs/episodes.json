@@ -1,0 +1,20 @@
+[
+  {
+    "date": "2026-02-25",
+    "title": "Daily Podcast 2026-02-25",
+    "audio": "audio/podcast_2026-02-25.mp3",
+    "script": "podcast_script_2026-02-25_llm_clean.txt"
+  },
+  {
+    "date": "2026-02-23",
+    "title": "Daily Podcast 2026-02-23",
+    "audio": "audio/podcast_2026-02-23.mp3",
+    "script": "podcast_script_2026-02-23_llm_clean.txt"
+  },
+  {
+    "date": "2026-02-22",
+    "title": "Daily Podcast 2026-02-22",
+    "audio": "audio/podcast_2026-02-22.mp3",
+    "script": "podcast_script_2026-02-22_llm_clean.txt"
+  }
+]

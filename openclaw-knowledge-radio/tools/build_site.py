@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 import html
 
 BASE_OUTPUT = Path("/home/eva/openclaw_workspace/openclaw-knowledge-radio/output")
-SITE_DIR = Path("/home/eva/openclaw_workspace/openclaw_podcast/openclaw-knowledge-radio/public_site")
+SITE_DIR = Path("/home/eva/openclaw_workspace/openclaw_podcast/openclaw-knowledge-radio/docs")
 AUDIO_DIR = SITE_DIR / "audio"
 
 
