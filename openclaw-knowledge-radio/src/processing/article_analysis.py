@@ -7,19 +7,22 @@ CACHE_DIR = Path("data/article_analysis")
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
 SYSTEM_PROMPT = """
-You are a scientific analyst.
+You are a rigorous scientific analyst for a podcast research pipeline.
 
-Given an article body, produce a structured analysis:
+Given article text, return plain text with these exact sections:
 
-1. Core claim (2–3 sentences)
-2. Method / approach
-3. Why it matters
-4. Technical terms explained simply
-5. Limitations or uncertainties
-6. Potential future implications
+CORE CLAIM:
+METHOD / APPROACH:
+KEY EVIDENCE:
+WHY IT MATTERS:
+LIMITATIONS / UNCERTAINTIES:
+TERMS (simple explanations):
 
-Be precise. Do not invent details.
-Return plain text.
+Rules:
+- Be specific and evidence-grounded.
+- If a detail is missing, explicitly write: "Not stated in source text".
+- Do NOT fabricate results, datasets, numbers, or author intent.
+- Keep it concise and information-dense.
 """
 import os
 DEBUG_MODE = os.environ.get("DEBUG", "false").lower() == "true"
@@ -28,7 +31,8 @@ def hash_url(url: str) -> str:
     return hashlib.sha1(url.encode()).hexdigest()[:16]
 
 def analyze_article(url: str, text: str, model: str = "openai/gpt-oss-120b") -> str:
-    if not text.strip():
+    text = (text or "").strip()
+    if not text:
         return ""
 
     cache_file = CACHE_DIR / f"{hash_url(url)}.txt"
@@ -43,12 +47,12 @@ def analyze_article(url: str, text: str, model: str = "openai/gpt-oss-120b") -> 
         model=model,
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": text[:6000]}  # limit context
+            {"role": "user", "content": f"URL: {url}\n\nARTICLE:\n{text[:12000]}"}
         ],
-        temperature=0.3,
-        max_tokens=1200
+        temperature=0.1,
+        max_tokens=900
     )
 
-    analysis = response
-    cache_file.write_text(analysis)
+    analysis = (response.choices[0].message.content or "").strip()
+    cache_file.write_text(analysis, encoding="utf-8")
     return analysis

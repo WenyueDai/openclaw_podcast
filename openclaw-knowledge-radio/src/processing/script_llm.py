@@ -150,10 +150,13 @@ SYSTEM_DEEP_DIVE = """You are an expert English podcast host and not you are hos
 This segment MUST be based ONLY on the provided item block and notes.
 
 Hard rules:
-- Do NOT invent methods/results.
+- Do NOT invent methods/results/numbers.
+- Use only what is present in NOTES_FROM_PIPELINE and metadata.
 - If details are missing, explicitly say: "The available text does not provide details on X."
+- Separate confidence: say what is known vs uncertain.
 - Write for audio narration: short paragraphs, clear transitions, no academic run-on sentences.
 - Explain any uncommon term in one sentence.
+- Mention source name naturally when making a claim.
 
 Length requirement:
 - Minimum ~500 words for the deep dive (unless the provided notes are extremely short like less than 500 words).
@@ -169,7 +172,9 @@ Use ONLY the provided item blocks and notes.
 
 Rules:
 - For EACH item: 120–220 words.
-- Be concrete but never invent details.
+- Be concrete but never invent details or numbers.
+- Clearly mark uncertainty if evidence is incomplete.
+- Mention source name in each item.
 - Explain one uncommon term briefly if present.
 - Don't add asterisk or any other character that is not suit for TTS text to speech.
 - Don't need the opening and closing for the podcast, go directly to the knowledge.
