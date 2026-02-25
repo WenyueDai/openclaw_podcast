@@ -1,0 +1,13 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1400' height='1400' viewBox='0 0 1400 1400'>
+<defs>
+  <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
+    <stop offset='0%' stop-color='hsl(349,70%,55%)'/>
+    <stop offset='100%' stop-color='hsl(263,75%,35%)'/>
+  </linearGradient>
+</defs>
+<rect width='100%' height='100%' fill='url(#g)'/>
+<circle cx='1169' cy='773' r='252' fill='hsla(111,85%,63%,0.45)'/><circle cx='287' cy='751' r='236' fill='hsla(117,85%,63%,0.45)'/><circle cx='759' cy='551' r='216' fill='hsla(211,85%,46%,0.45)'/><circle cx='1040' cy='585' r='90' fill='hsla(281,85%,49%,0.45)'/><circle cx='1130' cy='102' r='116' fill='hsla(7,85%,53%,0.45)'/><circle cx='612' cy='1391' r='149' fill='hsla(123,85%,59%,0.45)'/><circle cx='883' cy='840' r='249' fill='hsla(111,85%,64%,0.45)'/><circle cx='254' cy='679' r='258' fill='hsla(325,85%,58%,0.45)'/><circle cx='29' cy='89' r='189' fill='hsla(141,85%,36%,0.45)'/><circle cx='345' cy='680' r='130' fill='hsla(259,85%,66%,0.45)'/><circle cx='754' cy='111' r='188' fill='hsla(94,85%,66%,0.45)'/><circle cx='1363' cy='740' r='77' fill='hsla(235,85%,35%,0.45)'/><circle cx='686' cy='285' r='218' fill='hsla(315,85%,53%,0.45)'/><circle cx='95' cy='845' r='156' fill='hsla(126,85%,62%,0.45)'/><circle cx='22' cy='76' r='200' fill='hsla(6,85%,69%,0.45)'/><circle cx='370' cy='1' r='153' fill='hsla(25,85%,36%,0.45)'/><circle cx='27' cy='301' r='99' fill='hsla(141,85%,62%,0.45)'/><circle cx='912' cy='43' r='233' fill='hsla(50,85%,49%,0.45)'/>
+<rect x='80' y='980' width='1240' height='280' rx='32' fill='rgba(0,0,0,0.35)'/>
+<text x='120' y='1090' fill='white' font-size='92' font-family='Arial, Helvetica, sans-serif' font-weight='700'>Daily Podcast</text>
+<text x='120' y='1170' fill='white' font-size='46' font-family='Arial, Helvetica, sans-serif'>Auto-generated Daily Episode</text>
+</svg>
