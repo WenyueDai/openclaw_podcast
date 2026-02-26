@@ -2,7 +2,6 @@
 
 import asyncio
 import os
-import time
 from pathlib import Path
 from typing import List, Tuple
 
@@ -37,12 +36,12 @@ def _voice_candidates(primary: str) -> List[str]:
     return out
 
 
-async def _save_one(text: str, voice: str, out_path: Path) -> None:
+async def _save_one(text: str, voice: str, rate: str, out_path: Path) -> None:
     last_err = None
     for v in _voice_candidates(voice):
         for attempt in range(1, 4):
             try:
-                communicate = edge_tts.Communicate(text, v)
+                communicate = edge_tts.Communicate(text, v, rate=rate)
                 await communicate.save(str(out_path))
                 return
             except Exception as e:
@@ -111,6 +110,7 @@ def tts_text_to_mp3_chunked(
     out_dir: Path,
     voice: str,
     chunk_chars: int,
+    rate: str = "+20%",
 ) -> List[Path]:
     """
     保持原函数签名与返回格式不变：
@@ -134,7 +134,7 @@ def tts_text_to_mp3_chunked(
         递归生成：如果超过大小限制，就删文件、分裂文本、继续生成。
         """
         out_path = next_path()
-        asyncio.run(_save_one(one_text, voice, out_path))
+        asyncio.run(_save_one(one_text, voice, rate, out_path))
 
         try:
             size = os.path.getsize(out_path)

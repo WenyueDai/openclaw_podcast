@@ -29,6 +29,7 @@ import os
 
 #  DEBUG=true python run_daily.py
 DEBUG_MODE = os.environ.get('DEBUG', 'false').lower() == 'true'
+REGEN_FROM_CACHE = os.environ.get('REGEN_FROM_CACHE', 'false').lower() == 'true'
 
 def load_config(path: Path) -> Dict[str, Any]:
     with path.open("r", encoding="utf-8") as f:
@@ -64,32 +65,44 @@ def main() -> int:
 
     lookback_hours = int(os.environ.get("LOOKBACK_HOURS") or cfg.get("lookback_hours", 48))
 
-    # 1) Collect
-    items: List[Dict[str, Any]] = []
-    items.extend(collect_rss_items(cfg["rss_sources"], tz=tz, lookback_hours=lookback_hours, now_ref=run_anchor))
-    if cfg.get("daily_knowledge", {}).get("enabled", True):
-        items.extend(collect_daily_knowledge_items(tz=tz))
+    # 1) Collect (or regenerate from cached seed)
+    seed_file = data_dir / "items.jsonl"
+    if REGEN_FROM_CACHE and seed_file.exists():
+        new_items: List[Dict[str, Any]] = []
+        for line in seed_file.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                new_items.append(json.loads(line))
+            except Exception:
+                continue
+    else:
+        items: List[Dict[str, Any]] = []
+        items.extend(collect_rss_items(cfg["rss_sources"], tz=tz, lookback_hours=lookback_hours, now_ref=run_anchor))
+        if cfg.get("daily_knowledge", {}).get("enabled", True):
+            items.extend(collect_daily_knowledge_items(tz=tz))
 
-    # 2) Dedup across days
-    new_items: List[Dict[str, Any]] = []
-    for it in items:
-        url = (it.get("url") or "").strip()
+        # 2) Dedup across days
+        new_items: List[Dict[str, Any]] = []
+        for it in items:
+            url = (it.get("url") or "").strip()
 
-        if not url:
-            continue
-        if not DEBUG_MODE and seen.has(url):
-            continue
-        seen.add(url)
-        body = extract_article_text(url)
-        it['extracted_chars'] = len(body or "")
-        it['has_fulltext'] = bool(body and len(body) > 1500)
-        analysis = analyze_article(url, body)
-        it['analysis'] = analysis
+            if not url:
+                continue
+            if not DEBUG_MODE and seen.has(url):
+                continue
+            seen.add(url)
+            body = extract_article_text(url)
+            it['extracted_chars'] = len(body or "")
+            it['has_fulltext'] = bool(body and len(body) > 1500)
+            analysis = analyze_article(url, body)
+            it['analysis'] = analysis
 
-        new_items.append(it)
-    seen.save()
+            new_items.append(it)
+        seen.save()
 
-    write_jsonl(data_dir / "items.jsonl", new_items)
+        write_jsonl(seed_file, new_items)
 
     # 3) Rank + limit
     ranked = rank_and_limit(new_items, cfg)
@@ -123,6 +136,7 @@ def main() -> int:
     # 6) TTS chunk + merge (transition SFX between papers/news, not between chunks)
     if cfg.get("podcast", {}).get("enabled", True) and script_text_clean.strip():
         voice = cfg["podcast"]["voice"]
+        rate = str(cfg["podcast"].get("voice_rate", "+20%"))
         chunk_chars = int(cfg["podcast"]["tts_chunk_chars"])
         parts_dir = out_dir / "tts_parts"
         ensure_dir(parts_dir)
@@ -138,6 +152,7 @@ def main() -> int:
                 out_dir=seg_dir,
                 voice=voice,
                 chunk_chars=chunk_chars,
+                rate=rate,
             )
             if seg_parts:
                 groups.append(seg_parts)
