@@ -2,6 +2,7 @@
 
 import asyncio
 import os
+import time
 from pathlib import Path
 from typing import List, Tuple
 
@@ -23,9 +24,30 @@ SPLIT_PUNCT = [
 ]
 
 
+def _voice_candidates(primary: str) -> List[str]:
+    # fallback voices for temporary Edge endpoint/voice 403 issues
+    common = [
+        "en-US-GuyNeural",
+        "en-US-AriaNeural",
+        "en-GB-RyanNeural",
+        "en-GB-SoniaNeural",
+    ]
+    out = [primary] + [v for v in common if v != primary]
+    return out
+
+
 async def _save_one(text: str, voice: str, out_path: Path) -> None:
-    communicate = edge_tts.Communicate(text, voice)
-    await communicate.save(str(out_path))
+    last_err = None
+    for v in _voice_candidates(voice):
+        for attempt in range(1, 4):
+            try:
+                communicate = edge_tts.Communicate(text, v)
+                await communicate.save(str(out_path))
+                return
+            except Exception as e:
+                last_err = e
+                await asyncio.sleep(0.8 * attempt)
+    raise last_err
 
 
 def _pick_split_point(text: str) -> int:
