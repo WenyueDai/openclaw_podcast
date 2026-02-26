@@ -28,6 +28,30 @@ def _load_release_index() -> dict:
     return {}
 
 
+def _extract_highlights(script_path: Path | None, max_points: int = 3) -> list[str]:
+    if not script_path or not script_path.exists():
+        return []
+    points: list[str] = []
+    try:
+        for raw in script_path.read_text(encoding="utf-8", errors="ignore").splitlines():
+            line = raw.strip().strip("-• ")
+            if not line:
+                continue
+            low = line.lower()
+            if low.startswith("references") or low.startswith("["):
+                continue
+            if "http://" in low or "https://" in low:
+                continue
+            if len(line) < 45:
+                continue
+            points.append(line)
+            if len(points) >= max_points:
+                break
+    except Exception:
+        return []
+    return points
+
+
 def discover_episodes():
     episodes = []
     release_idx = _load_release_index()
@@ -43,6 +67,7 @@ def discover_episodes():
             script = d / f"podcast_script_{date}_llm_clean.txt"
         if not mp3.exists():
             continue
+        script_path = script if script.exists() else None
         episodes.append({
             "date": date,
             "title": f"Daily Podcast {date}",
@@ -50,8 +75,9 @@ def discover_episodes():
             "mp3_name": mp3.name,
             "mp3_size": mp3.stat().st_size,
             "audio_url": release_idx.get(date, f"audio/{mp3.name}"),
-            "script": script if script.exists() else None,
-            "script_name": script.name if script.exists() else None,
+            "script": script_path,
+            "script_name": script.name if script_path else None,
+            "highlights": _extract_highlights(script_path, max_points=3),
         })
     episodes.sort(key=lambda x: x["date"], reverse=True)
     return episodes
@@ -86,23 +112,58 @@ def generate_cover_svg(seed_text: str):
 
 
 def render_index(episodes):
-    items = []
+    cards = []
     for ep in episodes:
-        s_link = f'<a href="{html.escape(ep["script_name"])}">script</a>' if ep["script_name"] else ""
-        items.append(
-            f"<li><strong>{ep['title']}</strong><br>"
-            f"<audio controls src=\"{html.escape(ep['audio_url'])}\"></audio><br>"
-            f"<a href=\"{html.escape(ep['audio_url'])}\">download mp3</a> {s_link}</li>"
+        s_link = f'<a href="{html.escape(ep["script_name"])}">full script</a>' if ep["script_name"] else ""
+        hl = ep.get("highlights") or []
+        hl_html = "".join([f"<li>{html.escape(h)}</li>" for h in hl]) if hl else "<li>No highlights extracted yet.</li>"
+        cards.append(
+            f"""
+<section class='card'>
+  <h2>{html.escape(ep['title'])}</h2>
+  <p class='meta'>Published: {html.escape(ep['date'])}</p>
+  <audio controls src="{html.escape(ep['audio_url'])}"></audio>
+  <p><a href="{html.escape(ep['audio_url'])}">download mp3</a> {s_link}</p>
+  <div class='abstract'>
+    <h3>Highlights</h3>
+    <ul>{hl_html}</ul>
+  </div>
+</section>
+"""
         )
-    body = "\n".join(items) if items else "<li>No episodes yet.</li>"
+    body = "\n".join(cards) if cards else "<section class='card'><p>No episodes yet.</p></section>"
     return f"""<!doctype html>
-<html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
-<title>{html.escape(PODCAST_TITLE)}</title></head>
+<html>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>{html.escape(PODCAST_TITLE)}</title>
+<style>
+:root {{ --bg:#0b1020; --card:#141b33; --text:#eaf0ff; --muted:#9fb0d8; --accent:#6ea8ff; }}
+* {{ box-sizing:border-box; }}
+body {{ margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:linear-gradient(180deg,#0a0f1f,#111733); color:var(--text); }}
+main {{ max-width:900px; margin:0 auto; padding:28px 16px 40px; }}
+h1 {{ margin:0 0 8px; }}
+.sub {{ color:var(--muted); margin-bottom:18px; }}
+.card {{ background:var(--card); border:1px solid #243056; border-radius:14px; padding:16px; margin:14px 0; box-shadow:0 8px 24px rgba(0,0,0,.25); }}
+h2 {{ margin:0 0 4px; font-size:1.15rem; }}
+.meta {{ color:var(--muted); margin:0 0 10px; font-size:.92rem; }}
+a {{ color:var(--accent); text-decoration:none; }}
+a:hover {{ text-decoration:underline; }}
+audio {{ width:100%; margin:6px 0 8px; }}
+.abstract h3 {{ margin:10px 0 6px; font-size:1rem; }}
+.abstract ul {{ margin:0; padding-left:20px; }}
+.abstract li {{ margin:6px 0; line-height:1.45; }}
+</style>
+</head>
 <body>
-<h1>{html.escape(PODCAST_TITLE)}</h1>
-<p>{html.escape(PODCAST_SUMMARY)}.</p>
-<ul>{body}</ul>
-</body></html>
+<main>
+  <h1>{html.escape(PODCAST_TITLE)}</h1>
+  <p class='sub'>{html.escape(PODCAST_SUMMARY)}.</p>
+  {body}
+</main>
+</body>
+</html>
 """
 
 
@@ -115,15 +176,17 @@ def render_feed(episodes, site_url: str):
         if mp3_url.startswith("audio/"):
             mp3_url = f"{site_url}/{mp3_url}"
         mp3_len = ep.get("mp3_size", 0)
+        highlights = ep.get("highlights") or []
+        abstract = " | ".join(highlights[:3]) if highlights else PODCAST_SUMMARY
         items.append(f"""
     <item>
       <title>{html.escape(ep['title'])}</title>
       <guid isPermaLink="false">{mp3_url}</guid>
       <pubDate>{pub}</pubDate>
       <enclosure url=\"{mp3_url}\" length=\"{mp3_len}\" type=\"audio/mpeg\" />
-      <description>{html.escape(PODCAST_SUMMARY)}</description>
+      <description>{html.escape(abstract)}</description>
       <itunes:author>{html.escape(PODCAST_AUTHOR)}</itunes:author>
-      <itunes:summary>{html.escape(PODCAST_SUMMARY)}</itunes:summary>
+      <itunes:summary>{html.escape(abstract)}</itunes:summary>
       <itunes:explicit>false</itunes:explicit>
       <itunes:image href=\"{PODCAST_COVER_URL}\" />
     </item>""")
