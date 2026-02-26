@@ -12,3 +12,8 @@
 !docs/index.html
 !docs/feed.xml
 !docs/episodes.json
+
+# Local TTS model/runtime files
+openclaw-knowledge-radio/models/
+openclaw-knowledge-radio/state/kokoro_api.log
+openclaw-knowledge-radio/state/kokoro_api.pid

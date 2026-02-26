@@ -31,7 +31,10 @@ command -v openclaw >/dev/null
 # 5) Optional blogwatcher pass (extra discovery signal)
 timeout 5m "$BASE/tools/blogwatcher_daily.sh" || true
 
-# 6) 跑主流程
+# 6) ensure local Kokoro API is up (for free natural TTS fallback)
+timeout 2m "$BASE/tools/start_kokoro_api.sh" || true
+
+# 7) 跑主流程
 LOOKBACK_HOURS="${LOOKBACK_HOURS:-72}" python "$BASE/run_daily.py"
 "$BASE/send_output_telegram.sh"
 
