@@ -6,9 +6,14 @@ from pathlib import Path
 from typing import List, Tuple
 
 import edge_tts
+import requests
 from gtts import gTTS
 
-USE_GTTS_FALLBACK = os.environ.get("USE_GTTS_FALLBACK", "false").lower() == "true"
+USE_GTTS_FALLBACK = os.environ.get("USE_GTTS_FALLBACK", "true").lower() == "true"
+PREFER_GTTS = os.environ.get("PREFER_GTTS", "false").lower() == "true"
+KOKORO_API_URL = os.environ.get("KOKORO_API_URL", "http://localhost:8880/v1/audio/speech")
+KOKORO_VOICE = os.environ.get("KOKORO_VOICE", "bm_george")
+KOKORO_SPEED = float(os.environ.get("KOKORO_SPEED", "1.35"))
 
 from src.utils.text import chunk_text
 from src.utils.io import ensure_dir
@@ -29,13 +34,35 @@ SPLIT_PUNCT = [
 def _voice_candidates(primary: str) -> List[str]:
     # fallback voices for temporary Edge endpoint/voice 403 issues
     common = [
-        "en-US-GuyNeural",
-        "en-US-AriaNeural",
         "en-GB-RyanNeural",
         "en-GB-SoniaNeural",
+        "en-US-GuyNeural",
+        "en-US-AriaNeural",
     ]
     out = [primary] + [v for v in common if v != primary]
     return out
+
+
+def _save_with_kokoro_api(text: str, out_path: Path) -> bool:
+    try:
+        r = requests.post(
+            KOKORO_API_URL,
+            json={
+                "input": text,
+                "voice": KOKORO_VOICE,
+                "speed": KOKORO_SPEED,
+                "response_format": "mp3",
+                "model": "kokoro",
+                "stream": False,
+            },
+            timeout=40,
+        )
+        if r.status_code == 200 and r.content:
+            out_path.write_bytes(r.content)
+            return True
+    except Exception:
+        return False
+    return False
 
 
 async def _save_one(text: str, voice: str, rate: str, out_path: Path) -> None:
@@ -44,13 +71,17 @@ async def _save_one(text: str, voice: str, rate: str, out_path: Path) -> None:
         for attempt in range(1, 4):
             try:
                 communicate = edge_tts.Communicate(text, v, rate=rate)
-                await communicate.save(str(out_path))
+                await asyncio.wait_for(communicate.save(str(out_path)), timeout=25)
                 return
             except Exception as e:
                 last_err = e
                 await asyncio.sleep(0.8 * attempt)
 
-    # Optional fallback: disabled by default so voice identity stays consistent.
+    # Fallback 1: local Kokoro API (if running)
+    if _save_with_kokoro_api(text, out_path):
+        return
+
+    # Fallback 2: gTTS (optional)
     if USE_GTTS_FALLBACK:
         try:
             tts = gTTS(text=text, lang="en", slow=False)
