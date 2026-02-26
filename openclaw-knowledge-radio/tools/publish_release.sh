@@ -30,10 +30,27 @@ api() {
   curl -sS -H "Authorization: token $TOKEN" -H "Accept: application/vnd.github+json" "$@"
 }
 
+json_get() {
+  local key="$1"
+  python3 -c 'import json,sys
+key=sys.argv[1]
+raw=sys.stdin.read().strip()
+if not raw:
+    print("")
+    raise SystemExit(0)
+try:
+    obj=json.loads(raw)
+except Exception:
+    dec=json.JSONDecoder()
+    obj,_=dec.raw_decode(raw)
+val=obj.get(key,"") if isinstance(obj,dict) else ""
+print(val if val is not None else "")' "$key"
+}
+
 # find or create release
 RELEASE_JSON=$(api "https://api.github.com/repos/${RELEASE_REPO}/releases/tags/${TAG}" || true)
-UPLOAD_URL=$(echo "$RELEASE_JSON" | python3 -c 'import sys,json; d=json.load(sys.stdin); print(d.get("upload_url",""))' 2>/dev/null || true)
-RID=$(echo "$RELEASE_JSON" | python3 -c 'import sys,json; d=json.load(sys.stdin); print(d.get("id",""))' 2>/dev/null || true)
+UPLOAD_URL=$(echo "$RELEASE_JSON" | json_get "upload_url" 2>/dev/null || true)
+RID=$(echo "$RELEASE_JSON" | json_get "id" 2>/dev/null || true)
 
 if [[ -z "$RID" || "$RID" == "None" ]]; then
   CREATE=$(curl -sS -X POST \
@@ -41,8 +58,8 @@ if [[ -z "$RID" || "$RID" == "None" ]]; then
     -H "Accept: application/vnd.github+json" \
     https://api.github.com/repos/${RELEASE_REPO}/releases \
     -d "{\"tag_name\":\"${TAG}\",\"name\":\"${REL_NAME}\",\"draft\":false,\"prerelease\":false}")
-  UPLOAD_URL=$(echo "$CREATE" | python3 -c 'import sys,json; d=json.load(sys.stdin); print(d.get("upload_url",""))')
-  RID=$(echo "$CREATE" | python3 -c 'import sys,json; d=json.load(sys.stdin); print(d.get("id",""))')
+  UPLOAD_URL=$(echo "$CREATE" | json_get "upload_url")
+  RID=$(echo "$CREATE" | json_get "id")
 fi
 
 if [[ -z "$RID" || "$RID" == "None" ]]; then
@@ -58,14 +75,14 @@ if [[ -n "$AID" ]]; then
     "https://api.github.com/repos/${RELEASE_REPO}/releases/assets/${AID}" >/dev/null
 fi
 
-UP_BASE=${UPLOAD_URL%%%\{*}
+UP_BASE=${UPLOAD_URL%\{*}
 UPLOAD_RESP=$(curl -sS -X POST \
   -H "Authorization: token $TOKEN" \
   -H "Content-Type: audio/mpeg" \
   --data-binary @"$MP3" \
   "${UP_BASE}?name=${ASSET_NAME}")
 
-DL_URL=$(echo "$UPLOAD_RESP" | python3 -c 'import sys,json; d=json.load(sys.stdin); print(d.get("browser_download_url",""))')
+DL_URL=$(echo "$UPLOAD_RESP" | json_get "browser_download_url")
 if [[ -z "$DL_URL" ]]; then
   echo "ERROR: upload failed"
   exit 1

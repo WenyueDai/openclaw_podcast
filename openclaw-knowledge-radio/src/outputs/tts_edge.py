@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import List, Tuple
 
 import edge_tts
+from gtts import gTTS
 
 from src.utils.text import chunk_text
 from src.utils.io import ensure_dir
@@ -47,6 +48,15 @@ async def _save_one(text: str, voice: str, out_path: Path) -> None:
             except Exception as e:
                 last_err = e
                 await asyncio.sleep(0.8 * attempt)
+
+    # Fallback: gTTS to keep pipeline alive if Edge endpoint rejects requests.
+    try:
+        tts = gTTS(text=text, lang="en", slow=False)
+        tts.save(str(out_path))
+        return
+    except Exception:
+        pass
+
     raise last_err
 
 
