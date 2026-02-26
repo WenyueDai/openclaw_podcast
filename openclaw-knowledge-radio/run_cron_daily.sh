@@ -29,7 +29,7 @@ command -v openclaw >/dev/null
 : "${OPENROUTER_API_KEY:?OPENROUTER_API_KEY is required}"
 
 # 5) 跑主流程
-python "$BASE/run_daily.py"
+LOOKBACK_HOURS="${LOOKBACK_HOURS:-72}" python "$BASE/run_daily.py"
 "$BASE/send_output_telegram.sh"
 
 # 5) upload merged mp3 to GitHub Release (preferred long-term hosting)

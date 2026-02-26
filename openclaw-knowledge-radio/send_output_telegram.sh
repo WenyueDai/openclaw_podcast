@@ -22,8 +22,12 @@ FINAL_MP3="$DAY_DIR/podcast_${TODAY}.mp3"
 SCRIPT_TXT="$DAY_DIR/podcast_script_${TODAY}_llm_clean.txt"
 
 if [ ! -f "$FINAL_MP3" ]; then
-  echo "ERROR: Missing final mp3: $FINAL_MP3"
-  exit 1
+  echo "WARN: Missing final mp3: $FINAL_MP3"
+  openclaw message send \
+    --channel telegram \
+    --target "$TARGET" \
+    --message "ℹ️ No new podcast audio generated for ${TODAY} (no fresh items in retrieval window)."
+  exit 0
 fi
 
 SIZE=$(stat -c%s "$FINAL_MP3")
