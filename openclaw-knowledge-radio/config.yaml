@@ -28,6 +28,11 @@ rss_sources:
     tags: ["protein-design", "nature", "journal"]
     bucket: "protein"
 
+  - name: "Nature - Protein Design"
+    url: "https://www.nature.com/subjects/protein-design.rss"
+    tags: ["protein-design", "nature", "topic"]
+    bucket: "protein"
+
   - name: "arXiv q-bio.QM"
     url: "https://arxiv.org/rss/q-bio.QM"
     tags: ["quantitative-biology", "preprint", "arxiv"]
@@ -149,8 +154,8 @@ podcast:
   enabled: true
   target_minutes: 60
   # Change voice if you want Mandarin etc. Example: "zh-CN-XiaoxiaoNeural"
-  voice: "en-US-GuyNeural"
-  voice_rate: "+30%"
+  voice: "en-GB-RyanNeural"
+  voice_rate: "+35%"
   tts_chunk_chars: 2800
   chunking:
     fulltext_threshold_chars: 2500
