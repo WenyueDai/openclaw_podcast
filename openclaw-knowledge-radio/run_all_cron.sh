@@ -25,8 +25,15 @@ if [ -f /home/eva/.openclaw_env ]; then
   set +a
 fi
 
-# activate virtual env
-source "$BASE/.venv/bin/activate"
+# activate virtual env (prefer project .venv, fallback global)
+if [ -f "$BASE/.venv/bin/activate" ]; then
+  source "$BASE/.venv/bin/activate"
+elif [ -f /home/eva/.openclaw/venv/bin/activate ]; then
+  source /home/eva/.openclaw/venv/bin/activate
+else
+  echo "ERROR: no usable venv found" >&2
+  exit 1
+fi
 
 cd "$BASE"
 
