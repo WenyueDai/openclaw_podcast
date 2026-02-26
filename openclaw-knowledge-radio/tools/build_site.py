@@ -139,19 +139,19 @@ def render_index(episodes):
 <meta name='viewport' content='width=device-width,initial-scale=1'>
 <title>{html.escape(PODCAST_TITLE)}</title>
 <style>
-:root {{ --bg:#fff7fb; --bg2:#f8fbff; --card:#ffffff; --text:#2f2740; --muted:#7b6f8f; --accent:#d9689f; --line:#f0d7e8; }}
+:root {{ --bg:#eef7ef; --bg2:#f7f4e9; --card:#fffdf6; --text:#2d3d33; --muted:#6d7f71; --accent:#4f8f6a; --line:#dbe7d9; }}
 * {{ box-sizing:border-box; }}
-body {{ margin:0; font-family:"Hiragino Sans","Noto Sans JP",Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:linear-gradient(180deg,var(--bg),var(--bg2)); color:var(--text); }}
+body {{ margin:0; font-family:"Hiragino Sans","Noto Sans JP",Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:linear-gradient(160deg,var(--bg),var(--bg2)); color:var(--text); }}
 main {{ max-width:900px; margin:0 auto; padding:28px 16px 40px; }}
-h1 {{ margin:0 0 8px; letter-spacing:.2px; }}
+h1 {{ margin:0 0 8px; letter-spacing:.3px; }}
 .sub {{ color:var(--muted); margin-bottom:18px; }}
-.card {{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px; margin:14px 0; box-shadow:0 10px 24px rgba(217,104,159,.10); }}
+.card {{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; margin:14px 0; box-shadow:0 10px 22px rgba(79,143,106,.12); }}
 h2 {{ margin:0 0 4px; font-size:1.15rem; }}
 .meta {{ color:var(--muted); margin:0 0 10px; font-size:.92rem; }}
 a {{ color:var(--accent); text-decoration:none; }}
 a:hover {{ text-decoration:underline; }}
 audio {{ width:100%; margin:6px 0 8px; }}
-.abstract h3 {{ margin:10px 0 6px; font-size:1rem; color:#6e5a86; }}
+.abstract h3 {{ margin:10px 0 6px; font-size:1rem; color:#4c6f5a; }}
 .abstract ul {{ margin:0; padding-left:20px; }}
 .abstract li {{ margin:6px 0; line-height:1.45; }}
 </style>
