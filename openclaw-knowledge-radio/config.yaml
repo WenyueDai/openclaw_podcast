@@ -150,6 +150,16 @@ rss_sources:
 daily_knowledge:
   enabled: true
 
+wiki_context:
+  enabled: true
+  max_items: 5
+  topics:
+    - "Protein design"
+    - "Computational biology"
+    - "Bioinformatics"
+    - "Machine learning"
+    - "AlphaFold"
+
 podcast:
   enabled: true
   target_minutes: 60

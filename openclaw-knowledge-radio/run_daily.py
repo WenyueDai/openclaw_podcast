@@ -12,6 +12,7 @@ from src.utils.io import ensure_dir, write_jsonl, write_text
 from src.utils.dedup import SeenStore
 from src.collectors.rss import collect_rss_items
 from src.collectors.daily_knowledge import collect_daily_knowledge_items
+from src.collectors.wiki_context import collect_wiki_context_items
 from src.processing.rank import rank_and_limit
 from src.processing.script_llm import build_podcast_script_llm_chunked, TRANSITION_MARKER
 from src.outputs.obsidian import write_obsidian_daily
@@ -82,6 +83,14 @@ def main() -> int:
         items.extend(collect_rss_items(cfg["rss_sources"], tz=tz, lookback_hours=lookback_hours, now_ref=run_anchor))
         if cfg.get("daily_knowledge", {}).get("enabled", True):
             items.extend(collect_daily_knowledge_items(tz=tz))
+        if cfg.get("wiki_context", {}).get("enabled", False):
+            items.extend(
+                collect_wiki_context_items(
+                    cfg.get("wiki_context", {}).get("topics", []),
+                    date_str=today,
+                    max_items=int(cfg.get("wiki_context", {}).get("max_items", 4)),
+                )
+            )
 
         # 2) Dedup across days
         new_items: List[Dict[str, Any]] = []
@@ -90,6 +99,12 @@ def main() -> int:
 
             if not url:
                 continue
+
+            # Wiki context items are pre-built summaries; keep them lightweight.
+            if it.get("kind") == "wiki_context":
+                new_items.append(it)
+                continue
+
             if not DEBUG_MODE and seen.has(url):
                 continue
             seen.add(url)
