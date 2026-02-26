@@ -28,7 +28,10 @@ command -v ffmpeg >/dev/null
 command -v openclaw >/dev/null
 : "${OPENROUTER_API_KEY:?OPENROUTER_API_KEY is required}"
 
-# 5) 跑主流程
+# 5) Optional blogwatcher pass (extra discovery signal)
+timeout 5m "$BASE/tools/blogwatcher_daily.sh" || true
+
+# 6) 跑主流程
 LOOKBACK_HOURS="${LOOKBACK_HOURS:-72}" python "$BASE/run_daily.py"
 "$BASE/send_output_telegram.sh"
 
