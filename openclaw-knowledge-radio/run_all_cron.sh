@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-BASE="/home/eva/openclaw_workspace/openclaw_podcast/openclaw-knowledge-radio"
+BASE="${PODCAST_BASE:-/home/eva/openclaw_workspace/openclaw_podcast/openclaw-knowledge-radio}"
 LOG="$BASE/cron_master.log"
 LOCK="/tmp/podcast_daily.lock"
+STATE_FILE="$BASE/state/last_run.json"
+mkdir -p "$BASE/state"
 
 # single instance guard
 exec 9>"$LOCK"
@@ -25,10 +27,22 @@ notify_tg() {
   openclaw message send --channel telegram --target "$TELEGRAM_TARGET" --message "$text" || true
 }
 
+write_state() {
+  local status="$1"
+  python - "$STATE_FILE" "$status" "${CURRENT_STAGE:-init}" <<'PY'
+import json,sys,datetime
+p,status,stage=sys.argv[1:4]
+now=datetime.datetime.utcnow().isoformat(timespec='seconds')+'Z'
+obj={"time":now,"status":status,"stage":stage}
+with open(p,'w',encoding='utf-8') as f: json.dump(obj,f,indent=2)
+PY
+}
+
 on_error() {
   local code=$?
   local tail_log
   tail_log=$(tail -n 20 "$LOG" | sed 's/"/'"'"'/g')
+  write_state "failed"
   notify_tg "⚠️ Daily podcast failed (stage: ${CURRENT_STAGE:-unknown}, code: ${code}). Check cron_master.log."
   echo "ERROR stage=${CURRENT_STAGE:-unknown} code=$code"
   echo "$tail_log"
@@ -56,9 +70,11 @@ fi
 cd "$BASE"
 
 CURRENT_STAGE="run_cron_daily"
+write_state "running"
 echo "[1/2] run_cron_daily.sh"
 timeout 2h ./run_cron_daily.sh
 
 CURRENT_STAGE="finalize"
+write_state "success"
 echo "===== DONE $(date) ====="
 notify_tg "✅ Daily podcast run finished. Feed: https://wenyuedai.github.io/openclaw_podcast/feed.xml"
