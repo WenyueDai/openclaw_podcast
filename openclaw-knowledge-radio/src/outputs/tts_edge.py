@@ -8,6 +8,8 @@ from typing import List, Tuple
 import edge_tts
 from gtts import gTTS
 
+USE_GTTS_FALLBACK = os.environ.get("USE_GTTS_FALLBACK", "false").lower() == "true"
+
 from src.utils.text import chunk_text
 from src.utils.io import ensure_dir
 
@@ -48,13 +50,14 @@ async def _save_one(text: str, voice: str, rate: str, out_path: Path) -> None:
                 last_err = e
                 await asyncio.sleep(0.8 * attempt)
 
-    # Fallback: gTTS to keep pipeline alive if Edge endpoint rejects requests.
-    try:
-        tts = gTTS(text=text, lang="en", slow=False)
-        tts.save(str(out_path))
-        return
-    except Exception:
-        pass
+    # Optional fallback: disabled by default so voice identity stays consistent.
+    if USE_GTTS_FALLBACK:
+        try:
+            tts = gTTS(text=text, lang="en", slow=False)
+            tts.save(str(out_path))
+            return
+        except Exception:
+            pass
 
     raise last_err
 

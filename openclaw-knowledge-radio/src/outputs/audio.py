@@ -11,17 +11,20 @@ TARGET_BYTES = int(9.9 * 1024 * 1024)
 def _build_transition_sfx(out_dir: Path) -> Path:
     """Generate a short news-like transition cue if missing."""
     sfx = out_dir / "transition_sfx.mp3"
-    if sfx.exists() and sfx.stat().st_size > 0:
-        return sfx
+    # Rebuild every run so transition timing updates apply immediately.
+    if sfx.exists():
+        sfx.unlink(missing_ok=True)
 
-    # 0.12s beep -> 0.06s pause -> 0.12s beep
-    # Generated with ffmpeg lavfi so no external asset needed.
+    # 1.0s silence -> short cue -> 1.0s silence
+    # So transitions feel like: pause, cue, pause, next news.
     cmd = [
         "ffmpeg", "-y",
+        "-f", "lavfi", "-i", "anullsrc=r=24000:cl=mono:d=1.0",
         "-f", "lavfi", "-i", "sine=frequency=1046:duration=0.12",
         "-f", "lavfi", "-i", "anullsrc=r=24000:cl=mono:d=0.06",
         "-f", "lavfi", "-i", "sine=frequency=1318:duration=0.12",
-        "-filter_complex", "[0:a][1:a][2:a]concat=n=3:v=0:a=1[a]",
+        "-f", "lavfi", "-i", "anullsrc=r=24000:cl=mono:d=1.0",
+        "-filter_complex", "[0:a][1:a][2:a][3:a][4:a]concat=n=5:v=0:a=1[a]",
         "-map", "[a]",
         "-ar", "24000",
         "-ac", "1",
