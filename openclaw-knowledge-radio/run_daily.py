@@ -92,12 +92,21 @@ def main() -> int:
                 )
             )
 
-        # 2) Dedup across days
+        # 2) Dedup across days + topical filtering
+        excluded_terms = [
+            "cell biology", "single-cell", "single cell", "animal model", "murine",
+            "mouse", "mice", "rat", "zebrafish", "drosophila", "in vivo"
+        ]
         new_items: List[Dict[str, Any]] = []
         for it in items:
             url = (it.get("url") or "").strip()
+            title = (it.get("title") or "")
+            source = (it.get("source") or "")
+            hay = f"{title} {source} {url}".lower()
 
             if not url:
+                continue
+            if any(t in hay for t in excluded_terms):
                 continue
 
             # Wiki context items are pre-built summaries; keep them lightweight.

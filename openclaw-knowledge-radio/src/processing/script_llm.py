@@ -148,40 +148,42 @@ def _format_item_block(it: Dict[str, Any]) -> str:
 
 TRANSITION_MARKER = "[[TRANSITION]]"
 
-SYSTEM_DEEP_DIVE = """You are an expert English podcast host for 'Colorful Biology'.
+SYSTEM_DEEP_DIVE = """You are an expert English podcast host for a long-form run-friendly science/tech show.
 This segment MUST be based ONLY on the provided item block and notes.
 
 Style goals:
-- Informative and precise first; engaging second.
-- Sound curious and lively, with one light touch of humor or analogy per segment.
-- Keep language clear for computational biology listeners.
+- High information density, low fluff.
+- Conversational and slightly playful, but technically accurate.
+- Start directly with the core innovation. No greetings or catchphrases.
 
 Hard rules:
 - Do NOT invent methods/results/numbers.
-- Use only what is present in NOTES_FROM_PIPELINE and metadata.
+- Do NOT spend long time on minor parameter details unless critical to novelty.
+- Prioritize: what is new, why it matters, what changed vs prior work.
+- Use only NOTES_FROM_PIPELINE and metadata.
 - If details are missing, explicitly say: "The available text does not provide details on X."
-- Separate confidence: say what is known vs uncertain.
-- Explain uncommon terms in one sentence.
 - Mention source name naturally when making a claim.
-- No markdown symbols (no asterisks), TTS-friendly plain text.
+- No markdown symbols, TTS-friendly plain text.
+- No ending phrases after each paper segment.
 
 Length requirement:
-- About 350–550 words per deep dive.
+- About 220–340 words per deep dive.
 """
 
-SYSTEM_ROUNDUP = """You are an English podcast host doing a mid-depth roundup.
+SYSTEM_ROUNDUP = """You are an English podcast host doing concise roundup segments.
 Use ONLY the provided item blocks and notes.
 
 Style:
-- Crisp, energetic, and slightly playful without sacrificing rigor.
+- Crisp, lively, and accessible. Keep it punchy.
 
 Rules:
-- For EACH item: 110–180 words.
+- For EACH item: 80–130 words.
+- Lead with the key takeaway and novelty.
+- Avoid low-value parameter minutiae unless crucial.
 - Be concrete but never invent details or numbers.
-- Clearly mark uncertainty if evidence is incomplete.
 - Mention source name in each item.
-- Explain one uncommon term briefly if present.
-- No markdown symbols (no asterisks), TTS-friendly plain text.
+- No greetings, no sign-off after each item.
+- No markdown symbols, TTS-friendly plain text.
 """
 
 SYSTEM_OPENING = """You are an English podcast host.
@@ -304,23 +306,8 @@ def build_podcast_script_llm_chunked(*, date_str: str, items: List[Dict[str, Any
     roundup_items = rest[:roundup_max]
     headline_items = rest[roundup_max:]
 
-    # ---- Opening (one small call)
-    opening_user = [
-        f"DATE: {date_str}",
-        "Episode plan:",
-        f"- Deep dives: {len(deep_items)} item(s) (only items with full text)",
-        f"- Roundup: {len(roundup_items)} item(s)",
-        f"- Headlines: {len(headline_items)} item(s)",
-        "Write an opening with a clear overview and an energetic but calm tone."
-    ]
-    opening = _chat_complete(
-        client,
-        model=model,
-        system=SYSTEM_OPENING,
-        user="\n".join(opening_user),
-        temperature=temperature,
-        max_tokens=opening_max_tokens,
-    ).strip()
+    # ---- No opening: start directly with content
+    opening = ""
 
     # ---- Deep dive segments (one call per item)
     deep_segments: List[str] = []
@@ -382,22 +369,8 @@ def build_podcast_script_llm_chunked(*, date_str: str, items: List[Dict[str, Any
     else:
         headlines = ""
 
-    # ---- Closing (one small call)
-    closing_user = [
-        f"DATE: {date_str}",
-        f"Deep dives covered: {len(deep_items)}",
-        f"Roundup covered: {len(roundup_items)}",
-        f"Headlines covered: {len(headline_items)}",
-        "Write a short closing that recaps the episode and hints at tomorrow."
-    ]
-    closing = _chat_complete(
-        client,
-        model=model,
-        system=SYSTEM_CLOSING,
-        user="\n".join(closing_user),
-        temperature=temperature,
-        max_tokens=closing_max_tokens,
-    ).strip()
+    # ---- No closing: keep flow dense and direct
+    closing = ""
 
     # ---- Deterministic assembly (no compression)
     spoken_blocks: List[str] = []

@@ -160,8 +160,19 @@ audio {{ width:100%; margin:6px 0 8px; }}
 <main>
   <h1>{html.escape(PODCAST_TITLE)}</h1>
   <p class='sub'>{html.escape(PODCAST_SUMMARY)}.</p>
+  <p class='sub'>Playback speed:
+    <button onclick="setRate(1)">1x</button>
+    <button onclick="setRate(1.2)">1.2x</button>
+    <button onclick="setRate(1.5)">1.5x</button>
+    <button onclick="setRate(2)">2x</button>
+  </p>
   {body}
 </main>
+<script>
+function setRate(v) {{
+  document.querySelectorAll('audio').forEach(a => {{ a.playbackRate = v; }});
+}}
+</script>
 </body>
 </html>
 """

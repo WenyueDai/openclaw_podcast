@@ -1,3 +1,4 @@
+import os
 import subprocess
 from pathlib import Path
 from typing import List
@@ -110,6 +111,9 @@ def _split_mp3_into_size_limited_parts(mp3_path: Path, target_bytes: int) -> Lis
     return out_files
 
 
+PLAYBACK_ATEMPO = float(os.environ.get("PODCAST_ATEMPO", "1.2"))
+
+
 def _concat_sequence(seq: List[Path], out_mp3: Path) -> None:
     list_file = out_mp3.parent / "ffmpeg_concat_list.txt"
     lines = [f"file '{p.as_posix()}'" for p in seq]
@@ -119,6 +123,7 @@ def _concat_sequence(seq: List[Path], out_mp3: Path) -> None:
         "ffmpeg", "-y",
         "-f", "concat", "-safe", "0",
         "-i", str(list_file),
+        "-filter:a", f"atempo={PLAYBACK_ATEMPO}",
         "-codec:a", "libmp3lame", "-q:a", "4",
         str(out_mp3),
     ]
