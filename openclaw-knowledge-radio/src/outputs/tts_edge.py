@@ -11,6 +11,9 @@ from gtts import gTTS
 
 USE_GTTS_FALLBACK = os.environ.get("USE_GTTS_FALLBACK", "true").lower() == "true"
 PREFER_GTTS = os.environ.get("PREFER_GTTS", "false").lower() == "true"
+# Set PREFER_KOKORO=true + run a Kokoro server (docker run -p 8880:8880 ghcr.io/remsky/kokoro-fastapi-cpu:latest)
+# to use Kokoro as primary TTS (higher quality, runs fully offline)
+PREFER_KOKORO = os.environ.get("PREFER_KOKORO", "false").lower() == "true"
 KOKORO_API_URL = os.environ.get("KOKORO_API_URL", "http://localhost:8880/v1/audio/speech")
 KOKORO_VOICE = os.environ.get("KOKORO_VOICE", "bm_george")
 KOKORO_SPEED = float(os.environ.get("KOKORO_SPEED", "1.35"))
@@ -66,6 +69,11 @@ def _save_with_kokoro_api(text: str, out_path: Path) -> bool:
 
 
 async def _save_one(text: str, voice: str, rate: str, out_path: Path) -> None:
+    # Primary: Kokoro (if PREFER_KOKORO=true and server is running)
+    if PREFER_KOKORO:
+        if _save_with_kokoro_api(text, out_path):
+            return
+
     last_err = None
     for v in _voice_candidates(voice):
         for attempt in range(1, 4):
@@ -77,8 +85,8 @@ async def _save_one(text: str, voice: str, rate: str, out_path: Path) -> None:
                 last_err = e
                 await asyncio.sleep(0.8 * attempt)
 
-    # Fallback 1: local Kokoro API (if running)
-    if _save_with_kokoro_api(text, out_path):
+    # Fallback 1: local Kokoro API (if running and not already tried)
+    if not PREFER_KOKORO and _save_with_kokoro_api(text, out_path):
         return
 
     # Fallback 2: gTTS (optional)

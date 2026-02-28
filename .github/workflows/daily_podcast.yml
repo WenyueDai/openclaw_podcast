@@ -1,0 +1,52 @@
+name: Daily Podcast
+
+on:
+  schedule:
+    # Runs at 06:00 UTC every day (adjust as needed — use https://crontab.guru)
+    - cron: "0 6 * * *"
+  workflow_dispatch:   # allows manual trigger from GitHub Actions tab
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: openclaw-knowledge-radio
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # needed for push back
+          token: ${{ secrets.GH_PAT }}   # PAT with repo + workflow scopes
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install ffmpeg
+        run: sudo apt-get install -y ffmpeg
+
+      - name: Run daily pipeline
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          GITHUB_TOKEN:       ${{ secrets.GH_PAT }}
+          SLACK_WEBHOOK_URL:  ${{ secrets.SLACK_WEBHOOK_URL }}
+          NOTION_TOKEN:       ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        run: python run_daily.py
+
+      - name: Commit state + site changes
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "Update daily podcast site $(date -u +%Y-%m-%d)"
+
+      - name: Push changes
+        run: git push origin main

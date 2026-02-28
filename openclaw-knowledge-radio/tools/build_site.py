@@ -222,7 +222,7 @@ def render_index(episodes, all_episodes=None):
             f'</details>'
         )
     sidebar_html = (
-        f'<aside class="sidebar">'
+        f'<aside class="sidebar" id="archive-panel">'
         f'<h3>Archive</h3>'
         f'{"".join(sidebar_parts)}'
         f'</aside>'
@@ -240,8 +240,9 @@ def render_index(episodes, all_episodes=None):
 body {{ margin:0; font-family:"Hiragino Sans","Noto Sans JP",Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:linear-gradient(160deg,var(--bg),var(--bg2)); color:var(--text); }}
 .layout {{ display:flex; gap:20px; max-width:1200px; margin:0 auto; padding:28px 16px 40px; }}
 .main-col {{ flex:1; min-width:0; }}
-.sidebar {{ width:210px; flex-shrink:0; }}
-.sidebar h3 {{ margin:0 0 10px; font-size:.95rem; color:var(--accent); }}
+.sidebar {{ width:220px; flex-shrink:0; transition:width .25s,opacity .25s; overflow:hidden; }}
+.sidebar.collapsed {{ width:0; opacity:0; pointer-events:none; }}
+.sidebar h3 {{ margin:0 0 10px; font-size:.95rem; color:var(--accent); display:flex; justify-content:space-between; align-items:center; }}
 .month-group {{ margin-bottom:6px; border:1px solid var(--line); border-radius:8px; overflow:hidden; }}
 .month-group summary {{ padding:6px 10px; font-size:.85rem; font-weight:600; color:var(--text); cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; background:var(--bg2); }}
 .month-group summary::-webkit-details-marker {{ display:none; }}
@@ -250,6 +251,7 @@ body {{ margin:0; font-family:"Hiragino Sans","Noto Sans JP",Inter,system-ui,-ap
 .month-group ul {{ margin:0; padding:6px 10px; list-style:none; background:var(--card); }}
 .month-group li {{ margin:4px 0; font-size:.82rem; display:flex; align-items:center; gap:4px; }}
 .new-badge {{ color:var(--accent); font-size:.7rem; }}
+.archive-toggle {{ position:fixed; right:16px; top:50%; transform:translateY(-50%); z-index:50; background:var(--accent); color:#fff; border:none; border-radius:50%; width:38px; height:38px; font-size:1rem; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.2); display:flex; align-items:center; justify-content:center; }}
 h1 {{ margin:0 0 6px; letter-spacing:.3px; }}
 .sub {{ color:var(--muted); margin-bottom:12px; font-size:.92rem; }}
 .card {{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; margin:14px 0; box-shadow:0 10px 22px rgba(79,143,106,.12); }}
@@ -287,6 +289,7 @@ audio {{ width:100%; margin:4px 0 6px; }}
 </style>
 </head>
 <body>
+<button class="archive-toggle" onclick="toggleArchive()" title="Toggle archive">📚</button>
 <div class="layout">
   <div class="main-col">
     <h1>{html.escape(PODCAST_TITLE)}</h1>
@@ -429,6 +432,21 @@ async function saveFeedback() {{
     }}
   }} catch(e) {{ setStatus('Error: ' + e.message); }}
 }}
+
+// ── Archive toggle ────────────────────────────────────────────────────────
+function toggleArchive() {{
+  const panel = document.getElementById('archive-panel');
+  const btn = document.querySelector('.archive-toggle');
+  const collapsed = panel.classList.toggle('collapsed');
+  btn.textContent = collapsed ? '📚' : '✕';
+  localStorage.setItem('archive_open', collapsed ? '0' : '1');
+}}
+// Start collapsed by default; open if user had it open previously
+(function() {{
+  const panel = document.getElementById('archive-panel');
+  const open = localStorage.getItem('archive_open');
+  if (open !== '1') panel.classList.add('collapsed');
+}})();
 
 loadCheckboxes();
 </script>

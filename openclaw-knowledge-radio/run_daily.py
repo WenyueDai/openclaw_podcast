@@ -113,12 +113,59 @@ def _dynamic_pubmed_terms(state_dir: Path, existing_terms: list, max_new: int = 
     return dynamic
 
 
-def _notify_slack(date: str, ranked: List[Dict[str, Any]], cfg: Dict[str, Any]) -> None:
-    """Post a summary to Slack via Incoming Webhook. No-op if SLACK_WEBHOOK_URL is unset."""
+def _llm_run_analysis(ranked: List[Dict[str, Any]], errors: List[str], cfg: Dict[str, Any]) -> str:
+    """Ask the LLM to summarize today's run quality and suggest improvements."""
+    try:
+        import urllib.request as _ur
+        api_key = os.environ.get(cfg.get("llm", {}).get("api_key_env", "OPENROUTER_API_KEY"), "")
+        if not api_key:
+            return ""
+        model = cfg.get("llm", {}).get("analysis_model") or cfg.get("llm", {}).get("model", "")
+        if not model:
+            return ""
+
+        sources = {}
+        for it in ranked:
+            src = (it.get("source") or "unknown").split("—")[0].strip()
+            sources[src] = sources.get(src, 0) + 1
+        source_summary = ", ".join(f"{s}({n})" for s, n in sorted(sources.items(), key=lambda x: -x[1])[:8])
+        error_block = "\n".join(errors[:5]) if errors else "none"
+
+        prompt = (
+            f"You are an AI assistant reviewing a daily protein-design podcast pipeline run.\n"
+            f"Items selected: {len(ranked)} | Sources: {source_summary}\n"
+            f"Errors: {error_block}\n\n"
+            f"In 3-4 concise bullet points, identify what went well, flag any concerns "
+            f"(e.g. too many items from one source, missing key topics, errors), "
+            f"and suggest 1-2 concrete improvements for tomorrow's run."
+        )
+        body = json.dumps({
+            "model": model,
+            "messages": [{"role": "user", "content": prompt}],
+            "max_tokens": 350,
+            "temperature": 0.3,
+        }).encode()
+        req = _ur.Request(
+            "https://openrouter.ai/api/v1/chat/completions",
+            data=body,
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+        )
+        resp = _ur.urlopen(req, timeout=25)
+        data = json.loads(resp.read())
+        return data["choices"][0]["message"]["content"].strip()
+    except Exception as e:
+        return f"(analysis failed: {e})"
+
+
+def _notify_slack(date: str, ranked: List[Dict[str, Any]], cfg: Dict[str, Any],
+                  errors: List[str] | None = None) -> None:
+    """Post a summary + run analysis to Slack via Incoming Webhook."""
     import urllib.request
     webhook = os.environ.get("SLACK_WEBHOOK_URL", "").strip()
     if not webhook:
         return
+
+    errors = errors or []
 
     # Top 5 items for the digest
     lines = []
@@ -139,11 +186,20 @@ def _notify_slack(date: str, ranked: List[Dict[str, Any]], cfg: Dict[str, Any]) 
         f"*Top picks:*\n{items_block}"
     )
 
+    if errors:
+        err_block = "\n".join(f"⚠ {e}" for e in errors[:5])
+        text += f"\n\n*Errors ({len(errors)}):*\n{err_block}"
+
+    # LLM analysis + suggestions
+    analysis = _llm_run_analysis(ranked, errors, cfg)
+    if analysis:
+        text += f"\n\n*Pipeline analysis & suggestions:*\n{analysis}"
+
     payload = json.dumps({"text": text}).encode()
     req = urllib.request.Request(webhook, data=payload,
                                  headers={"Content-Type": "application/json"})
     try:
-        urllib.request.urlopen(req, timeout=10)
+        urllib.request.urlopen(req, timeout=15)
         print("[slack] Notification sent", flush=True)
     except Exception as e:
         print(f"[slack] Warning: could not send notification — {e}", flush=True)
@@ -162,6 +218,7 @@ def _resolve(base: Path, p: str) -> Path:
 def main() -> int:
     repo_dir = Path(__file__).resolve().parent
     cfg = load_config(repo_dir / "config.yaml")
+    _run_errors: List[str] = []   # collect non-fatal errors for Slack report
 
     tz = load_tz(cfg.get("timezone", "Europe/London"))
 
@@ -266,8 +323,10 @@ def main() -> int:
             for fut in as_completed(futures):
                 try:
                     new_items.append(fut.result())
-                except Exception:
-                    new_items.append(futures[fut])
+                except Exception as _e:
+                    it = futures[fut]
+                    _run_errors.append(f"fetch/analyze failed for '{it.get('title','?')[:60]}': {_e}")
+                    new_items.append(it)
 
         write_jsonl(seed_file, new_items)
 
@@ -399,7 +458,7 @@ def main() -> int:
     print(json.dumps(status, indent=2))
 
     save_script_to_notion(today, script_path, ranked)
-    _notify_slack(today, ranked, cfg)
+    _notify_slack(today, ranked, cfg, errors=_run_errors)
     return 0
 
 
