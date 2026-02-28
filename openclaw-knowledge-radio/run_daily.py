@@ -446,7 +446,11 @@ def main() -> int:
                 _raw_seg_to_group[_si] = len(groups)
                 groups.append(_seg_parts)
 
-        # Compute per-group start timestamps (raw durations → divide by atempo for final time)
+        # Compute per-group start timestamps.
+        # With tierB_batch_size=1 every item has its own segment, so each item gets
+        # its own SFX + content block. For gi > 0 we point to the SFX transition START
+        # (= end of previous segment speech) so that clicking a highlight always plays
+        # the transition sound before the content begins.
         _SFX_RAW = 2.3  # transition SFX raw duration (see audio.py)
         _raw_durs: List[float] = [
             sum(_ffprobe_duration_seconds(_p) for _p in _grp) for _grp in groups
@@ -454,39 +458,20 @@ def main() -> int:
         _group_ts: List[float] = []
         _t = 0.0
         for _gi, _rd in enumerate(_raw_durs):
-            _group_ts.append(round(_t / PLAYBACK_ATEMPO, 2))
+            if _gi == 0:
+                _group_ts.append(0.0)
+            else:
+                # _t is at speech start of segment _gi; SFX started _SFX_RAW seconds earlier.
+                _group_ts.append(round((_t - _SFX_RAW) / PLAYBACK_ATEMPO, 2))
             _t += _rd
             if _gi < len(_raw_durs) - 1:
                 _t += _SFX_RAW
 
-        # Refine per-item timestamps using title keyword position in the segment text.
-        # For multi-item roundup batches this gives a much better estimate than even spacing,
-        # and correctly handles items the LLM skipped (falls back to segment start).
-        def _title_text_frac(title: str, text: str):
-            import re as _rr
-            _STOP = {"the","a","an","and","or","of","in","for","to","is","are","with","from"}
-            words = [w.lower() for w in _rr.findall(r'[A-Za-z]{5,}', title)
-                     if w.lower() not in _STOP]
-            if not words or not text:
-                return None
-            tl = text.lower()
-            hits = [p for p in (tl.find(w) for w in words[:4]) if p >= 0]
-            return min(hits) / max(len(text), 1) if hits else None
-
+        # Each item maps directly to its segment's SFX-start timestamp.
         for _entry in _episode_items_list:
             _raw_si = _entry["segment"]
             _gi = _raw_seg_to_group.get(_raw_si)
-            if _gi is None:
-                _entry["timestamp"] = -1  # segment produced no audio
-                continue
-            _base_ts = _group_ts[_gi]
-            _seg_text = raw_segments_all[_raw_si] if _raw_si < len(raw_segments_all) else ""
-            _seg_dur = _raw_durs[_gi] / PLAYBACK_ATEMPO if _gi < len(_raw_durs) else 0.0
-            _frac = _title_text_frac(_entry["title"], _seg_text)
-            if _frac is not None and _seg_dur > 0:
-                _entry["timestamp"] = round(_base_ts + _frac * _seg_dur, 2)
-            else:
-                _entry["timestamp"] = _base_ts  # fallback: start of segment
+            _entry["timestamp"] = _group_ts[_gi] if _gi is not None else -1
 
         _episode_items_file.write_text(
             json.dumps({"timestamps": _group_ts, "items": _episode_items_list}, indent=2, ensure_ascii=False),

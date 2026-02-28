@@ -221,7 +221,7 @@ podcast:
     fulltext_threshold_chars: 2500
     tierA_max: 999
     tierB_max: 999
-    tierB_batch_size: 5
+    tierB_batch_size: 1
     deep_dive_max_tokens: 2600
     roundup_max_tokens: 2200
     use_merge_llm: false
