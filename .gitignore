@@ -1,3 +1,5 @@
+.env
+openclaw-knowledge-radio/.env
 *__pycache__/
 *openclaw_env
 *mp3
