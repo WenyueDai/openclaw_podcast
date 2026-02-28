@@ -26,6 +26,7 @@ from src.utils.text import clean_for_tts
 from src.processing.article_extract import extract_article_text
 from src.processing.article_analysis import analyze_article
 from src.outputs.github_publish import upload_episode, push_site
+from src.outputs.notion_publish import save_script_to_notion
 
 
 import shutil
@@ -325,6 +326,7 @@ def main() -> int:
     (out_dir / "status.json").write_text(json.dumps(status, indent=2), encoding="utf-8")
     print(json.dumps(status, indent=2))
 
+    save_script_to_notion(today, script_path, ranked)
     _notify_slack(today, ranked, cfg)
     return 0
 
