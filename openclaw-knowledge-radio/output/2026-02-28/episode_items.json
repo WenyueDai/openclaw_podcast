@@ -1,212 +1,233 @@
 [
   {
-    "title": "I will continue the fight for environmental justice in Black communities",
-    "url": "https://www.nature.com/articles/d41586-026-00538-4",
-    "source": "Nature (main journal)",
-    "one_liner": "Nature, Published online: 27 February 2026; doi:10.1038/d41586-026-00538-4 Nicknamed the father of environmental justice, Robert Bullard argues that researchers in the field have more reason than ever to back up their work with action.",
+    "title": "Crystal Structure of Měnglà Virus Nucleoprotein Bound by a Poorly Cross-Reactive Anti-Marburg Virus Nanobody Highlights a Single Amino Acid Affinity Switch, a Feature Also Evident in Dehong Virus.",
+    "url": "https://doi.org/10.1021/acsinfecdis.5c00920",
+    "source": "PubMed — ACS infectious diseases",
+    "one_liner": "Although Marburg and Měnglà viruses occupy different geographies and genera of the family",
     "bucket": "protein"
   },
   {
-    "title": "White House stalls release of approved US science budgets",
-    "url": "https://www.nature.com/articles/d41586-026-00601-0",
-    "source": "Nature (main journal)",
-    "one_liner": "Nature, Published online: 27 February 2026; doi:10.1038/d41586-026-00601-0 The US Congress rejected sweeping cuts to science agencies. But the NIH, the NSF and NASA have had their spending slowed.",
+    "title": "Mechanistic Insights into Nanobody-Based Quenchbody Sensing via Structural Modeling and Molecular Simulations.",
+    "url": "https://doi.org/10.1021/acs.jcim.5c02969",
+    "source": "PubMed — Journal of chemical information and modeling",
+    "one_liner": "Nanobody-based quenchbodies are powerful fluorescent sensors for detecting biomolecular targets. They rely on tryptophan residues in the antigen-binding site that can quench (darken) a fluorophore attached via a flexible linker; antigen binding displaces the fluorophore and increases the fluorescence. Quenchbodies targeting interleukin-6 (IL-6) exhibit va...",
     "bucket": "protein"
   },
   {
-    "title": "Editorial Expression of&#xa0;Concern: The gene product Murr1 restricts HIV-1 replication in resting CD4+ lymphocytes",
-    "url": "https://www.nature.com/articles/s41586-026-10308-x",
-    "source": "Nature (main journal)",
-    "one_liner": "Nature, Published online: 27 February 2026; doi:10.1038/s41586-026-10308-x Editorial Expression of Concern: The gene product Murr1 restricts HIV-1 replication in resting CD4+ lymphocytes",
+    "title": "Stress adaptation of mitochondrial protein import by OMA1-mediated degradation of DNAJC15",
+    "url": "https://www.nature.com/articles/s41594-026-01756-0",
+    "source": "Nature Structural & Molecular Biology",
+    "one_liner": "Nature Structural & Molecular Biology, Published online: 27 February 2026; doi:10.1038/s41594-026-01756-0 Kroczek et al show that degradation of DNAJC15 by OMA1 and AFG3L2 under stress limits mitochondrial protein import and OXPHOS biogenesis. Non-imported proteins lead to the indu...",
     "bucket": "protein"
   },
   {
-    "title": "Pokémon turns 30 — how the fictional pocket monsters shaped science",
-    "url": "https://www.nature.com/articles/d41586-026-00441-y",
-    "source": "Nature (main journal)",
-    "one_liner": "Nature, Published online: 27 February 2026; doi:10.1038/d41586-026-00441-y The Japanese media sensation has inspired generations of researchers in fields as diverse as evolution, biodiversity and research integrity.",
+    "title": "Intermittent fasting evicts long-lived plasma cells from survival niche",
+    "url": "https://www.nature.com/articles/s41577-026-01286-2",
+    "source": "Nature - Antibodies",
+    "one_liner": "Intermittent fasting impairs the maintenance of long-term humoral immunity by causing the eviction of long-lived plasma cells (LLPCs) from their survival niche in the bone marrow, thereby reducing protective antibody levels.\n\nMETHOD / APPROACH:\nThe study used multiple mouse models to test the effect of fasting on pre-existing humoral immunity.",
     "bucket": "protein"
   },
   {
-    "title": "Is a ‘selfish gene’ making a Utah family have twice as many boys as girls?",
-    "url": "https://www.nature.com/articles/d41586-026-00505-z",
-    "source": "Nature (main journal)",
-    "one_liner": "Nature, Published online: 27 February 2026; doi:10.1038/d41586-026-00505-z Genealogy study claims first conclusive case of sex ‘distortion’ in humans — but not all researchers are convinced.",
+    "title": "Therapeutic Potential of PCSK9 Inhibitors in Regulating Neuroinflammation in Acute Ischemic Stroke.",
+    "url": "https://doi.org/10.1007/s40263-026-01278-9",
+    "source": "PubMed — CNS drugs",
+    "one_liner": "Acute ischemic stroke (AIS) poses a substantial risk of permanent disability and death globally, with neuroinflammation being a key driver of secondary brain damage post-stroke. Proprotein convertase subtilisin/kexin type 9 (PCSK9), beyond its well-accepted role in cholesterol metabolism through low-density lipoprotein receptor (LDLR) degradation, has eme...",
     "bucket": "protein"
   },
   {
-    "title": "Brain mysteries and Bronze Age diplomacy: Books in brief",
-    "url": "https://www.nature.com/articles/d41586-026-00621-w",
-    "source": "Nature (main journal)",
-    "one_liner": "Nature, Published online: 27 February 2026; doi:10.1038/d41586-026-00621-w Andrew Robinson reviews five of the best science picks.",
+    "title": "Preclinical Evaluation of AHT-102, a CLDN18.2 × CD3 Bispecific Antibody: Pharmacokinetics, Anti-Tumor Efficacy, Tissue Distribution, and Safety Profile.",
+    "url": "https://doi.org/10.1007/s40268-026-00535-y",
+    "source": "PubMed — Drugs in R&D",
+    "one_liner": "BACKGROUND AND OBJECTIVES: Claudin18.2 (CLDN18.2) is a promising therapeutic target overexpressed in various tumor tissues. While CD3-engaging bispecific antibodies show great potential, their clinical application is often limited by poor efficacy in solid tumors and significant safety risks, such as cytokine release syndrome (CRS). The objective of this ...",
     "bucket": "protein"
   },
   {
-    "title": "Designing a novel vaccine against COVID-19 based on spike SARS-Cov-2 notable mutations using immunoinformatics approaches.",
-    "url": "https://doi.org/10.1371/journal.pone.0334662",
-    "source": "PubMed — PloS one",
-    "one_liner": "The rapid emergence of SARS-CoV-2 variants with spike protein mutations undermines the effectiveness of current vaccines, necessitating innovative strategies to ensure broad and lasting immunity. This study leverages an immunoinformatics approach to design two multi-epitope vaccine constructs Cov19-B (649 amino acids, 74 kDa) and Cov19-T (465 amino acids,...",
+    "title": "PAK4 in metabolic diseases: regulation by nutrient signals and therapeutic implications.",
+    "url": "https://doi.org/10.1038/s12276-026-01645-y",
+    "source": "PubMed — Experimental & molecular medicine",
+    "one_liner": "Here we highlight recent advances in understanding the regulatory role of p21-activated kinase 4 (PAK4), the prototypical group II PAK family member, in metabolic diseases. It also briefly notes the contributions of the group I member PAK1 in metabolic tissues. Activation of PAK4 is mediated by upstream Ras-related small GTPases such as Cdc42 and Rac1. In...",
     "bucket": "protein"
   },
   {
-    "title": "Antiviral drug discovery and development: challenges and future directions.",
-    "url": "https://doi.org/10.1038/s41392-025-02539-7",
-    "source": "PubMed — Signal transduction and targeted therapy",
-    "one_liner": "The coronavirus disease 2019 (COVID-19) pandemic has stimulated extensive endeavors toward the development of therapeutic interventions targeting severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) and human proteins for viral infection control, encompassing numerous potential drugs and thousands of patients participating in clinical trials. Thes...",
-    "bucket": "protein"
-  },
-  {
-    "title": "A novel mRNA-based multiepitope vaccine candidate against Cryptosporidium hominis and Cryptosporidium parvum employing reverse-vaccinology and immunoinformatics approaches.",
-    "url": "https://doi.org/10.1371/journal.pone.0343643",
-    "source": "PubMed — PloS one",
-    "one_liner": "INTRODUCTION: The parasite Cryptosporidium spp. causes cryptosporidiosis, a diarrheal disease in humans and animals. This study describes the development of mRNA vaccine targeting antigens from C. hominis and C. parvum, important gut pathogens. This vaccine was designed with reverse vaccinology and immunoinformatics as no FDA-approved vaccine exists for c...",
-    "bucket": "protein"
-  },
-  {
-    "title": "TRIM13 in situ engineering boosts anti-inflammatory capacity of CAR-Ms for liver fibrosis therapy.",
-    "url": "https://doi.org/10.1038/s41467-026-69858-3",
+    "title": "Target-stabilized base editors enable robust high-fidelity RNA editing.",
+    "url": "https://doi.org/10.1038/s41467-026-69835-w",
     "source": "PubMed — Nature communications",
-    "one_liner": "Chimeric antigen receptor macrophages (CAR-Ms) therapy has shown great promise in liver fibrosis, however limited anti-inflammatory capacity of CAR-Ms in the fibrotic foci compromises their anti-fibrotic potency. We here report tripartite motif containing 13 (TRIM13) engineered CAR-Ms for effectively manipulating the anti-inflammatory phenotype of CAR-Ms,...",
+    "one_liner": "RNA base editing using engineered deaminases represents a powerful tool to correct mutations at the RNA level. However, widespread off-target effects, primarily arising from dissociated free deaminases, remain a significant challenge. Here, we devise the RECODE (RNA editing with conditionally stable and enhanced ADAR1 deaminase variants) system, which emp...",
     "bucket": "protein"
   },
   {
-    "title": "PON-Del predictor for sequence retaining protein deletions.",
-    "url": "https://doi.org/10.1371/journal.pcbi.1014020",
-    "source": "PubMed — PLoS computational biology",
-    "one_liner": "Protein deletions are frequent among both disease-causing and tolerated variants. Several mechanisms at the DNA, RNA and protein levels can lead to deletions. Many deletions are misclassified in the literature and databases, especially when the mRNA is degraded by the cellular quality-control mechanism. We developed a novel predictor for sequence retainin...",
+    "title": "ISGylation prevents autophagic degradation of STING and promotes antitumor immunity in lung cancer.",
+    "url": "https://doi.org/10.1038/s41419-026-08527-1",
+    "source": "PubMed — Cell death & disease",
+    "one_liner": "The STING pathway plays a central role in immune activation; however, STING protein levels decline during the progression of various cancers, including lung cancer, thereby limiting the efficacy of immunotherapies. Our study uncovers a previously unrecognized mechanism whereby ISGylation stabilizes STING by preventing its autophagic degradation, thereby e...",
     "bucket": "protein"
   },
   {
-    "title": "Revealing protein dynamics with high-pressure NMR.",
-    "url": "https://doi.org/10.1017/S0033583526100092",
-    "source": "PubMed — Quarterly reviews of biophysics",
-    "one_liner": "While the structure of proteins can now be predicted from sequence with high certainty, the prediction of protein functional dynamics remains to be achieved. Progress towards this goal will require a much larger experimental database of the relationships among sequence, dynamics, and function than currently available. Dynamic transitions that are key to p...",
+    "title": "EMMVEP: An Ensemble Method for Protein Missense Variant Effect Prediction Based on Multi-Source Feature Fusion.",
+    "url": "https://doi.org/10.1007/s12539-025-00812-5",
+    "source": "PubMed — Interdisciplinary sciences, computational life sciences",
+    "one_liner": "Missense mutations are common in the coding genome and can alter protein functions. Distinguishing pathogenic from benign variants remains challenging despite computational advances. In the present work, we introduce EMMVEP, an ensemble-based approach designed for predicting the effects of protein missense mutations. EMMVEP leverages categorical boosting ...",
     "bucket": "protein"
   },
   {
-    "title": "Leptospira interrogans HtrA protease is a potent inducer of multifaceted cellular responses.",
-    "url": "https://doi.org/10.1007/s10482-026-02270-5",
-    "source": "PubMed — Antonie van Leeuwenhoek",
-    "one_liner": "Leptospirosis, a bacterial zoonosis caused by select pathogenic spirochetes belonging to the genus Leptospira, can trigger a systemic inflammatory response syndrome due to a cytokine storm that can occur during infection. However, the molecular mechanisms underlying the extensive inflammatory responses during leptospiral infection remain poorly understood...",
+    "title": "Molecular interactions of cinnamyl and quinoxaline derivatives with Bcl-2 antiapoptotic proteins: a computational study.",
+    "url": "https://doi.org/10.1039/d5ob02005k",
+    "source": "PubMed — Organic & biomolecular chemistry",
+    "one_liner": "Antiapoptotic proteins represent a major obstacle to the success of anticancer therapies, as they promote the survival of malignant cells and contribute to treatment resistance. Among these, Bcl-2 and Bcl-xl are frequently overexpressed in pancreatic cancer, making them important therapeutic targets. In this work, we present a systematic computational stu...",
     "bucket": "protein"
   },
   {
-    "title": "Disentangling coevolutionary constraints for modeling protein conformational heterogeneity.",
-    "url": "https://doi.org/10.1038/s42004-026-01940-9",
-    "source": "PubMed — Communications chemistry",
-    "one_liner": "Accurate characterization of multi-state protein conformations is crucial for understanding their functional mechanisms and advancing targeted therapies. Extracting coevolutionary constraints from homologous sequences helps reveal protein structure and function, which can be automatically captured by MSA Transformer leveraging attention mechanisms. Making...",
+    "title": "Unraveling the mechanism of graphene oxide-mediated disruption of protein dimers.",
+    "url": "https://doi.org/10.1039/d5nr02337h",
+    "source": "PubMed — Nanoscale",
+    "one_liner": "Functional graphene-derivatives have garnered significant interest in biomedical research due to their unique structural and physicochemical properties. However, poor understanding of their interactions with the key biomolecules, such as proteins, constrained their application. The cytotoxicity of graphene materials has often been linked to their effect o...",
     "bucket": "protein"
   },
   {
-    "title": "In silico structural and dynamic stability analysis of an endo-1,4-β-xylanase from Agrobacterium sp. strain DKPNP3, isolated from the gut of Gonocephalum sp.",
-    "url": "https://doi.org/10.1007/s10482-026-02271-4",
-    "source": "PubMed — Antonie van Leeuwenhoek",
-    "one_liner": "Xylanases are one of the most important hydrolytic enzymes involved in plant hemicellulose degradation with potential industrial as well as ecological significance. This study presents a comprehensive characterization of an endo-1,4-β-xylanase enzyme from Agrobacterium sp. Strain DKPNP3 isolated from the beetle gut of Gonocephalum sp. (Coleoptera: Tenebri...",
+    "title": "Photoswitches for ion channel regulation: expanding the scope of phototherapy through computational chemistry.",
+    "url": "https://doi.org/10.1039/d5cp03487f",
+    "source": "PubMed — Physical chemistry chemical physics : PCCP",
+    "one_liner": "The development of ion channel phototherapy using azobenzene-based photoswitchable molecules represents a promising strategy for the precise modulation of ion channels in therapeutic applications, aiming to treat diseases such as epilepsy, long QT syndrome, Brugada syndrome, and cystic fibrosis. This article features a structure-activity analysis of such ...",
     "bucket": "protein"
   },
   {
-    "title": "Isolation and characterization of a novel phage AbT1 and evaluating its anti-biofilm activity and antibiotic synergy.",
-    "url": "https://doi.org/10.1007/s11033-026-11608-1",
-    "source": "PubMed — Molecular biology reports",
-    "one_liner": "BACKGROUND: Acinetobacter baumannii is a formidable multidrug-resistant pathogen prevalent in healthcare settings. Amid the escalating challenge of antimicrobial resistance, phage therapy has regained significant attention. This approach harnesses the natural predatory ability of bacteriophages to combat bacterial infections. METHODS AND RESULTS: A novel ...",
+    "title": "Pearl peptides (",
+    "url": "https://doi.org/10.3724/abbs.2025226",
+    "source": "PubMed — Acta biochimica et biophysica Sinica",
+    "one_liner": "Pearl protein extracted from freshwater mussels has been shown to inhibit tyrosinase activity. However, the unclear inhibitory mechanism and associated conformational changes limit their practical applications. In this study, peptides from the crude extract of pearl powder are analyzed via liquid chromatography-tandem mass spectrometry (LC-MS/MS). These p...",
     "bucket": "protein"
   },
   {
-    "title": "Mechanisms of angiopoietin-like protein 7 regulation and therapeutic potential in tumors.",
-    "url": "https://doi.org/10.1007/s11033-025-11404-3",
-    "source": "PubMed — Molecular biology reports",
-    "one_liner": "Angiopoietin-like 7 (ANGPTL7) is a member of the angiopoietin-like protein family, which plays critical physiological roles in angiogenesis, tissue homeostasis maintenance, inflammatory signaling, glucose metabolism and lipid metabolism. Meanwhile, ANGPTL7 is also implicated in the regulation of numerous pathological processes and disease development. In ...",
+    "title": "Numerical estimation of drug loading contents in amphiphilic nanogels.",
+    "url": "https://doi.org/10.1039/d5tb02138c",
+    "source": "PubMed — Journal of materials chemistry. B",
+    "one_liner": "Amphiphilic nanogels (ANGs) are promising colloidal carriers to improve bioavailability of poorly water-soluble drugs. In contrast to conventional hydrophilic nanogels, ANGs contain additional hydrophobic domains in their network to load hydrophobic cargos. However, optimizing drug loading remains labour-intensive due to the lack of quantitative tools tha...",
     "bucket": "protein"
   },
   {
-    "title": "Design, synthesis, and experimental evaluation of rupestonic acid derivatives as novel anti-tumor agents guided by network pharmacology and molecular docking.",
-    "url": "https://doi.org/10.1038/s41598-026-39442-2",
-    "source": "PubMed — Scientific reports",
-    "one_liner": "This integrated study elucidates the antitumor potential of Artemisia rupestris L.'s primary bioactive component, rupestonic acid (RA), and advances a superior derivative through a systematic, multi-stage strategy. The investigation commenced with network pharmacology, which predicted RA's polypharmacology mechanism by associating it with 55 potential can...",
+    "title": "Leveraging conformational ensembles in allosteric drug discovery.",
+    "url": "https://doi.org/10.1016/j.tips.2026.01.006",
+    "source": "PubMed — Trends in pharmacological sciences",
+    "one_liner": "Proteins involved in signaling networks, such as Ras, mammalian target of rapamycin (mTOR), and epidermal growth factor receptor (EGFR), exist as dynamic conformational ensembles in biomolecular condensates. These ensembles play a crucial role in allosteric drug discovery and action. Traditional approaches in drug discovery often trace back to the induced...",
     "bucket": "protein"
   },
   {
-    "title": "Chromosome-level genome of the bank vole (Clethrionomys glareolus): a resource for eco-evo-disease research.",
-    "url": "https://doi.org/10.1038/s41597-026-06924-x",
-    "source": "PubMed — Scientific data",
-    "one_liner": "The increasing availability of reference genomes for non-traditional model species is enhancing research in ecology and evolution. Here, we present a high-quality chromosome-level genome assembly and annotation for the bank vole Clethrionomys glareolus, an emerging model mammal. The 2.24 Gb assembly is resolved into 28 chromosome-scale scaffolds, consiste...",
+    "title": "Large-scale proteomics across neurological disorders uncovers biomarker panel and targets in multiple sclerosis.",
+    "url": "https://doi.org/10.1016/j.cell.2026.01.017",
+    "source": "PubMed — Cell",
+    "one_liner": "Cerebrospinal fluid (CSF) is central to neurological diagnostics, yet biomarkers are lacking for many clinical needs. To enable its large-scale proteomic characterization, we developed a high-throughput mass spectrometry workflow quantifying approximately 1,500 proteins per CSF sample across 5,000 individuals, covering a spectrum of neurological disorders...",
     "bucket": "protein"
   },
   {
-    "title": "Convergent MurJ flippase inhibition by phage lysis proteins.",
-    "url": "https://doi.org/10.1038/s41586-026-10163-w",
-    "source": "PubMed — Nature",
-    "one_liner": "Antimicrobial drug resistance poses a global health challenge that necessitates the identification of new druggable targets",
+    "title": "Development of an immunoassay with an immunomagnetic bead-based sample extraction procedure for detecting zearalenone in food products.",
+    "url": "https://doi.org/10.1016/j.foodchem.2025.147739",
+    "source": "PubMed — Food chemistry",
+    "one_liner": "Zearalenone (ZEN) is a mycotoxin produced by Fusarium fungi, commonly found in food and animal feed, posing a threat to public and animal health. For rapid ZEN detection in food samples, a monoclonal antibody (mAb) 5G3 was developed in this study and used to create the immunomagnetic bead (IMB)-based immunoassay, which can be used for the enrichment, puri...",
     "bucket": "protein"
   },
   {
-    "title": "GRU-based de novo design and in-silico prioritization of EZH2 inhibitors.",
-    "url": "https://doi.org/10.1007/s11030-026-11481-x",
-    "source": "PubMed — Molecular diversity",
-    "one_liner": "EZH2 (Enhancer-Homozygous Protein 2), as a key epigenetic regulator, is closely associated with multiple cancers. Consequently, the design of EZH2-targeting inhibitors has become a significant focus in drug development. The application of deep learning methods in the chemical field can accelerate the process of discovering new molecules. This study utiliz...",
+    "title": "Cyclophosphamide-pomalidomide combination alters the tumour cell secretome and enhances the anti-myeloma activity of elotuzumab through NK cell-mediated cytotoxicity.",
+    "url": "https://doi.org/10.1016/j.intimp.2026.116222",
+    "source": "PubMed — International immunopharmacology",
+    "one_liner": "Multiple myeloma (MM), a malignancy of plasma cells, remains largely incurable despite recent advances in treatment options. Elotuzumab (ELO) is a humanised IgG1 monoclonal antibody that targets the extracellular domain of signalling lymphocytic activation molecule F7 (SLAMF7). While ELO alone has shown modest single agent activity, combination with immun...",
     "bucket": "protein"
   },
   {
-    "title": "BioStruct-Africa's scalable framework for AlphaFold-enabled research training and sustainable workforce development in Africa.",
-    "url": "https://doi.org/10.1038/s42003-026-09711-x",
-    "source": "PubMed — Communications biology",
-    "one_liner": "Artificial intelligence is rapidly transforming structural biology and accelerating access to protein structures, yet many Africa-based scientists still lack infrastructure, training opportunities, and sustained mentorship to fully benefit. Here, we describe BioStruct-Africa’s community-driven framework integrating AlphaFold, experimental structural biolo...",
+    "title": "Half-life extension and immunogenicity in therapeutic proteins: mechanisms, trade-offs, and a decision framework.",
+    "url": "https://doi.org/10.1016/j.bcp.2026.117846",
+    "source": "PubMed — Biochemical pharmacology",
+    "one_liner": "Therapeutic proteins are central to modern pharmacotherapy, yet their clinical utility is often constrained by short plasma half-life and immunogenicity. Six major half-life extension platforms-PEGylation, hydrophilic polypeptide (XTEN/PAS) fusion, glycoengineering, Fc domain-based strategies, human serum albumin (HSA)-centered approaches, and lipidation-...",
     "bucket": "protein"
   },
   {
-    "title": "A hydrophilic interaction UPLC-MS/MS quantitative method for the quantification of saracatinib in the human liver microsome matrix and its application in",
-    "url": "https://doi.org/10.1039/d5ay02096d",
-    "source": "PubMed — Analytical methods : advancing methods and applications",
-    "one_liner": "Saracatinib (AZD-0530; SRB) is a pharmaceutical agent produced by AstraZeneca and is currently undergoing clinical studies. It is classified as a dual-kinase inhibitor, exhibiting selective activity both as an Src inhibitor and a Bcr-Abl tyrosine kinase inhibitor. No metabolic stability study for SRB has been reported; hence, so the goal of the present st...",
+    "title": "Engineering bioavailability: Polysaccharide-protein-lipid delivery platforms for postbiotic therapeutics in gastrointestinal and systemic disorders.",
+    "url": "https://doi.org/10.1016/j.ijbiomac.2026.151123",
+    "source": "PubMed — International journal of biological macromolecules",
+    "one_liner": "Postbiotics, inanimate microorganisms and their components that confer health benefits, represent a promising therapeutic class with superior stability and safety profiles compared to live probiotics. However, their clinical translation is hindered by a critical bioavailability paradox such as physiological barriers, compound-specific instability, and the...",
     "bucket": "protein"
   },
   {
-    "title": "Artificial Intelligence in Human Genetics.",
-    "url": "https://doi.org/10.1146/annurev-genom-111124-032550",
-    "source": "PubMed — Annual review of genomics and human genetics",
-    "one_liner": "Artificial intelligence (AI) technologies have recently undergone transformative growth in capabilities. In human genetics, AI is rapidly advancing our ability to reveal the effects of genetic variation. This review explores recent progress and remaining challenges across the diverse applications of AI in genotype-to-phenotype mapping, from predicting the...",
+    "title": "pH-mediated inhibition of water-induced egg white precipitation: A structural and quantitative proteomic analysis.",
+    "url": "https://doi.org/10.1016/j.foodres.2025.118249",
+    "source": "PubMed — Food research international (Ottawa, Ont.)",
+    "one_liner": "Water dilution induces undesirable precipitation in egg white, hindering its industrial use. This study investigated the inhibitory effect of alkaline pH (9.5-10.5) on this phenomenon. Increasing the buffer pH dramatically reduced the turbidity and particle size (from 1395.4 nm to 418.2 nm) of egg white solutions. This was attributed to enhanced electrost...",
     "bucket": "protein"
   },
   {
-    "title": "Graph-based transformer to predict the octanol-water partition coefficient.",
-    "url": "https://doi.org/10.1186/s13321-026-01160-2",
-    "source": "PubMed — Journal of cheminformatics",
-    "one_liner": "Lipophilicity is a fundamental physicochemical property that significantly influences various aspects of drug behavior, such as solubility, permeability, metabolism, distribution, protein binding, and excretion. Consequently, accurate prediction of this property is critical for the successful discovery and development of new drug candidates. The classical...",
+    "title": "Exploring the shared gene signatures between rheumatoid arthritis and type 2 diabetes and their implication for drug repositioning on bioinformatics analysis.",
+    "url": "https://doi.org/10.1097/MD.0000000000047809",
+    "source": "PubMed — Medicine",
+    "one_liner": "Numerous studies have demonstrated a pathogenic association between rheumatoid arthritis (RA) and type 2 diabetes mellitus (T2DM), 2 chronic inflammatory diseases. This study integrates transcriptomic and bioinformatic analyses to elucidate the shared molecular mechanisms underlying RA-associated T2DM, aiming to identify effective therapeutic strategies. ...",
     "bucket": "protein"
   },
   {
-    "title": "Mast cell extracellular granules are bioactive condensates assembled by heparin and polyamine",
-    "url": "https://www.nature.com/articles/s41589-026-02165-6",
-    "source": "Nature Chemical Biology",
-    "one_liner": "Nature Chemical Biology, Published online: 27 February 2026; doi:10.1038/s41589-026-02165-6 Mast cells are immune cells that release membraneless mast cell extracellular granules (MCEGs) in response to allergic inflammation and pathogen infection. MCEGs are found to be condensates form...",
-    "bucket": "journal"
+    "title": "LigandExplorer: An Automated Tool for Ligand Extraction from PDB Structures.",
+    "url": "https://doi.org/10.1021/acs.jcim.5c02921",
+    "source": "PubMed — Journal of chemical information and modeling",
+    "one_liner": "The structural information on protein-ligand complexes is crucial for small-molecule design and drug discovery. Yet primary resources often have heterogeneous annotations, lack machine-ready ligand categorization, and require substantial postprocessing before large-scale modeling. Here, we present",
+    "bucket": "protein"
   },
   {
-    "title": "Defining and refining the cysteine redoxome through sulfur chemical biology",
-    "url": "https://www.nature.com/articles/s41589-026-02145-w",
-    "source": "Nature Chemical Biology",
-    "one_liner": "Nature Chemical Biology, Published online: 27 February 2026; doi:10.1038/s41589-026-02145-w This study provides a chemical framework of sulfur, defining the cysteine redoxome, linking thiol reactivity with oxoform kinetics/dynamics to proteome-wide mapping, occupancy and flux, and reve...",
-    "bucket": "journal"
+    "title": "Metabolic Engineering of",
+    "url": "https://doi.org/10.1021/acs.jafc.5c07311",
+    "source": "PubMed — Journal of agricultural and food chemistry",
+    "one_liner": "Flavin mononucleotide (FMN) and flavin adenine dinucleotide (FAD) are essential redox cofactors in cellular metabolism. In this study, riboflavin-producing",
+    "bucket": "protein"
   },
   {
-    "title": "Doug Ingram’s force of will meets its match as Sarepta CEO plans to depart",
-    "url": "https://endpoints.news/doug-ingrams-force-of-will-meets-its-match-as-sarepta-ceo-plans-to-depart/",
+    "title": "Cracking the Capsid Code: A Computationally Feasible Approach for Investigating Virus-Excipient Interactions in Biologics Design.",
+    "url": "https://doi.org/10.1021/acs.jctc.5c01810",
+    "source": "PubMed — Journal of chemical theory and computation",
+    "one_liner": "The efficacy and equitable distribution of viral biologics, including vaccines and virus-like particles, are hindered due to their inherently low shelf life. To increase the longevity of such products, formulations are typically developed with small molecule additives known as excipients. Finding the correct excipients for a biological formulation is a co...",
+    "bucket": "protein"
+  },
+  {
+    "title": "Environmental Dipolar Relaxation during Excited-State Proton Transfer in Green Fluorescent Protein.",
+    "url": "https://doi.org/10.1021/jacs.5c21097",
+    "source": "PubMed — Journal of the American Chemical Society",
+    "one_liner": "Variants of Green Fluorescent Protein (GFP) are in widespread use as genetically encoded labels for biological imaging. Excitation of its neutral phenolic ground-state chromophore populates an emissive anionic phenolate state via excited-state proton transfer (ESPT) to E222 along a molecular wire. Computational studies indicate that ESPT fits an electroni...",
+    "bucket": "protein"
+  },
+  {
+    "title": "Open-Source Benchtop Magnetophotometer for Characterizing the Magnetic Susceptibility of Suspended Nanoparticles.",
+    "url": "https://doi.org/10.1021/acs.analchem.5c03638",
+    "source": "PubMed — Analytical chemistry",
+    "one_liner": "Magnetic nanoparticles (MNPs) form the foundation of many technologies, frequently serving to purify proteins or cells from a biological sample or to remove environmental contaminants. Their success relies on their magnetic response, which allows them to be easily controlled in a liquid or solution. Therefore, the magnetic susceptibility provides one metr...",
+    "bucket": "protein"
+  },
+  {
+    "title": "Uncovering Design and Assembly Rules for mRNA-DNA Origami.",
+    "url": "https://doi.org/10.1021/acs.nanolett.5c05607",
+    "source": "PubMed — Nano letters",
+    "one_liner": "mRNA-DNA hybrid origami enables integration of the RNA functionality into programmable DNA nanostructures, yet robust design and assembly rules remain lacking. Here, we systematically define parameters governing the high-yield formation of compact mRNA-DNA hybrid origami. Using mature mRNAs encoding firefly luciferase, enhanced green fluorescent protein (...",
+    "bucket": "protein"
+  },
+  {
+    "title": "5'-ectonucleotidase (CD73) inhibitors: a patent review (2021-present).",
+    "url": "https://doi.org/10.1080/13543776.2026.2638344",
+    "source": "PubMed — Expert opinion on therapeutic patents",
+    "one_liner": "INTRODUCTION: Adenosine-mediated immunosuppression is a major mechanism of tumor immune escape and is largely driven by ecto-5'-nucleotidase (CD73), which catalyzes the formation of extracellular adenosine and limits the efficacy of cancer immunotherapies. Consequently, CD73 has emerged as a key immune checkpoint and an attractive target for therapeutic a...",
+    "bucket": "protein"
+  },
+  {
+    "title": "Safety and Effectiveness of Eculizumab in Patients With Refractory Ocular or Ocular-Predominant Myasthenia Gravis: A Case Series.",
+    "url": "https://doi.org/10.1002/mus.70183",
+    "source": "PubMed — Muscle & nerve",
+    "one_liner": "INTRODUCTION/AIMS: Despite conventional immunosuppressive therapy, approximately 5% of generalized myasthenia gravis (MG) patients experience residual ocular symptoms. We investigated the therapeutic effect of eculizumab, a C5 complement inhibitor, in five patients with refractory ocular myasthenia gravis (OMG) or ocular-predominant MG. METHODS: Five pati...",
+    "bucket": "protein"
+  },
+  {
+    "title": "Multiomics Analysis: Maternal Valine Intake during Protein Restriction Improves Fetal Intestinal Health in Pigs via IgA Homing.",
+    "url": "https://doi.org/10.1021/acs.jafc.5c16026",
+    "source": "PubMed — Journal of agricultural and food chemistry",
+    "one_liner": "Protein restriction, while beneficial for maternal healthspan, poses risks to offspring development during lactation. This study investigated whether valine (Val) supplementation in maternal low-protein diets (LPDs) alleviates offspring developmental deficits via a gut-mammary axis. Maternal LPD impaired offspring growth, jejunal morphology, and barrier i...",
+    "bucket": "protein"
+  },
+  {
+    "title": "Merck looks to expand Welireg label following combo readouts with Keytruda, Lenvima",
+    "url": "https://endpoints.news/merck-looks-to-expand-welireg-label-following-combo-readouts-with-keytruda-lenvima/",
     "source": "Endpoints News",
-    "one_liner": "Doug Ingram’s decision to step down as Sarepta’s CEO by year's end was a shocker, considering his never-say-die reputation.\n\n But after a terrible year and a tanking share price, Sarepta's next leader will have the ...",
+    "one_liner": "Merck is seeking approval for two new combination regimens using its drug Welireg to treat kidney cancer, even though it doesn't yet have data confirming it extends patients' lives.\n\n On Saturday, it shared results from ...",
     "bucket": "ai_bio"
-  },
-  {
-    "title": "Novartis closes Avidity deal as rare heart disease spinout launches",
-    "url": "https://endpoints.news/novartis-closes-avidity-deal-as-rare-heart-disease-spinout-launches/",
-    "source": "Endpoints News",
-    "one_liner": "Atrium Therapeutics launched Friday morning as Novartis closed the $12 billion deal to buy Avidity Biosciences and its RNA muscle therapies.\n\n The spinout will take on Avidity’s early-stage programs for genetic cardiomyopathies — heart muscle diseases ...",
-    "bucket": "ai_bio"
-  },
-  {
-    "title": "Break It To Make It: How Fracturing Sculpts Tissues and Organs",
-    "url": "https://www.quantamagazine.org/break-it-to-make-it-how-fracturing-sculpts-tissues-and-organs-20260227/",
-    "source": "Quanta Magazine",
-    "one_liner": "Growing tissues can crack, break, and dissociate to form structures that can later withstand immense forces. The post Break It To Make It: How Fracturing Sculpts Tissues and Organs first appeared on <a href=\"ht...",
-    "bucket": "daily"
   }
 ]

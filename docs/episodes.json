@@ -4,5 +4,11 @@
     "title": "Daily Podcast 2026-02-28",
     "audio": "https://github.com/WenyueDai/openclaw_podcast/releases/download/episode-2026-02-28/podcast_2026-02-28.mp3",
     "script": "podcast_script_2026-02-28_llm.txt"
+  },
+  {
+    "date": "2026-02-26",
+    "title": "Daily Podcast 2026-02-26",
+    "audio": "https://github.com/WenyueDai/openclaw_podcast/releases/download/episode-2026-02-26/podcast_2026-02-26.mp3",
+    "script": null
   }
 ]
