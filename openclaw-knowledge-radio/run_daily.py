@@ -161,13 +161,37 @@ def main() -> int:
 
     # 4) Save ranked item list for the website (complete index, not just highlights)
     import json as _json
+    import re as _re
+    try:
+        from bs4 import BeautifulSoup as _BS
+        def _strip_html(s: str) -> str:
+            return _BS(s, "html.parser").get_text(" ", strip=True)
+    except ImportError:
+        def _strip_html(s: str) -> str:
+            return _re.sub(r'<[^>]+>', ' ', s).strip()
+
+    def _best_summary(it: Dict[str, Any]) -> str:
+        # Try one_liner / snippet first (strip HTML)
+        raw = (it.get("one_liner") or it.get("snippet") or "").strip()
+        clean = _strip_html(raw)
+        if len(clean) > 30:
+            return clean
+        # Fall back to CORE CLAIM from LLM analysis
+        analysis = (it.get("analysis") or "").strip()
+        m = _re.search(r'CORE CLAIM:\s*(.+?)(?:\n[A-Z ]+:|$)', analysis, _re.S)
+        if m:
+            sentence = m.group(1).strip().split(". ")[0]
+            if sentence and sentence.lower() != "not stated in source text":
+                return sentence + ("." if not sentence.endswith(".") else "")
+        return ""
+
     (out_dir / "episode_items.json").write_text(
         _json.dumps([
             {
                 "title": (it.get("title") or "").strip(),
                 "url": (it.get("url") or "").strip(),
                 "source": (it.get("source") or "").strip(),
-                "one_liner": (it.get("one_liner") or it.get("snippet") or "").strip(),
+                "one_liner": _best_summary(it),
                 "bucket": (it.get("bucket") or "").strip(),
             }
             for it in ranked

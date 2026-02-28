@@ -15,6 +15,15 @@ limits:
   max_items_total: 40
   max_items_protein: 25
   max_items_daily_knowledge: 5
+  # Cap how many items any single news/industry source can contribute.
+  # Top-ranked items within the cap are kept; rest are dropped.
+  # Sources not listed here get the default cap (max_items_per_news_source).
+  source_caps:
+    "Nature News": 3
+    "Endpoints News": 2
+  # Any other news/industry source (bucket: news or ai_bio with industry tag)
+  # that is not listed above gets capped at this many items.
+  max_items_per_news_source: 1
 
 rss_sources:
   - name: "arXiv q-bio.BM"

@@ -189,7 +189,36 @@ def rank_and_limit(items: List[Dict[str, Any]], cfg: Dict[str, Any]) -> List[Dic
 
     ranked = sorted(items, key=rank_key)
 
-    # Keep your old "bucket quotas" behavior (minimal logic, no pipeline changes)
+    # Per-source caps: named overrides + a default cap for all other news sources
+    source_caps: Dict[str, int] = lim.get("source_caps") or {}
+    default_news_cap: int = int(lim.get("max_items_per_news_source", 999))
+    _NEWS_BUCKETS = {"news"}
+    _NEWS_TAGS = {"news", "science-news", "industry"}
+
+    def _is_news_source(it: Dict[str, Any]) -> bool:
+        if it.get("bucket") in _NEWS_BUCKETS:
+            return True
+        tags = set(_tags_lower(it))
+        return bool(tags & _NEWS_TAGS)
+
+    source_counts: Dict[str, int] = {}
+    capped: List[Dict[str, Any]] = []
+    for it in ranked:
+        src = (it.get("source") or "").strip()
+        if src in source_caps:
+            cap = source_caps[src]
+        elif _is_news_source(it):
+            cap = default_news_cap
+        else:
+            cap = 999
+        count = source_counts.get(src, 0)
+        if count >= cap:
+            continue
+        source_counts[src] = count + 1
+        capped.append(it)
+    ranked = capped
+
+    # Bucket quotas
     protein = [x for x in ranked if (x.get("bucket") == "protein")]
     daily = [x for x in ranked if (x.get("bucket") == "daily")]
     others = [x for x in ranked if x.get("bucket") not in ("protein", "daily")]
