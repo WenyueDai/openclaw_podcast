@@ -28,7 +28,14 @@ def _load_release_index() -> dict:
     return {}
 
 
-def _extract_highlights(script_path: Path | None, max_points: int = 3) -> list[str]:
+def _first_sentence(text: str) -> str:
+    """Return only the first sentence of text."""
+    import re
+    m = re.search(r'[.!?](?:\s|$)', text)
+    return text[:m.start() + 1].strip() if m else text
+
+
+def _extract_highlights(script_path: Path | None, max_points: int = 5) -> list[str]:
     if not script_path or not script_path.exists():
         return []
     points: list[str] = []
@@ -44,7 +51,7 @@ def _extract_highlights(script_path: Path | None, max_points: int = 3) -> list[s
                 continue
             if len(line) < 45:
                 continue
-            points.append(line)
+            points.append(_first_sentence(line))
             if len(points) >= max_points:
                 break
     except Exception:
