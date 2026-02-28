@@ -435,11 +435,24 @@ def main() -> int:
             _t += _rd
             if _gi < len(_raw_durs) - 1:
                 _t += _SFX_RAW
-        # Update episode_items.json with real timestamps
+        # Update episode_items.json with real timestamps.
+        # Items in the same roundup batch share a segment; distribute them evenly
+        # across that segment's duration so each gets a distinct timestamp.
+        from collections import Counter as _Counter
+        _seg_item_count = _Counter(
+            e["segment"] for e in _episode_items_list if e["segment"] >= 0
+        )
+        _seg_positions: Dict[int, int] = {}
         for _entry in _episode_items_list:
             _s = _entry["segment"]
-            if 0 <= _s < len(_seg_ts):
-                _entry["timestamp"] = _seg_ts[_s]
+            if not (0 <= _s < len(_seg_ts)):
+                continue
+            _pos = _seg_positions.get(_s, 0)
+            _n = _seg_item_count[_s]
+            _seg_dur = (_raw_durs[_s] / PLAYBACK_ATEMPO) if _s < len(_raw_durs) else 0.0
+            _offset = _pos * (_seg_dur / _n) if _n > 1 else 0.0
+            _entry["timestamp"] = round(_seg_ts[_s] + _offset, 2)
+            _seg_positions[_s] = _pos + 1
         _episode_items_file.write_text(
             json.dumps({"timestamps": _seg_ts, "items": _episode_items_list}, indent=2, ensure_ascii=False),
             encoding="utf-8",

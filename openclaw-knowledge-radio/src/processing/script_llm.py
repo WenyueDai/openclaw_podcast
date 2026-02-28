@@ -177,6 +177,7 @@ Style:
 - Crisp, lively, and accessible. Keep it punchy.
 
 Rules:
+- CRITICAL: You MUST cover EVERY item in the batch. Do NOT skip or merge any items.
 - For EACH item: 80–130 words.
 - Lead with the key takeaway and novelty.
 - Avoid low-value parameter minutiae unless crucial.
@@ -338,9 +339,9 @@ def build_podcast_script_llm_chunked(*, date_str: str, items: List[Dict[str, Any
             blocks.append(f"=== ITEM {j} ===\n{_format_item_block(it)}")
         user = (
             f"DATE: {date_str}\n"
-            f"ROUNDUP BATCH #{b_i}\n\n"
+            f"ROUNDUP BATCH #{b_i} — {len(batch)} items. You MUST cover all {len(batch)}.\n\n"
             + "\n\n".join(blocks)
-            + "\n\nWrite a mid-depth roundup for each item."
+            + f"\n\nWrite a mid-depth roundup covering ALL {len(batch)} items above. Do not skip any."
         )
         seg = _chat_complete(
             client,
