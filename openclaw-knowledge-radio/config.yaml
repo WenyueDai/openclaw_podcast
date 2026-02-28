@@ -2,15 +2,14 @@ timezone: "Europe/London"
 lookback_hours: 48
 
 paths:
-  # workspace base (used only for clarity; not required)
-  base_dir: "/home/eva/openclaw_workspace"
-  # where this repo lives
-  repo_dir: "/home/eva/openclaw_workspace/openclaw-knowledge-radio"
-  data_dir: "/home/eva/openclaw_workspace/openclaw-knowledge-radio/data"
-  output_dir: "/home/eva/openclaw_workspace/openclaw-knowledge-radio/output"
-  state_dir: "/home/eva/openclaw_workspace/openclaw-knowledge-radio/state"
-  # your Obsidian vault directory (must exist or will be created)
-  obsidian_vault: "/home/eva/openclaw_workspace/obsidian_vault"
+  # All paths below are relative to the package directory (where run_daily.py lives).
+  # You can also use absolute paths if preferred.
+  data_dir: "data"
+  output_dir: "output"
+  state_dir: "state"
+  # Obsidian vault — set to an absolute path if you use Obsidian, or leave as-is
+  # to create a local notes/ folder next to run_daily.py.
+  obsidian_vault: "notes"
 
 limits:
   max_items_total: 40
@@ -194,10 +193,13 @@ podcast:
 llm:
   enabled: true
   provider: "openrouter"
-  model: "openai/gpt-oss-120b"
+  # Free tier model on OpenRouter (no cost, just needs a free account + API key).
+  # Sign up at https://openrouter.ai, go to Keys, create a key — it's free.
+  # Other good free options: "google/gemma-3-27b-it:free", "deepseek/deepseek-chat-v3-0324:free"
+  model: "meta-llama/llama-3.3-70b-instruct:free"
   api_key_env: "OPENROUTER_API_KEY"
   temperature: 0.25
-  max_output_tokens: 20800
+  max_output_tokens: 8192
 
 ranking:
   absolute_sources:

@@ -39,6 +39,12 @@ def load_config(path: Path) -> Dict[str, Any]:
         return yaml.safe_load(f)
 
 
+def _resolve(base: Path, p: str) -> Path:
+    """Resolve p against base when p is a relative path, otherwise return as-is."""
+    resolved = Path(p)
+    return resolved if resolved.is_absolute() else base / resolved
+
+
 def main() -> int:
     repo_dir = Path(__file__).resolve().parent
     cfg = load_config(repo_dir / "config.yaml")
@@ -54,10 +60,10 @@ def main() -> int:
         today = now_local_date(tz)
         run_anchor = datetime.now(tz)
 
-    data_dir = Path(cfg["paths"]["data_dir"]) / today
-    out_dir = Path(cfg["paths"]["output_dir"]) / today
-    state_dir = Path(cfg["paths"]["state_dir"])
-    vault_dir = Path(cfg["paths"]["obsidian_vault"])
+    data_dir = _resolve(repo_dir, cfg["paths"]["data_dir"]) / today
+    out_dir = _resolve(repo_dir, cfg["paths"]["output_dir"]) / today
+    state_dir = _resolve(repo_dir, cfg["paths"]["state_dir"])
+    vault_dir = _resolve(repo_dir, cfg["paths"]["obsidian_vault"])
 
     ensure_dir(data_dir)
     ensure_dir(out_dir)

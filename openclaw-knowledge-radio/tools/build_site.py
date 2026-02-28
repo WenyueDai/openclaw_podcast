@@ -7,10 +7,15 @@ from pathlib import Path
 from datetime import datetime, timezone
 import html
 
-BASE_OUTPUT = Path("/home/eva/openclaw_workspace/openclaw-knowledge-radio/output")
-SITE_DIR = Path("/home/eva/openclaw_workspace/openclaw_podcast/docs")
-AUDIO_DIR = SITE_DIR / "audio"
-RELEASE_INDEX = Path("/home/eva/openclaw_workspace/openclaw_podcast/openclaw-knowledge-radio/state/release_index.json")
+# Derive paths relative to this file so the script works on any machine.
+# Override any of these with environment variables if needed.
+_PACKAGE_DIR = Path(__file__).resolve().parent.parent   # …/openclaw-knowledge-radio/
+_REPO_ROOT = _PACKAGE_DIR.parent                        # …/openclaw-knowledge-radio (git root)
+
+BASE_OUTPUT = Path(os.environ.get("PODCAST_OUTPUT", str(_PACKAGE_DIR / "output")))
+SITE_DIR    = Path(os.environ.get("SITE_DIR",       str(_REPO_ROOT / "docs")))
+AUDIO_DIR   = SITE_DIR / "audio"
+RELEASE_INDEX = Path(os.environ.get("RELEASE_INDEX", str(_PACKAGE_DIR / "state" / "release_index.json")))
 
 PODCAST_TITLE = os.environ.get("PODCAST_TITLE", "Daily Podcast")
 PODCAST_AUTHOR = os.environ.get("PODCAST_AUTHOR", "Eva Dai")
