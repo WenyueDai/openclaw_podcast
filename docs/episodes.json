@@ -1,14 +1,8 @@
 [
   {
-    "date": "2026-02-27",
-    "title": "Daily Podcast 2026-02-27",
-    "audio": "https://github.com/WenyueDai/openclaw_podcast/releases/download/episode-2026-02-27/podcast_2026-02-27.mp3",
-    "script": "podcast_script_2026-02-27_llm.txt"
-  },
-  {
-    "date": "2026-02-26",
-    "title": "Daily Podcast 2026-02-26",
-    "audio": "https://github.com/WenyueDai/openclaw_podcast/releases/download/episode-2026-02-26/podcast_2026-02-26.mp3",
-    "script": "podcast_script_2026-02-26_llm.txt"
+    "date": "2026-02-28",
+    "title": "Daily Podcast 2026-02-28",
+    "audio": "audio/podcast_2026-02-28.mp3",
+    "script": "podcast_script_2026-02-28_llm.txt"
   }
 ]
