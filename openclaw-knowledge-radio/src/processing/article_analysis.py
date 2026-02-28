@@ -46,7 +46,7 @@ def hash_url(url: str) -> str:
     return hashlib.sha1(url.encode()).hexdigest()[:16]
 
 
-def analyze_article(url: str, text: str, model: str = "google/gemini-2.5-flash:free") -> str:
+def analyze_article(url: str, text: str, model: str = "stepfun/step-3.5-flash:free") -> str:
     text = (text or "").strip()
     if not text:
         return ""
