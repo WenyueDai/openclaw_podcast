@@ -1,32 +1,4 @@
 {
-  "timestamps": [
-    0.0,
-    143.36
-  ],
-  "items": [
-    {
-      "title": "Unraveling the mechanism of graphene oxide-mediated disruption of protein dimers.",
-      "url": "https://doi.org/10.1039/d5nr02337h",
-      "source": "PubMed — Nanoscale",
-      "one_liner": "Functional graphene-derivatives have garnered significant interest in biomedical research due to their unique structural and physicochemical properties. However, poor understanding of their interactions with the key biomolecules, such as proteins, constrained their application. The cytotoxicity of graphene materials has often been linked to their effect o...",
-      "segment": 0,
-      "timestamp": 0.0
-    },
-    {
-      "title": "Time-Resolved SAXS Reveals Distinct Millisecond Metal-Induced Conformational Dynamics of Monomeric α-Synuclein.",
-      "url": "https://doi.org/10.1002/advs.202512293",
-      "source": "PubMed — Advanced science (Weinheim, Baden-Wurttemberg, Germany)",
-      "one_liner": "Transition metal ions have been implicated in modulation the conformational behavior and aggregation of WT α-synuclein (WT-αSyn), associated with Parkinson's disease pathology. Nevertheless, the initial structural rearrangements that drive aggregation are not fully understood. Here, we employed time-resolved small-angle X-ray scattering (TR-SAXS) in a mic...",
-      "segment": 1,
-      "timestamp": 143.36
-    },
-    {
-      "title": "Novartis' Rhapsido shows promise in Phase 2 food allergy data",
-      "url": "https://endpoints.news/novartis-rhapsido-shows-promise-in-phase-2-food-allergy-data/",
-      "source": "Endpoints News",
-      "one_liner": "Novartis laid out a preliminary case to move its recently approved hives drug Rhapsido into the broader market of food allergy.\n\n In a Phase 2 study, Novartis said all three doses of Rhapsido produced higher ...",
-      "segment": 1,
-      "timestamp": 143.36
-    }
-  ]
+  "timestamps": [],
+  "items": []
 }
