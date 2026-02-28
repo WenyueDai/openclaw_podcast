@@ -3,31 +3,62 @@ from pathlib import Path
 from typing import Any, Dict, List, Set
 
 
-def _load_feedback(cfg: Dict[str, Any]) -> Dict[str, int]:
+def _load_feedback(cfg: Dict[str, Any]) -> tuple:
     """
-    Load state/feedback.json.  Returns {url: like_count}.
-    Also computes which sources are frequently liked so we can boost them.
+    Load state/feedback.json.
+    Returns (liked_urls: set, liked_sources: Dict[str,int], liked_keywords: List[str]).
+    Supports both old format (list of URL strings) and new format (list of {url,source,title} objects).
     """
+    import re as _re
+    _STOP = {"the","a","an","and","or","of","in","for","to","is","are","with","from",
+             "by","on","at","this","that","based","using","via","de","novo","new"}
     state_dir = Path(__file__).resolve().parent.parent.parent / "state"
     fb_file = state_dir / "feedback.json"
     if not fb_file.exists():
-        return {}
+        return set(), {}, []
     try:
         data = json.loads(fb_file.read_text(encoding="utf-8"))
-        # data format: {"YYYY-MM-DD": ["url1", "url2"], ...}
-        counts: Dict[str, int] = {}
-        for urls in data.values():
-            for url in (urls or []):
-                counts[url] = counts.get(url, 0) + 1
-        return counts
+        liked_urls: set = set()
+        liked_sources: Dict[str, int] = {}
+        word_counts: Dict[str, int] = {}
+        for entries in data.values():
+            for entry in (entries or []):
+                if isinstance(entry, str):
+                    liked_urls.add(entry)
+                elif isinstance(entry, dict):
+                    url = (entry.get("url") or "").strip()
+                    src = (entry.get("source") or "").strip()
+                    title = (entry.get("title") or "").strip()
+                    if url:
+                        liked_urls.add(url)
+                    if src:
+                        liked_sources[src] = liked_sources.get(src, 0) + 1
+                    # Extract meaningful title words (length >= 5, not stop words)
+                    for w in _re.findall(r"[a-zA-Z]{5,}", title.lower()):
+                        if w not in _STOP:
+                            word_counts[w] = word_counts.get(w, 0) + 1
+        # Keep words that appear in ≥1 liked title
+        liked_keywords = [w for w, c in word_counts.items() if c >= 1]
+        return liked_urls, liked_sources, liked_keywords
     except Exception:
-        return {}
+        return set(), {}, []
 
 
-def _feedback_priority(it: Dict[str, Any], liked_urls: Dict[str, int]) -> int:
-    """0 = this URL was previously liked (absolute boost), 1 = not seen before."""
-    url = (it.get("url") or "").strip()
-    return 0 if liked_urls.get(url, 0) > 0 else 1
+def _feedback_priority(it: Dict[str, Any], liked_urls: set,
+                       liked_sources: Dict[str, int], liked_keywords: List[str]) -> int:
+    """
+    0 = strong match (source liked before OR title keyword match)
+    1 = no match
+    Lower is better — these items bubble up within their journal/bucket tier.
+    """
+    src = (it.get("source") or "").strip()
+    if src and liked_sources.get(src, 0) > 0:
+        return 0
+    if liked_keywords:
+        hay = " ".join([it.get("title") or "", it.get("one_liner") or ""]).lower()
+        if any(kw in hay for kw in liked_keywords):
+            return 0
+    return 1
 
 
 # -----------------------------
@@ -217,14 +248,16 @@ def rank_and_limit(items: List[Dict[str, Any]], cfg: Dict[str, Any]) -> List[Dic
     # Fulltext threshold (keep compatibility)
     FULLTEXT_THRESHOLD = int((cfg.get("fulltext_threshold") if isinstance(cfg, dict) else None) or 1200)
 
-    # Load user feedback (liked URLs) — boosts previously starred items
-    liked_urls = _load_feedback(cfg)
+    # Load user feedback — boosts papers from liked sources/topics
+    liked_urls, liked_sources, liked_keywords = _load_feedback(cfg)
+    if liked_sources or liked_keywords:
+        print(f"[rank] Feedback: boosting {len(liked_sources)} source(s), {len(liked_keywords)} keyword(s)", flush=True)
 
     def rank_key(it: Dict[str, Any]):
         extracted_chars = int(it.get("extracted_chars", 0) or 0)
         has_fulltext = 1 if _has_fulltext(it, FULLTEXT_THRESHOLD) else 0
         return (
-            _feedback_priority(it, liked_urls),      # 0) previously liked items first
+            _feedback_priority(it, liked_urls, liked_sources, liked_keywords),  # 0) feedback boost
             _absolute_author_priority(it, cfg),      # 1) absolute researchers
             _topic_keyword_priority(it, cfg),        # 2) on-topic keywords
             _journal_quality_priority(it, cfg),      # 3) journal quality

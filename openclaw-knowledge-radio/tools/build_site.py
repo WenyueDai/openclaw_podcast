@@ -149,13 +149,19 @@ def render_index(episodes, all_episodes=None):
                 source = html.escape(it.get("source") or "")
                 one_liner = html.escape(it.get("one_liner") or "")
                 raw_url = it.get("url") or ""
+                raw_title = it.get("title") or "Untitled"
+                raw_source = it.get("source") or ""
                 title_part = f'<a href="{url}" target="_blank">{title}</a>' if url else title
                 source_part = f' <span class="src">— {source}</span>' if source else ""
                 summary_part = f'<br><span class="summary">{one_liner}</span>' if one_liner else ""
                 rows.append(
                     f'<li data-url="{html.escape(raw_url)}" data-date="{date}">'
                     f'<label class="cb-wrap">'
-                    f'<input type="checkbox" class="star-cb" data-url="{html.escape(raw_url)}" data-date="{date}"> '
+                    f'<input type="checkbox" class="star-cb"'
+                    f' data-url="{html.escape(raw_url)}"'
+                    f' data-date="{date}"'
+                    f' data-source="{html.escape(raw_source)}"'
+                    f' data-title="{html.escape(raw_title[:120])}"> '
                     f'<span class="num">[{idx}]</span> {title_part}{source_part}'
                     f'</label>'
                     f'{summary_part}</li>'
@@ -353,11 +359,15 @@ async function saveFeedback() {{
   const repo  = localStorage.getItem('gh_repo')  || '{html.escape("WenyueDai/openclaw_podcast")}';
   if (!token) {{ openSettings(); return; }}
 
-  // Gather checked URLs per date
+  // Gather checked items per date (url + source + title for smarter ranking)
   const selections = {{}};
   document.querySelectorAll('.star-cb:checked').forEach(cb => {{
     if (!selections[cb.dataset.date]) selections[cb.dataset.date] = [];
-    selections[cb.dataset.date].push(cb.dataset.url);
+    selections[cb.dataset.date].push({{
+      url: cb.dataset.url,
+      source: cb.dataset.source || '',
+      title: cb.dataset.title || '',
+    }});
   }});
   if (!Object.keys(selections).length) {{ setStatus('Nothing checked.'); return; }}
 
