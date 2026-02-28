@@ -1,5 +1,5 @@
 timezone: "Europe/London"
-lookback_hours: 48
+lookback_hours: 120
 
 paths:
   data_dir: "data"
@@ -179,7 +179,7 @@ rss_sources:
 pubmed:
   enabled: true
   email: "daiwenyueva@gmail.com"
-  lookback_days: 2
+  lookback_days: 5
   max_results_per_term: 30
   bucket: "protein"
   tags: ["pubmed", "journal", "biology"]

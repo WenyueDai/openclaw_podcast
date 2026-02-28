@@ -282,8 +282,14 @@ def main() -> int:
         ]))
 
         # First pass: filter and mark which items need fetch/analysis
+        # Use a local set for within-run URL dedup (prevents processing the same
+        # URL twice when multiple RSS feeds overlap).  The persistent seen_ids is
+        # only written AFTER ranking so that runner-up articles (those that don't
+        # make the final episode due to the item cap) remain available for future
+        # runs — this ensures weekend episodes when arXiv/journals don't publish.
         candidates: List[Dict[str, Any]] = []
         new_items: List[Dict[str, Any]] = []
+        _run_seen_urls: set = set()
         for it in items:
             url = (it.get("url") or "").strip()
             title = (it.get("title") or "")
@@ -294,6 +300,9 @@ def main() -> int:
                 continue
             if any(t in hay for t in excluded_terms):
                 continue
+            if url in _run_seen_urls:
+                continue
+            _run_seen_urls.add(url)
 
             # Wiki context items are pre-built summaries; keep them lightweight.
             if it.get("kind") == "wiki_context":
@@ -302,9 +311,7 @@ def main() -> int:
 
             if not DEBUG_MODE and seen.has(url):
                 continue
-            seen.add(url)
             candidates.append(it)
-        seen.save()
 
         # Second pass: parallel article extract + analysis
         max_workers = int(cfg.get("fetch_workers", 8))
@@ -332,6 +339,15 @@ def main() -> int:
 
     # 3) Rank + limit
     ranked = rank_and_limit(new_items, cfg)
+
+    # Mark only ranked (featured) items as seen so runner-up articles remain
+    # available for future runs (e.g. weekend episodes with sparse new content).
+    if not REGEN_FROM_CACHE:
+        for _it in ranked:
+            _url = (_it.get("url") or "").strip()
+            if _url:
+                seen.add(_url)
+        seen.save()
 
     # 4) Save ranked item list for the website (complete index, not just highlights)
     import json as _json
