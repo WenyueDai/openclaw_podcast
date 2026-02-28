@@ -2,35 +2,24 @@ timezone: "Europe/London"
 lookback_hours: 48
 
 paths:
-  # All paths below are relative to the package directory (where run_daily.py lives).
-  # You can also use absolute paths if preferred.
   data_dir: "data"
   output_dir: "output"
   state_dir: "state"
 
 limits:
-  max_items_total: 40
-  max_items_protein: 25
+  max_items_total: 45
+  max_items_protein: 32
   max_items_daily_knowledge: 5
-  # Cap how many items any single news/industry source can contribute.
-  # Top-ranked items within the cap are kept; rest are dropped.
-  # Sources not listed here get the default cap (max_items_per_news_source).
   source_caps:
     "Nature News": 3
     "Endpoints News": 2
-  # Any other news/industry source (bucket: news or ai_bio with industry tag)
-  # that is not listed above gets capped at this many items.
   max_items_per_news_source: 1
 
 rss_sources:
+  # ── Core protein / structural biology ──────────────────────────────────────
   - name: "arXiv q-bio.BM"
     url: "https://arxiv.org/rss/q-bio.BM"
     tags: ["protein-design", "preprint", "arxiv"]
-    bucket: "protein"
-
-  - name: "Nature (main journal)"
-    url: "https://www.nature.com/nature/current_issue/rss"
-    tags: ["protein-design", "nature", "journal"]
     bucket: "protein"
 
   - name: "Nature - Protein Design"
@@ -38,11 +27,47 @@ rss_sources:
     tags: ["protein-design", "nature", "topic"]
     bucket: "protein"
 
+  - name: "Nature - Protein Engineering"
+    url: "https://www.nature.com/subjects/protein-engineering.rss"
+    tags: ["protein-engineering", "nature", "topic"]
+    bucket: "protein"
+
+  - name: "Nature - Antibodies"
+    url: "https://www.nature.com/subjects/antibodies.rss"
+    tags: ["antibody-design", "nature", "topic"]
+    bucket: "protein"
+
+  - name: "Nature Structural & Molecular Biology"
+    url: "https://www.nature.com/nsmb.rss"
+    tags: ["structural-biology", "protein", "journal"]
+    bucket: "protein"
+
+  - name: "Nature (main journal)"
+    url: "https://www.nature.com/nature/current_issue/rss"
+    tags: ["nature", "journal"]
+    bucket: "protein"
+
   - name: "arXiv q-bio.QM"
     url: "https://arxiv.org/rss/q-bio.QM"
     tags: ["quantitative-biology", "preprint", "arxiv"]
     bucket: "protein"
 
+  - name: "Nature Methods"
+    url: "https://www.nature.com/nmeth/current_issue/rss"
+    tags: ["journal", "methods"]
+    bucket: "protein"
+
+  - name: "Protein Science"
+    url: "https://onlinelibrary.wiley.com/feed/1469896x/most-recent"
+    tags: ["protein"]
+    bucket: "protein"
+
+  - name: "Protein Engineering Design and Selection"
+    url: "https://academic.oup.com/rss/site_5286/43985.xml"
+    tags: ["protein-engineering", "journal"]
+    bucket: "protein"
+
+  # ── Top journals ───────────────────────────────────────────────────────────
   - name: "Nature Biotechnology"
     url: "https://www.nature.com/nbt.rss"
     tags: ["biotech", "journal"]
@@ -58,6 +83,7 @@ rss_sources:
     tags: ["biology", "journal"]
     bucket: "journal"
 
+  # ── AI / ML for biology ───────────────────────────────────────────────────
   - name: "arXiv cs.LG (AI/ML)"
     url: "https://arxiv.org/rss/cs.LG"
     tags: ["machine-learning", "arxiv"]
@@ -68,6 +94,7 @@ rss_sources:
     tags: ["machine-learning", "statistics"]
     bucket: "ai_bio"
 
+  # ── Industry & news (capped) ───────────────────────────────────────────────
   - name: "Nature News"
     url: "https://www.nature.com/nature/articles?type=news&format=rss"
     tags: ["science-news"]
@@ -77,11 +104,6 @@ rss_sources:
     url: "https://feeds.feedburner.com/ScientificAmerican-Health"
     tags: ["science-news"]
     bucket: "news"
-
-  - name: "Nature Methods"
-    url: "https://www.nature.com/nmeth/current_issue/rss"
-    tags: ["journal", "methods"]
-    bucket: "protein"
 
   - name: "Endpoints News"
     url: "https://endpts.com/feed/"
@@ -93,96 +115,105 @@ rss_sources:
     tags: ["math", "science"]
     bucket: "daily"
 
-  - name: "Protein Science"
-    url: "https://onlinelibrary.wiley.com/feed/1469896x/most-recent"
-    tags: ["protein"]
-    bucket: "protein"
-
-  # -------------------------
-  # Key Researchers (Author RSS)
-  # -------------------------
-
+  # ── Key researchers — protein / antibody / enzyme design ──────────────────
   - name: "David Baker (arXiv)"
-    url: "http://export.arxiv.org/api/query?search_query=au:\"David+J.+Baker\"&sortBy=submittedDate&sortOrder=descending"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"David+J.+Baker\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
     tags: ["protein-design", "author"]
     bucket: "protein"
 
-  - name: "Sergey Ovchinnikov (arXiv API)"
-    url: "http://export.arxiv.org/api/query?search_query=au:\"Sergey+Ovchinnikov\"&sortBy=submittedDate&sortOrder=descending&max_results=25"
-    tags: ['protein-design']
+  - name: "Sergey Ovchinnikov (arXiv)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Sergey+Ovchinnikov\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
+    tags: ["protein-design", "author"]
     bucket: "protein"
 
-  - name: "Alexander Rives (arXiv API)"
-    url: "http://export.arxiv.org/api/query?search_query=au:\"Alexander+Rives\"&sortBy=submittedDate&sortOrder=descending&max_results=25"
+  - name: "Alexander Rives (arXiv)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Alexander+Rives\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
     tags: ["protein-LLM", "esm", "author"]
-    bucket: "ai_bio"
+    bucket: "protein"
 
-  - name: "Brian Hie (arXiv API)"
-    url: "http://export.arxiv.org/api/query?search_query=au:\"Brian+Hie\"&sortBy=submittedDate&sortOrder=descending&max_results=25"
+  - name: "Brian Hie (arXiv)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Brian+Hie\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
     tags: ["protein-LLM", "evolution", "author"]
-    bucket: "ai_bio"
+    bucket: "protein"
 
-  - name: "Jure Leskovec (arXiv API)"
-    url: "http://export.arxiv.org/api/query?search_query=au:\"Jure+Leskovec\"&sortBy=submittedDate&sortOrder=descending&max_results=25"
+  - name: "Charlotte Deane (arXiv)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Charlotte+M.+Deane\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
+    tags: ["antibody-design", "author"]
+    bucket: "protein"
+
+  - name: "Jeffrey Gray (arXiv)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Jeffrey+J.+Gray\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
+    tags: ["antibody-design", "rosetta", "author"]
+    bucket: "protein"
+
+  - name: "Tanja Kortemme (arXiv)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Tanja+Kortemme\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
+    tags: ["protein-design", "author"]
+    bucket: "protein"
+
+  - name: "Po-Ssu Huang (arXiv)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Po-Ssu+Huang\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
+    tags: ["protein-design", "author"]
+    bucket: "protein"
+
+  - name: "Jure Leskovec (arXiv)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Jure+Leskovec\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
     tags: ["graph-learning", "bio-ml", "author"]
     bucket: "ai_bio"
 
-  - name: "Regina Barzilay (arXiv API)"
-    url: "http://export.arxiv.org/api/query?search_query=au:\"Regina+Barzilay\"&sortBy=submittedDate&sortOrder=descending&max_results=25"
+  - name: "Regina Barzilay (arXiv)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Regina+Barzilay\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
     tags: ["ai-biomed", "author"]
     bucket: "ai_bio"
 
-  - name: "Bonnie Berger (arXiv API)"
-    url: "http://export.arxiv.org/api/query?search_query=au:\"Bonnie+Berger\"&sortBy=submittedDate&sortOrder=descending&max_results=25"
+  - name: "Bonnie Berger (arXiv)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Bonnie+Berger\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
     tags: ["computational-biology", "author"]
     bucket: "ai_bio"
 
-  - name: "Tommi Jaakkola (arXiv API)"
-    url: "http://export.arxiv.org/api/query?search_query=au:\"Tommi+Jaakkola\"&sortBy=submittedDate&sortOrder=descending&max_results=25"
+  - name: "Tommi Jaakkola (arXiv)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Tommi+Jaakkola\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
     tags: ["machine-learning", "bio-ml", "author"]
     bucket: "ai_bio"
 
-  - name: "Pieter Abbeel (arXiv API)"
-    url: "http://export.arxiv.org/api/query?search_query=au:\"Pieter+Abbeel\"&sortBy=submittedDate&sortOrder=descending&max_results=25"
-    tags: ["machine-learning", "author"]
-    bucket: "ai_bio"
-
-  - name: "Aviv Regev (arXiv API)"
-    url: "http://export.arxiv.org/api/query?search_query=au:\"Aviv+Regev\"&sortBy=submittedDate&sortOrder=descending&max_results=25"
-    tags: ["single-cell", "computational-biology", "author"]
-    bucket: "ai_bio"
-
 pubmed:
-  enabled: true                        # set to false to disable
-  email: "daiwenyueva@gmail.com"        # required by NCBI usage policy
-  lookback_days: 2                     # how many days back to query
-  max_results_per_term: 50             # max PubMed results per search term
+  enabled: true
+  email: "daiwenyueva@gmail.com"
+  lookback_days: 2
+  max_results_per_term: 30
   bucket: "protein"
   tags: ["pubmed", "journal", "biology"]
   search_terms:
+    # Protein design — core
     - "protein design deep learning"
+    - "de novo protein design"
+    - "computational protein design"
     - "protein structure prediction"
     - "protein language model"
-    - "diffusion model protein"
-    - "AlphaFold structure"
+    - "diffusion model protein design"
+    - "AlphaFold structure prediction"
+    # Antibody design
+    - "antibody design machine learning"
+    - "antibody engineering computational"
+    - "nanobody design"
+    - "therapeutic antibody optimization"
+    # Enzyme design
+    - "enzyme design computational"
+    - "enzyme engineering directed evolution"
+    - "de novo enzyme design"
+    # Protein engineering
+    - "protein engineering stability"
+    - "protein binder design"
 
 daily_knowledge:
   enabled: true
 
 wiki_context:
-  enabled: true
-  max_items: 5
-  topics:
-    - "Protein design"
-    - "Computational biology"
-    - "Bioinformatics"
-    - "Machine learning"
-    - "AlphaFold"
+  enabled: false
 
 podcast:
   enabled: true
   target_minutes: 60
-  # Change voice if you want Mandarin etc. Example: "zh-CN-XiaoxiaoNeural"
   voice: "en-GB-RyanNeural"
   voice_rate: "+35%"
   tts_chunk_chars: 2800
@@ -195,41 +226,57 @@ podcast:
     roundup_max_tokens: 2200
     use_merge_llm: false
 
-
 publish:
   enabled: true
-  # GitHub repo used to host audio releases (must exist, GITHUB_TOKEN needs repo scope)
   github_release_repo: "WenyueDai/openclaw_podcast"
-  # Delete tts_parts/ and temp ffmpeg files after final MP3 is merged
   cleanup_intermediate: true
 
 llm:
   enabled: true
   provider: "openrouter"
-  # Script generation model — used for writing the podcast narration.
-  # Trinity is optimized for creative writing and flowing prose.
   model: "arcee-ai/trinity-large-preview:free"
-  # Analysis model — used for per-article fact extraction before script writing.
-  # Gemini 2.5 Flash is ranked #1 for science/academia on OpenRouter.
   analysis_model: "stepfun/step-3.5-flash:free"
   api_key_env: "OPENROUTER_API_KEY"
   temperature: 0.25
   max_output_tokens: 8192
 
 ranking:
-  absolute_sources:
-    - "Frances Arnold (Google Scholar)"
-    - "David Baker (arXiv)"
   absolute_source_substrings:
     - "david baker"
     - "sergey ovchinnikov"
-    - "mohamed alquraishi"
     - "alexander rives"
+    - "charlotte deane"
+    - "jeffrey gray"
+    - "tanja kortemme"
 
   source_priority_rules:
     - {contains: "nature biotechnology", priority: 1}
     - {contains: "nature chemical biology", priority: 1}
+    - {contains: "nature structural", priority: 1}
+    - {contains: "protein engineering design", priority: 1}
     - {contains: "pnas", priority: 2}
-    - {contains: "nature (main journal)", priority: 1}
+    - {contains: "nature (main journal)", priority: 2}
+    - {contains: "protein science", priority: 3}
     - {contains: "arxiv", priority: 5}
     - {contains: "sciencedirect", priority: 6}
+
+  # Items whose title or snippet contain any of these keywords are ranked
+  # above other items of equal source quality.
+  topic_boost_keywords:
+    - "antibody design"
+    - "antibody engineering"
+    - "nanobody"
+    - "enzyme design"
+    - "enzyme engineering"
+    - "directed evolution"
+    - "de novo protein"
+    - "protein binder"
+    - "protein engineering"
+    - "therapeutic antibody"
+    - "protein language model"
+    - "diffusion model"
+    - "AlphaFold"
+    - "RoseTTAFold"
+    - "ESMFold"
+    - "ProteinMPNN"
+    - "RFdiffusion"

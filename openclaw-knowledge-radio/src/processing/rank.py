@@ -1,4 +1,33 @@
-from typing import Any, Dict, List
+import json
+from pathlib import Path
+from typing import Any, Dict, List, Set
+
+
+def _load_feedback(cfg: Dict[str, Any]) -> Dict[str, int]:
+    """
+    Load state/feedback.json.  Returns {url: like_count}.
+    Also computes which sources are frequently liked so we can boost them.
+    """
+    state_dir = Path(__file__).resolve().parent.parent.parent / "state"
+    fb_file = state_dir / "feedback.json"
+    if not fb_file.exists():
+        return {}
+    try:
+        data = json.loads(fb_file.read_text(encoding="utf-8"))
+        # data format: {"YYYY-MM-DD": ["url1", "url2"], ...}
+        counts: Dict[str, int] = {}
+        for urls in data.values():
+            for url in (urls or []):
+                counts[url] = counts.get(url, 0) + 1
+        return counts
+    except Exception:
+        return {}
+
+
+def _feedback_priority(it: Dict[str, Any], liked_urls: Dict[str, int]) -> int:
+    """0 = this URL was previously liked (absolute boost), 1 = not seen before."""
+    url = (it.get("url") or "").strip()
+    return 0 if liked_urls.get(url, 0) > 0 else 1
 
 
 # -----------------------------
@@ -130,6 +159,26 @@ def _journal_quality_priority(it: Dict[str, Any], cfg: Dict[str, Any]) -> int:
     return 7
 
 
+def _topic_keyword_priority(it: Dict[str, Any], cfg: Dict[str, Any]) -> int:
+    """
+    0 if the item title/snippet matches a topic_boost_keyword, 1 otherwise.
+    This makes on-topic items float above off-topic items within the same tier.
+    """
+    keywords = (cfg.get("ranking") or {}).get("topic_boost_keywords") or []
+    if not keywords:
+        return 0  # no config = no penalty
+    hay = " ".join([
+        (it.get("title") or ""),
+        (it.get("one_liner") or ""),
+        (it.get("snippet") or ""),
+        (it.get("source") or ""),
+    ]).lower()
+    for kw in keywords:
+        if kw.lower() in hay:
+            return 0
+    return 1
+
+
 def _bucket_priority(it: Dict[str, Any]) -> int:
     """
     Keep your existing behavior: steer toward research over general news.
@@ -168,23 +217,20 @@ def rank_and_limit(items: List[Dict[str, Any]], cfg: Dict[str, Any]) -> List[Dic
     # Fulltext threshold (keep compatibility)
     FULLTEXT_THRESHOLD = int((cfg.get("fulltext_threshold") if isinstance(cfg, dict) else None) or 1200)
 
+    # Load user feedback (liked URLs) — boosts previously starred items
+    liked_urls = _load_feedback(cfg)
+
     def rank_key(it: Dict[str, Any]):
         extracted_chars = int(it.get("extracted_chars", 0) or 0)
         has_fulltext = 1 if _has_fulltext(it, FULLTEXT_THRESHOLD) else 0
-
-        # IMPORTANT:
-        # - we want ABSOLUTE researchers first => absolute_priority (0 best)
-        # - then journal quality
-        # - then bucket
-        # - THEN fulltext (so fulltext is not overriding your author/journal goal)
-        #
-        # fulltext tie-break: prefer has_fulltext=1 => we use negative
         return (
-            _absolute_author_priority(it, cfg),      # 0) absolute researchers first
-            _journal_quality_priority(it, cfg),      # 1) journal quality
-            _bucket_priority(it),                    # 2) research buckets first
-            -has_fulltext,                           # 3) fulltext as small bonus
-            -extracted_chars,                        # 4) longer text tie-break
+            _feedback_priority(it, liked_urls),      # 0) previously liked items first
+            _absolute_author_priority(it, cfg),      # 1) absolute researchers
+            _topic_keyword_priority(it, cfg),        # 2) on-topic keywords
+            _journal_quality_priority(it, cfg),      # 3) journal quality
+            _bucket_priority(it),                    # 4) research buckets
+            -has_fulltext,                           # 5) fulltext bonus
+            -extracted_chars,                        # 6) longer text tie-break
         )
 
     ranked = sorted(items, key=rank_key)

@@ -134,43 +134,82 @@ def generate_cover_svg(seed_text: str):
 </svg>"""
 
 
-def render_index(episodes):
+def render_index(episodes, all_episodes=None):
+    # Counter across all episodes so paper numbers are unique per episode
     cards = []
     for ep in episodes:
-        s_link = f'<a href="{html.escape(ep["script_name"])}">full script</a>' if ep["script_name"] else ""
-
-        # Full item list (preferred) or fallback to script-scraped highlights
+        s_link = f'<a href="{html.escape(ep["script_name"])}">script</a>' if ep["script_name"] else ""
+        date = ep["date"]
         items = ep.get("items") or []
+        rows = []
         if items:
-            rows = []
-            for it in items:
+            for idx, it in enumerate(items, 1):
                 title = html.escape(it.get("title") or "Untitled")
                 url = html.escape(it.get("url") or "")
                 source = html.escape(it.get("source") or "")
                 one_liner = html.escape(it.get("one_liner") or "")
-                title_part = f'<a href="{url}">{title}</a>' if url else title
+                raw_url = it.get("url") or ""
+                title_part = f'<a href="{url}" target="_blank">{title}</a>' if url else title
                 source_part = f' <span class="src">— {source}</span>' if source else ""
                 summary_part = f'<br><span class="summary">{one_liner}</span>' if one_liner else ""
-                rows.append(f"<li>{title_part}{source_part}{summary_part}</li>")
+                rows.append(
+                    f'<li data-url="{html.escape(raw_url)}" data-date="{date}">'
+                    f'<label class="cb-wrap">'
+                    f'<input type="checkbox" class="star-cb" data-url="{html.escape(raw_url)}" data-date="{date}"> '
+                    f'<span class="num">[{idx}]</span> {title_part}{source_part}'
+                    f'</label>'
+                    f'{summary_part}</li>'
+                )
             items_html = "".join(rows)
-            section_html = f'<div class="abstract"><h3>Papers &amp; News ({len(items)})</h3><ul>{items_html}</ul></div>'
+            section_html = (
+                f'<div class="abstract">'
+                f'<h3>Papers &amp; News ({len(items)}) '
+                f'<span class="tip">☑ check interesting ones → Save feedback</span></h3>'
+                f'<ul>{items_html}</ul>'
+                f'</div>'
+            )
         else:
             hl = ep.get("highlights") or []
-            hl_html = "".join([f"<li>{html.escape(h)}</li>" for h in hl]) if hl else "<li>No items listed yet.</li>"
+            hl_html = "".join([f"<li>{html.escape(h)}</li>" for h in hl]) if hl else "<li>No items yet.</li>"
             section_html = f'<div class="abstract"><h3>Highlights</h3><ul>{hl_html}</ul></div>'
 
-        cards.append(
-            f"""
+        cards.append(f"""
 <section class='card'>
   <h2>{html.escape(ep['title'])}</h2>
-  <p class='meta'>Published: {html.escape(ep['date'])}</p>
+  <p class='meta'>Published: {html.escape(ep['date'])} {s_link}</p>
   <audio controls src="{html.escape(ep['audio_url'])}"></audio>
-  <p><a href="{html.escape(ep['audio_url'])}">download mp3</a> {s_link}</p>
+  <p class='speed-row'>Speed:
+    <button onclick="setRate(1)">1x</button>
+    <button onclick="setRate(1.2)">1.2x</button>
+    <button onclick="setRate(1.5)">1.5x</button>
+    <button onclick="setRate(2)">2x</button>
+  </p>
   {section_html}
-</section>
-"""
-        )
+</section>""")
+
     body = "\n".join(cards) if cards else "<section class='card'><p>No episodes yet.</p></section>"
+
+    # Past episodes sidebar — grouped by YYYY-MM
+    sidebar_html = ""
+    if all_episodes and len(all_episodes) > len(episodes):
+        from collections import defaultdict
+        by_month = defaultdict(list)
+        for ep in all_episodes:
+            ym = ep["date"][:7]  # YYYY-MM
+            by_month[ym].append(ep)
+        sidebar_parts = []
+        for ym in sorted(by_month.keys(), reverse=True):
+            month_label = datetime.strptime(ym, "%Y-%m").strftime("%B %Y")
+            links = []
+            for ep in by_month[ym]:
+                audio = html.escape(ep.get("audio_url", ""))
+                d = html.escape(ep["date"])
+                links.append(f'<li><a href="{audio}" target="_blank">{d}</a></li>')
+            sidebar_parts.append(
+                f'<div class="month-group"><h4>{month_label}</h4><ul>{"".join(links)}</ul></div>'
+            )
+        sidebar_html = f'<aside class="sidebar"><h3>Past Episodes</h3>{"".join(sidebar_parts)}</aside>'
+
     return f"""<!doctype html>
 <html>
 <head>
@@ -181,38 +220,190 @@ def render_index(episodes):
 :root {{ --bg:#eef7ef; --bg2:#f7f4e9; --card:#fffdf6; --text:#2d3d33; --muted:#6d7f71; --accent:#4f8f6a; --line:#dbe7d9; }}
 * {{ box-sizing:border-box; }}
 body {{ margin:0; font-family:"Hiragino Sans","Noto Sans JP",Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:linear-gradient(160deg,var(--bg),var(--bg2)); color:var(--text); }}
-main {{ max-width:900px; margin:0 auto; padding:28px 16px 40px; }}
-h1 {{ margin:0 0 8px; letter-spacing:.3px; }}
-.sub {{ color:var(--muted); margin-bottom:18px; }}
+.layout {{ display:flex; gap:20px; max-width:1200px; margin:0 auto; padding:28px 16px 40px; }}
+.main-col {{ flex:1; min-width:0; }}
+.sidebar {{ width:200px; flex-shrink:0; }}
+.sidebar h3 {{ margin:0 0 10px; font-size:.95rem; color:var(--accent); }}
+.sidebar h4 {{ margin:12px 0 4px; font-size:.85rem; color:var(--muted); }}
+.sidebar ul {{ margin:0; padding-left:14px; }}
+.sidebar li {{ margin:3px 0; font-size:.82rem; }}
+h1 {{ margin:0 0 6px; letter-spacing:.3px; }}
+.sub {{ color:var(--muted); margin-bottom:12px; font-size:.92rem; }}
 .card {{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; margin:14px 0; box-shadow:0 10px 22px rgba(79,143,106,.12); }}
-h2 {{ margin:0 0 4px; font-size:1.15rem; }}
-.meta {{ color:var(--muted); margin:0 0 10px; font-size:.92rem; }}
+h2 {{ margin:0 0 4px; font-size:1.1rem; }}
+.meta {{ color:var(--muted); margin:0 0 8px; font-size:.88rem; }}
 a {{ color:var(--accent); text-decoration:none; }}
 a:hover {{ text-decoration:underline; }}
-audio {{ width:100%; margin:6px 0 8px; }}
-.abstract h3 {{ margin:10px 0 6px; font-size:1rem; color:#4c6f5a; }}
-.abstract ul {{ margin:0; padding-left:20px; }}
-.abstract li {{ margin:6px 0; line-height:1.45; }}
-.src {{ color:var(--muted); font-size:.88rem; }}
-.summary {{ color:var(--muted); font-size:.9rem; }}
+audio {{ width:100%; margin:4px 0 6px; }}
+.speed-row {{ margin:0 0 8px; font-size:.88rem; color:var(--muted); }}
+.speed-row button {{ font-size:.82rem; padding:1px 7px; margin-right:3px; border:1px solid var(--line); border-radius:5px; background:var(--bg2); cursor:pointer; }}
+.abstract h3 {{ margin:8px 0 5px; font-size:.95rem; color:#4c6f5a; }}
+.abstract ul {{ margin:0; padding-left:0; list-style:none; }}
+.abstract li {{ margin:5px 0; line-height:1.45; padding:4px 6px; border-radius:6px; transition:background .15s; }}
+.abstract li:hover {{ background:rgba(79,143,106,.07); }}
+.cb-wrap {{ display:flex; align-items:baseline; gap:5px; cursor:pointer; }}
+.star-cb {{ accent-color:var(--accent); width:14px; height:14px; flex-shrink:0; cursor:pointer; }}
+.num {{ color:var(--muted); font-size:.82rem; font-weight:600; min-width:28px; }}
+.src {{ color:var(--muted); font-size:.85rem; }}
+.summary {{ color:var(--muted); font-size:.87rem; margin-left:48px; display:block; }}
+.tip {{ font-size:.75rem; font-weight:400; color:var(--muted); }}
+.feedback-bar {{ margin-top:10px; padding:10px 12px; background:var(--bg2); border:1px solid var(--line); border-radius:10px; font-size:.88rem; }}
+.feedback-bar button {{ padding:4px 12px; border:1px solid var(--accent); border-radius:6px; background:var(--accent); color:#fff; cursor:pointer; font-size:.85rem; margin-right:8px; }}
+.feedback-bar button.sec {{ background:transparent; color:var(--accent); }}
+#fb-status {{ color:var(--muted); font-size:.82rem; }}
+.modal-bg {{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:100; align-items:center; justify-content:center; }}
+.modal-bg.open {{ display:flex; }}
+.modal {{ background:#fff; border-radius:14px; padding:22px; max-width:420px; width:90%; }}
+.modal h3 {{ margin:0 0 10px; }}
+.modal input {{ width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:7px; font-size:.9rem; margin-bottom:10px; }}
+.modal p {{ font-size:.82rem; color:var(--muted); margin:0 0 12px; }}
+.modal .btn-row {{ display:flex; gap:8px; }}
+.modal button {{ flex:1; padding:7px; border-radius:7px; border:1px solid var(--accent); cursor:pointer; font-size:.88rem; }}
+.modal .save {{ background:var(--accent); color:#fff; }}
+.modal .cancel {{ background:transparent; color:var(--accent); }}
 </style>
 </head>
 <body>
-<main>
-  <h1>{html.escape(PODCAST_TITLE)}</h1>
-  <p class='sub'>{html.escape(PODCAST_SUMMARY)}.</p>
-  <p class='sub'>Playback speed:
-    <button onclick="setRate(1)">1x</button>
-    <button onclick="setRate(1.2)">1.2x</button>
-    <button onclick="setRate(1.5)">1.5x</button>
-    <button onclick="setRate(2)">2x</button>
-  </p>
-  {body}
-</main>
+<div class="layout">
+  <div class="main-col">
+    <h1>{html.escape(PODCAST_TITLE)}</h1>
+    <p class='sub'>{html.escape(PODCAST_SUMMARY)}</p>
+    {body}
+    <div class="feedback-bar">
+      <strong>Your selections:</strong>
+      <span id="sel-count">0 checked</span> &nbsp;
+      <button onclick="saveFeedback()">Save feedback to GitHub</button>
+      <button class="sec" onclick="openSettings()">⚙ Settings</button>
+      <span id="fb-status"></span>
+    </div>
+  </div>
+  {sidebar_html}
+</div>
+
+<!-- Settings modal -->
+<div class="modal-bg" id="settings-modal">
+  <div class="modal">
+    <h3>GitHub Settings</h3>
+    <p>Your token is stored only in this browser (localStorage). It's used to commit your paper selections back to the repo so the ranking can learn from them.</p>
+    <input type="password" id="gh-token-input" placeholder="GitHub personal access token (repo scope)">
+    <input type="text" id="gh-repo-input" placeholder="owner/repo  e.g. WenyueDai/openclaw_podcast">
+    <div class="btn-row">
+      <button class="save" onclick="saveSettings()">Save</button>
+      <button class="cancel" onclick="closeSettings()">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <script>
-function setRate(v) {{
-  document.querySelectorAll('audio').forEach(a => {{ a.playbackRate = v; }});
+// ── Restore checkbox states from localStorage ──────────────────────────────
+function storageKey(date) {{ return 'feedback_' + date; }}
+
+function loadCheckboxes() {{
+  document.querySelectorAll('.star-cb').forEach(cb => {{
+    const date = cb.dataset.date, url = cb.dataset.url;
+    const saved = JSON.parse(localStorage.getItem(storageKey(date)) || '[]');
+    if (saved.includes(url)) cb.checked = true;
+  }});
+  updateCount();
 }}
+
+function saveCheckboxes() {{
+  const byDate = {{}};
+  document.querySelectorAll('.star-cb').forEach(cb => {{
+    if (!byDate[cb.dataset.date]) byDate[cb.dataset.date] = [];
+    if (cb.checked) byDate[cb.dataset.date].push(cb.dataset.url);
+  }});
+  for (const [date, urls] of Object.entries(byDate)) {{
+    localStorage.setItem(storageKey(date), JSON.stringify(urls));
+  }}
+  updateCount();
+}}
+
+function updateCount() {{
+  const n = document.querySelectorAll('.star-cb:checked').length;
+  document.getElementById('sel-count').textContent = n + ' checked';
+}}
+
+document.querySelectorAll('.star-cb').forEach(cb => {{
+  cb.addEventListener('change', saveCheckboxes);
+}});
+
+// ── Playback speed ────────────────────────────────────────────────────────
+function setRate(v) {{ document.querySelectorAll('audio').forEach(a => a.playbackRate = v); }}
+
+// ── Settings modal ────────────────────────────────────────────────────────
+function openSettings() {{
+  document.getElementById('gh-token-input').value = localStorage.getItem('gh_token') || '';
+  document.getElementById('gh-repo-input').value = localStorage.getItem('gh_repo') || '{html.escape("WenyueDai/openclaw_podcast")}';
+  document.getElementById('settings-modal').classList.add('open');
+}}
+function closeSettings() {{ document.getElementById('settings-modal').classList.remove('open'); }}
+function saveSettings() {{
+  localStorage.setItem('gh_token', document.getElementById('gh-token-input').value.trim());
+  localStorage.setItem('gh_repo', document.getElementById('gh-repo-input').value.trim());
+  closeSettings();
+  setStatus('Settings saved.');
+}}
+
+// ── Save feedback to GitHub ───────────────────────────────────────────────
+function setStatus(msg) {{ document.getElementById('fb-status').textContent = msg; }}
+
+async function saveFeedback() {{
+  const token = localStorage.getItem('gh_token') || '';
+  const repo  = localStorage.getItem('gh_repo')  || '{html.escape("WenyueDai/openclaw_podcast")}';
+  if (!token) {{ openSettings(); return; }}
+
+  // Gather checked URLs per date
+  const selections = {{}};
+  document.querySelectorAll('.star-cb:checked').forEach(cb => {{
+    if (!selections[cb.dataset.date]) selections[cb.dataset.date] = [];
+    selections[cb.dataset.date].push(cb.dataset.url);
+  }});
+  if (!Object.keys(selections).length) {{ setStatus('Nothing checked.'); return; }}
+
+  setStatus('Saving…');
+  const path = 'openclaw-knowledge-radio/state/feedback.json';
+  const apiBase = 'https://api.github.com/repos/' + repo;
+  const headers = {{
+    'Authorization': 'Bearer ' + token,
+    'Accept': 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+    'Content-Type': 'application/json',
+  }};
+
+  try {{
+    // Get current file (to obtain SHA and merge existing data)
+    let existing = {{}}, sha = null;
+    const get = await fetch(apiBase + '/contents/' + path, {{headers}});
+    if (get.ok) {{
+      const meta = await get.json();
+      sha = meta.sha;
+      existing = JSON.parse(atob(meta.content.replace(/\\n/g,'')));
+    }}
+
+    // Merge new selections with existing
+    for (const [date, urls] of Object.entries(selections)) {{
+      const prev = existing[date] || [];
+      existing[date] = [...new Set([...prev, ...urls])];
+    }}
+
+    const body = {{ message: 'Update feedback ' + new Date().toISOString().slice(0,10),
+                    content: btoa(unescape(encodeURIComponent(JSON.stringify(existing, null, 2)))) }};
+    if (sha) body.sha = sha;
+
+    const put = await fetch(apiBase + '/contents/' + path, {{
+      method: 'PUT', headers, body: JSON.stringify(body)
+    }});
+    if (put.ok) {{
+      setStatus('✓ Saved! Ranking will improve from tomorrow.');
+    }} else {{
+      const err = await put.json();
+      setStatus('Error: ' + (err.message || put.status));
+    }}
+  }} catch(e) {{ setStatus('Error: ' + e.message); }}
+}}
+
+loadCheckboxes();
 </script>
 </body>
 </html>
@@ -310,7 +501,7 @@ def main():
         for e in web_episodes
     ], indent=2), encoding="utf-8")
 
-    (SITE_DIR / "index.html").write_text(render_index(web_episodes), encoding="utf-8")
+    (SITE_DIR / "index.html").write_text(render_index(web_episodes, all_episodes=episodes), encoding="utf-8")
     (SITE_DIR / "feed.xml").write_text(render_feed(episodes, site_url), encoding="utf-8")
     print(f"Built site with {len(web_episodes)} episode(s) shown (of {len(episodes)} total): {SITE_DIR}")
 
