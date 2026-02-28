@@ -65,44 +65,71 @@ def _extract_highlights(script_path: Path | None, max_points: int = 5) -> list[s
 
 
 def discover_episodes():
-    episodes = []
     release_idx = _load_release_index()
-    if not BASE_OUTPUT.exists():
-        return episodes
-    for d in sorted(BASE_OUTPUT.iterdir()):
-        if not d.is_dir():
-            continue
-        date = d.name
-        mp3 = d / f"podcast_{date}.mp3"
-        script = d / f"podcast_script_{date}_llm.txt"
-        if not script.exists():
-            script = d / f"podcast_script_{date}_llm_clean.txt"
-        if not mp3.exists():
-            continue
-        script_path = script if script.exists() else None
-        # Load full ranked item list if available (written by run_daily.py)
-        items_file = d / "episode_items.json"
-        if items_file.exists():
-            try:
-                episode_items = json.loads(items_file.read_text(encoding="utf-8"))
-            except Exception:
-                episode_items = []
-        else:
-            episode_items = []
+    episodes_by_date = {}
 
-        episodes.append({
+    # Pass 1: episodes from release_index.json (works on fresh checkout / GitHub Actions)
+    for date, audio_url in release_idx.items():
+        mp3_name = f"podcast_{date}.mp3"
+        episodes_by_date[date] = {
             "date": date,
             "title": f"Daily Podcast {date}",
-            "mp3_src": mp3,
-            "mp3_name": mp3.name,
-            "mp3_size": mp3.stat().st_size,
-            "audio_url": release_idx.get(date, f"audio/{mp3.name}"),
-            "script": script_path,
-            "script_name": script.name if script_path else None,
-            "highlights": _extract_highlights(script_path, max_points=5),
-            "items": episode_items,
-        })
-    episodes.sort(key=lambda x: x["date"], reverse=True)
+            "mp3_src": None,
+            "mp3_name": mp3_name,
+            "mp3_size": 0,
+            "audio_url": audio_url,
+            "script": None,
+            "script_name": None,
+            "highlights": [],
+            "items": [],
+        }
+
+    # Pass 2: enrich with local files where available (local runs)
+    if BASE_OUTPUT.exists():
+        for d in BASE_OUTPUT.iterdir():
+            if not d.is_dir():
+                continue
+            date = d.name
+            mp3 = d / f"podcast_{date}.mp3"
+            script = d / f"podcast_script_{date}_llm.txt"
+            if not script.exists():
+                script = d / f"podcast_script_{date}_llm_clean.txt"
+            script_path = script if script.exists() else None
+            items_file = d / "episode_items.json"
+            episode_items = []
+            if items_file.exists():
+                try:
+                    episode_items = json.loads(items_file.read_text(encoding="utf-8"))
+                except Exception:
+                    pass
+
+            # Only create entry if we have audio (local mp3 or release index)
+            if not mp3.exists() and date not in episodes_by_date:
+                continue
+
+            ep = episodes_by_date.setdefault(date, {
+                "date": date,
+                "title": f"Daily Podcast {date}",
+                "mp3_src": None,
+                "mp3_name": f"podcast_{date}.mp3",
+                "mp3_size": 0,
+                "audio_url": release_idx.get(date, f"audio/podcast_{date}.mp3"),
+                "script": None,
+                "script_name": None,
+                "highlights": [],
+                "items": [],
+            })
+            if mp3.exists():
+                ep["mp3_src"] = mp3
+                ep["mp3_size"] = mp3.stat().st_size
+            if script_path:
+                ep["script"] = script_path
+                ep["script_name"] = script_path.name
+                ep["highlights"] = _extract_highlights(script_path, max_points=5)
+            if episode_items:
+                ep["items"] = episode_items
+
+    episodes = sorted(episodes_by_date.values(), key=lambda x: x["date"], reverse=True)
     return episodes
 
 
@@ -534,7 +561,7 @@ def main():
     for ep in web_episodes:
         audio_url = ep.get("audio_url", "")
         is_remote = audio_url.startswith("http://") or audio_url.startswith("https://")
-        if not is_remote:
+        if not is_remote and ep.get("mp3_src"):
             (AUDIO_DIR / ep["mp3_name"]).write_bytes(ep["mp3_src"].read_bytes())
             keep_audio.add(ep["mp3_name"])
     for f in AUDIO_DIR.glob("*.mp3"):

@@ -41,6 +41,23 @@ jobs:
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
         run: python run_daily.py
 
+      - name: Prune old output dirs (keep last 30 days)
+        run: |
+          python - <<'PYEOF'
+          import shutil
+          from pathlib import Path
+          from datetime import date, timedelta
+          cutoff = date.today() - timedelta(days=30)
+          for d in Path("output").iterdir():
+              if not d.is_dir(): continue
+              try:
+                  if date.fromisoformat(d.name) < cutoff:
+                      shutil.rmtree(d)
+                      print(f"Pruned {d}")
+              except ValueError:
+                  pass
+          PYEOF
+
       - name: Commit state + site changes
         run: |
           git config user.name  "github-actions[bot]"

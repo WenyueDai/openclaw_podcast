@@ -15,6 +15,9 @@ openclaw-knowledge-radio/.env
 !docs/feed.xml
 !docs/episodes.json
 
+# Raw collected data — regenerated each run, not needed in git
+openclaw-knowledge-radio/data/20*/
+
 # Local TTS model/runtime files
 openclaw-knowledge-radio/models/
 openclaw-knowledge-radio/state/kokoro_api.log
