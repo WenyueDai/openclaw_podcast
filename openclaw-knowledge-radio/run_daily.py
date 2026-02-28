@@ -407,54 +407,73 @@ def main() -> int:
         parts_dir = out_dir / "tts_parts"
         ensure_dir(parts_dir)
 
-        raw_segments = [s.strip() for s in script_text.split(TRANSITION_MARKER) if s and s.strip()]
-        groups = []
-        for i, seg in enumerate(raw_segments, 1):
-            seg_clean = clean_for_tts(seg)
-            seg_dir = parts_dir / f"seg_{i:03d}"
-            ensure_dir(seg_dir)
-            seg_parts = tts_text_to_mp3_chunked(
-                text=seg_clean,
-                out_dir=seg_dir,
+        # Keep raw_segments_all WITHOUT filtering so indices align with _item_segments.
+        # (filtering shifts indices, causing every item after a missing segment to seek wrong)
+        raw_segments_all = [s.strip() for s in script_text.split(TRANSITION_MARKER)]
+        groups: List[List[Path]] = []
+        _raw_seg_to_group: Dict[int, int] = {}  # raw_segment_index → group_index
+
+        for _si, _seg in enumerate(raw_segments_all):
+            if not _seg:
+                continue
+            _seg_clean = clean_for_tts(_seg)
+            _seg_dir = parts_dir / f"seg_{_si:03d}"
+            ensure_dir(_seg_dir)
+            _seg_parts = tts_text_to_mp3_chunked(
+                text=_seg_clean,
+                out_dir=_seg_dir,
                 voice=voice,
                 chunk_chars=chunk_chars,
                 rate=rate,
             )
-            if seg_parts:
-                groups.append(seg_parts)
+            if _seg_parts:
+                _raw_seg_to_group[_si] = len(groups)
+                groups.append(_seg_parts)
 
-        # Compute per-segment timestamps for click-to-seek (before cleanup deletes parts)
-        _SFX_RAW = 2.3  # transition SFX raw duration in seconds (see audio.py)
+        # Compute per-group start timestamps (raw durations → divide by atempo for final time)
+        _SFX_RAW = 2.3  # transition SFX raw duration (see audio.py)
         _raw_durs: List[float] = [
             sum(_ffprobe_duration_seconds(_p) for _p in _grp) for _grp in groups
         ]
-        _seg_ts: List[float] = []
+        _group_ts: List[float] = []
         _t = 0.0
         for _gi, _rd in enumerate(_raw_durs):
-            _seg_ts.append(round(_t / PLAYBACK_ATEMPO, 2))
+            _group_ts.append(round(_t / PLAYBACK_ATEMPO, 2))
             _t += _rd
             if _gi < len(_raw_durs) - 1:
                 _t += _SFX_RAW
-        # Update episode_items.json with real timestamps.
-        # Items in the same roundup batch share a segment; distribute them evenly
-        # across that segment's duration so each gets a distinct timestamp.
-        from collections import Counter as _Counter
-        _seg_item_count = _Counter(
-            e["segment"] for e in _episode_items_list if e["segment"] >= 0
-        )
-        _seg_positions: Dict[int, int] = {}
+
+        # Refine per-item timestamps using title keyword position in the segment text.
+        # For multi-item roundup batches this gives a much better estimate than even spacing,
+        # and correctly handles items the LLM skipped (falls back to segment start).
+        def _title_text_frac(title: str, text: str):
+            import re as _rr
+            _STOP = {"the","a","an","and","or","of","in","for","to","is","are","with","from"}
+            words = [w.lower() for w in _rr.findall(r'[A-Za-z]{5,}', title)
+                     if w.lower() not in _STOP]
+            if not words or not text:
+                return None
+            tl = text.lower()
+            hits = [p for p in (tl.find(w) for w in words[:4]) if p >= 0]
+            return min(hits) / max(len(text), 1) if hits else None
+
         for _entry in _episode_items_list:
-            _s = _entry["segment"]
-            if not (0 <= _s < len(_seg_ts)):
+            _raw_si = _entry["segment"]
+            _gi = _raw_seg_to_group.get(_raw_si)
+            if _gi is None:
+                _entry["timestamp"] = -1  # segment produced no audio
                 continue
-            _pos = _seg_positions.get(_s, 0)
-            _n = _seg_item_count[_s]
-            _seg_dur = (_raw_durs[_s] / PLAYBACK_ATEMPO) if _s < len(_raw_durs) else 0.0
-            _offset = _pos * (_seg_dur / _n) if _n > 1 else 0.0
-            _entry["timestamp"] = round(_seg_ts[_s] + _offset, 2)
-            _seg_positions[_s] = _pos + 1
+            _base_ts = _group_ts[_gi]
+            _seg_text = raw_segments_all[_raw_si] if _raw_si < len(raw_segments_all) else ""
+            _seg_dur = _raw_durs[_gi] / PLAYBACK_ATEMPO if _gi < len(_raw_durs) else 0.0
+            _frac = _title_text_frac(_entry["title"], _seg_text)
+            if _frac is not None and _seg_dur > 0:
+                _entry["timestamp"] = round(_base_ts + _frac * _seg_dur, 2)
+            else:
+                _entry["timestamp"] = _base_ts  # fallback: start of segment
+
         _episode_items_file.write_text(
-            json.dumps({"timestamps": _seg_ts, "items": _episode_items_list}, indent=2, ensure_ascii=False),
+            json.dumps({"timestamps": _group_ts, "items": _episode_items_list}, indent=2, ensure_ascii=False),
             encoding="utf-8",
         )
 
