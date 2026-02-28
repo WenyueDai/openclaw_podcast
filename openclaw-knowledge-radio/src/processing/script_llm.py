@@ -404,3 +404,58 @@ def build_podcast_script_llm_chunked(*, date_str: str, items: List[Dict[str, Any
         return merged
 
     return assembled
+
+
+def build_podcast_script_llm_chunked_with_map(
+    *, date_str: str, items: List[Dict[str, Any]], cfg: Dict[str, Any]
+) -> tuple:
+    """
+    Same as build_podcast_script_llm_chunked but also returns item_segments:
+    a list of length len(items) where item_segments[i] = segment index for items[i].
+    Returns (script_text, item_segments).
+    """
+    podcast_cfg = (cfg.get("podcast") or {})
+    chunk_cfg = (podcast_cfg.get("chunking") or {})
+    fulltext_threshold = int(chunk_cfg.get("fulltext_threshold_chars", 2500))
+    deep_dive_max = int(chunk_cfg.get("tierA_max", 3))
+    roundup_max = int(chunk_cfg.get("tierB_max", 15))
+    roundup_batch_size = int(chunk_cfg.get("tierB_batch_size", 5))
+
+    ranked = list(items)
+
+    # Replicate the same selection logic as build_podcast_script_llm_chunked
+    deep_items: List[Dict[str, Any]] = []
+    rest: List[Dict[str, Any]] = []
+    for it in ranked:
+        if len(deep_items) < deep_dive_max and _fulltext_ok(it, fulltext_threshold):
+            deep_items.append(it)
+        else:
+            rest.append(it)
+
+    roundup_items = rest[:roundup_max]
+    headline_items = rest[roundup_max:]
+
+    n_deep = len(deep_items)
+    n_roundup_batches = (len(roundup_items) + roundup_batch_size - 1) // roundup_batch_size if roundup_items else 0
+
+    # Build item_segments: one entry per item in ranked order
+    item_segments: List[int] = []
+    seg = 0
+
+    # deep items: each gets its own segment
+    for i in range(n_deep):
+        item_segments.append(seg)
+        seg += 1
+
+    # roundup items: batch_size per segment
+    for i, it in enumerate(roundup_items):
+        batch_seg = n_deep + (i // roundup_batch_size)
+        item_segments.append(batch_seg)
+
+    # headline items: all in the last segment
+    last_seg = n_deep + n_roundup_batches
+    for it in headline_items:
+        item_segments.append(last_seg)
+
+    script = build_podcast_script_llm_chunked(date_str=date_str, items=items, cfg=cfg)
+    return script, item_segments

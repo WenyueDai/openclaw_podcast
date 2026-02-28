@@ -82,6 +82,7 @@ def discover_episodes():
             "script_name": None,
             "highlights": [],
             "items": [],
+            "timestamps": [],
         }
 
     # Pass 2: enrich with local files where available (local runs)
@@ -97,9 +98,15 @@ def discover_episodes():
             script_path = script if script.exists() else None
             items_file = d / "episode_items.json"
             episode_items = []
+            episode_timestamps = []
             if items_file.exists():
                 try:
-                    episode_items = json.loads(items_file.read_text(encoding="utf-8"))
+                    raw = json.loads(items_file.read_text(encoding="utf-8"))
+                    if isinstance(raw, list):
+                        episode_items = raw  # legacy format
+                    elif isinstance(raw, dict):
+                        episode_items = raw.get("items", [])
+                        episode_timestamps = raw.get("timestamps", [])
                 except Exception:
                     pass
 
@@ -118,6 +125,7 @@ def discover_episodes():
                 "script_name": None,
                 "highlights": [],
                 "items": [],
+                "timestamps": [],
             })
             if mp3.exists():
                 ep["mp3_src"] = mp3
@@ -128,6 +136,7 @@ def discover_episodes():
                 ep["highlights"] = _extract_highlights(script_path, max_points=5)
             if episode_items:
                 ep["items"] = episode_items
+                ep["timestamps"] = episode_timestamps
 
     episodes = sorted(episodes_by_date.values(), key=lambda x: x["date"], reverse=True)
     return episodes
@@ -181,16 +190,24 @@ def render_index(episodes, all_episodes=None):
                 title_part = f'<a href="{url}" target="_blank">{title}</a>' if url else title
                 source_part = f' <span class="src">— {source}</span>' if source else ""
                 summary_part = f'<br><span class="summary">{one_liner}</span>' if one_liner else ""
+                seg_idx = it.get("segment", -1)
+                ts_val = it.get("timestamp", -1)
+                ts_str = str(ts_val)
+                num_cls = "num seekable" if isinstance(ts_val, (int, float)) and ts_val >= 0 else "num"
                 rows.append(
-                    f'<li data-url="{html.escape(raw_url)}" data-date="{date}">'
+                    f'<li data-url="{html.escape(raw_url)}" data-date="{date}"'
+                    f' data-seg="{seg_idx}" data-ts="{ts_str}">'
+                    f'<div class="item-row">'
+                    f'<span class="{num_cls}" onclick="seekTo(this,event)">[{idx}]</span>'
                     f'<label class="cb-wrap">'
                     f'<input type="checkbox" class="star-cb"'
                     f' data-url="{html.escape(raw_url)}"'
                     f' data-date="{date}"'
                     f' data-source="{html.escape(raw_source)}"'
                     f' data-title="{html.escape(raw_title[:120])}"> '
-                    f'<span class="num">[{idx}]</span> {title_part}{source_part}'
+                    f'{title_part}{source_part}'
                     f'</label>'
+                    f'</div>'
                     f'{summary_part}</li>'
                 )
             items_html = "".join(rows)
@@ -210,7 +227,7 @@ def render_index(episodes, all_episodes=None):
 <section class='card'>
   <h2>{html.escape(ep['title'])}</h2>
   <p class='meta'>Published: {html.escape(ep['date'])} {s_link}</p>
-  <audio controls src="{html.escape(ep['audio_url'])}"></audio>
+  <audio id="audio-{html.escape(ep['date'])}" controls src="{html.escape(ep['audio_url'])}"></audio>
   <p class='speed-row'>Speed:
     <button onclick="setRate(1)">1x</button>
     <button onclick="setRate(1.2)">1.2x</button>
@@ -295,11 +312,15 @@ audio {{ width:100%; margin:4px 0 6px; }}
 .speed-row button {{ font-size:.82rem; padding:1px 7px; margin-right:3px; border:1px solid var(--line); border-radius:5px; background:var(--bg2); cursor:pointer; }}
 .abstract h3 {{ margin:8px 0 5px; font-size:.95rem; color:#4c6f5a; }}
 .abstract ul {{ margin:0; padding-left:0; list-style:none; }}
-.abstract li {{ margin:5px 0; line-height:1.45; padding:4px 6px; border-radius:6px; transition:background .15s; }}
+.abstract li {{ margin:5px 0; line-height:1.45; padding:4px 6px; border-radius:6px; transition:background .15s,border-left .15s; border-left:3px solid transparent; }}
 .abstract li:hover {{ background:rgba(79,143,106,.07); }}
-.cb-wrap {{ display:flex; align-items:baseline; gap:5px; cursor:pointer; }}
+.abstract li.playing {{ background:rgba(79,143,106,.15); border-left:3px solid var(--accent); }}
+.item-row {{ display:flex; align-items:baseline; gap:6px; }}
+.cb-wrap {{ display:flex; align-items:baseline; gap:5px; cursor:pointer; flex:1; min-width:0; }}
 .star-cb {{ accent-color:var(--accent); width:14px; height:14px; flex-shrink:0; cursor:pointer; }}
-.num {{ color:var(--muted); font-size:.82rem; font-weight:600; min-width:28px; }}
+.num {{ color:var(--muted); font-size:.82rem; font-weight:600; min-width:28px; flex-shrink:0; }}
+.num.seekable {{ color:var(--accent); cursor:pointer; }}
+.num.seekable:hover {{ text-decoration:underline; }}
 .src {{ color:var(--muted); font-size:.85rem; }}
 .summary {{ color:var(--muted); font-size:.87rem; margin-left:48px; display:block; }}
 .tip {{ font-size:.75rem; font-weight:400; color:var(--muted); }}
@@ -483,6 +504,35 @@ function toggleArchive() {{
   const open = localStorage.getItem('archive_open');
   if (open !== '1') panel.classList.add('collapsed');
 }})();
+
+// ── Click [N] to seek audio to that paper's segment ──────────────────────
+function seekTo(numEl, event) {{
+  event.preventDefault();
+  event.stopPropagation();
+  const li = numEl.closest('li');
+  const ts = parseFloat(li.dataset.ts);
+  const date = li.dataset.date;
+  const audio = document.getElementById('audio-' + date);
+  if (!audio || isNaN(ts) || ts < 0) return;
+  audio.currentTime = ts;
+  if (audio.paused) audio.play().catch(function() {{}});
+}}
+
+// ── Highlight the paper currently being spoken ────────────────────────────
+document.querySelectorAll('audio[id^="audio-"]').forEach(function(audio) {{
+  audio.addEventListener('timeupdate', function() {{
+    const date = this.id.slice('audio-'.length);
+    const t = this.currentTime;
+    let bestLi = null, bestTs = -Infinity;
+    document.querySelectorAll('li[data-date="' + date + '"][data-ts]').forEach(function(li) {{
+      const ts = parseFloat(li.dataset.ts);
+      if (ts >= 0 && ts <= t && ts > bestTs) {{ bestTs = ts; bestLi = li; }}
+    }});
+    document.querySelectorAll('li[data-date="' + date + '"]').forEach(function(li) {{
+      li.classList.toggle('playing', li === bestLi);
+    }});
+  }});
+}});
 
 loadCheckboxes();
 </script>

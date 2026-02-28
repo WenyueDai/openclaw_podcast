@@ -16,9 +16,9 @@ from src.collectors.daily_knowledge import collect_daily_knowledge_items
 from src.collectors.wiki_context import collect_wiki_context_items
 from src.collectors.pubmed import collect_pubmed_items
 from src.processing.rank import rank_and_limit
-from src.processing.script_llm import build_podcast_script_llm_chunked, TRANSITION_MARKER
+from src.processing.script_llm import build_podcast_script_llm_chunked, build_podcast_script_llm_chunked_with_map, TRANSITION_MARKER
 from src.outputs.tts_edge import tts_text_to_mp3_chunked
-from src.outputs.audio import concat_mp3_with_transitions
+from src.outputs.audio import concat_mp3_with_transitions, _ffprobe_duration_seconds, PLAYBACK_ATEMPO
 
 from src.utils.text import clean_for_tts
 
@@ -359,22 +359,8 @@ def main() -> int:
                 return sentence + ("." if not sentence.endswith(".") else "")
         return ""
 
-    (out_dir / "episode_items.json").write_text(
-        _json.dumps([
-            {
-                "title": (it.get("title") or "").strip(),
-                "url": (it.get("url") or "").strip(),
-                "source": (it.get("source") or "").strip(),
-                "one_liner": _best_summary(it),
-                "bucket": (it.get("bucket") or "").strip(),
-            }
-            for it in ranked
-        ], indent=2, ensure_ascii=False),
-        encoding="utf-8",
-    )
-
-    # 5) LLM podcast script
-    script_text = build_podcast_script_llm_chunked(date_str=today, items=ranked, cfg=cfg)
+    # 5) LLM podcast script (also returns item→segment mapping)
+    script_text, _item_segments = build_podcast_script_llm_chunked_with_map(date_str=today, items=ranked, cfg=cfg)
 
     # Append explicit citations to comprehensive script (for website readers / Spotify notes)
     refs: List[str] = []
@@ -395,6 +381,23 @@ def main() -> int:
     script_path_clean = out_dir / f"podcast_script_{today}_llm_clean.txt"
     write_text(script_path_clean, script_text_clean)
 
+    # Write episode_items.json (base: segment per item, timestamp=-1 until TTS computes it)
+    _episode_items_list: List[Dict[str, Any]] = []
+    for _i, _it in enumerate(ranked):
+        _seg = _item_segments[_i] if _i < len(_item_segments) else -1
+        _episode_items_list.append({
+            "title": (_it.get("title") or "").strip(),
+            "url": (_it.get("url") or "").strip(),
+            "source": (_it.get("source") or "").strip(),
+            "one_liner": _best_summary(_it),
+            "segment": _seg,
+            "timestamp": -1,
+        })
+    _episode_items_file = out_dir / "episode_items.json"
+    _episode_items_file.write_text(
+        json.dumps({"timestamps": [], "items": _episode_items_list}, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
 
     # 6) TTS chunk + merge (transition SFX between papers/news, not between chunks)
     if cfg.get("podcast", {}).get("enabled", True) and script_text_clean.strip():
@@ -419,6 +422,28 @@ def main() -> int:
             )
             if seg_parts:
                 groups.append(seg_parts)
+
+        # Compute per-segment timestamps for click-to-seek (before cleanup deletes parts)
+        _SFX_RAW = 2.3  # transition SFX raw duration in seconds (see audio.py)
+        _raw_durs: List[float] = [
+            sum(_ffprobe_duration_seconds(_p) for _p in _grp) for _grp in groups
+        ]
+        _seg_ts: List[float] = []
+        _t = 0.0
+        for _gi, _rd in enumerate(_raw_durs):
+            _seg_ts.append(round(_t / PLAYBACK_ATEMPO, 2))
+            _t += _rd
+            if _gi < len(_raw_durs) - 1:
+                _t += _SFX_RAW
+        # Update episode_items.json with real timestamps
+        for _entry in _episode_items_list:
+            _s = _entry["segment"]
+            if 0 <= _s < len(_seg_ts):
+                _entry["timestamp"] = _seg_ts[_s]
+        _episode_items_file.write_text(
+            json.dumps({"timestamps": _seg_ts, "items": _episode_items_list}, indent=2, ensure_ascii=False),
+            encoding="utf-8",
+        )
 
         final_mp3 = out_dir / f"podcast_{today}.mp3"
         concat_mp3_with_transitions(groups, final_mp3)

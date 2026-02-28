@@ -220,6 +220,8 @@ def tts_text_to_mp3_chunked(
         ch = ch.strip()
         if not ch:
             continue
+        # Collapse internal newlines to spaces — Edge TTS treats \n as a long pause
+        ch = " ".join(ch.split())
         generate_with_size_limit(ch)
 
     return part_files

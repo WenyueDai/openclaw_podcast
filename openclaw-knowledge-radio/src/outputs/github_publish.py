@@ -78,24 +78,26 @@ def upload_episode(
         f"https://uploads.github.com/repos/{repo}/releases/{release_id}/assets"
     )
 
-    # Existing asset names — avoid duplicate uploads
+    # Existing assets — delete them so we always upload the latest version
     assets_r = requests.get(
         f"{api_base}/releases/{release_id}/assets", headers=hdrs, timeout=30
     )
-    existing: dict[str, str] = {}  # name -> browser_download_url
+    existing_ids: dict[str, int] = {}  # name -> asset id
     for asset in assets_r.json() if assets_r.ok else []:
-        existing[asset["name"]] = asset["browser_download_url"]
+        existing_ids[asset["name"]] = asset["id"]
 
-    # --- Upload MP3 + script ---
+    # --- Upload MP3 + script (replace if already present) ---
     mp3_url: Optional[str] = None
     for fpath in [mp3_path, script_path]:
         if not fpath or not fpath.exists():
             continue
-        if fpath.name in existing:
-            print(f"[publish] {fpath.name} already uploaded, skipping", flush=True)
-            if fpath.suffix == ".mp3":
-                mp3_url = existing[fpath.name]
-            continue
+        if fpath.name in existing_ids:
+            # Delete old asset first so we can re-upload fresh version
+            requests.delete(
+                f"{api_base}/releases/assets/{existing_ids[fpath.name]}",
+                headers=hdrs, timeout=30,
+            )
+            print(f"[publish] Replaced existing asset: {fpath.name}", flush=True)
 
         ctype = "audio/mpeg" if fpath.suffix == ".mp3" else "text/plain; charset=utf-8"
         with fpath.open("rb") as f:
