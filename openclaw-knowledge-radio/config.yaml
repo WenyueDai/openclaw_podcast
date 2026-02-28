@@ -193,10 +193,12 @@ podcast:
 llm:
   enabled: true
   provider: "openrouter"
-  # Free tier model on OpenRouter (no cost, just needs a free account + API key).
-  # Sign up at https://openrouter.ai, go to Keys, create a key — it's free.
-  # Other good free options: "google/gemma-3-27b-it:free", "deepseek/deepseek-chat-v3-0324:free"
-  model: "meta-llama/llama-3.3-70b-instruct:free"
+  # Script generation model — used for writing the podcast narration.
+  # Trinity is optimized for creative writing and flowing prose.
+  model: "arcee-ai/trinity-large-preview:free"
+  # Analysis model — used for per-article fact extraction before script writing.
+  # Gemini 2.5 Flash is ranked #1 for science/academia on OpenRouter.
+  analysis_model: "google/gemini-2.5-flash-preview:free"
   api_key_env: "OPENROUTER_API_KEY"
   temperature: 0.25
   max_output_tokens: 8192

@@ -135,13 +135,14 @@ def main() -> int:
 
         # Second pass: parallel article extract + analysis
         max_workers = int(cfg.get("fetch_workers", 8))
+        analysis_model = cfg.get("llm", {}).get("analysis_model") or cfg.get("llm", {}).get("model")
 
         def _fetch_and_analyze(it: Dict[str, Any]) -> Dict[str, Any]:
             url = (it.get("url") or "").strip()
             body = extract_article_text(url)
             it["extracted_chars"] = len(body or "")
             it["has_fulltext"] = bool(body and len(body) > 1500)
-            it["analysis"] = analyze_article(url, body)
+            it["analysis"] = analyze_article(url, body, model=analysis_model)
             return it
 
         with ThreadPoolExecutor(max_workers=max_workers) as pool:
