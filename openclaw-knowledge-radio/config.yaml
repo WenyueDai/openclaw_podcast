@@ -7,9 +7,6 @@ paths:
   data_dir: "data"
   output_dir: "output"
   state_dir: "state"
-  # Obsidian vault — set to an absolute path if you use Obsidian, or leave as-is
-  # to create a local notes/ folder next to run_daily.py.
-  obsidian_vault: "notes"
 
 limits:
   max_items_total: 40

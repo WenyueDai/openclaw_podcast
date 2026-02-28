@@ -1,5 +1,5 @@
 """
-Notion integration — saves the daily digest markdown to a Notion database page.
+Notion integration — saves the daily digest as a Notion database page.
 
 Setup:
   1. Go to https://www.notion.so/my-integrations → New integration (Internal)
@@ -33,6 +33,14 @@ def _headers() -> Dict[str, str]:
     }
 
 
+def _strip_html(s: str) -> str:
+    try:
+        from bs4 import BeautifulSoup
+        return BeautifulSoup(s, "html.parser").get_text(" ", strip=True)
+    except ImportError:
+        return re.sub(r'<[^>]+>', ' ', s).strip()
+
+
 def _rich(text: str, url: str = "") -> Dict[str, Any]:
     obj: Dict[str, Any] = {"type": "text", "text": {"content": text[:2000]}}
     if url:
@@ -40,67 +48,45 @@ def _rich(text: str, url: str = "") -> Dict[str, Any]:
     return obj
 
 
-def _md_to_blocks(md: str) -> List[Dict[str, Any]]:
-    """Convert the daily digest markdown into Notion blocks."""
+def _build_blocks(date: str, items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Build Notion blocks for the daily digest from ranked items."""
     blocks: List[Dict[str, Any]] = []
-    # Regex for bullet items: - [title](url) — snippet  #tags  (来源: src)
-    bullet_re = re.compile(r'^\s*-\s+\[([^\]]+)\]\(([^)]+)\)(.*)')
 
-    for line in md.splitlines():
-        # Skip frontmatter lines
-        if line.strip() in ("---", ""):
-            continue
-        if line.startswith("date:") or line.startswith("type:"):
-            continue
+    def h2(text: str) -> Dict[str, Any]:
+        return {"object": "block", "type": "heading_2",
+                "heading_2": {"rich_text": [_rich(text)]}}
 
-        # H1
-        if line.startswith("# "):
-            blocks.append({
-                "object": "block", "type": "heading_1",
-                "heading_1": {"rich_text": [_rich(line[2:].strip())]}
-            })
-            continue
+    def bullet(title: str, url: str, snippet: str, source: str) -> Dict[str, Any]:
+        rich: List[Dict[str, Any]] = [_rich(title, url)]
+        parts = []
+        if snippet:
+            parts.append(snippet)
+        if source:
+            parts.append(f"[{source}]")
+        if parts:
+            rich.append(_rich("  —  " + "  ".join(parts)))
+        return {"object": "block", "type": "bulleted_list_item",
+                "bulleted_list_item": {"rich_text": rich}}
 
-        # H2
-        if line.startswith("## "):
-            blocks.append({
-                "object": "block", "type": "heading_2",
-                "heading_2": {"rich_text": [_rich(line[3:].strip())]}
-            })
-            continue
+    protein = [x for x in items if x.get("bucket") == "protein"]
+    news = [x for x in items if x.get("bucket") not in ("protein", "daily")]
+    daily = [x for x in items if x.get("bucket") == "daily"]
 
-        # Bullet item with link
-        m = bullet_re.match(line)
-        if m:
-            title, url, rest = m.group(1).strip(), m.group(2).strip(), m.group(3)
-            # Strip tags (#xxx) and source annotation
-            rest = re.sub(r'#\S+', '', rest)
-            rest = re.sub(r'\(来源:.*?\)', '', rest)
-            rest = rest.strip(" —").strip()
-            rich: List[Dict[str, Any]] = [_rich(title, url)]
-            if rest:
-                rich.append(_rich(f"  —  {rest}"))
-            blocks.append({
-                "object": "block", "type": "bulleted_list_item",
-                "bulleted_list_item": {"rich_text": rich}
-            })
+    for section_title, section_items in [
+        ("Protein Design & Research", protein + news),
+        ("Daily Knowledge", daily),
+    ]:
+        if not section_items:
             continue
-
-        # Plain bullet (no link)
-        if line.strip().startswith("- "):
-            blocks.append({
-                "object": "block", "type": "bulleted_list_item",
-                "bulleted_list_item": {"rich_text": [_rich(line.strip()[2:])]}
-            })
-            continue
-
-        # Everything else as a paragraph
-        stripped = line.strip()
-        if stripped:
-            blocks.append({
-                "object": "block", "type": "paragraph",
-                "paragraph": {"rich_text": [_rich(stripped)]}
-            })
+        blocks.append(h2(section_title))
+        for it in section_items:
+            title = (it.get("title") or "").strip()[:200]
+            url = (it.get("url") or "").strip()
+            snippet = _strip_html((it.get("one_liner") or it.get("snippet") or "").strip())
+            source = (it.get("source") or "").strip()
+            blocks.append(bullet(title, url, snippet, source))
+        blocks.append({"object": "block", "type": "paragraph",
+                       "paragraph": {"rich_text": []}})
 
     return blocks
 
@@ -116,45 +102,39 @@ def _api_call(method: str, endpoint: str, payload: Dict[str, Any]) -> Dict[str, 
 
 def save_script_to_notion(
     date: str,
-    script_path: Path,          # kept for API compat; unused now
+    script_path: Path,
     items: List[Dict[str, Any]],
-    md_path: Optional[Path] = None,
+    md_path: Optional[Path] = None,  # kept for backward compat, unused
 ) -> Optional[str]:
-    """Save the daily digest markdown to Notion. Returns page URL or None."""
+    """Save the daily digest to Notion. Returns page URL or None."""
     token = os.environ.get("NOTION_TOKEN", "").strip()
     db_id = os.environ.get("NOTION_DATABASE_ID", "").strip().replace("-", "")
     if not token or not db_id:
         print("[notion] NOTION_TOKEN or NOTION_DATABASE_ID not set — skipping", flush=True)
         return None
 
-    # Prefer the markdown file; fall back to script
-    source = md_path or script_path
-    if not source or not source.exists():
-        print("[notion] Source file not found — skipping", flush=True)
-        return None
-
-    md_text = source.read_text(encoding="utf-8", errors="ignore")
-    blocks = _md_to_blocks(md_text)
-
-    # Notion allows max 100 children on page creation
+    blocks = _build_blocks(date, items)
     first_batch, rest_blocks = blocks[:100], blocks[100:]
 
-    page = _api_call("POST", "pages", {
-        "parent": {"database_id": db_id},
-        "properties": {
-            "Name": {"title": [{"type": "text", "text": {"content": f"Knowledge Radio — {date}"}}]},
-            "Date": {"date": {"start": date}},
-        },
-        "children": first_batch,
-    })
+    try:
+        page = _api_call("POST", "pages", {
+            "parent": {"database_id": db_id},
+            "properties": {
+                "Name": {"title": [{"type": "text", "text": {"content": f"Knowledge Radio — {date}"}}]},
+                "Date": {"date": {"start": date}},
+            },
+            "children": first_batch,
+        })
 
-    page_id = page.get("id", "")
-    page_url = page.get("url", "")
+        page_id = page.get("id", "")
+        page_url = page.get("url", "")
 
-    # Append remaining blocks in batches of 100
-    while rest_blocks:
-        batch, rest_blocks = rest_blocks[:100], rest_blocks[100:]
-        _api_call("PATCH", f"blocks/{page_id}/children", {"children": batch})
+        while rest_blocks:
+            batch, rest_blocks = rest_blocks[:100], rest_blocks[100:]
+            _api_call("PATCH", f"blocks/{page_id}/children", {"children": batch})
 
-    print(f"[notion] Saved: {page_url}", flush=True)
-    return page_url
+        print(f"[notion] Saved: {page_url}", flush=True)
+        return page_url
+    except Exception as e:
+        print(f"[notion] Warning: failed to save — {e}", flush=True)
+        return None

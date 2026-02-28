@@ -17,7 +17,6 @@ from src.collectors.wiki_context import collect_wiki_context_items
 from src.collectors.pubmed import collect_pubmed_items
 from src.processing.rank import rank_and_limit
 from src.processing.script_llm import build_podcast_script_llm_chunked, TRANSITION_MARKER
-from src.outputs.obsidian import write_obsidian_daily
 from src.outputs.tts_edge import tts_text_to_mp3_chunked
 from src.outputs.audio import concat_mp3_with_transitions
 
@@ -103,12 +102,10 @@ def main() -> int:
     data_dir = _resolve(repo_dir, cfg["paths"]["data_dir"]) / today
     out_dir = _resolve(repo_dir, cfg["paths"]["output_dir"]) / today
     state_dir = _resolve(repo_dir, cfg["paths"]["state_dir"])
-    vault_dir = _resolve(repo_dir, cfg["paths"]["obsidian_vault"])
 
     ensure_dir(data_dir)
     ensure_dir(out_dir)
     ensure_dir(state_dir)
-    ensure_dir(vault_dir)
 
     seen = SeenStore(state_dir / "seen_ids.json")
 
@@ -238,9 +235,6 @@ def main() -> int:
         encoding="utf-8",
     )
 
-    # Obsidian Daily (minimal, link-first)
-    daily_md = write_obsidian_daily(vault_dir=vault_dir, date_str=today, items=ranked, output_dir=out_dir)
-
     # 5) LLM podcast script
     script_text = build_podcast_script_llm_chunked(date_str=today, items=ranked, cfg=cfg)
 
@@ -320,13 +314,12 @@ def main() -> int:
         "n_items_used": len(ranked),
         "lookback_hours": lookback_hours,
         "run_anchor": run_anchor.isoformat(timespec="seconds"),
-        "obsidian_daily": str(daily_md),
         "output_dir": str(out_dir),
     }
     (out_dir / "status.json").write_text(json.dumps(status, indent=2), encoding="utf-8")
     print(json.dumps(status, indent=2))
 
-    save_script_to_notion(today, script_path, ranked, md_path=daily_md)
+    save_script_to_notion(today, script_path, ranked)
     _notify_slack(today, ranked, cfg)
     return 0
 
