@@ -80,6 +80,16 @@ def discover_episodes():
         if not mp3.exists():
             continue
         script_path = script if script.exists() else None
+        # Load full ranked item list if available (written by run_daily.py)
+        items_file = d / "episode_items.json"
+        if items_file.exists():
+            try:
+                episode_items = json.loads(items_file.read_text(encoding="utf-8"))
+            except Exception:
+                episode_items = []
+        else:
+            episode_items = []
+
         episodes.append({
             "date": date,
             "title": f"Daily Podcast {date}",
@@ -89,7 +99,8 @@ def discover_episodes():
             "audio_url": release_idx.get(date, f"audio/{mp3.name}"),
             "script": script_path,
             "script_name": script.name if script_path else None,
-            "highlights": _extract_highlights(script_path, max_points=3),
+            "highlights": _extract_highlights(script_path, max_points=5),
+            "items": episode_items,
         })
     episodes.sort(key=lambda x: x["date"], reverse=True)
     return episodes
@@ -127,8 +138,27 @@ def render_index(episodes):
     cards = []
     for ep in episodes:
         s_link = f'<a href="{html.escape(ep["script_name"])}">full script</a>' if ep["script_name"] else ""
-        hl = ep.get("highlights") or []
-        hl_html = "".join([f"<li>{html.escape(h)}</li>" for h in hl]) if hl else "<li>No highlights extracted yet.</li>"
+
+        # Full item list (preferred) or fallback to script-scraped highlights
+        items = ep.get("items") or []
+        if items:
+            rows = []
+            for it in items:
+                title = html.escape(it.get("title") or "Untitled")
+                url = html.escape(it.get("url") or "")
+                source = html.escape(it.get("source") or "")
+                one_liner = html.escape(it.get("one_liner") or "")
+                title_part = f'<a href="{url}">{title}</a>' if url else title
+                source_part = f' <span class="src">— {source}</span>' if source else ""
+                summary_part = f'<br><span class="summary">{one_liner}</span>' if one_liner else ""
+                rows.append(f"<li>{title_part}{source_part}{summary_part}</li>")
+            items_html = "".join(rows)
+            section_html = f'<div class="abstract"><h3>Papers &amp; News ({len(items)})</h3><ul>{items_html}</ul></div>'
+        else:
+            hl = ep.get("highlights") or []
+            hl_html = "".join([f"<li>{html.escape(h)}</li>" for h in hl]) if hl else "<li>No items listed yet.</li>"
+            section_html = f'<div class="abstract"><h3>Highlights</h3><ul>{hl_html}</ul></div>'
+
         cards.append(
             f"""
 <section class='card'>
@@ -136,10 +166,7 @@ def render_index(episodes):
   <p class='meta'>Published: {html.escape(ep['date'])}</p>
   <audio controls src="{html.escape(ep['audio_url'])}"></audio>
   <p><a href="{html.escape(ep['audio_url'])}">download mp3</a> {s_link}</p>
-  <div class='abstract'>
-    <h3>Highlights</h3>
-    <ul>{hl_html}</ul>
-  </div>
+  {section_html}
 </section>
 """
         )
@@ -166,6 +193,8 @@ audio {{ width:100%; margin:6px 0 8px; }}
 .abstract h3 {{ margin:10px 0 6px; font-size:1rem; color:#4c6f5a; }}
 .abstract ul {{ margin:0; padding-left:20px; }}
 .abstract li {{ margin:6px 0; line-height:1.45; }}
+.src {{ color:var(--muted); font-size:.88rem; }}
+.summary {{ color:var(--muted); font-size:.9rem; }}
 </style>
 </head>
 <body>

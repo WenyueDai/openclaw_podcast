@@ -159,7 +159,23 @@ def main() -> int:
     # 3) Rank + limit
     ranked = rank_and_limit(new_items, cfg)
 
-    # 4) Obsidian Daily (minimal, link-first)
+    # 4) Save ranked item list for the website (complete index, not just highlights)
+    import json as _json
+    (out_dir / "episode_items.json").write_text(
+        _json.dumps([
+            {
+                "title": (it.get("title") or "").strip(),
+                "url": (it.get("url") or "").strip(),
+                "source": (it.get("source") or "").strip(),
+                "one_liner": (it.get("one_liner") or it.get("snippet") or "").strip(),
+                "bucket": (it.get("bucket") or "").strip(),
+            }
+            for it in ranked
+        ], indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    # Obsidian Daily (minimal, link-first)
     daily_md = write_obsidian_daily(vault_dir=vault_dir, date_str=today, items=ranked, output_dir=out_dir)
 
     # 5) LLM podcast script
