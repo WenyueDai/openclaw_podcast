@@ -439,24 +439,19 @@ def build_podcast_script_llm_chunked_with_map(
     n_deep = len(deep_items)
     n_roundup_batches = (len(roundup_items) + roundup_batch_size - 1) // roundup_batch_size if roundup_items else 0
 
-    # Build item_segments: one entry per item in ranked order
-    item_segments: List[int] = []
+    # Build item_segments in RANKED order (item_segments[i] = segment for ranked[i]).
+    # Use object identity so items are matched regardless of their position in ranked.
+    _item_to_seg: dict = {}
     seg = 0
-
-    # deep items: each gets its own segment
-    for i in range(n_deep):
-        item_segments.append(seg)
+    for it in deep_items:
+        _item_to_seg[id(it)] = seg
         seg += 1
-
-    # roundup items: batch_size per segment
     for i, it in enumerate(roundup_items):
-        batch_seg = n_deep + (i // roundup_batch_size)
-        item_segments.append(batch_seg)
-
-    # headline items: all in the last segment
+        _item_to_seg[id(it)] = n_deep + (i // roundup_batch_size)
     last_seg = n_deep + n_roundup_batches
     for it in headline_items:
-        item_segments.append(last_seg)
+        _item_to_seg[id(it)] = last_seg
+    item_segments: List[int] = [_item_to_seg.get(id(it), -1) for it in ranked]
 
     script = build_podcast_script_llm_chunked(date_str=date_str, items=items, cfg=cfg)
     return script, item_segments
