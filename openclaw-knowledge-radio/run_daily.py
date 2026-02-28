@@ -35,6 +35,44 @@ import os
 DEBUG_MODE = os.environ.get('DEBUG', 'false').lower() == 'true'
 REGEN_FROM_CACHE = os.environ.get('REGEN_FROM_CACHE', 'false').lower() == 'true'
 
+SITE_URL = "https://wenyuedai.github.io/openclaw_podcast"
+
+
+def _notify_slack(date: str, ranked: List[Dict[str, Any]], cfg: Dict[str, Any]) -> None:
+    """Post a summary to Slack via Incoming Webhook. No-op if SLACK_WEBHOOK_URL is unset."""
+    import urllib.request
+    webhook = os.environ.get("SLACK_WEBHOOK_URL", "").strip()
+    if not webhook:
+        return
+
+    # Top 5 items for the digest
+    lines = []
+    for it in ranked[:5]:
+        title = (it.get("title") or "").strip()
+        url = (it.get("url") or "").strip()
+        src = (it.get("source") or "").strip()
+        entry = f"• <{url}|{title}>" if url else f"• {title}"
+        if src:
+            entry += f"  _{src}_"
+        lines.append(entry)
+
+    items_block = "\n".join(lines) if lines else "_(no items)_"
+    total = len(ranked)
+    text = (
+        f":studio_microphone: *Knowledge Radio — {date}*\n"
+        f"{total} papers & news selected | <{SITE_URL}|Listen on GitHub Pages>\n\n"
+        f"*Top picks:*\n{items_block}"
+    )
+
+    payload = json.dumps({"text": text}).encode()
+    req = urllib.request.Request(webhook, data=payload,
+                                 headers={"Content-Type": "application/json"})
+    try:
+        urllib.request.urlopen(req, timeout=10)
+        print("[slack] Notification sent", flush=True)
+    except Exception as e:
+        print(f"[slack] Warning: could not send notification — {e}", flush=True)
+
 def load_config(path: Path) -> Dict[str, Any]:
     with path.open("r", encoding="utf-8") as f:
         return yaml.safe_load(f)
@@ -286,6 +324,8 @@ def main() -> int:
     }
     (out_dir / "status.json").write_text(json.dumps(status, indent=2), encoding="utf-8")
     print(json.dumps(status, indent=2))
+
+    _notify_slack(today, ranked, cfg)
     return 0
 
 
