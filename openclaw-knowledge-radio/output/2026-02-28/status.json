@@ -1,9 +1,9 @@
 {
   "date": "2026-02-28",
-  "time": "2026-02-28T19:54:14+00:00",
-  "n_items_raw": 104,
-  "n_items_used": 37,
+  "time": "2026-02-28T20:37:27+00:00",
+  "n_items_raw": 3,
+  "n_items_used": 3,
   "lookback_hours": 48,
-  "run_anchor": "2026-02-28T19:22:00+00:00",
+  "run_anchor": "2026-02-28T20:34:20+00:00",
   "output_dir": "/home/runner/work/openclaw_podcast/openclaw_podcast/openclaw-knowledge-radio/output/2026-02-28"
 }
