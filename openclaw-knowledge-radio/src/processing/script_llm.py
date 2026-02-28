@@ -257,201 +257,77 @@ def build_podcast_script_llm(*, date_str: str, items: List[Dict[str, Any]], cfg:
 
 def build_podcast_script_llm_chunked(*, date_str: str, items: List[Dict[str, Any]], cfg: Dict[str, Any]) -> str:
     """
-    Multi-call pipeline that increases detail.
+    One LLM call per item, in ranked order.
 
-    Policy:
-    - Deep dive ONLY for items with full text signal:
-        has_fulltext == True OR extracted_chars >= fulltext_threshold_chars
-    - Mid-depth roundup for next items
-    - Remaining items -> headlines only (no LLM)
+    Each item gets its own segment separated by TRANSITION_MARKER so that:
+    - segment index i = ranked item i  (item_segments[i] == i)
+    - audio order matches website display order
+    - clicking highlight [N] always plays item N's SFX + content
 
-    Final assembly defaults to deterministic concatenation (no compression).
-    Optional merge LLM can be enabled, but is constrained to no-delete behavior.
-   Remove the opening or closure, go directly to the knowledge.
+    Items with fulltext get a deep-dive treatment (~220-340 words).
+    Items without fulltext get a concise roundup treatment (~80-130 words).
     """
     client = _client_from_config(cfg)
     model = cfg["llm"]["model"]
     temperature = float(cfg["llm"].get("temperature", 0.25))
-    max_tokens = int(cfg["llm"].get("max_output_tokens", 5200))
 
-    # knobs
     podcast_cfg = (cfg.get("podcast") or {})
     chunk_cfg = (podcast_cfg.get("chunking") or {})
 
     fulltext_threshold = int(chunk_cfg.get("fulltext_threshold_chars", 2500))
-    deep_dive_max = int(chunk_cfg.get("tierA_max", 3))          # deep dives count
-    roundup_max = int(chunk_cfg.get("tierB_max", 15))           # roundup items count
-    roundup_batch_size = int(chunk_cfg.get("tierB_batch_size", 5))
-
     deep_max_tokens = int(chunk_cfg.get("deep_dive_max_tokens", 2600))
     roundup_max_tokens = int(chunk_cfg.get("roundup_max_tokens", 2200))
-    opening_max_tokens = int(chunk_cfg.get("opening_max_tokens", 140))
-    closing_max_tokens = int(chunk_cfg.get("closing_max_tokens", 100))
 
-    # merge behavior
-    use_merge_llm = bool(chunk_cfg.get("use_merge_llm", False))
-    merge_max_tokens = int(chunk_cfg.get("merge_max_tokens", max_tokens))
+    ranked = list(items)
+    segments: List[str] = []
 
-    ranked = list(items)  # already ranked upstream
-
-    # ---- Select Deep Dive candidates: only fulltext-ok, in ranked order
-    deep_items: List[Dict[str, Any]] = []
-    rest: List[Dict[str, Any]] = []
-    for it in ranked:
-        if len(deep_items) < deep_dive_max and _fulltext_ok(it, fulltext_threshold):
-            deep_items.append(it)
-        else:
-            rest.append(it)
-
-    # ---- Roundup items: next roundup_max from rest
-    roundup_items = rest[:roundup_max]
-    headline_items = rest[roundup_max:]
-
-    # ---- No opening: start directly with content
-    opening = ""
-
-    # ---- Deep dive segments (one call per item)
-    deep_segments: List[str] = []
-    for idx, it in enumerate(deep_items, 1):
+    for idx, it in enumerate(ranked, 1):
         block = _format_item_block(it)
-        user = (
-            f"DATE: {date_str}\n"
-            f"DEEP DIVE #{idx}\n\n"
-            f"{block}\n\n"
-            "Write a deep-dive segment that would take ~6–10 minutes to narrate.\n"
-            "Be strict about what is known vs unknown.\n"
-        )
-        seg = _chat_complete(
-            client,
-            model=model,
-            system=SYSTEM_DEEP_DIVE,
-            user=user,
-            temperature=temperature,
-            max_tokens=deep_max_tokens,
-        ).strip()
-        deep_segments.append(seg)
+        if _fulltext_ok(it, fulltext_threshold):
+            user = (
+                f"DATE: {date_str}\n"
+                f"DEEP DIVE #{idx}\n\n"
+                f"{block}\n\n"
+                "Write a deep-dive segment that would take ~6–10 minutes to narrate.\n"
+                "Be strict about what is known vs unknown.\n"
+            )
+            seg = _chat_complete(
+                client,
+                model=model,
+                system=SYSTEM_DEEP_DIVE,
+                user=user,
+                temperature=temperature,
+                max_tokens=deep_max_tokens,
+            ).strip()
+        else:
+            user = (
+                f"DATE: {date_str}\n"
+                f"ITEM #{idx}\n\n"
+                f"{block}\n\n"
+                "Write a concise 80–130 word roundup for this single item. "
+                "Lead with the key finding, mention the source, no sign-off."
+            )
+            seg = _chat_complete(
+                client,
+                model=model,
+                system=SYSTEM_ROUNDUP,
+                user=user,
+                temperature=temperature,
+                max_tokens=roundup_max_tokens,
+            ).strip()
+        segments.append(seg)
 
-    # ---- Roundup segments (batched)
-    roundup_segments: List[str] = []
-    for b_i, batch in enumerate(_chunk(roundup_items, roundup_batch_size), 1):
-        blocks = []
-        for j, it in enumerate(batch, 1):
-            blocks.append(f"=== ITEM {j} ===\n{_format_item_block(it)}")
-        user = (
-            f"DATE: {date_str}\n"
-            f"ROUNDUP BATCH #{b_i} — {len(batch)} items. You MUST cover all {len(batch)}.\n\n"
-            + "\n\n".join(blocks)
-            + f"\n\nWrite a mid-depth roundup covering ALL {len(batch)} items above. Do not skip any."
-        )
-        seg = _chat_complete(
-            client,
-            model=model,
-            system=SYSTEM_ROUNDUP,
-            user=user,
-            temperature=temperature,
-            max_tokens=roundup_max_tokens,
-        ).strip()
-        roundup_segments.append(seg)
-
-    # ---- Headlines (no LLM)
-    headlines_lines: List[str] = []
-    if headline_items:
-        headlines_lines.append("=== Quick Headlines ===")
-        for it in headline_items:
-            title, url, src, bucket, snippet, extracted_chars, has_fulltext = _item_meta(it)
-            one = _clip(snippet, 180)
-            if one:
-                headlines_lines.append(f"- {title} ({src}) — {one}")
-            else:
-                headlines_lines.append(f"- {title} ({src})")
-            if url:
-                headlines_lines.append(f"  Source: {url}")
-        headlines = "\n".join(headlines_lines).strip()
-    else:
-        headlines = ""
-
-    # ---- No closing: keep flow dense and direct
-    closing = ""
-
-    # ---- Deterministic assembly (no compression)
-    spoken_blocks: List[str] = []
-    if opening:
-        spoken_blocks.append(opening.strip())
-    spoken_blocks.extend([s.strip() for s in deep_segments if s and s.strip()])
-    spoken_blocks.extend([s.strip() for s in roundup_segments if s and s.strip()])
-    if headlines and headlines.strip():
-        spoken_blocks.append(headlines.strip())
-    if closing:
-        spoken_blocks.append(closing.strip())
-
-    assembled = f"\n\n{TRANSITION_MARKER}\n\n".join(spoken_blocks).strip()
-
-    # ---- Optional merge LLM: ONLY add transitions / formatting, no deletion
-    if use_merge_llm:
-        merge_user = (
-            f"DATE: {date_str}\n"
-            "You will receive a draft script. You must NOT delete content.\n"
-            "Only add short transitions and fix whitespace.\n\n"
-            "DRAFT:\n" + assembled
-        )
-        merged = _chat_complete(
-            client,
-            model=model,
-            system=SYSTEM_MERGE_NO_DELETE,
-            user=merge_user,
-            temperature=temperature,
-            max_tokens=merge_max_tokens,
-        ).strip()
-        return merged
-
-    return assembled
+    return f"\n\n{TRANSITION_MARKER}\n\n".join(segments).strip()
 
 
 def build_podcast_script_llm_chunked_with_map(
     *, date_str: str, items: List[Dict[str, Any]], cfg: Dict[str, Any]
 ) -> tuple:
     """
-    Same as build_podcast_script_llm_chunked but also returns item_segments:
-    a list of length len(items) where item_segments[i] = segment index for items[i].
+    Same as build_podcast_script_llm_chunked but also returns item_segments.
+    Since items are generated in ranked order, item_segments[i] == i always.
     Returns (script_text, item_segments).
     """
-    podcast_cfg = (cfg.get("podcast") or {})
-    chunk_cfg = (podcast_cfg.get("chunking") or {})
-    fulltext_threshold = int(chunk_cfg.get("fulltext_threshold_chars", 2500))
-    deep_dive_max = int(chunk_cfg.get("tierA_max", 3))
-    roundup_max = int(chunk_cfg.get("tierB_max", 15))
-    roundup_batch_size = int(chunk_cfg.get("tierB_batch_size", 5))
-
-    ranked = list(items)
-
-    # Replicate the same selection logic as build_podcast_script_llm_chunked
-    deep_items: List[Dict[str, Any]] = []
-    rest: List[Dict[str, Any]] = []
-    for it in ranked:
-        if len(deep_items) < deep_dive_max and _fulltext_ok(it, fulltext_threshold):
-            deep_items.append(it)
-        else:
-            rest.append(it)
-
-    roundup_items = rest[:roundup_max]
-    headline_items = rest[roundup_max:]
-
-    n_deep = len(deep_items)
-    n_roundup_batches = (len(roundup_items) + roundup_batch_size - 1) // roundup_batch_size if roundup_items else 0
-
-    # Build item_segments in RANKED order (item_segments[i] = segment for ranked[i]).
-    # Use object identity so items are matched regardless of their position in ranked.
-    _item_to_seg: dict = {}
-    seg = 0
-    for it in deep_items:
-        _item_to_seg[id(it)] = seg
-        seg += 1
-    for i, it in enumerate(roundup_items):
-        _item_to_seg[id(it)] = n_deep + (i // roundup_batch_size)
-    last_seg = n_deep + n_roundup_batches
-    for it in headline_items:
-        _item_to_seg[id(it)] = last_seg
-    item_segments: List[int] = [_item_to_seg.get(id(it), -1) for it in ranked]
-
     script = build_podcast_script_llm_chunked(date_str=date_str, items=items, cfg=cfg)
+    item_segments: List[int] = list(range(len(items)))
     return script, item_segments
