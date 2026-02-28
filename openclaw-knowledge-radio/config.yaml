@@ -190,6 +190,13 @@ podcast:
     use_merge_llm: false
 
 
+publish:
+  enabled: true
+  # GitHub repo used to host audio releases (must exist, GITHUB_TOKEN needs repo scope)
+  github_release_repo: "WenyueDai/openclaw_podcast"
+  # Delete tts_parts/ and temp ffmpeg files after final MP3 is merged
+  cleanup_intermediate: true
+
 llm:
   enabled: true
   provider: "openrouter"

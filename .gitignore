@@ -19,3 +19,6 @@ openclaw-knowledge-radio/.env
 openclaw-knowledge-radio/models/
 openclaw-knowledge-radio/state/kokoro_api.log
 openclaw-knowledge-radio/state/kokoro_api.pid
+
+# ignore the .venv directory if it exists
+.venv/

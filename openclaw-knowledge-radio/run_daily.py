@@ -25,6 +25,7 @@ from src.utils.text import clean_for_tts
 
 from src.processing.article_extract import extract_article_text
 from src.processing.article_analysis import analyze_article
+from src.outputs.github_publish import upload_episode, push_site
 
 
 import shutil
@@ -210,12 +211,28 @@ def main() -> int:
 
         final_mp3 = out_dir / f"podcast_{today}.mp3"
         concat_mp3_with_transitions(groups, final_mp3)
-        spotify_folder = repo_dir / 'spotify'
-        episodes_dir = spotify_folder / 'episodes'
-        ensure_dir(episodes_dir)
-        dst_mp3 = episodes_dir / final_mp3.name
-        shutil.copy2(final_mp3, dst_mp3)
 
+        # Clean up intermediate TTS chunks and temp ffmpeg files
+        pub_cfg = cfg.get("publish", {})
+        if pub_cfg.get("cleanup_intermediate", True):
+            shutil.rmtree(parts_dir, ignore_errors=True)
+            for tmp in ["ffmpeg_concat_list.txt", "transition_sfx.mp3"]:
+                p = out_dir / tmp
+                if p.exists():
+                    p.unlink()
+
+        # Publish to GitHub Release + push GitHub Pages
+        if pub_cfg.get("enabled", False):
+            release_repo = pub_cfg.get("github_release_repo", "")
+            if release_repo:
+                upload_episode(
+                    today,
+                    final_mp3,
+                    script_path_clean,
+                    repo=release_repo,
+                    state_dir=state_dir,
+                )
+            push_site(repo_dir, repo_dir.parent, today)
 
     status = {
         "date": today,
