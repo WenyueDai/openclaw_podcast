@@ -10,11 +10,16 @@
 body { margin:0; font-family:"Hiragino Sans","Noto Sans JP",Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:linear-gradient(160deg,var(--bg),var(--bg2)); color:var(--text); }
 .layout { display:flex; gap:20px; max-width:1200px; margin:0 auto; padding:28px 16px 40px; }
 .main-col { flex:1; min-width:0; }
-.sidebar { width:200px; flex-shrink:0; }
+.sidebar { width:210px; flex-shrink:0; }
 .sidebar h3 { margin:0 0 10px; font-size:.95rem; color:var(--accent); }
-.sidebar h4 { margin:12px 0 4px; font-size:.85rem; color:var(--muted); }
-.sidebar ul { margin:0; padding-left:14px; }
-.sidebar li { margin:3px 0; font-size:.82rem; }
+.month-group { margin-bottom:6px; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+.month-group summary { padding:6px 10px; font-size:.85rem; font-weight:600; color:var(--text); cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; background:var(--bg2); }
+.month-group summary::-webkit-details-marker { display:none; }
+.month-group[open] summary { border-bottom:1px solid var(--line); }
+.ep-count { font-weight:400; color:var(--muted); font-size:.78rem; }
+.month-group ul { margin:0; padding:6px 10px; list-style:none; background:var(--card); }
+.month-group li { margin:4px 0; font-size:.82rem; display:flex; align-items:center; gap:4px; }
+.new-badge { color:var(--accent); font-size:.7rem; }
 h1 { margin:0 0 6px; letter-spacing:.3px; }
 .sub { color:var(--muted); margin-bottom:12px; font-size:.92rem; }
 .card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; margin:14px 0; box-shadow:0 10px 22px rgba(79,143,106,.12); }
@@ -81,7 +86,7 @@ audio { width:100%; margin:4px 0 6px; }
       <span id="fb-status"></span>
     </div>
   </div>
-  
+  <aside class="sidebar"><h3>Archive</h3><details open class="month-group"><summary>February 2026 <span class="ep-count">(1)</span></summary><ul><li><a href="https://github.com/WenyueDai/openclaw_podcast/releases/download/episode-2026-02-28/podcast_2026-02-28.mp3" target="_blank">2026-02-28</a> <span class="new-badge">✦</span></li></ul></details></aside>
 </div>
 
 <!-- Settings modal -->

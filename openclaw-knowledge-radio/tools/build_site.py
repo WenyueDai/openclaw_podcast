@@ -195,26 +195,38 @@ def render_index(episodes, all_episodes=None):
 
     body = "\n".join(cards) if cards else "<section class='card'><p>No episodes yet.</p></section>"
 
-    # Past episodes sidebar — grouped by YYYY-MM
-    sidebar_html = ""
-    if all_episodes and len(all_episodes) > len(episodes):
-        from collections import defaultdict
-        by_month = defaultdict(list)
-        for ep in all_episodes:
-            ym = ep["date"][:7]  # YYYY-MM
-            by_month[ym].append(ep)
-        sidebar_parts = []
-        for ym in sorted(by_month.keys(), reverse=True):
-            month_label = datetime.strptime(ym, "%Y-%m").strftime("%B %Y")
-            links = []
-            for ep in by_month[ym]:
-                audio = html.escape(ep.get("audio_url", ""))
-                d = html.escape(ep["date"])
-                links.append(f'<li><a href="{audio}" target="_blank">{d}</a></li>')
-            sidebar_parts.append(
-                f'<div class="month-group"><h4>{month_label}</h4><ul>{"".join(links)}</ul></div>'
+    # Archive sidebar — all episodes grouped by YYYY-MM, collapsible per month
+    from collections import defaultdict
+    recent_dates = {ep["date"] for ep in episodes}
+    by_month: dict = defaultdict(list)
+    for ep in (all_episodes or episodes):
+        by_month[ep["date"][:7]].append(ep)
+
+    sidebar_parts = []
+    for ym in sorted(by_month.keys(), reverse=True):
+        month_label = datetime.strptime(ym, "%Y-%m").strftime("%B %Y")
+        # Most recent month open by default, others collapsed
+        open_attr = " open" if ym == sorted(by_month.keys())[-1::-1][0] else ""
+        links = []
+        for ep in sorted(by_month[ym], key=lambda x: x["date"], reverse=True):
+            audio = html.escape(ep.get("audio_url", ""))
+            d = html.escape(ep["date"])
+            badge = ' <span class="new-badge">✦</span>' if ep["date"] in recent_dates else ""
+            links.append(
+                f'<li><a href="{audio}" target="_blank">{d}</a>{badge}</li>'
             )
-        sidebar_html = f'<aside class="sidebar"><h3>Past Episodes</h3>{"".join(sidebar_parts)}</aside>'
+        sidebar_parts.append(
+            f'<details{open_attr} class="month-group">'
+            f'<summary>{month_label} <span class="ep-count">({len(by_month[ym])})</span></summary>'
+            f'<ul>{"".join(links)}</ul>'
+            f'</details>'
+        )
+    sidebar_html = (
+        f'<aside class="sidebar">'
+        f'<h3>Archive</h3>'
+        f'{"".join(sidebar_parts)}'
+        f'</aside>'
+    )
 
     return f"""<!doctype html>
 <html>
@@ -228,11 +240,16 @@ def render_index(episodes, all_episodes=None):
 body {{ margin:0; font-family:"Hiragino Sans","Noto Sans JP",Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:linear-gradient(160deg,var(--bg),var(--bg2)); color:var(--text); }}
 .layout {{ display:flex; gap:20px; max-width:1200px; margin:0 auto; padding:28px 16px 40px; }}
 .main-col {{ flex:1; min-width:0; }}
-.sidebar {{ width:200px; flex-shrink:0; }}
+.sidebar {{ width:210px; flex-shrink:0; }}
 .sidebar h3 {{ margin:0 0 10px; font-size:.95rem; color:var(--accent); }}
-.sidebar h4 {{ margin:12px 0 4px; font-size:.85rem; color:var(--muted); }}
-.sidebar ul {{ margin:0; padding-left:14px; }}
-.sidebar li {{ margin:3px 0; font-size:.82rem; }}
+.month-group {{ margin-bottom:6px; border:1px solid var(--line); border-radius:8px; overflow:hidden; }}
+.month-group summary {{ padding:6px 10px; font-size:.85rem; font-weight:600; color:var(--text); cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; background:var(--bg2); }}
+.month-group summary::-webkit-details-marker {{ display:none; }}
+.month-group[open] summary {{ border-bottom:1px solid var(--line); }}
+.ep-count {{ font-weight:400; color:var(--muted); font-size:.78rem; }}
+.month-group ul {{ margin:0; padding:6px 10px; list-style:none; background:var(--card); }}
+.month-group li {{ margin:4px 0; font-size:.82rem; display:flex; align-items:center; gap:4px; }}
+.new-badge {{ color:var(--accent); font-size:.7rem; }}
 h1 {{ margin:0 0 6px; letter-spacing:.3px; }}
 .sub {{ color:var(--muted); margin-bottom:12px; font-size:.92rem; }}
 .card {{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; margin:14px 0; box-shadow:0 10px 22px rgba(79,143,106,.12); }}
