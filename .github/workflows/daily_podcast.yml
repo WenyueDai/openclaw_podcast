@@ -66,4 +66,6 @@ jobs:
           git diff --cached --quiet || git commit -m "Update daily podcast site $(date -u +%Y-%m-%d)"
 
       - name: Push changes
-        run: git push origin main
+        run: |
+          git pull --rebase origin main
+          git push origin main
