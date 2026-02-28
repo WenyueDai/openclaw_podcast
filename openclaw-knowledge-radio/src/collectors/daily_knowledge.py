@@ -34,7 +34,7 @@ def collect_daily_knowledge_items(*, tz) -> List[Dict]:
 
     # 2️⃣ Random Article
     try:
-        r = requests.get("https://en.wikipedia.org/api/rest_v1/page/random/summary")
+        r = requests.get("https://en.wikipedia.org/api/rest_v1/page/random/summary", timeout=20)
         data = r.json()
         items.append({
             "bucket": "daily",

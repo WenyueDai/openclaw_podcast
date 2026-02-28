@@ -147,6 +147,20 @@ rss_sources:
     tags: ["single-cell", "computational-biology", "author"]
     bucket: "ai_bio"
 
+pubmed:
+  enabled: true                        # set to false to disable
+  email: "daiwenyueva@gmail.com"        # required by NCBI usage policy
+  lookback_days: 2                     # how many days back to query
+  max_results_per_term: 50             # max PubMed results per search term
+  bucket: "protein"
+  tags: ["pubmed", "journal", "biology"]
+  search_terms:
+    - "protein design deep learning"
+    - "protein structure prediction"
+    - "protein language model"
+    - "diffusion model protein"
+    - "AlphaFold structure"
+
 daily_knowledge:
   enabled: true
 

@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import json
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Tuple
 from datetime import datetime, time
 
 import yaml
@@ -13,6 +14,7 @@ from src.utils.dedup import SeenStore
 from src.collectors.rss import collect_rss_items
 from src.collectors.daily_knowledge import collect_daily_knowledge_items
 from src.collectors.wiki_context import collect_wiki_context_items
+from src.collectors.pubmed import collect_pubmed_items
 from src.processing.rank import rank_and_limit
 from src.processing.script_llm import build_podcast_script_llm_chunked, TRANSITION_MARKER
 from src.outputs.obsidian import write_obsidian_daily
@@ -81,6 +83,8 @@ def main() -> int:
     else:
         items: List[Dict[str, Any]] = []
         items.extend(collect_rss_items(cfg["rss_sources"], tz=tz, lookback_hours=lookback_hours, now_ref=run_anchor))
+        if cfg.get("pubmed", {}).get("enabled", False):
+            items.extend(collect_pubmed_items(cfg, lookback_hours=lookback_hours))
         if cfg.get("daily_knowledge", {}).get("enabled", True):
             items.extend(collect_daily_knowledge_items(tz=tz))
         if cfg.get("wiki_context", {}).get("enabled", False):
@@ -93,10 +97,13 @@ def main() -> int:
             )
 
         # 2) Dedup across days + topical filtering
-        excluded_terms = [
+        excluded_terms = list(cfg.get("excluded_terms", [
             "cell biology", "single-cell", "single cell", "animal model", "murine",
             "mouse", "mice", "rat", "zebrafish", "drosophila", "in vivo"
-        ]
+        ]))
+
+        # First pass: filter and mark which items need fetch/analysis
+        candidates: List[Dict[str, Any]] = []
         new_items: List[Dict[str, Any]] = []
         for it in items:
             url = (it.get("url") or "").strip()
@@ -117,14 +124,27 @@ def main() -> int:
             if not DEBUG_MODE and seen.has(url):
                 continue
             seen.add(url)
-            body = extract_article_text(url)
-            it['extracted_chars'] = len(body or "")
-            it['has_fulltext'] = bool(body and len(body) > 1500)
-            analysis = analyze_article(url, body)
-            it['analysis'] = analysis
-
-            new_items.append(it)
+            candidates.append(it)
         seen.save()
+
+        # Second pass: parallel article extract + analysis
+        max_workers = int(cfg.get("fetch_workers", 8))
+
+        def _fetch_and_analyze(it: Dict[str, Any]) -> Dict[str, Any]:
+            url = (it.get("url") or "").strip()
+            body = extract_article_text(url)
+            it["extracted_chars"] = len(body or "")
+            it["has_fulltext"] = bool(body and len(body) > 1500)
+            it["analysis"] = analyze_article(url, body)
+            return it
+
+        with ThreadPoolExecutor(max_workers=max_workers) as pool:
+            futures = {pool.submit(_fetch_and_analyze, it): it for it in candidates}
+            for fut in as_completed(futures):
+                try:
+                    new_items.append(fut.result())
+                except Exception:
+                    new_items.append(futures[fut])
 
         write_jsonl(seed_file, new_items)
 
