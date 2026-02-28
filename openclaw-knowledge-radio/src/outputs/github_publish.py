@@ -155,6 +155,20 @@ def push_site(package_dir: Path, git_root: Path, date: str) -> bool:
 
     # Commit docs/ + updated release_index.json
     rel_state = Path("openclaw-knowledge-radio") / "state" / "release_index.json"
+
+    # Embed token in remote URL for push, then restore plain URL afterwards
+    token = os.environ.get("GITHUB_TOKEN", "").strip()
+    def _remote_url() -> str:
+        r = subprocess.run(["git", "remote", "get-url", "origin"], cwd=git_root,
+                           capture_output=True, text=True)
+        return r.stdout.strip()
+
+    original_url = _remote_url()
+    if token and "github.com" in original_url and "@" not in original_url:
+        authed_url = original_url.replace("https://", f"https://x-access-token:{token}@")
+        subprocess.run(["git", "remote", "set-url", "origin", authed_url],
+                       cwd=git_root, capture_output=True)
+
     try:
         subprocess.run(
             ["git", "add", "docs/", str(rel_state)],
@@ -183,3 +197,7 @@ def push_site(package_dir: Path, git_root: Path, date: str) -> bool:
             return True
         print(f"[publish] Git operation failed: {stderr}", flush=True)
         return False
+    finally:
+        # Restore plain remote URL (never leave token in git config)
+        subprocess.run(["git", "remote", "set-url", "origin", original_url],
+                       cwd=git_root, capture_output=True)
