@@ -198,7 +198,7 @@ llm:
   model: "arcee-ai/trinity-large-preview:free"
   # Analysis model — used for per-article fact extraction before script writing.
   # Gemini 2.5 Flash is ranked #1 for science/academia on OpenRouter.
-  analysis_model: "google/gemini-2.5-flash-preview:free"
+  analysis_model: "google/gemini-2.5-flash:free"
   api_key_env: "OPENROUTER_API_KEY"
   temperature: 0.25
   max_output_tokens: 8192
