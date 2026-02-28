@@ -173,6 +173,7 @@ def collect_pubmed_items(
     cfg: Dict[str, Any],
     *,
     lookback_hours: int = 48,
+    extra_terms: Optional[List[str]] = None,
 ) -> List[Dict[str, Any]]:
     """Collect PubMed papers by keyword and return pipeline-compatible items.
 
@@ -184,7 +185,13 @@ def collect_pubmed_items(
         return []
 
     email = pubmed_cfg.get("email", "openclaw@example.com")
-    search_terms: List[str] = pubmed_cfg.get("search_terms", [])
+    search_terms: List[str] = list(pubmed_cfg.get("search_terms", []))
+    if extra_terms:
+        existing_lower = {t.lower() for t in search_terms}
+        for t in extra_terms:
+            if t.lower() not in existing_lower:
+                search_terms.append(t)
+                print(f"[pubmed] Dynamic term from feedback: \"{t}\"", flush=True)
     max_results = int(pubmed_cfg.get("max_results_per_term", 50))
     bucket = pubmed_cfg.get("bucket", "protein")
     tags = list(pubmed_cfg.get("tags", ["pubmed", "journal"]))

@@ -38,6 +38,81 @@ REGEN_FROM_CACHE = os.environ.get('REGEN_FROM_CACHE', 'false').lower() == 'true'
 SITE_URL = "https://wenyuedai.github.io/openclaw_podcast"
 
 
+def _dynamic_pubmed_terms(state_dir: Path, existing_terms: list, max_new: int = 5) -> list:
+    """
+    Extract PubMed search terms from liked paper titles in feedback.json.
+    Returns up to max_new new terms not already in existing_terms.
+    """
+    import re as _re
+    STOP = {
+        "the","a","an","and","or","of","in","for","to","is","are","with","from",
+        "by","on","at","this","that","based","using","via","novel","new","study",
+        "analysis","approach","method","role","through","between","into","its",
+        "their","these","which","can","has","been","were","was","after","during",
+    }
+    fb_file = state_dir / "feedback.json"
+    if not fb_file.exists():
+        return []
+    try:
+        data = json.loads(fb_file.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+
+    # Build URL→title lookup from all episode_items.json files (for old-format entries)
+    url_to_title: Dict[str, str] = {}
+    output_dir = state_dir.parent / "output"
+    for items_file in output_dir.glob("*/episode_items.json"):
+        try:
+            for it in json.loads(items_file.read_text(encoding="utf-8")):
+                u = (it.get("url") or "").strip()
+                t = (it.get("title") or "").strip()
+                if u and t:
+                    url_to_title[u] = t
+        except Exception:
+            pass
+
+    titles = []
+    for entries in data.values():
+        for entry in (entries or []):
+            title = ""
+            if isinstance(entry, dict):
+                title = (entry.get("title") or "").strip()
+            elif isinstance(entry, str):
+                # Old format: look up title from episode_items.json
+                title = url_to_title.get(entry, "")
+            if title:
+                titles.append(title.lower())
+
+    if not titles:
+        return []
+
+    # Extract bigrams and trigrams — both words must be ≥5 chars and not stop words
+    phrase_counts: Dict[str, int] = {}
+    for title in titles:
+        words = [w for w in _re.findall(r"[a-zA-Z]{5,}", title) if w not in STOP]
+        for i in range(len(words) - 1):
+            phrase = f"{words[i]} {words[i+1]}"
+            phrase_counts[phrase] = phrase_counts.get(phrase, 0) + 1
+        for i in range(len(words) - 2):
+            phrase = f"{words[i]} {words[i+1]} {words[i+2]}"
+            phrase_counts[phrase] = phrase_counts.get(phrase, 0) + 1
+
+    existing_lower = {t.lower() for t in existing_terms}
+    # Filter out phrases starting with verb forms (-ing, -ed gerunds)
+    # and sort: higher frequency first, then longer phrases (more specific)
+    dynamic = []
+    for phrase, count in sorted(phrase_counts.items(), key=lambda x: (-x[1], -len(x[0]))):
+        if len(dynamic) >= max_new:
+            break
+        first_word = phrase.split()[0]
+        if first_word.endswith("ing") or first_word.endswith("ling"):
+            continue  # skip "revealing ...", "disentangling ...", etc.
+        if phrase not in existing_lower:
+            dynamic.append(phrase)
+
+    return dynamic
+
+
 def _notify_slack(date: str, ranked: List[Dict[str, Any]], cfg: Dict[str, Any]) -> None:
     """Post a summary to Slack via Incoming Webhook. No-op if SLACK_WEBHOOK_URL is unset."""
     import urllib.request
@@ -127,7 +202,11 @@ def main() -> int:
         items: List[Dict[str, Any]] = []
         items.extend(collect_rss_items(cfg["rss_sources"], tz=tz, lookback_hours=lookback_hours, now_ref=run_anchor))
         if cfg.get("pubmed", {}).get("enabled", False):
-            items.extend(collect_pubmed_items(cfg, lookback_hours=lookback_hours))
+            static_terms = cfg.get("pubmed", {}).get("search_terms", [])
+            dynamic_terms = _dynamic_pubmed_terms(state_dir, static_terms, max_new=5)
+            if dynamic_terms:
+                print(f"[pubmed] Adding {len(dynamic_terms)} dynamic term(s) from feedback: {dynamic_terms}", flush=True)
+            items.extend(collect_pubmed_items(cfg, lookback_hours=lookback_hours, extra_terms=dynamic_terms))
         if cfg.get("daily_knowledge", {}).get("enabled", True):
             items.extend(collect_daily_knowledge_items(tz=tz))
         if cfg.get("wiki_context", {}).get("enabled", False):
