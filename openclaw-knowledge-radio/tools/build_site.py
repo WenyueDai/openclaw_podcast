@@ -245,34 +245,45 @@ def main():
 
     episodes = discover_episodes()
 
+    # Web page shows only the 3 most recent episodes; RSS feed keeps all
+    WEB_EPISODES = 3
+    web_episodes = episodes[:WEB_EPISODES]
+
     # generate a random-ish cover each day (seeded by latest episode date)
     cover_seed = episodes[0]["date"] if episodes else datetime.now(timezone.utc).strftime("%Y-%m-%d")
     (SITE_DIR / "cover.svg").write_text(generate_cover_svg(cover_seed), encoding="utf-8")
 
-    # copy media/script files
+    # Copy script txt files for web episodes only; remove stale ones
+    web_script_names = {ep["script_name"] for ep in web_episodes if ep["script_name"]}
+    for ep in web_episodes:
+        if ep["script"]:
+            (SITE_DIR / ep["script_name"]).write_text(
+                ep["script"].read_text(encoding="utf-8"), encoding="utf-8"
+            )
+    for f in SITE_DIR.glob("podcast_script_*.txt"):
+        if f.name not in web_script_names:
+            f.unlink()
+
+    # remove stale local audio files (only matters if audio is stored locally)
     keep_audio = set()
-    for ep in episodes:
+    for ep in web_episodes:
         audio_url = ep.get("audio_url", "")
         is_remote = audio_url.startswith("http://") or audio_url.startswith("https://")
         if not is_remote:
             (AUDIO_DIR / ep["mp3_name"]).write_bytes(ep["mp3_src"].read_bytes())
             keep_audio.add(ep["mp3_name"])
-        if ep["script"]:
-            (SITE_DIR / ep["script_name"]).write_text(ep["script"].read_text(encoding="utf-8"), encoding="utf-8")
-
-    # remove stale local audio files
     for f in AUDIO_DIR.glob("*.mp3"):
         if f.name not in keep_audio:
             f.unlink()
 
     (SITE_DIR / "episodes.json").write_text(json.dumps([
         {"date": e["date"], "title": e["title"], "audio": e.get("audio_url", f"audio/{e['mp3_name']}"), "script": e["script_name"]}
-        for e in episodes
+        for e in web_episodes
     ], indent=2), encoding="utf-8")
 
-    (SITE_DIR / "index.html").write_text(render_index(episodes), encoding="utf-8")
+    (SITE_DIR / "index.html").write_text(render_index(web_episodes), encoding="utf-8")
     (SITE_DIR / "feed.xml").write_text(render_feed(episodes, site_url), encoding="utf-8")
-    print(f"Built site with {len(episodes)} episode(s): {SITE_DIR}")
+    print(f"Built site with {len(web_episodes)} episode(s) shown (of {len(episodes)} total): {SITE_DIR}")
 
 
 if __name__ == "__main__":
