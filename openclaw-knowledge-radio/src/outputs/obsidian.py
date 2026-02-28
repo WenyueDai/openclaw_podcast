@@ -1,9 +1,18 @@
 from __future__ import annotations
 
+import re
 from pathlib import Path
 from typing import Any, Dict, List
 
 from src.utils.io import ensure_dir, write_text
+
+
+def _strip_html(s: str) -> str:
+    try:
+        from bs4 import BeautifulSoup
+        return BeautifulSoup(s, "html.parser").get_text(" ", strip=True)
+    except ImportError:
+        return re.sub(r'<[^>]+>', ' ', s).strip()
 
 
 def _safe_tag(s: str) -> str:
@@ -36,7 +45,7 @@ def write_obsidian_daily(*, vault_dir: Path, date_str: str, items: List[Dict[str
         for it in xs:
             t = (it.get("title") or "").strip()[:200]
             url = (it.get("url") or "").strip()
-            one = (it.get("one_liner") or "").strip()
+            one = _strip_html((it.get("one_liner") or "").strip())
             tags = it.get("tags") or []
             src = it.get("source") or ""
             tag_str = " ".join(f"#{_safe_tag(z)}" for z in tags[:6])

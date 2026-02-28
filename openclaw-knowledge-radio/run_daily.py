@@ -326,7 +326,7 @@ def main() -> int:
     (out_dir / "status.json").write_text(json.dumps(status, indent=2), encoding="utf-8")
     print(json.dumps(status, indent=2))
 
-    save_script_to_notion(today, script_path, ranked)
+    save_script_to_notion(today, script_path, ranked, md_path=daily_md)
     _notify_slack(today, ranked, cfg)
     return 0
 
