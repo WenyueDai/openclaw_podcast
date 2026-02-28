@@ -2,7 +2,7 @@
   {
     "date": "2026-02-28",
     "title": "Daily Podcast 2026-02-28",
-    "audio": "audio/podcast_2026-02-28.mp3",
+    "audio": "https://github.com/WenyueDai/openclaw_podcast/releases/download/episode-2026-02-28/podcast_2026-02-28.mp3",
     "script": "podcast_script_2026-02-28_llm.txt"
   }
 ]
