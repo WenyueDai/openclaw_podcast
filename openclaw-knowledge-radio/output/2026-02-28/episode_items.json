@@ -1,4 +1,335 @@
 {
-  "timestamps": [],
-  "items": []
+  "timestamps": [
+    0.0,
+    129.84,
+    278.51,
+    431.45,
+    587.37,
+    700.22,
+    877.24,
+    1042.14,
+    1164.27,
+    1277.67,
+    1420.07,
+    1576.36,
+    1747.3,
+    1878.48,
+    2029.79,
+    2160.97,
+    2353.15,
+    2524.0,
+    2672.5,
+    2824.84,
+    2981.77,
+    3180.31,
+    3291.39,
+    3407.38,
+    3445.22,
+    3609.06,
+    3802.13,
+    3987.35,
+    4133.59,
+    4285.0,
+    4609.62,
+    4792.02,
+    4922.33
+  ],
+  "items": [
+    {
+      "title": "BioStruct-Africa's scalable framework for AlphaFold-enabled research training and sustainable workforce development in Africa.",
+      "url": "https://doi.org/10.1038/s42003-026-09711-x",
+      "source": "PubMed — Communications biology",
+      "one_liner": "Artificial intelligence is rapidly transforming structural biology and accelerating access to protein structures, yet many Africa-based scientists still lack infrastructure, training opportunities, and sustained mentorship to fully benefit. Here, we describe BioStruct-Africa’s community-driven framework integrating AlphaFold, experimental structural biolo...",
+      "segment": 0,
+      "timestamp": 0.0
+    },
+    {
+      "title": "De novo engineering of protein interactions: Retrospective and current advances.",
+      "url": "https://doi.org/10.1016/j.sbi.2026.103240",
+      "source": "PubMed — Current opinion in structural biology",
+      "one_liner": "New deep learning-based methods for modeling and generation of protein structures have opened a new chapter in the field of protein design, transforming many previously unattainable challenges into routine tasks. Protein-binder design, an important and challenging task in protein engineering, has also experienced significant progress, promising to provide...",
+      "segment": 1,
+      "timestamp": 129.84
+    },
+    {
+      "title": "Protein Language Model Embeddings Distinguish Catalytic from Structural Zinc-Binding Sites with Interpretable Attention Signatures.",
+      "url": "https://doi.org/10.1021/acs.jcim.5c03142",
+      "source": "PubMed — Journal of chemical information and modeling",
+      "one_liner": "Zinc ions serve dual roles in proteins: as catalytic cofactors and as structural elements. Distinguishing these functional classes from sequence alone remains challenging, because both share similar coordination geometries. Here, we demonstrate that ESM-2 embeddings encode sufficient information to classify catalytic versus structural zinc sites with high...",
+      "segment": 2,
+      "timestamp": 278.51
+    },
+    {
+      "title": "Crystal Structure of Měnglà Virus Nucleoprotein Bound by a Poorly Cross-Reactive Anti-Marburg Virus Nanobody Highlights a Single Amino Acid Affinity Switch, a Feature Also Evident in Dehong Virus.",
+      "url": "https://doi.org/10.1021/acsinfecdis.5c00920",
+      "source": "PubMed — ACS infectious diseases",
+      "one_liner": "Although Marburg and Měnglà viruses occupy different geographies and genera of the family",
+      "segment": 3,
+      "timestamp": 431.45
+    },
+    {
+      "title": "Mechanistic Insights into Nanobody-Based Quenchbody Sensing via Structural Modeling and Molecular Simulations.",
+      "url": "https://doi.org/10.1021/acs.jcim.5c02969",
+      "source": "PubMed — Journal of chemical information and modeling",
+      "one_liner": "Nanobody-based quenchbodies are powerful fluorescent sensors for detecting biomolecular targets. They rely on tryptophan residues in the antigen-binding site that can quench (darken) a fluorophore attached via a flexible linker; antigen binding displaces the fluorophore and increases the fluorescence. Quenchbodies targeting interleukin-6 (IL-6) exhibit va...",
+      "segment": 4,
+      "timestamp": 587.37
+    },
+    {
+      "title": "Stress adaptation of mitochondrial protein import by OMA1-mediated degradation of DNAJC15",
+      "url": "https://www.nature.com/articles/s41594-026-01756-0",
+      "source": "Nature Structural & Molecular Biology",
+      "one_liner": "Nature Structural & Molecular Biology, Published online: 27 February 2026; doi:10.1038/s41594-026-01756-0 Kroczek et al show that degradation of DNAJC15 by OMA1 and AFG3L2 under stress limits mitochondrial protein import and OXPHOS biogenesis. Non-imported proteins lead to the indu...",
+      "segment": 5,
+      "timestamp": 700.22
+    },
+    {
+      "title": "I will continue the fight for environmental justice in Black communities",
+      "url": "https://www.nature.com/articles/d41586-026-00538-4",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 27 February 2026; doi:10.1038/d41586-026-00538-4 Nicknamed the father of environmental justice, Robert Bullard argues that researchers in the field have more reason than ever to back up their work with action.",
+      "segment": 6,
+      "timestamp": 877.24
+    },
+    {
+      "title": "White House stalls release of approved US science budgets",
+      "url": "https://www.nature.com/articles/d41586-026-00601-0",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 27 February 2026; doi:10.1038/d41586-026-00601-0 The US Congress rejected sweeping cuts to science agencies. But the NIH, the NSF and NASA have had their spending slowed.",
+      "segment": 7,
+      "timestamp": 1042.14
+    },
+    {
+      "title": "Editorial Expression of&#xa0;Concern: The gene product Murr1 restricts HIV-1 replication in resting CD4+ lymphocytes",
+      "url": "https://www.nature.com/articles/s41586-026-10308-x",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 27 February 2026; doi:10.1038/s41586-026-10308-x Editorial Expression of Concern: The gene product Murr1 restricts HIV-1 replication in resting CD4+ lymphocytes",
+      "segment": 8,
+      "timestamp": 1164.27
+    },
+    {
+      "title": "Pokémon turns 30 — how the fictional pocket monsters shaped science",
+      "url": "https://www.nature.com/articles/d41586-026-00441-y",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 27 February 2026; doi:10.1038/d41586-026-00441-y The Japanese media sensation has inspired generations of researchers in fields as diverse as evolution, biodiversity and research integrity.",
+      "segment": 9,
+      "timestamp": 1277.67
+    },
+    {
+      "title": "Is a ‘selfish gene’ making a Utah family have twice as many boys as girls?",
+      "url": "https://www.nature.com/articles/d41586-026-00505-z",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 27 February 2026; doi:10.1038/d41586-026-00505-z Genealogy study claims first conclusive case of sex ‘distortion’ in humans — but not all researchers are convinced.",
+      "segment": 10,
+      "timestamp": 1420.07
+    },
+    {
+      "title": "Brain mysteries and Bronze Age diplomacy: Books in brief",
+      "url": "https://www.nature.com/articles/d41586-026-00621-w",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 27 February 2026; doi:10.1038/d41586-026-00621-w Andrew Robinson reviews five of the best science picks.",
+      "segment": 11,
+      "timestamp": 1576.36
+    },
+    {
+      "title": "Data storage and retrieval with unnatural proteins expressed via E. coli",
+      "url": "https://www.nature.com/articles/s41467-026-70061-7",
+      "source": "Nature - Protein Design",
+      "one_liner": "Not stated in source text.\nMETHOD / APPROACH: Not stated in source text.",
+      "segment": 12,
+      "timestamp": 1747.3
+    },
+    {
+      "title": "Intermittent fasting evicts long-lived plasma cells from survival niche",
+      "url": "https://www.nature.com/articles/s41577-026-01286-2",
+      "source": "Nature - Antibodies",
+      "one_liner": "Intermittent fasting causes the eviction of long-lived plasma cells (LLPCs) from their survival niche in the bone marrow, thereby impairing the maintenance of humoral immunity and reducing protective antibody levels following vaccination or natural infection.\n\nMETHOD / APPROACH:\nThe study used multiple mouse models.",
+      "segment": 13,
+      "timestamp": 1878.48
+    },
+    {
+      "title": "Designing a novel vaccine against COVID-19 based on spike SARS-Cov-2 notable mutations using immunoinformatics approaches.",
+      "url": "https://doi.org/10.1371/journal.pone.0334662",
+      "source": "PubMed — PloS one",
+      "one_liner": "The rapid emergence of SARS-CoV-2 variants with spike protein mutations undermines the effectiveness of current vaccines, necessitating innovative strategies to ensure broad and lasting immunity. This study leverages an immunoinformatics approach to design two multi-epitope vaccine constructs Cov19-B (649 amino acids, 74 kDa) and Cov19-T (465 amino acids,...",
+      "segment": 14,
+      "timestamp": 2029.79
+    },
+    {
+      "title": "A novel mRNA-based multiepitope vaccine candidate against Cryptosporidium hominis and Cryptosporidium parvum employing reverse-vaccinology and immunoinformatics approaches.",
+      "url": "https://doi.org/10.1371/journal.pone.0343643",
+      "source": "PubMed — PloS one",
+      "one_liner": "INTRODUCTION: The parasite Cryptosporidium spp. causes cryptosporidiosis, a diarrheal disease in humans and animals. This study describes the development of mRNA vaccine targeting antigens from C. hominis and C. parvum, important gut pathogens. This vaccine was designed with reverse vaccinology and immunoinformatics as no FDA-approved vaccine exists for c...",
+      "segment": 15,
+      "timestamp": 2160.97
+    },
+    {
+      "title": "TRIM13 in situ engineering boosts anti-inflammatory capacity of CAR-Ms for liver fibrosis therapy.",
+      "url": "https://doi.org/10.1038/s41467-026-69858-3",
+      "source": "PubMed — Nature communications",
+      "one_liner": "Chimeric antigen receptor macrophages (CAR-Ms) therapy has shown great promise in liver fibrosis, however limited anti-inflammatory capacity of CAR-Ms in the fibrotic foci compromises their anti-fibrotic potency. We here report tripartite motif containing 13 (TRIM13) engineered CAR-Ms for effectively manipulating the anti-inflammatory phenotype of CAR-Ms,...",
+      "segment": 16,
+      "timestamp": 2353.15
+    },
+    {
+      "title": "Therapeutic Potential of PCSK9 Inhibitors in Regulating Neuroinflammation in Acute Ischemic Stroke.",
+      "url": "https://doi.org/10.1007/s40263-026-01278-9",
+      "source": "PubMed — CNS drugs",
+      "one_liner": "Acute ischemic stroke (AIS) poses a substantial risk of permanent disability and death globally, with neuroinflammation being a key driver of secondary brain damage post-stroke. Proprotein convertase subtilisin/kexin type 9 (PCSK9), beyond its well-accepted role in cholesterol metabolism through low-density lipoprotein receptor (LDLR) degradation, has eme...",
+      "segment": 17,
+      "timestamp": 2524.0
+    },
+    {
+      "title": "Preclinical Evaluation of AHT-102, a CLDN18.2 × CD3 Bispecific Antibody: Pharmacokinetics, Anti-Tumor Efficacy, Tissue Distribution, and Safety Profile.",
+      "url": "https://doi.org/10.1007/s40268-026-00535-y",
+      "source": "PubMed — Drugs in R&D",
+      "one_liner": "BACKGROUND AND OBJECTIVES: Claudin18.2 (CLDN18.2) is a promising therapeutic target overexpressed in various tumor tissues. While CD3-engaging bispecific antibodies show great potential, their clinical application is often limited by poor efficacy in solid tumors and significant safety risks, such as cytokine release syndrome (CRS). The objective of this ...",
+      "segment": 18,
+      "timestamp": 2672.5
+    },
+    {
+      "title": "PAK4 in metabolic diseases: regulation by nutrient signals and therapeutic implications.",
+      "url": "https://doi.org/10.1038/s12276-026-01645-y",
+      "source": "PubMed — Experimental & molecular medicine",
+      "one_liner": "Here we highlight recent advances in understanding the regulatory role of p21-activated kinase 4 (PAK4), the prototypical group II PAK family member, in metabolic diseases. It also briefly notes the contributions of the group I member PAK1 in metabolic tissues. Activation of PAK4 is mediated by upstream Ras-related small GTPases such as Cdc42 and Rac1. In...",
+      "segment": 19,
+      "timestamp": 2824.84
+    },
+    {
+      "title": "Leptospira interrogans HtrA protease is a potent inducer of multifaceted cellular responses.",
+      "url": "https://doi.org/10.1007/s10482-026-02270-5",
+      "source": "PubMed — Antonie van Leeuwenhoek",
+      "one_liner": "Leptospirosis, a bacterial zoonosis caused by select pathogenic spirochetes belonging to the genus Leptospira, can trigger a systemic inflammatory response syndrome due to a cytokine storm that can occur during infection. However, the molecular mechanisms underlying the extensive inflammatory responses during leptospiral infection remain poorly understood...",
+      "segment": 20,
+      "timestamp": 2981.77
+    },
+    {
+      "title": "Disentangling coevolutionary constraints for modeling protein conformational heterogeneity.",
+      "url": "https://doi.org/10.1038/s42004-026-01940-9",
+      "source": "PubMed — Communications chemistry",
+      "one_liner": "Accurate characterization of multi-state protein conformations is crucial for understanding their functional mechanisms and advancing targeted therapies. Extracting coevolutionary constraints from homologous sequences helps reveal protein structure and function, which can be automatically captured by MSA Transformer leveraging attention mechanisms. Making...",
+      "segment": 21,
+      "timestamp": 3180.31
+    },
+    {
+      "title": "In silico structural and dynamic stability analysis of an endo-1,4-β-xylanase from Agrobacterium sp. strain DKPNP3, isolated from the gut of Gonocephalum sp.",
+      "url": "https://doi.org/10.1007/s10482-026-02271-4",
+      "source": "PubMed — Antonie van Leeuwenhoek",
+      "one_liner": "Xylanases are one of the most important hydrolytic enzymes involved in plant hemicellulose degradation with potential industrial as well as ecological significance. This study presents a comprehensive characterization of an endo-1,4-β-xylanase enzyme from Agrobacterium sp. Strain DKPNP3 isolated from the beetle gut of Gonocephalum sp. (Coleoptera: Tenebri...",
+      "segment": 22,
+      "timestamp": 3291.39
+    },
+    {
+      "title": "Isolation and characterization of a novel phage AbT1 and evaluating its anti-biofilm activity and antibiotic synergy.",
+      "url": "https://doi.org/10.1007/s11033-026-11608-1",
+      "source": "PubMed — Molecular biology reports",
+      "one_liner": "BACKGROUND: Acinetobacter baumannii is a formidable multidrug-resistant pathogen prevalent in healthcare settings. Amid the escalating challenge of antimicrobial resistance, phage therapy has regained significant attention. This approach harnesses the natural predatory ability of bacteriophages to combat bacterial infections. METHODS AND RESULTS: A novel ...",
+      "segment": 23,
+      "timestamp": 3407.38
+    },
+    {
+      "title": "Mechanisms of angiopoietin-like protein 7 regulation and therapeutic potential in tumors.",
+      "url": "https://doi.org/10.1007/s11033-025-11404-3",
+      "source": "PubMed — Molecular biology reports",
+      "one_liner": "Angiopoietin-like 7 (ANGPTL7) is a member of the angiopoietin-like protein family, which plays critical physiological roles in angiogenesis, tissue homeostasis maintenance, inflammatory signaling, glucose metabolism and lipid metabolism. Meanwhile, ANGPTL7 is also implicated in the regulation of numerous pathological processes and disease development. In ...",
+      "segment": 24,
+      "timestamp": 3445.22
+    },
+    {
+      "title": "Target-stabilized base editors enable robust high-fidelity RNA editing.",
+      "url": "https://doi.org/10.1038/s41467-026-69835-w",
+      "source": "PubMed — Nature communications",
+      "one_liner": "RNA base editing using engineered deaminases represents a powerful tool to correct mutations at the RNA level. However, widespread off-target effects, primarily arising from dissociated free deaminases, remain a significant challenge. Here, we devise the RECODE (RNA editing with conditionally stable and enhanced ADAR1 deaminase variants) system, which emp...",
+      "segment": 25,
+      "timestamp": 3609.06
+    },
+    {
+      "title": "ISGylation prevents autophagic degradation of STING and promotes antitumor immunity in lung cancer.",
+      "url": "https://doi.org/10.1038/s41419-026-08527-1",
+      "source": "PubMed — Cell death & disease",
+      "one_liner": "The STING pathway plays a central role in immune activation; however, STING protein levels decline during the progression of various cancers, including lung cancer, thereby limiting the efficacy of immunotherapies. Our study uncovers a previously unrecognized mechanism whereby ISGylation stabilizes STING by preventing its autophagic degradation, thereby e...",
+      "segment": 26,
+      "timestamp": 3802.13
+    },
+    {
+      "title": "Design, synthesis, and experimental evaluation of rupestonic acid derivatives as novel anti-tumor agents guided by network pharmacology and molecular docking.",
+      "url": "https://doi.org/10.1038/s41598-026-39442-2",
+      "source": "PubMed — Scientific reports",
+      "one_liner": "This integrated study elucidates the antitumor potential of Artemisia rupestris L.'s primary bioactive component, rupestonic acid (RA), and advances a superior derivative through a systematic, multi-stage strategy. The investigation commenced with network pharmacology, which predicted RA's polypharmacology mechanism by associating it with 55 potential can...",
+      "segment": 27,
+      "timestamp": 3987.35
+    },
+    {
+      "title": "EMMVEP: An Ensemble Method for Protein Missense Variant Effect Prediction Based on Multi-Source Feature Fusion.",
+      "url": "https://doi.org/10.1007/s12539-025-00812-5",
+      "source": "PubMed — Interdisciplinary sciences, computational life sciences",
+      "one_liner": "Missense mutations are common in the coding genome and can alter protein functions. Distinguishing pathogenic from benign variants remains challenging despite computational advances. In the present work, we introduce EMMVEP, an ensemble-based approach designed for predicting the effects of protein missense mutations. EMMVEP leverages categorical boosting ...",
+      "segment": 28,
+      "timestamp": 4133.59
+    },
+    {
+      "title": "Chromosome-level genome of the bank vole (Clethrionomys glareolus): a resource for eco-evo-disease research.",
+      "url": "https://doi.org/10.1038/s41597-026-06924-x",
+      "source": "PubMed — Scientific data",
+      "one_liner": "The increasing availability of reference genomes for non-traditional model species is enhancing research in ecology and evolution. Here, we present a high-quality chromosome-level genome assembly and annotation for the bank vole Clethrionomys glareolus, an emerging model mammal. The 2.24 Gb assembly is resolved into 28 chromosome-scale scaffolds, consiste...",
+      "segment": 29,
+      "timestamp": 4285.0
+    },
+    {
+      "title": "GRU-based de novo design and in-silico prioritization of EZH2 inhibitors.",
+      "url": "https://doi.org/10.1007/s11030-026-11481-x",
+      "source": "PubMed — Molecular diversity",
+      "one_liner": "EZH2 (Enhancer-Homozygous Protein 2), as a key epigenetic regulator, is closely associated with multiple cancers. Consequently, the design of EZH2-targeting inhibitors has become a significant focus in drug development. The application of deep learning methods in the chemical field can accelerate the process of discovering new molecules. This study utiliz...",
+      "segment": 30,
+      "timestamp": 4609.62
+    },
+    {
+      "title": "Graph-based transformer to predict the octanol-water partition coefficient.",
+      "url": "https://doi.org/10.1186/s13321-026-01160-2",
+      "source": "PubMed — Journal of cheminformatics",
+      "one_liner": "Lipophilicity is a fundamental physicochemical property that significantly influences various aspects of drug behavior, such as solubility, permeability, metabolism, distribution, protein binding, and excretion. Consequently, accurate prediction of this property is critical for the successful discovery and development of new drug candidates. The classical...",
+      "segment": 31,
+      "timestamp": 4792.02
+    },
+    {
+      "title": "Mast cell extracellular granules are bioactive condensates assembled by heparin and polyamine",
+      "url": "https://www.nature.com/articles/s41589-026-02165-6",
+      "source": "Nature Chemical Biology",
+      "one_liner": "Nature Chemical Biology, Published online: 27 February 2026; doi:10.1038/s41589-026-02165-6 Mast cells are immune cells that release membraneless mast cell extracellular granules (MCEGs) in response to allergic inflammation and pathogen infection. MCEGs are found to be condensates form...",
+      "segment": 31,
+      "timestamp": 4817.7
+    },
+    {
+      "title": "Defining and refining the cysteine redoxome through sulfur chemical biology",
+      "url": "https://www.nature.com/articles/s41589-026-02145-w",
+      "source": "Nature Chemical Biology",
+      "one_liner": "Nature Chemical Biology, Published online: 27 February 2026; doi:10.1038/s41589-026-02145-w This study provides a chemical framework of sulfur, defining the cysteine redoxome, linking thiol reactivity with oxoform kinetics/dynamics to proteome-wide mapping, occupancy and flux, and reve...",
+      "segment": 31,
+      "timestamp": 4843.38
+    },
+    {
+      "title": "Novartis closes Avidity deal as rare heart disease spinout launches",
+      "url": "https://endpoints.news/novartis-closes-avidity-deal-as-rare-heart-disease-spinout-launches/",
+      "source": "Endpoints News",
+      "one_liner": "Atrium Therapeutics launched Friday morning as Novartis closed the $12 billion deal to buy Avidity Biosciences and its RNA muscle therapies.\n\n The spinout will take on Avidity’s early-stage programs for genetic cardiomyopathies — heart muscle diseases ...",
+      "segment": 31,
+      "timestamp": 4869.06
+    },
+    {
+      "title": "GLP-1 news galore; Top 100 venture investors; Doug Ingram to step down; and more",
+      "url": "https://endpoints.news/glp-1-news-galore-top-100-venture-investors-doug-ingram-to-step-down-and-more/",
+      "source": "Endpoints News",
+      "one_liner": "Happy Saturday, and welcome back to Endpoints Weekly. Our senior biopharma journalist Elizabeth Cairns covered a flurry of readouts this week from Eli Lilly and Novo Nordisk. We’ve summarized the data below, as well as ...",
+      "segment": 31,
+      "timestamp": 4894.74
+    },
+    {
+      "title": "Break It To Make It: How Fracturing Sculpts Tissues and Organs",
+      "url": "https://www.quantamagazine.org/break-it-to-make-it-how-fracturing-sculpts-tissues-and-organs-20260227/",
+      "source": "Quanta Magazine",
+      "one_liner": "Growing tissues can crack, break, and dissociate to form structures that can later withstand immense forces. The post Break It To Make It: How Fracturing Sculpts Tissues and Organs first appeared on",
+      "segment": 32,
+      "timestamp": 4922.33
+    }
+  ]
 }
