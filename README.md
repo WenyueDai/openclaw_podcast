@@ -119,17 +119,15 @@ These happen **in your browser**, not on GitHub's servers.
 **6a. Clicking [N] to seek audio**
 Each paper number `[N]` on the site is a `<span>` with `onclick="seekTo(this, event)"`. Clicking it sets `audio.currentTime = timestamp` where the timestamp was pre-calculated in Phase 4c. The audio player jumps to 0.5s before the transition tones for that paper.
 
-**6b. Submitting a missed paper** (open to all visitors)
-Any visitor can submit a paper title (and optional URL) using the form at the top of the page. The JS:
-1. Checks the title against a protein-design keyword list — off-topic papers are rejected client-side
-2. Calls `GET /contents/state/missed_papers.json` to fetch the current file from GitHub (using a baked deploy token, or the owner's token if logged in)
-3. **Server-side daily cap**: counts entries with today's date in the actual file — if ≥ 10 already exist, rejects the submission. Because this reads the real file from GitHub, it cannot be bypassed by clearing browser storage or using incognito mode. The owner (with a personal token in localStorage) bypasses the cap.
-4. Checks for duplicate titles (case-insensitive)
-5. Appends the entry and calls `PUT` to commit it
+**6b. Submitting a missed paper** (owner only)
+The owner can submit a paper title (and optional URL) using the form at the top of the page. Requires the same GitHub token as feedback and notes (set once in ⚙ Settings). The JS:
+1. Calls `GET /contents/state/missed_papers.json` to fetch the current file
+2. Checks for duplicate titles (case-insensitive)
+3. Appends the entry and calls `PUT` to commit it
 
-The page immediately shows a **"pending"** badge. Diagnosis and Notion stub are created the **next morning at 05:00 UTC** when the daily pipeline runs — no separate Actions workflow is triggered per submission, so visitor submissions cost **zero extra GitHub Actions minutes**.
+The page immediately shows a **"pending"** badge. Diagnosis and Notion stub are created the **next morning at 05:00 UTC** when the daily pipeline runs. No separate Actions workflow is triggered — processing is folded into the existing daily run, costing **zero extra GitHub Actions minutes**.
 
-> **Why no separate workflow?** Each GitHub Actions run costs ~1–2 minutes. With 2 000 free minutes/month, triggering a workflow per submission would be unsustainable. Processing is instead folded into the existing daily run.
+> Visitor submission was considered but ruled out: each GitHub Actions run costs ~1–2 min; with 2 000 free min/month there is no headroom for unpredictable external submissions.
 
 **6c. Saving feedback** (owner only)
 Checking paper checkboxes and clicking "Save feedback" triggers JavaScript that:
@@ -371,7 +369,6 @@ Go to `Settings → Secrets and variables → Actions` and add:
 | `NOTION_TOKEN` | Notion integration token for the **Paper Collection** database |
 | `NOTION_DATABASE_ID` | Paper Collection database ID |
 | `NOTION_API_KEY` | Notion integration token for the **Deep Dive Notes** database (same or different integration) |
-| `MISSED_SUBMIT_TOKEN` | Fine-grained PAT with **Contents: read+write** on this repo only — baked into the site at build time so visitors can submit missed papers without logging in. If not set, only the owner can submit. |
 
 ### 5. Browser setup (for owner interactive features)
 

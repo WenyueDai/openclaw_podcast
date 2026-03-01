@@ -326,7 +326,6 @@ def render_index(episodes, all_episodes=None):
     )
 
     missed_json = json.dumps(missed_papers, ensure_ascii=False)
-    missed_submit_token = os.environ.get("MISSED_SUBMIT_TOKEN", "")
 
     return f"""<!doctype html>
 <html>
@@ -447,9 +446,9 @@ audio {{ width:100%; margin:4px 0 6px; }}
       <p>Papers are ranked by journal quality, topic relevance, and the owner's personal reading history. The podcast is regenerated fresh each day via GitHub Actions. Only the 3 most recent episodes are shown — click <strong>📚</strong> to browse the full archive. Companion Notion databases: <a href="https://clear-squid-8e3.notion.site/3155f58ea8c280258959fba00c0149ab?v=3155f58ea8c2803c8c0d000c76d1bfba" target="_blank">Paper Collection</a> · <a href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a>.</p>
       <div class="feature-grid">
         <div class="feature-row">
-          <span class="feature-badge open">Open to all</span>
+          <span class="feature-badge owner">Owner only</span>
           <div>
-            <strong>&#128231; Submit a missed paper</strong> — use the form below to flag any protein-design paper the pipeline should have included. The pipeline will diagnose why it was missed and automatically tune future rankings.
+            <strong>&#128231; Submit a missed paper</strong> — use the form below to flag any protein-design paper the pipeline should have included. The pipeline will diagnose why it was missed and automatically tune future rankings. Requires a GitHub token (same ⚙ Settings as below).
           </div>
         </div>
         <div class="feature-row">
@@ -474,7 +473,7 @@ audio {{ width:100%; margin:4px 0 6px; }}
     </div>
     <div class="missed-section">
       <h3>&#128231; Did we miss a paper?</h3>
-      <p>Only submit papers on <strong>protein design, antibody engineering, enzyme design, or computational biology</strong>. The pipeline will diagnose why it was missed and tune future rankings automatically.</p>
+      <p>Submit a paper the pipeline should have included. The pipeline will diagnose why it was missed and tune future rankings automatically. Requires your GitHub token (⚙ Settings).</p>
       <div class="missed-form">
         <input type="text" id="missed-title" placeholder="Paper title (required)">
         <input type="text" id="missed-url" placeholder="URL (optional)">
@@ -791,7 +790,6 @@ loadNotes();
 
 // ── Missed papers ──────────────────────────────────────────────────────────
 var _bakedMissedPapers = {missed_json};
-var _missedSubmitToken = '{html.escape(missed_submit_token)}';
 
 function _diagLabel(entry) {{
   var d = entry.diagnosis;
@@ -844,8 +842,9 @@ async function loadMissedPapers() {{
 }}
 
 async function submitMissedPaper() {{
-  var token = localStorage.getItem('gh_token') || _missedSubmitToken || '';
+  var token = localStorage.getItem('gh_token') || '';
   var repo  = localStorage.getItem('gh_repo')  || '{html.escape("WenyueDai/openclaw_podcast")}';
+  if (!token) {{ openSettings(); return; }}
 
   var titleEl = document.getElementById('missed-title');
   var urlEl   = document.getElementById('missed-url');
@@ -854,28 +853,6 @@ async function submitMissedPaper() {{
   var url   = (urlEl.value || '').trim();
 
   if (!title) {{ status.textContent = 'Please enter a paper title.'; return; }}
-
-  // Protein-design relevance filter
-  var _PROTEIN_TERMS = [
-    'protein','antibody','enzyme','peptide','nanobody','antigen','binder','scaffold',
-    'alphafold','rosetta','esmfold','rfdesign','rfdiffusion','proteinmpnn',
-    'amino acid','binding affinity','protein design','antibody design','enzyme design',
-    'protein engineering','protein language model','directed evolution',
-    'structural biology','computational biology','molecular dynamics',
-    'sequence design','structure prediction','drug design','cryo-em',
-    'protein folding','protein structure','deep learning protein','diffusion model',
-  ];
-  var _titleLow = title.toLowerCase();
-  var _relevant = _PROTEIN_TERMS.some(function(t) {{ return _titleLow.includes(t); }});
-  if (!_relevant) {{
-    status.textContent = 'Please only submit papers related to protein design, antibody engineering, enzyme design, or computational biology.';
-    return;
-  }}
-
-  if (!token) {{
-    status.textContent = 'Submission unavailable (no token configured). Contact the site owner.';
-    return;
-  }}
 
   var path = 'openclaw-knowledge-radio/state/missed_papers.json';
   var apiBase = 'https://api.github.com/repos/' + repo;
@@ -886,27 +863,14 @@ async function submitMissedPaper() {{
     'Content-Type': 'application/json',
   }};
 
-  status.textContent = 'Checking…';
+  status.textContent = 'Saving…';
   try {{
-    // GET current file
     var existing = [], sha = null;
     var get = await fetch(apiBase + '/contents/' + path, {{headers: headers}});
     if (get.ok) {{
       var meta = await get.json();
       sha = meta.sha;
       existing = JSON.parse(atob(meta.content.replace(/\\n/g,'')));
-    }}
-
-    // Server-side daily cap: max 10 submissions across all visitors per day
-    // (owner bypasses this). Checked against the real file, not localStorage.
-    var _isOwner = !!localStorage.getItem('gh_token');
-    if (!_isOwner) {{
-      var _today = new Date().toISOString().slice(0, 10);
-      var _todayCount = existing.filter(function(e) {{ return e.date_submitted === _today; }}).length;
-      if (_todayCount >= 10) {{
-        status.textContent = 'Daily submission limit reached (10 per day). Please try again tomorrow.';
-        return;
-      }}
     }}
 
     // Duplicate check (case-insensitive title match)
@@ -939,7 +903,7 @@ async function submitMissedPaper() {{
       method: 'PUT', headers: headers, body: JSON.stringify(body)
     }});
     if (put.ok) {{
-      status.textContent = '✓ Submitted! The diagnosis badge usually appears within 2–3 minutes — refresh the page to check.';
+      status.textContent = '✓ Submitted! Diagnosis will appear after tomorrow\'s 05:00 UTC run.';
       titleEl.value = '';
       urlEl.value = '';
       _renderMissedList(existing);
