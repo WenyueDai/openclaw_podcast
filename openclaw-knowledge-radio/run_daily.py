@@ -448,9 +448,14 @@ def main() -> int:
             seg_mp3s.append(seg_mp3_path)
 
         # Compute per-segment SFX-start timestamps.
-        # For gi > 0 we point to the SFX transition START (= end of previous segment speech)
-        # so that clicking a highlight always plays the transition sound before content begins.
-        _SFX_RAW = 2.3  # transition SFX raw duration (see audio.py)
+        # For gi > 0 we point to 0.5s before the transition tones so clicking lands
+        # on audible tones immediately.  The SFX structure is:
+        #   1.0s silence | 0.12s tone | 0.06s gap | 0.12s tone | 1.0s silence  (total 2.3s raw)
+        # Seeking to SFX_start+0.5s means: 0.5s silence → tones → 1.0s silence → content.
+        # Using 1.8 (= 2.3 - 0.5) as the seek-back amount also absorbs small
+        # accumulated encoder-delay measurement error across many segments.
+        _SFX_RAW = 2.3          # full SFX raw duration – used for position accumulation
+        _SFX_SEEK_OFFSET = 1.8  # seek-back from content start: land 0.5s before tones
         _raw_durs: List[float] = [_ffprobe_duration_seconds(p) for p in seg_mp3s]
         _seg_ts: List[float] = []
         _t = 0.0
@@ -458,13 +463,13 @@ def main() -> int:
             if _gi == 0:
                 _seg_ts.append(0.0)
             else:
-                # _t is at speech start of segment _gi; SFX started _SFX_RAW seconds earlier.
-                _seg_ts.append(round((_t - _SFX_RAW) / PLAYBACK_ATEMPO, 2))
+                # _t is at content start of segment _gi; seek to 0.5s before the tones.
+                _seg_ts.append(max(0.0, round((_t - _SFX_SEEK_OFFSET) / PLAYBACK_ATEMPO, 2)))
             _t += _rd
             if _gi < len(_raw_durs) - 1:
                 _t += _SFX_RAW
 
-        # Each item maps directly to its segment's SFX-start timestamp.
+        # Each item maps directly to its segment's pre-tones timestamp.
         for _entry in _episode_items_list:
             _raw_si = _entry["segment"]
             _gi = _raw_seg_to_group.get(_raw_si)
