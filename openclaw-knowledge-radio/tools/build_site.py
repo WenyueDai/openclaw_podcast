@@ -453,6 +453,7 @@ audio {{ width:100%; margin:4px 0 6px; }}
     <div class="about">
       <p>I built this to keep up with protein design research without having to manually scan journals every morning. A pipeline runs overnight, picks out the most relevant papers on <strong>protein design, antibody engineering, and enzyme design</strong>, and turns them into a ~60-minute narrated digest I can listen to on my run.</p>
       <p>The three most recent episodes are shown here — click <strong>&#128218;</strong> to browse older ones. I also keep public Notion databases if you want to go deeper: <a href="https://clear-squid-8e3.notion.site/3155f58ea8c280258959fba00c0149ab?v=3155f58ea8c2803c8c0d000c76d1bfba" target="_blank">Paper Collection</a> · <a href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a>.</p>
+      <p style="margin-top:10px; padding:8px 12px; background:var(--bg2); border-left:3px solid var(--accent); border-radius:0 7px 7px 0; font-size:.84rem; color:var(--muted);">&#9432; This runs entirely on free resources — GitHub Actions, free-tier LLMs, and open TTS. Audio quality is limited. The point isn&rsquo;t to absorb everything from the podcast &mdash; it&rsquo;s to surface papers worth your attention so you can decide what to deep dive into.</p>
       <div class="feature-grid">
         <div class="feature-row">
           <span class="feature-badge owner">Owner only</span>
