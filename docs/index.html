@@ -106,6 +106,7 @@ audio { width:100%; margin:4px 0 6px; }
 .diag-ranking   { background:#f8d7da; color:#721c24; }
 .diag-pending   { background:#e2e3e5; color:#383d41; }
 .missed-kws { font-size:.75rem; color:var(--muted); margin-top:2px; }
+.missed-toggle { margin-top:8px; background:none; border:1px solid var(--line); border-radius:7px; padding:4px 12px; font-size:.8rem; color:var(--accent); cursor:pointer; }
 .diag-guide { margin-top:12px; font-size:.83rem; color:var(--muted); }
 .diag-guide summary { cursor:pointer; font-weight:600; color:var(--accent); }
 .diag-guide dl { margin:8px 0 0; display:grid; grid-template-columns:auto 1fr; gap:6px 12px; align-items:start; }
@@ -509,24 +510,36 @@ function _diagLabel(entry) {
   return '<span class="diag-badge diag-pending">' + d + '</span>';
 }
 
+function _missedItemHtml(p) {
+  var titleHtml = p.url
+    ? '<a href="' + p.url + '" target="_blank">' + p.title.replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</a>'
+    : p.title.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  var kwHtml = (p.keywords_added && p.keywords_added.length)
+    ? '<div class="missed-kws">Keywords added: ' + p.keywords_added.join(', ') + '</div>'
+    : '';
+  return '<div class="missed-item">'
+    + '<div class="missed-item-title">' + titleHtml + kwHtml + '</div>'
+    + _diagLabel(p)
+    + '</div>';
+}
+
 function _renderMissedList(papers) {
   var list = document.getElementById('missed-list');
   if (!list) return;
   if (!papers || !papers.length) { list.innerHTML = ''; return; }
-  var visible = papers.slice(-10).reverse();
+  var all = papers.slice().reverse();
   var html = '';
-  for (var i = 0; i < visible.length; i++) {
-    var p = visible[i];
-    var titleHtml = p.url
-      ? '<a href="' + p.url + '" target="_blank">' + p.title.replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</a>'
-      : p.title.replace(/&/g,'&amp;').replace(/</g,'&lt;');
-    var kwHtml = (p.keywords_added && p.keywords_added.length)
-      ? '<div class="missed-kws">Keywords added: ' + p.keywords_added.join(', ') + '</div>'
-      : '';
-    html += '<div class="missed-item">'
-      + '<div class="missed-item-title">' + titleHtml + kwHtml + '</div>'
-      + _diagLabel(p)
-      + '</div>';
+  for (var i = 0; i < Math.min(3, all.length); i++) html += _missedItemHtml(all[i]);
+  if (all.length > 3) {
+    html += '<div id="missed-more" style="display:none">';
+    for (var i = 3; i < all.length; i++) html += _missedItemHtml(all[i]);
+    html += '</div>';
+    html += '<button class="missed-toggle" onclick="'
+      + 'var m=document.getElementById('missed-more');'
+      + 'var b=this;'
+      + 'if(m.style.display==='none'){m.style.display='';b.textContent='Show less';}'
+      + 'else{m.style.display='none';b.textContent='Show all (' + (all.length - 3) + ' more)';}'
+      + '">Show all (' + (all.length - 3) + ' more)</button>';
   }
   list.innerHTML = html;
 }
