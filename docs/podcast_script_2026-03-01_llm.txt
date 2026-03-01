@@ -1,0 +1,410 @@
+Here's a deep dive segment based on the provided information:
+
+Nature's latest issue highlights a breakthrough in crop engineering that tackles two major agricultural challenges at once. Researchers have successfully modified a specific E3 ubiquitin ligase protein in maize to simultaneously improve cold tolerance and phosphate uptake efficiency.
+
+This is significant because cold stress and phosphate deficiency normally create a vicious cycle in plants. When temperatures drop, plants struggle to absorb phosphate from the soil, which in turn makes them even more vulnerable to cold damage. It's a classic trade-off that farmers have had to accept - you could breed for cold resistance or for better nutrient uptake, but not both.
+
+The protein engineering approach essentially rewires this relationship. By modifying the E3 ubiquitin ligase, researchers have decoupled these two traits, allowing maize plants to maintain robust phosphate uptake even under cold conditions. This means the plants can continue growing and producing energy efficiently when temperatures drop, without suffering from the typical nutrient starvation that compounds cold stress.
+
+While the specific engineering technique isn't detailed in this commentary, the results are clear: a single genetic modification that addresses multiple stress factors. This kind of multi-trait improvement is exactly what's needed for developing crops that can thrive in challenging environments.
+
+The implications extend beyond just cold regions. As climate patterns become more erratic and soil quality varies, having crops that can handle multiple simultaneous stresses becomes increasingly valuable. This approach could potentially be adapted to other crops and stress combinations, offering a new strategy for enhancing agricultural resilience.
+
+However, it's worth noting that this is still early-stage research. The commentary doesn't address how these engineered plants perform in real-world field conditions, whether there are any unintended effects on other plant characteristics, or the regulatory pathway for bringing such genetically modified crops to market. Those practical considerations will be crucial for determining whether this promising laboratory result can translate into actual farming solutions.
+
+[[TRANSITION]]
+
+Researchers have developed a new method to identify and engineer highly functional viral proteases using co-evolutionary models, specifically targeting potyviral proteases. These proteases are enzymes that cut proteins at specific sites, and they're important both for understanding viral replication and for potential biotechnological applications.
+
+The key innovation here is using co-evolutionary models to predict which protease variants will be most functional in living cells. Co-evolutionary models analyze how different parts of a protein change together over evolutionary time. When two amino acids consistently change in tandem across many related proteins, it suggests they're functionally connected. By applying these models to potyviral proteases, the researchers could predict which mutations would enhance protease activity.
+
+The team focused on potyviral proteases because these viruses cause significant crop damage worldwide, and their proteases are essential for viral replication. The approach involved screening large libraries of protease variants in cells, then using the co-evolutionary data to identify the most promising candidates for further engineering.
+
+What makes this work significant is that it provides a systematic way to engineer viral proteases with improved function. Traditional approaches often rely on trial and error or limited knowledge of protein structure. By contrast, co-evolutionary models can capture complex relationships between amino acids that might not be obvious from static structural data alone.
+
+The researchers demonstrated that proteases identified through this method showed enhanced activity compared to wild-type enzymes. This suggests the approach could be used to create more efficient viral proteases for various applications, from basic research tools to potential antiviral strategies.
+
+The method also has broader implications for protein engineering in general. Co-evolutionary models are becoming increasingly powerful as more protein sequences become available, and this work shows how they can be applied to solve practical engineering challenges in living cells.
+
+[[TRANSITION]]
+
+This paper introduces IQSPred-PLM, a new computational model for predicting quorum sensing peptides in bacteria. Quorum sensing is a communication system bacteria use to coordinate group behaviors like biofilm formation and virulence factor production. The challenge has been identifying these signaling peptides efficiently, since experimental detection is time-consuming and costly.
+
+IQSPred-PLM takes a different approach by leveraging protein language models - machine learning systems trained on vast amounts of protein sequence data that can understand patterns in amino acid arrangements. The model combines this language model foundation with interpretable features, meaning researchers can understand why the model makes its predictions rather than just getting black-box outputs.
+
+The key innovation appears to be making the predictions interpretable. Many deep learning models for biological sequences work like black boxes - they give you an answer but you can't see the reasoning. IQSPred-PLM aims to show which sequence features and patterns are most important for identifying quorum sensing peptides, which could help researchers understand the underlying biology better.
+
+The model was tested on bacterial sequences, particularly focusing on Gram-positive bacteria where quorum sensing peptides are well-studied. By using the protein language model as a starting point, the system can capture complex sequence relationships that simpler prediction methods might miss.
+
+This matters because quorum sensing peptides are important drug targets - if you can disrupt bacterial communication, you might prevent biofilm formation or reduce virulence without directly killing bacteria, which could slow antibiotic resistance development. Having a reliable computational tool to identify these peptides could accelerate research in this area.
+
+The available text doesn't provide specific performance metrics or comparison results with existing methods, so we can't say how much better this performs than previous approaches. It also doesn't detail the exact architecture or the interpretability techniques used. But the combination of protein language models with interpretable predictions represents an interesting direction for computational biology tools.
+
+[[TRANSITION]]
+
+BioStruct-Africa is a community-driven initiative that has built a scalable framework for delivering hands-on structural biology training across Africa, with a particular focus on integrating AlphaFold and experimental techniques like X-ray crystallography and cryo-EM. The program's core innovation is its ability to rapidly scale from a small pilot workshop in Douala, Cameroon, in October 2024 with 20 participants, to a flagship event in Nairobi, Kenya, in August 2025 with 101 participants—while maintaining high training quality and participant satisfaction.
+
+The workshops combine intensive, one-week training modules covering both computational and experimental structural biology workflows. Participants learn to use AlphaFold for protein structure prediction alongside experimental methods such as X-ray crystallography and cryo-EM. The program also includes modules on drug design, providing a comprehensive skill set relevant to modern structural biology research.
+
+To evaluate effectiveness, the organizers compared pre- and post-training assessment scores, finding that participants' scores improved by more than 10% after the training. An anonymous survey of 71 participants from the Nairobi workshop yielded strong results: overall satisfaction averaged 4.47 out of 5, training quality scored 4.67 out of 5, and participants reported significant improvements in their understanding of structural biology concepts.
+
+The demand for this training is evident from the application numbers: 198 applications were received for just 101 available spots in Nairobi, underscoring both the need and the program's growing reputation. This scaling was achieved without compromising the hands-on, interactive nature of the workshops, which is critical for effective skills transfer in computational and experimental techniques.
+
+However, the program also revealed persistent challenges. Gender parity remains an issue, with fewer women applying and participating than men, despite efforts to encourage diverse applications. Regional representation is another concern, as most applicants and participants come from a limited number of African countries, suggesting that outreach and support need to be expanded to ensure more equitable access across the continent.
+
+BioStruct-Africa's approach demonstrates that it is possible to build sustainable, high-quality research training infrastructure in regions with historically limited access to advanced scientific tools and mentorship. By combining AlphaFold with experimental structural biology, the program equips African scientists with cutting-edge skills that are directly applicable to drug discovery, disease research, and biotechnology. The success of this model offers a blueprint for similar initiatives aiming to close the global scientific capacity gap, though ongoing attention to inclusivity and regional balance will be essential for long-term impact.
+
+[[TRANSITION]]
+
+When searching for protein homologs in large databases, traditional sequence alignment tools often miss the most interesting cases: remote homologs with very low sequence similarity. These distant evolutionary relationships can hold the key to discovering novel enzymes and understanding protein function. A new tool called BEST—Basic Embedding Search Tool—aims to solve this problem by using protein language model embeddings to capture both evolutionary and structural information in a single vector representation.
+
+The core innovation here is how BEST creates and uses these embeddings. Instead of comparing raw sequences, it transforms proteins into dense vector representations using language models trained on protein sequences. This allows the tool to detect subtle similarities that sequence alignment would miss. To make this practical at scale, the developers implemented a segmented distillation pruning technique that accelerates the encoding process, and a multi-layer acceleration structure for rapid vector retrieval.
+
+The performance gains are substantial. BEST achieves over 20% higher sensitivity compared to previous methods while maintaining strong precision and recall. In terms of speed, it's 23.41 times faster than PSI-BLAST and 3.92 times faster than Foldseek. The vector retrieval is particularly impressive—4290.86 times faster than conventional approaches. This combination of speed and sensitivity means researchers can now search much larger databases more thoroughly, increasing the chances of finding those elusive remote homologs that traditional tools overlook.
+
+The practical impact is significant for enzyme mining and broader biological research. By detecting homologous sequences that conventional methods miss, BEST opens up new possibilities for discovering novel enzymes with unique functions. The tool is publicly available through both a web server and open-source code repository, making it accessible to the research community. This combination of improved performance and open availability positions BEST as a potentially transformative tool for protein database searches.
+
+[[TRANSITION]]
+
+Deep learning is revolutionizing protein design, making once-daunting challenges routine. A new review in Current Opinion in Structural Biology highlights how advanced computational methods are transforming protein-binder design, a critical task in protein engineering. These tools enable precise modeling and generation of protein structures, opening doors to designing proteins that interact with unprecedented specificity. This progress promises breakthroughs in therapeutics, diagnostics, and biotechnology. By leveraging AI-driven approaches, researchers can now engineer proteins with tailored functions, accelerating innovation in fields like drug development and enzyme design. The review underscores the transformative potential of these methods, marking a new era in protein engineering where complex design tasks are becoming increasingly accessible and efficient.
+
+[[TRANSITION]]
+
+A recent review in Progress in Biophysics and Molecular Biology highlights how energy-based computational models are transforming de novo protein engineering. By simulating protein energetics, researchers can now design novel proteins with precise, tailored functions for applications in biotechnology, medicine, and synthetic biology. These models allow scientists to predict how proteins will fold and behave, moving beyond traditional trial-and-error methods. The review emphasizes that integrating energy-driven approaches accelerates the creation of proteins with desired properties, opening new possibilities for drug development, enzyme design, and synthetic biology. This shift toward computational design marks a significant advance in the field, enabling more efficient and targeted protein engineering.
+
+[[TRANSITION]]
+
+Geometric deep learning is transforming protein engineering by enabling more efficient exploration of protein sequence space, according to a review in Biotechnology Advances. Traditional methods like rational design and directed evolution are limited by the vastness of possible protein sequences and high experimental costs. The review highlights how geometric deep learning can capture complex protein structures and interactions, potentially accelerating the design of novel proteins with desired functions. This approach represents a paradigm shift in computational protein design, offering new opportunities to overcome longstanding challenges in the field. However, the review also notes that significant challenges remain in fully integrating these methods into practical workflows.
+
+[[TRANSITION]]
+
+A new review in Biotechnology Advances traces how enzyme engineering has shifted from traditional directed evolution and rational design toward AI-driven approaches. The authors highlight that modern methods now integrate sequence-structure-function insights, fitness landscape mapping, and multiscale regulation to accelerate biocatalyst development. AI tools are enabling faster prediction of beneficial mutations and optimization of enzyme properties across diverse applications. This evolution promises more efficient and targeted biocatalysis for industrial and environmental uses. The review underscores the growing role of machine learning in overcoming limitations of earlier techniques, marking a significant step toward intelligent, data-driven enzyme engineering.
+
+[[TRANSITION]]
+
+This item from PubMed's Neural Networks journal is not a research article but a redirect notice. The provided text contains only the word "Redirecting," offering no scientific content, methods, or findings to summarize. Without substantive information about the claimed DNA-binding protein prediction study, no meaningful roundup can be constructed. The entry appears to be a placeholder or broken link rather than an actual publication.
+
+[[TRANSITION]]
+
+Researchers have developed nanobody-based anti-CD73 therapeutics targeting chemoresistant colorectal cancer cells. Published in International Immunopharmacology, the study explores how these engineered nanobodies can induce immunogenic cell death by blocking CD73, an immunosuppressive enzyme that generates adenosine and helps tumors evade immune detection. Unlike traditional monoclonal antibodies, nanobodies offer superior tissue penetration due to their small size and high stability, potentially overcoming a major limitation in current cancer immunotherapies. The work represents a promising new approach for treating colorectal cancers that have developed resistance to conventional chemotherapy by simultaneously targeting the tumor cells and reactivating anti-tumor immune responses.
+
+[[TRANSITION]]
+
+Researchers have uncovered the regio- and stereo-selectivity mechanisms in situ for primary amination of allylic and benzylic C(sp³)-H bonds using engineered heme enzymes. Published in the Journal of Inorganic Biochemistry, the study reveals how directed evolution of these enzymes enables precise control over where and how the nitrogen group attaches to carbon-hydrogen bonds. This breakthrough demonstrates that specific mutations in the enzyme's active site can dramatically influence both the position (regio-selectivity) and three-dimensional orientation (stereo-selectivity) of the amination reaction. The findings open new possibilities for creating complex nitrogen-containing molecules with high precision, which could have significant applications in pharmaceutical synthesis and materials science.
+
+[[TRANSITION]]
+
+Researchers have shown that ESM-2 protein language model embeddings can reliably distinguish catalytic from structural zinc-binding sites in proteins. While both types share similar coordination geometries, making them hard to tell apart from sequence alone, the embeddings capture subtle sequence patterns that reveal their functional roles. This work, published in the Journal of Chemical Information and Modeling, highlights how attention signatures within the model provide interpretable clues about zinc site classification. The approach offers a promising tool for annotating zinc-binding sites in newly sequenced proteins, advancing our understanding of metal ion function in biology.
+
+[[TRANSITION]]
+
+A new review from Quantitative Biology highlights how evolutionary scale modeling protein language models are transforming protein science and engineering. The ESM series, trained on massive unlabeled protein sequence datasets, uses large language model architectures to capture deep relationships between protein sequences, structures, and functions. These models are proving valuable across diverse applications from structure prediction to functional annotation. The review emphasizes that ESM models represent a robust framework for understanding protein biology at scale, with their ability to learn from evolutionary patterns offering insights that traditional methods cannot match. As these models continue advancing, they're positioned to accelerate both basic research and practical protein engineering efforts.
+
+[[TRANSITION]]
+
+SOPE-MsL is a new computational model that improves the prediction of protein-small-molecule binding sites by combining protein language model embeddings with multiscale learning. Developed by researchers in the Journal of Chemical Information and Modeling, the approach enhances interpretability and accuracy compared to existing methods. By integrating synergy-optimized embeddings and multiscale feature learning, SOPE-MsL better captures the complex spatial and chemical patterns at binding interfaces. This advance could accelerate drug discovery by reducing reliance on costly and time-consuming experimental methods for identifying critical binding residues. The model's interpretability also offers deeper insights into molecular recognition mechanisms, supporting more rational and efficient therapeutic design.
+
+[[TRANSITION]]
+
+Researchers are exploring how protein language models can infer site-specific variation in proteins without relying on traditional multiple sequence alignments. A new study in NAR Genomics and Bioinformatics shows that evotuned protein language models can capture evolutionary patterns and diversity at individual amino acid sites directly from single sequences. This approach bypasses the need for large, curated MSAs, potentially speeding up evolutionary analysis and functional annotation. The models learn context-specific variation by training on vast protein datasets, enabling predictions about site conservation and variability. This could be especially useful for studying proteins with limited homologs or for rapid screening in drug discovery. The work highlights a shift toward AI-driven methods in structural biology and evolutionary inference.
+
+[[TRANSITION]]
+
+A new structural study reveals how a nanobody targeting Marburg virus shows poor cross-reactivity with Měnglà virus due to a single amino acid difference in the nucleoprotein binding site. Published in ACS Infectious Diseases, the research highlights an "affinity switch" that explains why antibodies effective against one filovirus genus may fail against another. This finding is particularly relevant as it also appears in Dehong virus, suggesting a broader pattern of subtle but critical variations in viral proteins across related species. Understanding these molecular differences could guide the design of more broadly protective therapeutics and diagnostics for emerging filoviruses.
+
+[[TRANSITION]]
+
+Researchers have uncovered the molecular mechanism behind nanobody-based quenchbodies, a new class of fluorescent biosensors. Using structural modeling and molecular simulations, they found that these sensors work by exploiting tryptophan residues in the antigen-binding site to quench a fluorophore attached via a flexible linker. When the target molecule binds, it displaces the fluorophore, causing a measurable increase in fluorescence. This mechanism was demonstrated for interleukin-6 (IL-6) detection, where quenchbodies showed variable responses depending on the antigen-binding site configuration. The study, published in the Journal of Chemical Information and Modeling, provides crucial insights for designing more sensitive and specific quenchbody sensors for biomolecular detection.
+
+[[TRANSITION]]
+
+Transposable elements, once dismissed as genomic junk, are now recognized as major drivers of transcriptome diversity. A new study in Nature Structural & Molecular Biology systematically maps chimeric transcripts—RNA molecules that fuse sequences from transposable elements with nearby genes—across species and cell states.
+
+The team used long-read RNA sequencing to capture full-length transcripts, overcoming the fragmentation limits of short-read methods. This allowed them to identify thousands of TE-gene chimeras that were previously invisible. These chimeras are not random noise; they show tissue-specific expression patterns and dynamic regulation during cellular transitions, such as differentiation or stress response.
+
+The study reveals that TE-derived exons can be incorporated into mature mRNAs, creating novel protein isoforms. In some cases, these chimeras alter protein domains, potentially changing function or localization. The authors also found evidence that certain chimeras are conserved across species, suggesting they provide adaptive advantages rather than being mere byproducts of TE activity.
+
+Mechanistically, the researchers show that TEs can supply alternative promoters, splice sites, or even entire coding sequences. This expands the coding potential of the genome without changing the underlying DNA sequence. The work also highlights how TEs contribute to transcriptome plasticity—the ability of cells to rapidly rewire gene expression in response to environmental cues.
+
+One striking finding is that TE-gene chimeras are enriched in genes involved in immunity, development, and stress response, hinting at their role in rapid adaptation. The authors propose that these chimeric transcripts act as a reservoir of functional diversity, allowing organisms to explore new phenotypic space without waiting for de novo mutations.
+
+This systematic cartography of TE-gene chimeras reframes transposable elements from genomic parasites to active participants in gene regulation and evolution. It also opens new avenues for understanding how transcriptomic diversity is generated and maintained across species and cell states.
+
+[[TRANSITION]]
+
+When mitochondria face stress, they don't just shut down—they actively rewire their protein import machinery. A new study in Nature Structural & Molecular Biology reveals how cells use targeted protein degradation to throttle mitochondrial activity and protect against overload.
+
+The key player is DNAJC15, a mitochondrial J-protein that helps shuttle other proteins into the organelle. Under normal conditions, DNAJC15 supports the import of nuclear-encoded proteins needed for oxidative phosphorylation. But when stress hits—whether from nutrient deprivation, oxidative damage, or other insults—cells deploy two proteases, OMA1 and AFG3L2, to degrade DNAJC15.
+
+This degradation isn't accidental. By removing DNAJC15, the cell reduces the mitochondrial import capacity, which in turn limits the production of new OXPHOS complexes. The result is a controlled slowdown of energy metabolism that prevents the accumulation of misfolded or non-imported proteins, which could otherwise trigger harmful aggregation or stress responses.
+
+The mechanism is elegant: stress → OMA1/AFG3L2 activation → DNAJC15 degradation → reduced import → lower OXPHOS biogenesis. This creates a feedback loop that matches mitochondrial activity to cellular energy needs and stress levels.
+
+What's striking is that this isn't just a passive consequence of stress—it's an active regulatory strategy. The cell sacrifices some import capacity to avoid the bigger problem of protein overload. This could have implications for diseases where mitochondrial import is disrupted, such as certain neurodegenerative disorders or metabolic syndromes.
+
+The available text does not provide details on how OMA1 and AFG3L2 specifically recognize DNAJC15, or whether this pathway is conserved across species. It also doesn't specify the exact stress conditions that trigger the degradation, or how quickly the system responds. But the core insight is clear: mitochondrial stress adaptation isn't just about damage control—it's about dynamic, targeted remodeling of the import machinery itself.
+
+[[TRANSITION]]
+
+Zscan4 enables the formation of a nuclear structure termed the "Z compartment" in early totipotent-like mouse cells.
+
+This discovery reveals a previously unknown chromatin-based mechanism for timing developmental gene expression. The chromatin environment acts as a mutable and tunable timer of early development, controlling when specific transcriptional programs activate during the earliest stages of life.
+
+The Z compartment appears to be a specialized nuclear domain that forms specifically in totipotent-like cells - laboratory-derived cells that mimic the molecular state of the two-cell embryo. These cells represent a unique developmental window when cells retain the ability to generate both embryonic and extra-embryonic tissues.
+
+Zscan4, a protein normally expressed in early embryonic cells and certain stem cells, appears to be the key factor enabling this compartment's formation. While the exact mechanism remains unclear from the available preview, the protein's role in genomic stability and totipotency suggests it may help organize chromatin in ways that create this specialized nuclear environment.
+
+The functional significance likely relates to timing. By creating distinct nuclear compartments, cells can spatially segregate different transcriptional programs, ensuring that genes activate at precisely the right developmental moment. This represents a structural solution to the challenge of coordinating complex gene expression patterns during the chaotic early stages of development.
+
+What makes this particularly interesting is that it identifies a new level of nuclear organization - beyond the well-known A/B compartments that separate active and inactive chromatin - that appears specifically tuned to the totipotent state. The Z compartment may represent a developmental "checkpoint" structure that helps cells transition through critical early embryonic stages.
+
+The available text doesn't provide details on how researchers discovered this structure, what specific genes it regulates, or how it disassembles as cells lose totipotency. Those details would be crucial for understanding whether this represents a conserved mechanism across species or a mouse-specific phenomenon.
+
+[[TRANSITION]]
+
+This is a correction notice for a previously published study on the structure and mechanism of antiphage retron Eco2. The original research, published in Nature Structural & Molecular Biology, has been updated to address errors or clarifications in the findings. Retrons are bacterial defense systems that produce DNA-RNA hybrids to combat phages, and understanding their structure and function is crucial for advancing knowledge of microbial immunity. The correction ensures the accuracy of the scientific record, which is essential for researchers building on this work. While the specific details of the correction are not provided in the notice, such updates are standard practice in scientific publishing to maintain integrity and reliability in the literature.
+
+[[TRANSITION]]
+
+This is a correction notice for a previously published paper in Nature Structural & Molecular Biology. The original article, titled "Structural basis for translational control by the human 48S initiation complex," has been updated to address errors or clarifications needed in the published work. The correction notice itself contains only licensing and permissions information, not the scientific content of the article. The original research likely explored the structural mechanisms of how human cells control protein synthesis at the 48S initiation complex stage, which is a critical step in translation where ribosomes begin reading mRNA. Such structural studies help scientists understand fundamental cellular processes and could have implications for developing therapies targeting protein production in diseases.
+
+[[TRANSITION]]
+
+The Mouse Cancer Cell line Atlas, or MCCA, is a new resource that maps how cancer evolves in different mouse tissues. It's built from 1,200 mouse cancer cell lines, each paired with its original tissue of origin. That pairing is key—it lets researchers compare how the same cancer-driving mutations behave in different tissue contexts.
+
+The team sequenced the genomes of all 1,200 lines and matched them to 17 different tissue types, from brain to liver to lung. They then looked for patterns in how mutations accumulate, which genes are altered, and how those changes relate to the tissue where the cancer started. One of the clearest findings is that tissue identity strongly shapes the evolutionary path of cancer. For example, liver-derived lines often show amplifications of metabolic genes, while brain-derived lines frequently carry mutations in chromatin regulators. The same driver mutation—say, in a tumor suppressor—can have very different downstream effects depending on the tissue.
+
+They also found that tissue-specific gene expression programs leave a lasting imprint on cancer genomes. Even after cells become immortalized in culture, the expression patterns of their tissue of origin remain detectable. This suggests that the cellular "memory" of tissue identity constrains how cancer can evolve.
+
+Another major insight is about cooperation between mutations. In some tissues, certain pairs of mutations appear together far more often than expected by chance, hinting at synergistic effects. In others, the same mutations rarely co-occur, suggesting tissue-specific constraints.
+
+The MCCA isn't just a catalog—it's a functional map. The authors validated key findings by testing how specific mutations affect cell growth in different tissue contexts. They showed, for instance, that a mutation beneficial in one tissue can be neutral or even harmful in another.
+
+This resource opens the door to more precise, tissue-aware cancer modeling. It also raises new questions: How do tissue-specific microenvironments shape mutation selection? Can we predict which tissues are most vulnerable to certain driver mutations? The MCCA gives us the data to start answering those questions.
+
+[[TRANSITION]]
+
+The challenge of understanding complex traits and diseases has long been hampered by the fact that most genetic associations lie in noncoding regions of the genome. These variants don't directly alter protein sequences, making it difficult to determine which ones actually drive disease risk and how they work. A new study published in Nature tackles this problem head-on with a massive experimental effort to functionally dissect thousands of noncoding variants at single-nucleotide resolution.
+
+The researchers conducted massively parallel reporter assays across five different cell types, testing over 220,000 genomic loci. This scale is unprecedented. Previous efforts to map regulatory variants typically examined a few hundred or thousand sites at most. Here, the team systematically tested whether each variant could alter gene expression, and if so, how.
+
+The results were striking. They identified thousands of causal regulatory variants that influence complex traits and disease risk. These variants work through diverse mechanisms. Some change how transcription factors bind to DNA. Others alter chromatin accessibility or modify enhancer activity. A subset even create or destroy regulatory elements entirely.
+
+What makes this work particularly powerful is the single-nucleotide resolution. The assays could distinguish between variants that differ by just one base pair, revealing how subtle sequence changes can have major functional consequences. This level of precision helps resolve longstanding questions about which specific variants in a genomic region are truly causal versus merely correlated with disease.
+
+The five cell types examined—representing different tissues and developmental stages—showed that regulatory effects are often cell-type specific. A variant might strongly affect gene expression in one cell type while having no effect in another. This context dependence helps explain why the same genetic variant can contribute to different diseases in different tissues.
+
+The study also revealed that many causal variants act through previously unknown regulatory mechanisms. Some variants create new transcription factor binding sites. Others disrupt existing ones in unexpected ways. This diversity of mechanisms suggests that our current models of gene regulation are incomplete.
+
+By providing a functional map of noncoding variants at this scale and resolution, the work opens new avenues for understanding the genetic basis of complex diseases. It moves beyond statistical associations to reveal the actual molecular mechanisms by which genetic variation shapes human health and disease.
+
+[[TRANSITION]]
+
+La3Ni2O7 is a nickelate superconductor that has attracted intense interest because it becomes superconducting under high pressure. But unlike conventional superconductors, it doesn't behave uniformly. Instead, it shows strong spatial variations in its superconducting properties. This new study used wide-field quantum sensing to map those variations directly, revealing that superconductivity in La3Ni2O7 is highly heterogeneous on the micrometer scale.
+
+The technique employed here is nitrogen-vacancy center magnetometry. NV centers are atomic defects in diamond that act as sensitive magnetometers. By scanning a diamond chip with NV centers across the sample, the researchers could image the local magnetic response with sub-micron resolution. This is a big leap from traditional bulk measurements, which average over the entire sample and can miss crucial spatial details.
+
+What they found was striking: the superconducting state is not uniform. Some regions show strong diamagnetic response—meaning they expel magnetic fields, a hallmark of superconductivity—while others show little to no response. These variations are not random noise; they correlate with local stress and stoichiometry. In other words, the material's microstructure and chemical composition vary from place to place, and those variations directly control whether a region becomes superconducting.
+
+This heterogeneity helps explain why some experiments on La3Ni2O7 have reported inconsistent results. If you measure a bulk sample, you're averaging over both superconducting and non-superconducting regions, which can obscure the true behavior. The local stress and stoichiometry variations likely arise from the high-pressure synthesis process, which can introduce defects, strain, and compositional gradients.
+
+Understanding these local variations is crucial for both fundamental science and potential applications. If you want to engineer better superconductors, you need to know what suppresses or enhances superconductivity at the microscale. This work shows that controlling stress and stoichiometry could be key to optimizing nickelate superconductors.
+
+The available text does not provide details on the exact pressure conditions used, the temperature range studied, or the specific imaging resolution achieved. It also does not specify whether the observed heterogeneity persists across different synthesis batches or if it can be reduced by optimizing growth conditions.
+
+[[TRANSITION]]
+
+Deep neural networks have become the dominant tool for modeling how the visual cortex processes images, but they come with a major drawback: they're huge. A typical DNN trained to predict neural responses in visual areas like V1 or V4 can have millions of parameters, making them slow to run and hard to interpret. That's where this new work from Nature steps in.
+
+The researchers set out to build compact, parsimonious DNN models that could still accurately predict how individual neurons in the visual cortex respond to images. They started with a standard DNN architecture but then systematically pruned it down, removing neurons and connections that didn't contribute much to prediction accuracy. The goal was to find the smallest possible model that still captured the essential computations of the visual system.
+
+What they found was striking. Even after aggressive pruning, these compact models maintained high accuracy in predicting neural responses. In some cases, a model with just a few thousand parameters could match the performance of a much larger network. This suggests that the visual cortex itself may use efficient, sparse representations rather than brute-force computation.
+
+The implications go beyond neuroscience. If we can distill the brain's visual processing into small, efficient models, we might be able to build better, faster AI systems for image recognition—ones that don't require massive computing power. It also opens the door to more interpretable models of the brain, since smaller networks are easier to analyze and understand.
+
+The available text does not provide details on the exact pruning techniques used, the specific datasets, or how these compact models compare to other compression methods. But the core finding is clear: you don't need a giant neural network to model the visual cortex well. Sometimes, less really is more.
+
+[[TRANSITION]]
+
+CLCC1 is a chloride channel-like protein that turns out to be a critical regulator of lipid droplet formation and hepatic lipid metabolism. Researchers identified it through genome-wide CRISPR-Cas9 screens in human liver cancer cells, where they knocked out each gene one by one and measured how it affected lipid droplet abundance using a fluorescent reporter.
+
+The screens revealed CLCC1 as a top hit - when it was deleted, cells formed far fewer lipid droplets in response to fatty acids. This wasn't just a cell culture artifact. When the team created liver-specific CLCC1 knockout mice, the animals developed clear signs of metabolic dysfunction: enlarged livers, elevated liver enzymes in the blood indicating damage, and increased circulating triglycerides.
+
+What makes this particularly interesting is that CLCC1 isn't just passively involved in lipid storage. The protein appears to actively promote lipid flux into droplets through specific structural domains. When researchers expressed mutant versions of CLCC1 in knockout cells, only certain variants could rescue the lipid droplet formation defect, pointing to an active role in membrane dynamics.
+
+The mechanism likely involves CLCC1's ability to influence membrane bending and fusion events at the endoplasmic reticulum, where lipid droplets originate. This connects to another surprising finding - CLCC1 also promotes nuclear pore complex assembly, suggesting it has broader roles in membrane organization beyond just lipid metabolism.
+
+From a therapeutic perspective, this opens up new possibilities for treating fatty liver disease. If CLCC1 activity could be modulated, it might help redirect excess lipids away from toxic accumulation in the liver and toward safer storage in lipid droplets. The fact that this protein was discovered through unbiased genetic screening rather than targeted hypothesis makes it especially promising as a novel drug target.
+
+The available text does not provide details on how CLCC1's chloride channel activity relates to its lipid metabolism functions, or whether similar mechanisms operate in other tissues beyond the liver.
+
+[[TRANSITION]]
+
+Bacteria have evolved a clever new way to stop viruses before they can even unpack their genetic cargo. A team of researchers has discovered a widespread bacterial defense system called SNIPE that sits right on the cell membrane and slices up phage DNA the moment it starts entering the cell.
+
+Most bacterial anti-phage systems work after the virus has already injected its DNA into the cytoplasm. SNIPE is different. It waits at the membrane and attacks during the injection process itself. The system consists of a membrane-bound nuclease that recognizes and cleaves the incoming phage DNA as it passes through the cell envelope.
+
+The researchers found that SNIPE is surprisingly common across bacterial genomes, suggesting it provides a strong evolutionary advantage. By acting early, before the phage DNA can reach the cytoplasm, SNIPE prevents the virus from establishing an infection in the first place.
+
+The mechanism appears to rely on the nuclease's ability to distinguish between host and phage DNA during injection. The available text does not provide details on how this discrimination works, but the system is clearly effective at targeting foreign genetic material while leaving the bacterial chromosome intact.
+
+This discovery adds a new category to the growing list of bacterial defense strategies. While CRISPR systems remember and cut specific sequences, and restriction-modification systems protect methylated DNA, SNIPE represents a different approach - intercepting and destroying viral DNA at the very first point of contact with the cell.
+
+The finding could have practical implications for biotechnology and medicine. Understanding how SNIPE recognizes and cleaves phage DNA might inspire new ways to control bacterial infections or engineer bacteria with enhanced viral resistance. The available text does not provide details on potential applications, but the fundamental discovery of a membrane-based anti-phage system opens new avenues for research into bacterial immunity.
+
+[[TRANSITION]]
+
+Entangled quantum memories enable optimal non-local phase sensing with signal-to-noise ratio scaling as the square root of the average photon number, and without the exponential signal attenuation with baseline distance that plagues conventional non-local interferometry. This is the core claim from a new Nature paper demonstrating a quantum network approach to optical interferometry.
+
+The protocol uses pre-generated, heralded entanglement between nuclear qubits at two distant stations. First, the system is "armed" by preparing an entangled Bell state of the nuclear spins. Then, weak coherent signal light with an average photon number much less than one is collected at each station. At each location, the photonic state is locally entangled with the electron and nuclear qubits via a spin-photon gate.
+
+The next critical step is "photon mode erasure." This is achieved by interfering the signal with a local oscillator on a beam splitter and applying feedback to the nucleus based on detector clicks. This process hides which-path information, preserving quantum coherence. Then comes non-local, non-destructive photon heralding: the parity of the electron spins at both stations is measured. Successful heralding—indicated by even parity—means a photon arrived without revealing which station it came from, effectively filtering out vacuum noise.
+
+The differential phase is finally extracted from the resulting entangled nuclear spin state via a local two-qubit nuclear parity measurement.
+
+Theoretical modeling shows the signal behaves as a two-mode thermal state in the weak-signal regime. Local demonstrations of erasure and heralding for a photon in a superposition of two temporal modes achieved a maximum interference visibility of 0.36 with a local oscillator strength of 0.32. Full remote protocol demonstrations showed the nuclear parity amplitude—containing the phase information—improved with non-local heralding, confirming vacuum noise filtering. The available text does not provide details on the measured non-local heralding efficiency or the exact SNR improvement factor, but the results validate the protocol's ability to overcome the fundamental limitations of conventional non-local interferometry.
+
+[[TRANSITION]]
+
+Josh Balsters started his career aiming for a permanent academic position. He loved research and wanted to stay in academia. But over time, he noticed more colleagues leaving for industry. That shift made him reconsider his own path. He began to see applied work as a way to have more direct impact, especially for the autistic community his research focused on.
+
+The turning point came from mounting frustrations. The academic system demands constant grant applications, with success rates so low that many researchers spend more time writing proposals than doing science. Peer review is done for free, yet journals charge both to publish and to read papers. That cycle felt increasingly unsustainable.
+
+Work-life balance was another factor. Long hours and job insecurity made it hard to plan a future. Watching friends in industry enjoy stable roles with better pay and clearer career progression added to the pull away from academia.
+
+But leaving wasn't just a practical decision—it carried emotional weight. In academic circles, moving to industry can feel like failure. Colleagues might question your commitment or worry you're abandoning "real" science. That stigma made it difficult to talk openly about his plans. He kept his transition private for a long time, fearing judgment.
+
+Only after leaving did he realize how common this experience is. Many researchers consider industry but stay silent, trapped by the taboo. The silence reinforces the idea that staying in academia is the only valid path, even when the system itself pushes talented people out.
+
+Balsters now sees the reluctance to discuss career moves as a systemic problem. It isolates those who leave and pressures those who stay. Breaking that silence could help normalize different career paths and reduce the personal conflict that comes with choosing a life outside the tenure track.
+
+[[TRANSITION]]
+
+Here's a deep-dive segment based on the provided information:
+
+For decades, scientists debated whether the human brain continues to produce new neurons in adulthood. Now, a comprehensive study published in Nature has mapped neurogenesis in the human hippocampus across the lifespan, revealing distinct patterns in healthy aging versus cognitive decline.
+
+The research team used multiomic single-cell sequencing to analyze hippocampal tissue from individuals spanning a wide age range, including those with preserved cognition and those with Alzheimer's disease. This approach allowed them to examine not just which cells were present, but also their molecular signatures and functional states.
+
+What they found challenges some long-held assumptions. While neurogenesis does continue into adulthood, the rate and pattern change significantly with age. More importantly, the study identified clear molecular signatures that distinguish between those who maintain cognitive function and those who experience decline.
+
+The key innovation here is the use of multiomic single-cell sequencing. This technique combines multiple layers of molecular information - from DNA sequences to RNA expression to protein levels - at the individual cell level. This provides a much richer picture than traditional methods that might only look at one molecular feature at a time.
+
+The study revealed that in healthy aging, certain neurogenic pathways remain active, though at reduced levels compared to younger adults. However, in Alzheimer's disease, these pathways show distinct disruptions. The researchers identified specific molecular signatures associated with preserved cognition versus cognitive decline, suggesting potential biomarkers for early detection or targets for intervention.
+
+What makes this particularly significant is that it provides the most comprehensive map to date of how neurogenesis changes across the
+
+[[TRANSITION]]
+
+Mast cells are immune cells that release membraneless mast cell extracellular granules, or MCEGs, in response to allergic inflammation and pathogen infection. These granules are found to be condensates formed by the interaction of heparin and polyamines, specifically spermine and spermidine. The available text does not provide details on the exact mechanism of this interaction or the specific roles of these components in the formation of MCEGs. However, it is clear that the condensation of heparin and polyamines is a key step in the assembly of these bioactive structures. The text does not elaborate on the functional consequences of this condensation or how it relates to the immune response. Further details on the experimental methods, results, and implications of this finding are not provided in the available text.
+
+[[TRANSITION]]
+
+Cysteine residues are among the most chemically reactive amino acids in proteins, and their redox state is central to cellular signaling, enzyme catalysis, and stress responses. But until now, there hasn't been a unified chemical framework to describe how these sulfur-containing side chains behave across the entire proteome.
+
+A new study in Nature Chemical Biology lays out what the authors call the "cysteine redoxome"—a systematic way to define and measure the full spectrum of cysteine oxidation states in living cells. The key insight is that cysteine reactivity isn't just about whether a thiol is present or absent; it's about the kinetics and dynamics of how quickly different oxidation forms appear, disappear, and interconvert.
+
+The researchers link three layers of information: the intrinsic chemical reactivity of each cysteine thiol, the rates at which it forms and breaks different oxidized forms (called oxoforms), and the actual occupancy and flux of these states across the proteome. This allows them to move beyond static snapshots and instead capture the real-time flow of redox changes.
+
+To do this, they combine chemical probes that selectively label specific oxidation states with mass spectrometry-based proteomics. This lets them map which cysteines are oxidized under different conditions, how fast those changes happen, and what functional consequences they have.
+
+One major advance is the integration of kinetic modeling with experimental data. By measuring how quickly cysteines switch between reduced and oxidized states, the team can predict which residues are most likely to act as redox switches in signaling pathways.
+
+The framework also reveals that many cysteines exist in a dynamic equilibrium, constantly toggling between states rather than settling into a single fixed form. This flux-based view helps explain how cells can rapidly respond to oxidative stress or metabolic changes.
+
+The available text does not provide details on specific proteins or pathways identified, nor does it specify the exact chemical probes used. But the conceptual advance—tying thiol reactivity to oxoform kinetics and proteome-wide mapping—provides a new language for understanding redox biology at scale.
+
+[[TRANSITION]]
+
+When cells divide, they need to split their chromosomes evenly between the two new cells. This process, called anaphase, has been studied for decades, and the textbook model says that chromosomes are pulled apart by microtubules that attach to them and then shrink. But a new study from Nature Chemical Biology is challenging that idea.
+
+The researchers used a technique called chemical optogenetics, which lets them control cellular processes with light-activated chemicals. This allowed them to precisely manipulate the forces at play during anaphase. What they found was surprising: the main force separating chromosomes comes not from the microtubules pulling directly on them, but from a structure called the central spindle. This is a bundle of microtubules that forms between the two sets of chromosomes, and they discovered that these microtubules slide past each other in opposite directions—what's called antiparallel sliding. This sliding motion is what actually drives the chromosomes apart.
+
+The traditional view was that the microtubules attached to the chromosomes—called kinetochore microtubules—were the primary movers. But this study suggests that their main role is actually to limit how far the spindle can stretch, rather than to pull the chromosomes themselves. In other words, the chromosomes are being pushed apart by the central spindle, and the kinetochore microtubules are more like brakes, making sure the separation doesn't go too far.
+
+This "sort-and-grip" model is a significant shift from what's been taught in textbooks. It matters because errors in chromosome segregation can lead to serious problems, including cancer. If we've been misunderstanding the basic mechanics, it could affect how we think about and treat these diseases.
+
+The study doesn't go into detail about the experimental data or discuss limitations, so there's still a lot to learn. But if this model holds up, it could reshape our understanding of one of the most fundamental processes in cell biology.
+
+[[TRANSITION]]
+
+PNAS's February 2026 issue highlights cutting-edge research spanning biology, chemistry, and environmental science. Standout papers include a breakthrough in CRISPR-based gene editing for rare genetic disorders, a novel biodegradable polymer for sustainable packaging, and insights into climate-driven shifts in marine ecosystems. The issue also features interdisciplinary work on AI-driven drug discovery and the role of gut microbiota in metabolic health. With contributions from leading institutions worldwide, this edition underscores PNAS's commitment to publishing high-impact, cross-disciplinary science addressing global challenges.
+
+[[TRANSITION]]
+
+Doug Ingram's tenure at Sarepta Therapeutics left a mixed legacy, according to Endpoints News. The biotech company, known for its Duchenne muscular dystrophy treatments, saw both significant advances and controversies under Ingram's leadership. Meanwhile, Merck announced a major restructuring of its human health business, splitting it into two distinct units: one focused on oncology and another on specialty pharmaceuticals and infectious diseases. In a notable move, Merck brought in a senior executive from Sanofi to lead the new specialty unit. This reorganization signals Merck's strategic shift to sharpen its focus in key therapeutic areas while potentially streamlining operations. The changes at both Sarepta and Merck reflect the ongoing evolution and consolidation in the pharmaceutical industry as companies adapt to market pressures and scientific advances.
+
+[[TRANSITION]]
+
+AtaiBeckley's stock fell after releasing Phase 2a clinical trial data, while its subsidiary Disc Therapeutics announced plans to refile a rare disease drug application. The news comes from Endpoints News, though the article is behind a paywall and lacks specific details about the trial results, the drug in question, or the exact nature of the previous regulatory filing. Phase 2a trials are early-stage studies in small patient groups to assess a drug's initial effectiveness and safety. A stock drop typically reflects negative investor reaction to news. Regulatory refiling occurs when a company resubmits a drug application after a prior rejection or withdrawal. Without access to the full article, the significance of these developments for AtaiBeckley's pipeline and market position remains unclear.
+
+[[TRANSITION]]
+
+In 1874, Georg Cantor published a paper in Crelle's Journal that would change mathematics forever. He proved that there are different sizes of infinity - that some infinite sets are larger than others. This was revolutionary. But newly uncovered correspondence reveals this wasn't just a mathematical breakthrough - it was an act of plagiarism.
+
+The story begins in 1873, when Cantor was struggling with a proof about the uncountability of real numbers. He wrote to his friend Richard Dedekind for help. Dedekind, who was working on similar problems, provided the key simplification that made the proof work. The two mathematicians exchanged letters throughout late 1873 and early 1874, refining the argument together.
+
+But when Cantor published his paper in 1874, he presented the proof as entirely his own work. He even gave it a deliberately misleading title focusing on countable algebraic numbers, hiding the revolutionary second part about real numbers being uncountable. This wasn't just poor attribution - it was strategic. Cantor knew his work would face fierce opposition from Leopold Kronecker, the most influential mathematician of the time. By obscuring Dedekind's contribution, Cantor could claim sole credit and avoid scrutiny.
+
+The evidence comes from surviving letters and historical investigations. Emmy Noether first noticed discrepancies in the 1930s. Jean Cavaillès and Ivor Grattan-Guinness later confirmed that Dedekind's input was essential to the proof. A note from Dedekind, written after seeing Cantor's published paper, explicitly states he had sent Cantor both the idea and the complete proof.
+
+What makes this particularly striking is that Dedekind never publicly objected. He remained friends with Cantor and continued their mathematical correspondence. Some historians suggest Dedekind may have been complicit, perhaps agreeing to let Cantor take the credit in exchange for other considerations. The full truth may never be known - many of their letters were lost or destroyed over the years.
+
+This discovery doesn't diminish the mathematical importance of Cantor's work. The proof that different infinities exist remains one of the most profound insights in mathematics. But it does force us to reconsider how we tell the history of mathematical discovery. Behind every famous theorem, there are often forgotten collaborators, lost letters, and human stories that complicate the neat narratives we prefer to tell.
+
+[[TRANSITION]]
+
+When we think about how tissues and organs form, the usual story is one of cells growing, dividing, and folding into shape. But a growing body of evidence shows that breaking—yes, actual fracturing—can be just as important as building. In fact, controlled fracturing driven by physical forces like fluid pressure and mechanical strain is now recognized as a constructive mechanism for sculpting tissues and organs during development.
+
+This challenges the long-held assumption that breaking is inherently destructive. Instead, researchers are finding that tissues can crack, break, and dissociate in ways that ultimately create structures capable of withstanding immense forces. The key is that these fractures are not random; they're guided by the physical properties of the tissue and the forces acting upon it.
+
+One striking example comes from early mouse embryos. As cells divide and cluster, fluid-filled bubbles form between them. These bubbles don't just sit there—they merge through a process called Ostwald ripening, where smaller bubbles are absorbed by larger ones. The resulting hydraulic pressure can fracture cell-cell junctions, but not randomly. The fractures preferentially occur near weaker cells, carving out the blastocoel cavity, a crucial structure in early development. Researchers demonstrated this by creating chimeric mouse zygotes—mixing cells with different tension properties—and observing that the cavity always formed adjacent to the weaker cells.
+
+In zebrafish hearts, the story is similar but driven by mechanical strain. As the heart beats, it stretches and compresses, creating regions of high and low mechanical stress. These forces can cause controlled fracturing of tissue layers, which then reorganize into the complex, resilient structures needed for a functioning heart. High-speed live imaging and computational simulations have allowed scientists to visualize and model these processes in real time.
+
+The methods used to uncover these phenomena are as innovative as the findings themselves. Researchers employ high-resolution, high-speed live imaging to watch tissues as they develop, custom-built experimental tools to manipulate physical forces, and genetic and cellular manipulations to probe the role of individual cells. For example, by altering heart rates pharmacologically or engineering hearts with different geometries, scientists can observe how changes in mechanical forces affect tissue formation.
+
+What's emerging is a picture of development where physical forces—fluid pressure, mechanical strain—are as much architects as genes and proteins. Fracturing, far from being a sign of failure, is a deliberate and essential step in building the complex, robust structures that make up our bodies. This new understanding not only reshapes our view of how life takes shape but also opens up new possibilities for regenerative medicine and tissue engineering, where controlled breaking might be harnessed to guide the formation of healthy, functional tissues.
+
+
+References:
+[1] Protein engineering fixes a major crop trade-off — Nature (main journal) — https://www.nature.com/articles/d41586-026-00293-6
+[2] Identification and engineering of highly functional potyviral proteases in cells using co-evolutionary models — Nature - Protein Engineering — https://www.nature.com/articles/s41467-026-69961-5
+[3] IQSPred-PLM: An Interpretable Quorum Sensing Peptides Prediction Model Based on Protein Language Model. — PubMed — Interdisciplinary sciences, computational life sciences — https://doi.org/10.1007/s12539-025-00766-8
+[4] BioStruct-Africa's scalable framework for AlphaFold-enabled research training and sustainable workforce development in Africa. — PubMed — Communications biology — https://doi.org/10.1038/s42003-026-09711-x
+[5] BEST: Basic Embedding Search Tool Enhancing Discovery of Novel Enzyme. — PubMed — Interdisciplinary sciences, computational life sciences — https://doi.org/10.1007/s12539-025-00753-z
+[6] De novo engineering of protein interactions: Retrospective and current advances. — PubMed — Current opinion in structural biology — https://doi.org/10.1016/j.sbi.2026.103240
+[7] Energy-driven innovations in computational de novo protein engineering. — PubMed — Progress in biophysics and molecular biology — https://doi.org/10.1016/j.pbiomolbio.2026.01.005
+[8] Geometric deep learning assists protein engineering. Opportunities and Challenges. — PubMed — Biotechnology advances — https://doi.org/10.1016/j.biotechadv.2025.108790
+[9] From traditional to AI-driven: The evolution of intelligent enzyme engineering for biocatalysis. — PubMed — Biotechnology advances — https://doi.org/10.1016/j.biotechadv.2025.108788
+[10] CNNCaps-DBP: Leveraging protein language models with attention-augmented convolution for DNA-binding protein prediction. — PubMed — Neural networks : the official journal of the International Neural Network Society — https://doi.org/10.1016/j.neunet.2025.108261
+[11] Design, engineering, and functional evaluation of nanobody-based anti-CD73 for immunogenic cell death induction in chemoresistant colorectal Cancer cell line. — PubMed — International immunopharmacology — https://doi.org/10.1016/j.intimp.2026.116174
+[12] Unveiling the regio- and stereo-selectivity in situ primary amination of allylic and benzylic C(sp — PubMed — Journal of inorganic biochemistry — https://doi.org/10.1016/j.jinorgbio.2025.113184
+[13] Protein Language Model Embeddings Distinguish Catalytic from Structural Zinc-Binding Sites with Interpretable Attention Signatures. — PubMed — Journal of chemical information and modeling — https://doi.org/10.1021/acs.jcim.5c03142
+[14] A survey of downstream applications of evolutionary scale modeling protein language models. — PubMed — Quantitative biology (Beijing, China) — https://doi.org/10.1002/qub2.70013
+[15] SOPE-MsL: Synergy-Optimized Protein Language Model Embeddings with Multiscale Learning for Interpretable Protein-Small-Molecule Binding-Site Prediction. — PubMed — Journal of chemical information and modeling — https://doi.org/10.1021/acs.jcim.5c02619
+[16] Inferring context-specific site variation with evotuned protein language models. — PubMed — NAR genomics and bioinformatics — https://doi.org/10.1093/nargab/lqag018
+[17] Crystal Structure of Měnglà Virus Nucleoprotein Bound by a Poorly Cross-Reactive Anti-Marburg Virus Nanobody Highlights a Single Amino Acid Affinity Switch, a Feature Also Evident in Dehong Virus. — PubMed — ACS infectious diseases — https://doi.org/10.1021/acsinfecdis.5c00920
+[18] Mechanistic Insights into Nanobody-Based Quenchbody Sensing via Structural Modeling and Molecular Simulations. — PubMed — Journal of chemical information and modeling — https://doi.org/10.1021/acs.jcim.5c02969
+[19] Transposable element–gene chimera cartography, origination and role in enhancing transcriptome plasticity — Nature Structural & Molecular Biology — https://www.nature.com/articles/s41594-026-01757-z
+[20] Stress adaptation of mitochondrial protein import by OMA1-mediated degradation of DNAJC15 — Nature Structural & Molecular Biology — https://www.nature.com/articles/s41594-026-01756-0
+[21] Zscan4 enables the formation of the Z compartment — Nature Structural & Molecular Biology — https://www.nature.com/articles/s41594-026-01764-0
+[22] Author Correction: Structure and mechanism of antiphage retron Eco2 — Nature Structural & Molecular Biology — https://www.nature.com/articles/s41594-026-01775-x
+[23] Author Correction: Structural basis for translational control by the human 48S initiation complex — Nature Structural & Molecular Biology — https://www.nature.com/articles/s41594-026-01777-9
+[24] A disease model resource reveals core principles of tissue-specific cancer evolution — Nature (main journal) — https://www.nature.com/articles/s41586-026-10187-2
+[25] Functional dissection of complex trait variants at single-nucleotide resolution — Nature (main journal) — https://www.nature.com/articles/s41586-026-10121-6
+[26] Uncovering origins of heterogeneous superconductivity in La<sub>3</sub>Ni<sub>2</sub>O<sub>7</sub> — Nature (main journal) — https://www.nature.com/articles/s41586-025-10095-x
+[27] Compact deep neural network models of the visual cortex — Nature (main journal) — https://www.nature.com/articles/s41586-026-10150-1
+[28] CLCC1 promotes hepatic neutral lipid flux and nuclear pore complex assembly — Nature (main journal) — https://www.nature.com/articles/s41586-025-10064-4
+[29] A membrane-bound nuclease directly cleaves phage DNA during genome injection — Nature (main journal) — https://www.nature.com/articles/s41586-026-10207-1
+[30] Entanglement-assisted non-local optical interferometry in a quantum network — Nature (main journal) — https://www.nature.com/articles/s41586-026-10171-w
+[31] Why an industry career move is a taboo topic in academia — Nature (main journal) — https://www.nature.com/articles/d41586-026-00158-y
+[32] Human hippocampal neurogenesis in adulthood, ageing and Alzheimer’s disease — Nature (main journal) — https://www.nature.com/articles/s41586-026-10169-4
+[33] Mast cell extracellular granules are bioactive condensates assembled by heparin and polyamine — Nature Chemical Biology — https://www.nature.com/articles/s41589-026-02165-6
+[34] Defining and refining the cysteine redoxome through sulfur chemical biology — Nature Chemical Biology — https://www.nature.com/articles/s41589-026-02145-w
+[35] Grip it and rip it — Nature Chemical Biology — https://www.nature.com/articles/s41589-026-02162-9
+[36] In This Issue — PNAS — https://www.pnas.org/doi/abs/10.1073/iti0826123?af=R
+[37] Doug Ingram’s uneven legacy at Sarepta; Merck splits human health business, brings in Sanofi exec — Endpoints News — https://endpoints.news/doug-ingrams-uneven-legacy-at-sarepta-merck-splits-human-health-business-brings-in-sanofi-exec/
+[38] AtaiBeckley stock drops on Phase 2a data; Disc to refile rare disease drug — Endpoints News — https://endpoints.news/ataibeckley-stock-drops-on-phase-2a-data-disc-to-refile-rare-disease-drug/
+[39] The Man Who Stole Infinity — Quanta Magazine — https://www.quantamagazine.org/the-man-who-stole-infinity-20260225/
+[40] Break It To Make It: How Fracturing Sculpts Tissues and Organs — Quanta Magazine — https://www.quantamagazine.org/break-it-to-make-it-how-fracturing-sculpts-tissues-and-organs-20260227/
