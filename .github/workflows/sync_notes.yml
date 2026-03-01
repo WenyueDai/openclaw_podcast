@@ -1,0 +1,31 @@
+name: Sync notes to Notion
+
+on:
+  push:
+    paths:
+      - 'openclaw-knowledge-radio/state/paper_notes.json'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install requests
+
+      - name: Create Notion stubs for new notes
+        run: python openclaw-knowledge-radio/tools/sync_notion_notes.py
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_DATABASE_ID: 3165f58ea8c280498f72c770028aec0d
+
+      - name: Commit updated notion_created.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add openclaw-knowledge-radio/state/notion_created.json
+          git diff --staged --quiet || git commit -m "Sync notion_created.json [skip ci]" && git push

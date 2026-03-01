@@ -20,10 +20,20 @@ NOTES_FILE    = Path(os.environ.get("NOTES_FILE",    str(_PACKAGE_DIR / "state" 
 
 
 def _load_notes() -> dict:
-    """Load paper_notes.json → {date: {url: note_text}}."""
+    """Load paper_notes.json → {date: {url: note_text}}.
+    Supports both legacy string format and new {note, title, source} object format."""
     if NOTES_FILE.exists():
         try:
-            return json.loads(NOTES_FILE.read_text(encoding="utf-8"))
+            raw = json.loads(NOTES_FILE.read_text(encoding="utf-8"))
+            result: dict = {}
+            for date, date_notes in raw.items():
+                result[date] = {}
+                for url, val in date_notes.items():
+                    if isinstance(val, str):
+                        result[date][url] = val
+                    elif isinstance(val, dict):
+                        result[date][url] = val.get("note", "")
+            return result
         except Exception:
             return {}
     return {}
@@ -395,7 +405,7 @@ audio {{ width:100%; margin:4px 0 6px; }}
     <p class='sub'>{html.escape(PODCAST_SUMMARY)}</p>
     <div class="about">
       <p>A daily auto-generated podcast for protein designers. Every morning an AI pipeline scans the latest publications from Nature, arXiv, PNAS, PubMed, and key researcher feeds — selects the most relevant papers on <strong>protein design, antibody engineering, enzyme design, and computational biology</strong> — then writes and narrates a ~60-minute digest using a large language model and text-to-speech synthesis.</p>
-      <p>Papers are ranked by journal quality, topic relevance, and the owner's personal reading history. The podcast is regenerated fresh each day and published here automatically via GitHub Actions. Only the 3 most recent episodes are shown here — click the <strong>📚</strong> button (right side of the page) to browse the full archive, or visit the <a href="https://clear-squid-8e3.notion.site/3155f58ea8c280258959fba00c0149ab?v=3155f58ea8c2803c8c0d000c76d1bfba" target="_blank">Notion collection</a> to read every daily digest in full.</p>
+      <p>Papers are ranked by journal quality, topic relevance, and the owner's personal reading history. The podcast is regenerated fresh each day and published here automatically via GitHub Actions. Only the 3 most recent episodes are shown here — click the <strong>📚</strong> button (right side of the page) to browse the full archive. Two Notion databases accompany this podcast: the <a href="https://clear-squid-8e3.notion.site/3155f58ea8c280258959fba00c0149ab?v=3155f58ea8c2803c8c0d000c76d1bfba" target="_blank">Paper Collection</a> contains every daily digest in full, and the <a href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a> contains the owner's expert annotations on selected papers.</p>
       <p>&#127911; <strong>Tip:</strong> Highlighted paper titles are clickable — clicking the <strong>[N]</strong> number jumps the audio player to that paper's segment. Papers with a green left-border have an expert note from the site owner.</p>
       <p class="note">&#128274; <strong>Note on interactive features:</strong> The checkboxes ("Save feedback") and ✏️ note buttons are for the <em>site owner only</em> — both require a private GitHub token stored in your own browser. Visitors can read any notes the owner has written, but cannot add or edit them.</p>
     </div>
@@ -628,7 +638,8 @@ async function loadNotes() {{
     if (!res.ok) {{ _updateNoteButtons(); return; }}
     const data = JSON.parse(atob((await res.json()).content.replace(/\\n/g,'')));
     document.querySelectorAll('li[data-url][data-date]').forEach(function(li) {{
-      const note = ((data[li.dataset.date] || {{}})[li.dataset.url]) || '';
+      const val = (data[li.dataset.date] || {{}})[li.dataset.url];
+      const note = !val ? '' : (typeof val === 'string' ? val : (val.note || ''));
       _applyNote(li, note);
     }});
   }} catch(e) {{}}
@@ -675,7 +686,14 @@ async function saveNote(btn) {{
       existing = JSON.parse(atob(meta.content.replace(/\\n/g,'')));
     }}
     if (!existing[date]) existing[date] = {{}};
-    if (noteText) existing[date][url] = noteText; else delete existing[date][url];
+    if (noteText) {{
+      const cb = li.querySelector('.star-cb');
+      existing[date][url] = {{
+        note: noteText,
+        title: (cb && cb.dataset.title) || '',
+        source: (cb && cb.dataset.source) || '',
+      }};
+    }} else delete existing[date][url];
     const body = {{
       message: 'Note: ' + date,
       content: btoa(unescape(encodeURIComponent(JSON.stringify(existing, null, 2))))
