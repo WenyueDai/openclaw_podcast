@@ -19,8 +19,14 @@
     "title": "Building antibodies blindfolded: the paradox of de novo design",
     "url": null,
     "date_submitted": "2026-03-01",
-    "processed": false,
-    "diagnosis": null,
-    "keywords_added": []
+    "processed": true,
+    "diagnosis": "low_ranking",
+    "keywords_added": [
+      "antibody design",
+      "de novo design",
+      "protein engineering"
+    ],
+    "rss_feed_found": "",
+    "notion_page_id": "3165f58e-a8c2-81c9-af65-fdbb39a665ee"
   }
 ]
