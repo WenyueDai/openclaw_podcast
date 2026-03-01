@@ -4,6 +4,11 @@
       "note": "Need DD_t2",
       "title": "Data storage and retrieval with unnatural proteins expressed via E. coli",
       "source": "Nature - Protein Design"
+    },
+    "https://doi.org/10.1371/journal.pone.0334662": {
+      "note": "DD",
+      "title": "Designing a novel vaccine against COVID-19 based on spike SARS-Cov-2 notable mutations using immunoinformatics approache",
+      "source": "PubMed — PloS one"
     }
   }
 }
