@@ -65,6 +65,8 @@ def create_notion_page(title: str, url: str, date: str, source: str, note: str) 
         "parent": {"database_id": DATABASE_ID},
         "properties": {
             "Name": {"title": [{"text": {"content": title[:2000]}}]},
+            "Date": {"date": {"start": date}},
+            "Note": {"rich_text": [{"text": {"content": note[:2000]}}]},
         },
         "children": [
             # Owner's initial note in a green callout
