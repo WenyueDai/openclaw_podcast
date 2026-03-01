@@ -1,4 +1,4 @@
-# OpenClaw Knowledge Radio
+# protein_design_podcast
 
 A fully automated daily podcast for protein designers. Every morning at **05:00 UTC**, a GitHub Actions workflow wakes up on GitHub's servers, runs the entire pipeline without any computer needing to be on, and publishes a fresh ~60-minute episode to GitHub Pages.
 
