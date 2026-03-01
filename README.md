@@ -122,12 +122,14 @@ Each paper number `[N]` on the site is a `<span>` with `onclick="seekTo(this, ev
 **6b. Submitting a missed paper** (open to all visitors)
 Any visitor can submit a paper title (and optional URL) using the form at the top of the page. The JS:
 1. Checks the title against a protein-design keyword list — off-topic papers are rejected client-side
-2. Checks for duplicate titles (case-insensitive) to avoid double submissions
-3. Applies a **courtesy limit of 5 submissions per browser session per day** — stored in `localStorage`, so it is trivially bypassable (incognito window, different browser, clearing storage). This is a nudge against accidental spam, not real enforcement. True rate limiting would require a backend, which this static site does not have.
-4. Calls `GET /contents/state/missed_papers.json` to fetch + SHA (using a baked deploy token, or the owner's token if logged in)
-5. Appends the entry and calls `PUT` to commit it — triggering the `process_missed.yml` workflow
+2. Calls `GET /contents/state/missed_papers.json` to fetch the current file from GitHub (using a baked deploy token, or the owner's token if logged in)
+3. **Server-side daily cap**: counts entries with today's date in the actual file — if ≥ 10 already exist, rejects the submission. Because this reads the real file from GitHub, it cannot be bypassed by clearing browser storage or using incognito mode. The owner (with a personal token in localStorage) bypasses the cap.
+4. Checks for duplicate titles (case-insensitive)
+5. Appends the entry and calls `PUT` to commit it
 
-The page immediately shows a **"pending"** badge next to the submitted paper. The diagnosis badge updates after the Action completes (~2–3 minutes); refresh the page to see it.
+The page immediately shows a **"pending"** badge. Diagnosis and Notion stub are created the **next morning at 05:00 UTC** when the daily pipeline runs — no separate Actions workflow is triggered per submission, so visitor submissions cost **zero extra GitHub Actions minutes**.
+
+> **Why no separate workflow?** Each GitHub Actions run costs ~1–2 minutes. With 2 000 free minutes/month, triggering a workflow per submission would be unsustainable. Processing is instead folded into the existing daily run.
 
 **6c. Saving feedback** (owner only)
 Checking paper checkboxes and clicking "Save feedback" triggers JavaScript that:
@@ -143,9 +145,9 @@ Clicking ✏️ next to a paper opens an inline textarea. Saving calls the same 
 
 ---
 
-### Phase 7 — Missed Paper Processing (triggered by visitor submissions)
+### Phase 7 — Missed Paper Processing (runs as part of the daily pipeline)
 
-Whenever `missed_papers.json` is pushed (by any visitor submitting a paper), the **`process_missed.yml`** workflow fires:
+After the main episode is built each day, `run_daily.py` calls `tools/process_missed_papers.py` to handle any visitor-submitted papers accumulated since the last run. No separate workflow is triggered per submission — this keeps GitHub Actions usage within the 2 000 free minutes/month budget.
 
 1. **Diagnose** each unprocessed entry:
    | Diagnosis | Meaning |
@@ -191,8 +193,8 @@ For this project:
 ```
 .github/workflows/
 ├── daily_podcast.yml    ← runs at 05:00 UTC daily (cron schedule)
-├── sync_notes.yml       ← runs whenever paper_notes.json is pushed
-└── process_missed.yml   ← runs whenever missed_papers.json is pushed (visitor submissions)
+│                           includes: main pipeline + process_missed_papers.py
+└── sync_notes.yml       ← runs whenever paper_notes.json is pushed (owner notes → Notion)
 ```
 
 Each workflow run gets a **brand-new virtual machine**. It:

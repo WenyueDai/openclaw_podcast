@@ -877,19 +877,6 @@ async function submitMissedPaper() {{
     return;
   }}
 
-  // Rate limit: max 5 submissions per day per browser (unless owner)
-  var _isOwner = !!localStorage.getItem('gh_token');
-  if (!_isOwner) {{
-    var _today = new Date().toISOString().slice(0, 10);
-    var _rateKey = 'missed_count_' + _today;
-    var _count = parseInt(localStorage.getItem(_rateKey) || '0', 10);
-    if (_count >= 5) {{
-      status.textContent = 'Daily limit reached (max 5 submissions per day). Thank you!';
-      return;
-    }}
-    localStorage.setItem(_rateKey, String(_count + 1));
-  }}
-
   var path = 'openclaw-knowledge-radio/state/missed_papers.json';
   var apiBase = 'https://api.github.com/repos/' + repo;
   var headers = {{
@@ -899,7 +886,7 @@ async function submitMissedPaper() {{
     'Content-Type': 'application/json',
   }};
 
-  status.textContent = 'Saving…';
+  status.textContent = 'Checking…';
   try {{
     // GET current file
     var existing = [], sha = null;
@@ -908,6 +895,18 @@ async function submitMissedPaper() {{
       var meta = await get.json();
       sha = meta.sha;
       existing = JSON.parse(atob(meta.content.replace(/\\n/g,'')));
+    }}
+
+    // Server-side daily cap: max 10 submissions across all visitors per day
+    // (owner bypasses this). Checked against the real file, not localStorage.
+    var _isOwner = !!localStorage.getItem('gh_token');
+    if (!_isOwner) {{
+      var _today = new Date().toISOString().slice(0, 10);
+      var _todayCount = existing.filter(function(e) {{ return e.date_submitted === _today; }}).length;
+      if (_todayCount >= 10) {{
+        status.textContent = 'Daily submission limit reached (10 per day). Please try again tomorrow.';
+        return;
+      }}
     }}
 
     // Duplicate check (case-insensitive title match)
