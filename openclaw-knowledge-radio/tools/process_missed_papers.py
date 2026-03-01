@@ -299,6 +299,25 @@ _NOTION_API = "https://api.notion.com/v1/pages"
 _DEFAULT_NOTION_DB = "3165f58ea8c280498f72c770028aec0d"
 
 
+def _ensure_source_property(api_key: str, database_id: str) -> None:
+    """Add a 'Source' select property to the database if it doesn't exist yet."""
+    payload = json.dumps({"properties": {"Source": {"select": {}}}}).encode("utf-8")
+    req = urllib.request.Request(
+        f"https://api.notion.com/v1/databases/{database_id}",
+        data=payload,
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Notion-Version": "2022-06-28",
+            "Content-Type": "application/json",
+        },
+        method="PATCH",
+    )
+    try:
+        urllib.request.urlopen(req, timeout=15)
+    except Exception:
+        pass
+
+
 def create_notion_missed_stub(entry: Dict[str, Any], api_key: str, database_id: str) -> str:
     """
     Create a Notion deep-dive stub for a user-submitted missed paper.
@@ -352,9 +371,10 @@ def create_notion_missed_stub(entry: Dict[str, Any], api_key: str, database_id: 
     body_data = {
         "parent": {"database_id": database_id},
         "properties": {
-            "Name": {"title": [{"text": {"content": title[:2000]}}]},
-            "Date": {"date": {"start": date}},
-            "Note": {"rich_text": [{"text": {"content": note_text[:2000]}}]},
+            "Name":   {"title":     [{"text": {"content": title[:2000]}}]},
+            "Date":   {"date":      {"start": date}},
+            "Note":   {"rich_text": [{"text": {"content": note_text[:2000]}}]},
+            "Source": {"select":    {"name": "Missed Paper"}},
         },
         "children": children,
     }
@@ -440,6 +460,9 @@ def process_missed_papers() -> None:
     notion_key   = os.environ.get("NOTION_API_KEY", "")
     notion_db    = os.environ.get("NOTION_DATABASE_ID", _DEFAULT_NOTION_DB)
 
+    if notion_key:
+        _ensure_source_property(notion_key, notion_db)
+
     # Load extra_rss_sources.json
     extra_rss: List[Dict[str, Any]] = []
     if EXTRA_RSS_FILE.exists():
@@ -495,7 +518,7 @@ def process_missed_papers() -> None:
         paper["keywords_added"] = keywords_added
         paper["rss_feed_found"] = rss_feed_found
 
-        # Create Notion deep-dive stub (skip if already created or Notion not configured)
+            # Create Notion deep-dive stub (skip if already created or Notion not configured)
         if notion_key and not paper.get("notion_page_id"):
             page_id = create_notion_missed_stub(paper, notion_key, notion_db)
             if page_id:

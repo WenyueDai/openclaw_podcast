@@ -69,13 +69,27 @@ def _find_item_meta(date: str, url: str) -> tuple[str, str]:
     return "", ""
 
 
+def _ensure_source_property() -> None:
+    """Add a 'Source' select property to the database if it doesn't exist yet."""
+    try:
+        requests.patch(
+            f"https://api.notion.com/v1/databases/{DATABASE_ID}",
+            json={"properties": {"Source": {"select": {}}}},
+            headers=HEADERS,
+            timeout=30,
+        )
+    except Exception:
+        pass
+
+
 def create_notion_page(title: str, url: str, date: str, source: str, note: str) -> str:
     body = {
         "parent": {"database_id": DATABASE_ID},
         "properties": {
-            "Name": {"title": [{"text": {"content": title[:2000]}}]},
-            "Date": {"date": {"start": date}},
-            "Note": {"rich_text": [{"text": {"content": note[:2000]}}]},
+            "Name":   {"title":     [{"text": {"content": title[:2000]}}]},
+            "Date":   {"date":      {"start": date}},
+            "Note":   {"rich_text": [{"text": {"content": note[:2000]}}]},
+            "Source": {"select":    {"name": "Daily Note"}},
         },
         "children": [
             # Owner's initial note in a green callout
@@ -152,6 +166,7 @@ def main():
     notes   = _load_json(NOTES_FILE, {})
     created = _load_json(CREATED_FILE, {})
 
+    _ensure_source_property()
     new_pages = 0
     updated   = 0
     for date, date_notes in sorted(notes.items()):
