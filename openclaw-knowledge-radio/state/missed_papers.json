@@ -4,8 +4,14 @@
     "title": "IntelliFold-2: Surpassing AlphaFold 3 via Architectural Refinement and Structural Consistency",
     "url": null,
     "date_submitted": "2026-03-01",
-    "processed": false,
-    "diagnosis": null,
-    "keywords_added": []
+    "processed": true,
+    "diagnosis": "low_ranking",
+    "keywords_added": [
+      "architectural refinement",
+      "structural consistency",
+      "alphafold 3"
+    ],
+    "rss_feed_found": "",
+    "notion_page_id": "3165f58e-a8c2-813b-bf68-f183321342b9"
   }
 ]
