@@ -236,7 +236,7 @@ pubmed:
     - "protein binder design"
 
 daily_knowledge:
-  enabled: true
+  enabled: false
 
 wiki_context:
   enabled: false
