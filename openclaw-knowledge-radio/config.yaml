@@ -252,6 +252,16 @@ rss_sources:
     tags: ["protein-structure", "protein-LLM", "author"]
     bucket: "protein"
 
+  - name: "BLOPIG (Oxford Protein Informatics Group)"
+    url: "https://www.blopig.com/blog/feed/"
+    tags: ["protein-design", "antibody-design", "structural-biology", "author"]
+    bucket: "protein"
+
+  - name: "In the Pipeline (Derek Lowe)"
+    url: "https://www.science.org/digital-feed/pipeline"
+    tags: ["drug-discovery", "biotech", "author"]
+    bucket: "ai_bio"
+
 pubmed:
   enabled: true
   email: "daiwenyueva@gmail.com"
