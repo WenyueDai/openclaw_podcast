@@ -211,7 +211,7 @@ def render_index(episodes, all_episodes=None):
                 note_part = (
                     f'<div class="my-take">'
                     f'<div class="my-take-display"{note_disp}>'
-                    f'<span class="my-take-text">{html.escape(raw_note)}</span>'
+                    f'<span class="my-take-text" data-raw="{html.escape(raw_note)}">{html.escape(raw_note)}</span>'
                     f'<button class="note-edit-btn" onclick="openNoteEdit(this)" title="Edit note">✏️</button>'
                     f'</div>'
                     f'<button class="note-add-btn"{note_add} onclick="openNoteEdit(this)">✏️ my take</button>'
@@ -638,7 +638,8 @@ function openNoteEdit(btn) {{
   const li = btn.closest('li');
   const editor   = li.querySelector('.my-take-editor');
   const textarea = li.querySelector('.note-textarea');
-  textarea.value = li.querySelector('.my-take-text')._raw || '';
+  const textEl = li.querySelector('.my-take-text');
+  textarea.value = textEl._raw || textEl.dataset.raw || '';
   editor.style.display = 'block';
   textarea.focus();
 }}
