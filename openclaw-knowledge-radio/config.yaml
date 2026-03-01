@@ -206,6 +206,17 @@ rss_sources:
     tags: ["machine-learning", "bio-ml", "author"]
     bucket: "ai_bio"
 
+  # ── Substack blogs ─────────────────────────────────────────────────────────
+  - name: "A-Alpha Bio (To Affinity And Beyond)"
+    url: "https://aalphabio.substack.com/feed"
+    tags: ["protein-design", "antibody-design", "substack"]
+    bucket: "protein"
+
+  - name: "Owl Posting (Abhishaike Mahajan)"
+    url: "https://www.owlposting.com/feed"
+    tags: ["machine-learning", "biology", "substack"]
+    bucket: "ai_bio"
+
 pubmed:
   enabled: true
   email: "daiwenyueva@gmail.com"
