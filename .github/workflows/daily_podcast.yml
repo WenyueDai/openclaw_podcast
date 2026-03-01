@@ -66,7 +66,14 @@ jobs:
                   pass
           PYEOF
 
+      - name: Write submit config
+        working-directory: ${{ github.workspace }}
+        env:
+          MISSED_SUBMIT_TOKEN: ${{ secrets.MISSED_SUBMIT_TOKEN }}
+        run: echo "{\"token\":\"$MISSED_SUBMIT_TOKEN\"}" > docs/submit_config.json
+
       - name: Commit and push changes
+        working-directory: ${{ github.workspace }}
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
