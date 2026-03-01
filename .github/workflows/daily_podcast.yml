@@ -39,7 +39,6 @@ jobs:
           SLACK_WEBHOOK_URL:    ${{ secrets.SLACK_WEBHOOK_URL }}
           NOTION_TOKEN:         ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID:   ${{ secrets.NOTION_DATABASE_ID }}
-          MISSED_SUBMIT_TOKEN:  ${{ secrets.MISSED_SUBMIT_TOKEN }}
         run: python run_daily.py
 
       - name: Process missed papers
@@ -65,12 +64,6 @@ jobs:
               except ValueError:
                   pass
           PYEOF
-
-      - name: Write submit config
-        working-directory: ${{ github.workspace }}
-        env:
-          MISSED_SUBMIT_TOKEN: ${{ secrets.MISSED_SUBMIT_TOKEN }}
-        run: echo "{\"token\":\"$MISSED_SUBMIT_TOKEN\"}" > docs/submit_config.json
 
       - name: Commit and push changes
         working-directory: ${{ github.workspace }}

@@ -448,7 +448,7 @@ audio {{ width:100%; margin:4px 0 6px; }}
       <p>The three most recent episodes are shown here — click <strong>&#128218;</strong> to browse older ones. I also keep public Notion databases if you want to go deeper: <a href="https://clear-squid-8e3.notion.site/3155f58ea8c280258959fba00c0149ab?v=3155f58ea8c2803c8c0d000c76d1bfba" target="_blank">Paper Collection</a> · <a href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a>.</p>
       <div class="feature-grid">
         <div class="feature-row">
-          <span class="feature-badge open">Open to all</span>
+          <span class="feature-badge owner">Owner only</span>
           <div>
             <strong>&#128231; Submit a missed paper</strong> — spotted something that should have been in the episode? Drop the title below and I'll look into it.
           </div>
@@ -792,11 +792,6 @@ loadNotes();
 
 // ── Missed papers ──────────────────────────────────────────────────────────
 var _bakedMissedPapers = {missed_json};
-var _missedSubmitToken = '';
-var _tokenReady = fetch('submit_config.json')
-  .then(function(r){{ return r.ok ? r.json() : {{}}; }})
-  .then(function(cfg){{ if(cfg.token) _missedSubmitToken = cfg.token; }})
-  .catch(function(){{}});
 
 function _diagLabel(entry) {{
   var d = entry.diagnosis;
@@ -854,8 +849,7 @@ function _setStatus(el, msg, isErr) {{
 }}
 
 async function submitMissedPaper() {{
-  await _tokenReady;
-  var token = localStorage.getItem('gh_token') || _missedSubmitToken || '';
+  var token = localStorage.getItem('gh_token') || '';
   var repo  = localStorage.getItem('gh_repo')  || '{html.escape("WenyueDai/openclaw_podcast")}';
 
   var titleEl = document.getElementById('missed-title');
@@ -865,7 +859,7 @@ async function submitMissedPaper() {{
   var url   = (urlEl.value || '').trim();
 
   if (!token) {{
-    _setStatus(status, 'Submissions are not enabled yet — the site owner needs to configure a submit token.', true);
+    _setStatus(status, 'Set your GitHub token in ⚙ Settings to submit.', true);
     return;
   }}
   if (!title) {{ _setStatus(status, 'Please enter a paper title.', true); return; }}
@@ -887,18 +881,6 @@ async function submitMissedPaper() {{
       var meta = await get.json();
       sha = meta.sha;
       existing = JSON.parse(atob(meta.content.replace(/\\n/g,'')));
-    }}
-
-    // Server-side daily cap: max 10 submissions per day across all visitors.
-    // Owner (with personal gh_token) bypasses this.
-    var _isOwner = !!localStorage.getItem('gh_token');
-    if (!_isOwner) {{
-      var _today = new Date().toISOString().slice(0, 10);
-      var _todayCount = existing.filter(function(e) {{ return e.date_submitted === _today; }}).length;
-      if (_todayCount >= 10) {{
-        _setStatus(status, 'Daily limit reached (10 submissions/day). Please try again tomorrow.', true);
-        return;
-      }}
     }}
 
     // Duplicate check (case-insensitive title match)
