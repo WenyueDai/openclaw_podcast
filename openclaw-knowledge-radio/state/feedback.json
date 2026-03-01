@@ -20,6 +20,46 @@
     },
     {
       "url": "https://doi.org/10.1002/pro.70508",
+      "source": "PubMed ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Protein science : a publication of the Protein Society",
+      "title": "Deamidation and isomerization to elusive isoaspartate in a computationally designed miniprotein."
+    },
+    {
+      "url": "https://doi.org/10.1002/pro.70496",
+      "source": "PubMed ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Protein science : a publication of the Protein Society",
+      "title": "MemPPI platform for measuring and engineering membrane protein-protein interactions in mammalian cells via split nanoluc"
+    },
+    {
+      "url": "https://doi.org/10.1371/journal.pone.0334662",
+      "source": "PubMed ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ PloS one",
+      "title": "Designing a novel vaccine against COVID-19 based on spike SARS-Cov-2 notable mutations using immunoinformatics approache"
+    },
+    {
+      "url": "https://doi.org/10.3390/biom16020333",
+      "source": "PubMed ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Biomolecules",
+      "title": "Graph Learning in Bioinformatics: A Survey of Graph Neural Network Architectures, Biological Graph Construction and Bioi"
+    },
+    {
+      "url": "https://doi.org/10.3390/ijms27042064",
+      "source": "PubMed ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ International journal of molecular sciences",
+      "title": "Characterization of Conformational Instability of Monoclonal Antibodies During Chromatographic Purification."
+    },
+    {
+      "url": "https://doi.org/10.3390/molecules31040753",
+      "source": "PubMed ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Molecules (Basel, Switzerland)",
+      "title": "Scaffold Hopping-Guided Design of Novel PIM-1 Inhibitors with Anticancer Activities."
+    },
+    {
+      "url": "https://www.nature.com/articles/d41586-026-00542-8",
+      "source": "Nature (main journal)",
+      "title": "UN creates new scientific AI advisory panel: what will it do?"
+    },
+    {
+      "url": "https://www.nature.com/articles/s41467-026-70061-7",
+      "source": "Nature - Protein Design",
+      "title": "Data storage and retrieval with unnatural proteins expressed via E. coli"
+    },
+    {
+      "url": "https://doi.org/10.1002/pro.70508",
       "source": "PubMed ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Protein science : a publication of the Protein Society",
       "title": "Deamidation and isomerization to elusive isoaspartate in a computationally designed miniprotein."
     },
@@ -67,6 +107,11 @@
       "url": "https://doi.org/10.1002/pro.70496",
       "source": "PubMed ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Protein science : a publication of the Protein Society",
       "title": "MemPPI platform for measuring and engineering membrane protein-protein interactions in mammalian cells via split nanoluc"
+    },
+    {
+      "url": "https://doi.org/10.1002/pro.70503",
+      "source": "PubMed ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Protein science : a publication of the Protein Society",
+      "title": "Discovery of novel, high-affinity HBV T-cell epitopes by molecular dynamics-augmented proteome-wide screening."
     },
     {
       "url": "https://doi.org/10.1371/journal.pone.0334662",
@@ -179,9 +224,9 @@
       "title": "Scaffold Hopping-Guided Design of Novel PIM-1 Inhibitors with Anticancer Activities."
     },
     {
-      "url": "https://www.nature.com/articles/d41586-026-00542-8",
-      "source": "Nature (main journal)",
-      "title": "UN creates new scientific AI advisory panel: what will it do?"
+      "url": "https://doi.org/10.1007/s13346-025-01840-w",
+      "source": "PubMed Ã¢ÂÂ Drug delivery and translational research",
+      "title": "Peptide-functionalized nanoparticles for brain-targeted therapeutics."
     },
     {
       "url": "https://www.nature.com/articles/s41467-026-70061-7",
@@ -229,24 +274,9 @@
       "title": "Peptide-functionalized nanoparticles for brain-targeted therapeutics."
     },
     {
-      "url": "https://www.nature.com/articles/s41467-026-70061-7",
-      "source": "Nature - Protein Design",
-      "title": "Data storage and retrieval with unnatural proteins expressed via E. coli"
-    },
-    {
-      "url": "https://doi.org/10.1002/pro.70508",
-      "source": "PubMed — Protein science : a publication of the Protein Society",
-      "title": "Deamidation and isomerization to elusive isoaspartate in a computationally designed miniprotein."
-    },
-    {
       "url": "https://doi.org/10.1002/pro.70496",
       "source": "PubMed — Protein science : a publication of the Protein Society",
       "title": "MemPPI platform for measuring and engineering membrane protein-protein interactions in mammalian cells via split nanoluc"
-    },
-    {
-      "url": "https://doi.org/10.1002/pro.70503",
-      "source": "PubMed — Protein science : a publication of the Protein Society",
-      "title": "Discovery of novel, high-affinity HBV T-cell epitopes by molecular dynamics-augmented proteome-wide screening."
     },
     {
       "url": "https://doi.org/10.1371/journal.pone.0334662",
@@ -259,19 +289,34 @@
       "title": "Graph Learning in Bioinformatics: A Survey of Graph Neural Network Architectures, Biological Graph Construction and Bioi"
     },
     {
-      "url": "https://doi.org/10.3390/ijms27042064",
-      "source": "PubMed — International journal of molecular sciences",
-      "title": "Characterization of Conformational Instability of Monoclonal Antibodies During Chromatographic Purification."
-    },
-    {
-      "url": "https://doi.org/10.3390/molecules31040753",
-      "source": "PubMed — Molecules (Basel, Switzerland)",
-      "title": "Scaffold Hopping-Guided Design of Novel PIM-1 Inhibitors with Anticancer Activities."
-    },
-    {
-      "url": "https://doi.org/10.1007/s13346-025-01840-w",
+      "url": "https://doi.org/10.1007/s13346-025-01957-y",
       "source": "PubMed — Drug delivery and translational research",
-      "title": "Peptide-functionalized nanoparticles for brain-targeted therapeutics."
+      "title": "Delivery of monoclonal antibodies to the brain: the impact of nanocarrier structure."
+    },
+    {
+      "url": "https://doi.org/10.1515/znc-2025-0274",
+      "source": "PubMed — Zeitschrift fur Naturforschung. C, Journal of biosciences",
+      "title": "Structure-based drug discovery targeting"
+    },
+    {
+      "url": "https://doi.org/10.1007/s12539-025-00732-4",
+      "source": "PubMed — Interdisciplinary sciences, computational life sciences",
+      "title": "CPE-Pro: A Structure-Sensitive Deep Learning Method for Protein Representation and Origin Evaluation."
+    },
+    {
+      "url": "https://doi.org/10.1007/s12539-025-00730-6",
+      "source": "PubMed — Interdisciplinary sciences, computational life sciences",
+      "title": "NeuroPpred-MSN: A Neuropeptide Prediction Model Based on Multi-feature Fusion and Siamese Networks."
+    },
+    {
+      "url": "https://doi.org/10.1007/s12539-025-00812-5",
+      "source": "PubMed — Interdisciplinary sciences, computational life sciences",
+      "title": "EMMVEP: An Ensemble Method for Protein Missense Variant Effect Prediction Based on Multi-Source Feature Fusion."
+    },
+    {
+      "url": "https://doi.org/10.1038/s41541-026-01404-0",
+      "source": "PubMed — NPJ vaccines",
+      "title": "Structural insight into the assembly and D antigenicity of polio type 1 stabilized virus-like particles."
     }
   ]
 }
