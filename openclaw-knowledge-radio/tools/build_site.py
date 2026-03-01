@@ -16,6 +16,17 @@ BASE_OUTPUT = Path(os.environ.get("PODCAST_OUTPUT", str(_PACKAGE_DIR / "output")
 SITE_DIR    = Path(os.environ.get("SITE_DIR",       str(_REPO_ROOT / "docs")))
 AUDIO_DIR   = SITE_DIR / "audio"
 RELEASE_INDEX = Path(os.environ.get("RELEASE_INDEX", str(_PACKAGE_DIR / "state" / "release_index.json")))
+NOTES_FILE    = Path(os.environ.get("NOTES_FILE",    str(_PACKAGE_DIR / "state" / "paper_notes.json")))
+
+
+def _load_notes() -> dict:
+    """Load paper_notes.json → {date: {url: note_text}}."""
+    if NOTES_FILE.exists():
+        try:
+            return json.loads(NOTES_FILE.read_text(encoding="utf-8"))
+        except Exception:
+            return {}
+    return {}
 
 PODCAST_TITLE = os.environ.get("PODCAST_TITLE", "Daily Podcast")
 PODCAST_AUTHOR = os.environ.get("PODCAST_AUTHOR", "Eva Dai")
@@ -171,7 +182,7 @@ def generate_cover_svg(seed_text: str):
 
 
 def render_index(episodes, all_episodes=None):
-    # Counter across all episodes so paper numbers are unique per episode
+    notes = _load_notes()   # {date: {url: note_text}} — baked in for static rendering
     cards = []
     for ep in episodes:
         s_link = f'<a href="{html.escape(ep["script_name"])}">script</a>' if ep["script_name"] else ""
@@ -194,6 +205,26 @@ def render_index(episodes, all_episodes=None):
                 ts_val = it.get("timestamp", -1)
                 ts_str = str(ts_val)
                 num_cls = "num seekable" if isinstance(ts_val, (int, float)) and ts_val >= 0 else "num"
+                raw_note = (notes.get(date) or {}).get(raw_url, "")
+                note_disp   = "" if raw_note else ' style="display:none"'
+                note_add    = ' style="display:none"' if raw_note else ""
+                note_part = (
+                    f'<div class="my-take">'
+                    f'<div class="my-take-display"{note_disp}>'
+                    f'<span class="my-take-text">{html.escape(raw_note)}</span>'
+                    f'<button class="note-edit-btn" onclick="openNoteEdit(this)" title="Edit note">✏️</button>'
+                    f'</div>'
+                    f'<button class="note-add-btn"{note_add} onclick="openNoteEdit(this)">✏️ my take</button>'
+                    f'<div class="my-take-editor" style="display:none">'
+                    f'<textarea class="note-textarea"'
+                    f' placeholder="Your expert take... paste a Notion link for a deep dive"></textarea>'
+                    f'<div class="note-actions">'
+                    f'<button class="note-btn note-save" onclick="saveNote(this)">Save</button>'
+                    f'<button class="note-btn note-cancel"'
+                    f' onclick="closeNoteEdit(this.closest(\'li\'))">Cancel</button>'
+                    f'<span class="note-status"></span>'
+                    f'</div></div></div>'
+                )
                 rows.append(
                     f'<li data-url="{html.escape(raw_url)}" data-date="{date}"'
                     f' data-seg="{seg_idx}" data-ts="{ts_str}">'
@@ -208,7 +239,7 @@ def render_index(episodes, all_episodes=None):
                     f'{title_part}{source_part}'
                     f'</label>'
                     f'</div>'
-                    f'{summary_part}</li>'
+                    f'{summary_part}{note_part}</li>'
                 )
             items_html = "".join(rows)
             section_html = (
@@ -338,6 +369,22 @@ audio {{ width:100%; margin:4px 0 6px; }}
 .modal button {{ flex:1; padding:7px; border-radius:7px; border:1px solid var(--accent); cursor:pointer; font-size:.88rem; }}
 .modal .save {{ background:var(--accent); color:#fff; }}
 .modal .cancel {{ background:transparent; color:var(--accent); }}
+/* ── My Take notes ── */
+.my-take {{ margin:3px 0 0 46px; }}
+.my-take-display {{ display:flex; align-items:flex-start; gap:6px; background:rgba(79,143,106,.10); border-left:3px solid var(--accent); border-radius:0 6px 6px 0; padding:5px 9px; }}
+.my-take-text {{ font-size:.86rem; color:#2d4a38; flex:1; white-space:pre-wrap; word-break:break-word; }}
+.my-take-text a {{ color:var(--accent); }}
+.note-edit-btn {{ background:none; border:none; cursor:pointer; font-size:.8rem; color:var(--muted); padding:0 2px; flex-shrink:0; opacity:.55; }}
+.note-edit-btn:hover {{ opacity:1; }}
+.note-add-btn {{ background:none; border:none; cursor:pointer; font-size:.76rem; color:var(--muted); padding:1px 0; opacity:.4; }}
+.note-add-btn:hover {{ opacity:1; }}
+.my-take-editor {{ margin-top:4px; }}
+.note-textarea {{ width:100%; min-height:60px; font-size:.86rem; border:1px solid var(--line); border-radius:6px; padding:5px 8px; resize:vertical; font-family:inherit; background:var(--bg2); color:var(--text); box-sizing:border-box; }}
+.note-actions {{ margin-top:3px; display:flex; align-items:center; gap:6px; }}
+.note-btn {{ font-size:.77rem; padding:2px 9px; border:1px solid var(--accent); border-radius:5px; cursor:pointer; }}
+.note-save {{ background:var(--accent); color:#fff; }}
+.note-cancel {{ background:transparent; color:var(--accent); }}
+.note-status {{ font-size:.77rem; color:var(--muted); }}
 </style>
 </head>
 <body>
@@ -349,7 +396,7 @@ audio {{ width:100%; margin:4px 0 6px; }}
     <div class="about">
       <p>A daily auto-generated podcast for protein designers. Every morning an AI pipeline scans the latest publications from Nature, arXiv, PNAS, PubMed, and key researcher feeds — selects the most relevant papers on <strong>protein design, antibody engineering, enzyme design, and computational biology</strong> — then writes and narrates a ~60-minute digest using a large language model and text-to-speech synthesis.</p>
       <p>Papers are ranked by journal quality, topic relevance, and the owner's personal reading history. The podcast is regenerated fresh each day and published here automatically via GitHub Actions. Only the 3 most recent episodes are shown here — click the <strong>📚</strong> button (right side of the page) to browse the full archive, or visit the <a href="https://clear-squid-8e3.notion.site/3155f58ea8c280258959fba00c0149ab?v=3155f58ea8c2803c8c0d000c76d1bfba" target="_blank">Notion collection</a> to read every daily digest in full.</p>
-      <p class="note">&#128274; <strong>Note on the checkboxes:</strong> The paper list below includes checkboxes and a "Save feedback" button. These are for the <em>site owner only</em> — checking papers and saving requires a private GitHub token stored in your own browser. If you are a visitor, feel free to browse and listen, but the feedback feature will not work for you and your selections are never recorded anywhere.</p>
+      <p class="note">&#128274; <strong>Note on interactive features:</strong> The checkboxes ("Save feedback") and ✏️ note buttons are for the <em>site owner only</em> — both require a private GitHub token stored in your own browser. Visitors can read any notes the owner has written, but cannot add or edit them.</p>
     </div>
     {body}
     <div class="feedback-bar">
@@ -535,6 +582,118 @@ document.querySelectorAll('audio[id^="audio-"]').forEach(function(audio) {{
 }});
 
 loadCheckboxes();
+
+// ── My Take notes ─────────────────────────────────────────────────────────
+function renderNoteHtml(text) {{
+  const esc = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return esc.replace(/\bhttps?:\/\/[^\s<>]+/g, function(url) {{
+    const label = url.includes('notion') ? '→ Notion deep dive'
+                : url.length > 55 ? url.slice(0,52)+'…' : url;
+    return '<a href="' + url + '" target="_blank">' + label + '</a>';
+  }});
+}}
+
+function _applyNote(li, note) {{
+  const display = li.querySelector('.my-take-display');
+  const addBtn  = li.querySelector('.note-add-btn');
+  const textEl  = li.querySelector('.my-take-text');
+  if (!display || !addBtn || !textEl) return;
+  if (note) {{
+    textEl.innerHTML = renderNoteHtml(note);
+    textEl._raw = note;
+    display.style.display = 'flex';
+    addBtn.style.display = 'none';
+  }} else {{
+    display.style.display = 'none';
+    addBtn.style.display = '';
+  }}
+}}
+
+function _updateNoteButtons() {{
+  const isOwner = !!localStorage.getItem('gh_token');
+  document.querySelectorAll('.note-add-btn, .note-edit-btn').forEach(function(b) {{
+    b.style.visibility = isOwner ? '' : 'hidden';
+  }});
+}}
+
+async function loadNotes() {{
+  const repo = localStorage.getItem('gh_repo') || '{html.escape("WenyueDai/openclaw_podcast")}';
+  const path = 'openclaw-knowledge-radio/state/paper_notes.json';
+  const headers = {{'Accept': 'application/vnd.github+json'}};
+  const token = localStorage.getItem('gh_token');
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  try {{
+    const res = await fetch('https://api.github.com/repos/' + repo + '/contents/' + path, {{headers: headers}});
+    if (!res.ok) {{ _updateNoteButtons(); return; }}
+    const data = JSON.parse(atob((await res.json()).content.replace(/\\n/g,'')));
+    document.querySelectorAll('li[data-url][data-date]').forEach(function(li) {{
+      const note = ((data[li.dataset.date] || {{}})[li.dataset.url]) || '';
+      _applyNote(li, note);
+    }});
+  }} catch(e) {{}}
+  _updateNoteButtons();
+}}
+
+function openNoteEdit(btn) {{
+  const li = btn.closest('li');
+  const editor   = li.querySelector('.my-take-editor');
+  const textarea = li.querySelector('.note-textarea');
+  textarea.value = li.querySelector('.my-take-text')._raw || '';
+  editor.style.display = 'block';
+  textarea.focus();
+}}
+
+function closeNoteEdit(li) {{
+  li.querySelector('.my-take-editor').style.display = 'none';
+}}
+
+async function saveNote(btn) {{
+  const token = localStorage.getItem('gh_token') || '';
+  const repo  = localStorage.getItem('gh_repo')  || '{html.escape("WenyueDai/openclaw_podcast")}';
+  if (!token) {{ openSettings(); return; }}
+  const li       = btn.closest('li');
+  const date     = li.dataset.date, url = li.dataset.url;
+  const noteText = li.querySelector('.note-textarea').value.trim();
+  const status   = li.querySelector('.note-status');
+  status.textContent = 'Saving…';
+  const path = 'openclaw-knowledge-radio/state/paper_notes.json';
+  const apiBase = 'https://api.github.com/repos/' + repo;
+  const headers = {{
+    'Authorization': 'Bearer ' + token,
+    'Accept': 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+    'Content-Type': 'application/json',
+  }};
+  try {{
+    let existing = {{}}, sha = null;
+    const get = await fetch(apiBase + '/contents/' + path, {{headers: headers}});
+    if (get.ok) {{
+      const meta = await get.json();
+      sha = meta.sha;
+      existing = JSON.parse(atob(meta.content.replace(/\\n/g,'')));
+    }}
+    if (!existing[date]) existing[date] = {{}};
+    if (noteText) existing[date][url] = noteText; else delete existing[date][url];
+    const body = {{
+      message: 'Note: ' + date,
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(existing, null, 2))))
+    }};
+    if (sha) body.sha = sha;
+    const put = await fetch(apiBase + '/contents/' + path, {{
+      method: 'PUT', headers: headers, body: JSON.stringify(body)
+    }});
+    if (put.ok) {{
+      _applyNote(li, noteText);
+      closeNoteEdit(li);
+      status.textContent = '✓ Saved';
+      setTimeout(function() {{ status.textContent = ''; }}, 2000);
+    }} else {{
+      status.textContent = 'Error: ' + ((await put.json()).message || put.status);
+    }}
+  }} catch(e) {{ status.textContent = 'Error: ' + e.message; }}
+}}
+
+loadNotes();
 </script>
 </body>
 </html>
