@@ -13,7 +13,37 @@ limits:
   source_caps:
     "Nature News": 3
     "Endpoints News": 2
+    "Nature (main journal)": 3
+    "Nature Structural & Molecular Biology": 3
+    "PNAS": 3
   max_items_per_news_source: 1
+
+excluded_terms:
+  # Cell / molecular biology off-topic
+  - "cell biology"
+  - "single-cell"
+  - "single cell"
+  - "animal model"
+  - "murine"
+  - "mouse"
+  - "mice"
+  - "rat"
+  - "zebrafish"
+  - "drosophila"
+  - "in vivo"
+  - "transposable element"
+  - "hippocampal"
+  - "neurogenesis"
+  - "neural circuit"
+  # Off-topic physical sciences
+  - "superconductiv"
+  - "quantum network"
+  - "quantum optic"
+  - "interferometry"
+  # Administrative / non-research
+  - "author correction"
+  - "in this issue"
+  - "retraction notice"
 
 rss_sources:
   # ── Core protein / structural biology ──────────────────────────────────────
