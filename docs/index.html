@@ -152,7 +152,7 @@ audio { width:100%; margin:4px 0 6px; }
     
 <section class='card'>
   <h2>Daily Podcast 2026-03-01</h2>
-  <p class='meta'>Published: 2026-03-01 </p>
+  <p class='meta'>Published: 2026-03-01 <a href="podcast_script_2026-03-01_llm.txt">script</a></p>
   <audio id="audio-2026-03-01" controls src="https://github.com/WenyueDai/openclaw_podcast/releases/download/episode-2026-03-01/podcast_2026-03-01.mp3"></audio>
   <p class='speed-row'>Speed:
     <button onclick="setRate(1)">1x</button>
@@ -599,10 +599,12 @@ async function submitMissedPaper() {
       method: 'PUT', headers: headers, body: JSON.stringify(body)
     });
     if (put.ok) {
-      _setStatus(status, '✓ Submitted! Diagnosis will appear after the next 05:00 UTC daily run.', false);
+      _setStatus(status, '✓ Submitted! Processing triggered — refresh in ~2 minutes to see diagnosis.', false);
       titleEl.value = '';
       urlEl.value = '';
       _renderMissedList(existing);
+      // Auto-refresh missed list after 2 min to show diagnosis from workflow
+      setTimeout(function() { loadMissedPapers(); }, 120000);
     } else {
       var err = await put.json();
       _setStatus(status, 'Error: ' + (err.message || put.status), true);

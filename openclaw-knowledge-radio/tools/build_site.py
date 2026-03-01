@@ -908,10 +908,12 @@ async function submitMissedPaper() {{
       method: 'PUT', headers: headers, body: JSON.stringify(body)
     }});
     if (put.ok) {{
-      _setStatus(status, '✓ Submitted! Diagnosis will appear after the next 05:00 UTC daily run.', false);
+      _setStatus(status, '✓ Submitted! Processing triggered — refresh in ~2 minutes to see diagnosis.', false);
       titleEl.value = '';
       urlEl.value = '';
       _renderMissedList(existing);
+      // Auto-refresh missed list after 2 min to show diagnosis from workflow
+      setTimeout(function() {{ loadMissedPapers(); }}, 120000);
     }} else {{
       var err = await put.json();
       _setStatus(status, 'Error: ' + (err.message || put.status), true);
