@@ -4,5 +4,8 @@
   "alphafold 3",
   "antibody design",
   "de novo design",
-  "protein engineering"
+  "protein engineering",
+  "protein structure",
+  "adversarial mutations",
+  "alphafold esmfold"
 ]
