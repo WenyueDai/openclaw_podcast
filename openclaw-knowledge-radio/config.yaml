@@ -217,6 +217,11 @@ rss_sources:
     tags: ["machine-learning", "biology", "substack", "author"]
     bucket: "ai_bio"
 
+  - name: "Asimov Press"
+    url: "https://www.asimov.press/feed"
+    tags: ["biology", "science-writing", "substack", "author"]
+    bucket: "ai_bio"
+
 pubmed:
   enabled: true
   email: "daiwenyueva@gmail.com"
