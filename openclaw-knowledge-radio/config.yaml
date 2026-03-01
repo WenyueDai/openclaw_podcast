@@ -209,12 +209,12 @@ rss_sources:
   # ── Substack blogs ─────────────────────────────────────────────────────────
   - name: "A-Alpha Bio (To Affinity And Beyond)"
     url: "https://aalphabio.substack.com/feed"
-    tags: ["protein-design", "antibody-design", "substack"]
+    tags: ["protein-design", "antibody-design", "substack", "author"]
     bucket: "protein"
 
   - name: "Owl Posting (Abhishaike Mahajan)"
     url: "https://www.owlposting.com/feed"
-    tags: ["machine-learning", "biology", "substack"]
+    tags: ["machine-learning", "biology", "substack", "author"]
     bucket: "ai_bio"
 
 pubmed:
