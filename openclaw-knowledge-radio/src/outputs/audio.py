@@ -142,23 +142,19 @@ def concat_mp3_ffmpeg(part_files: List[Path], out_mp3: Path) -> None:
         _split_mp3_into_size_limited_parts(out_mp3, TARGET_BYTES)
 
 
-def concat_mp3_with_transitions(groups: List[List[Path]], out_mp3: Path) -> None:
+def concat_mp3_with_transitions(segments: List[Path], out_mp3: Path) -> None:
     """
-    Concat TTS audio with transition SFX BETWEEN logical groups (paper/news),
-    not between every internal TTS chunk.
+    Concat per-segment MP3s (one per paper/news item) with transition SFX between them.
     """
-    non_empty = [g for g in groups if g]
+    non_empty = [s for s in segments if s and s.exists()]
     if not non_empty:
-        raise RuntimeError("No MP3 groups to merge")
+        raise RuntimeError("No MP3 segments to merge")
 
     sfx = _build_transition_sfx(out_mp3.parent)
     seq: List[Path] = []
-    for i, grp in enumerate(non_empty):
-        seq.extend(grp)
+    for i, seg in enumerate(non_empty):
+        seq.append(seg)
         if i < len(non_empty) - 1:
             seq.append(sfx)
 
     _concat_sequence(seq, out_mp3)
-
-    if out_mp3.stat().st_size > THRESHOLD_BYTES:
-        _split_mp3_into_size_limited_parts(out_mp3, TARGET_BYTES)

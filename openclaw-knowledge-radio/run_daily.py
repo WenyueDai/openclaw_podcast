@@ -17,7 +17,7 @@ from src.collectors.wiki_context import collect_wiki_context_items
 from src.collectors.pubmed import collect_pubmed_items
 from src.processing.rank import rank_and_limit
 from src.processing.script_llm import build_podcast_script_llm_chunked, build_podcast_script_llm_chunked_with_map, TRANSITION_MARKER
-from src.outputs.tts_edge import tts_text_to_mp3_chunked
+from src.outputs.tts_edge import tts_segment_to_mp3
 from src.outputs.audio import concat_mp3_with_transitions, _ffprobe_duration_seconds, PLAYBACK_ATEMPO
 
 from src.utils.text import clean_for_tts
@@ -376,7 +376,13 @@ def main() -> int:
         return ""
 
     # 5) LLM podcast script (also returns item→segment mapping)
-    script_text, _item_segments = build_podcast_script_llm_chunked_with_map(date_str=today, items=ranked, cfg=cfg)
+    script_path = out_dir / f"podcast_script_{today}_llm.txt"
+    if REGEN_FROM_CACHE and script_path.exists():
+        print("[cache] Reusing existing LLM script", flush=True)
+        script_text = script_path.read_text(encoding="utf-8")
+        _item_segments = list(range(len(ranked)))
+    else:
+        script_text, _item_segments = build_podcast_script_llm_chunked_with_map(date_str=today, items=ranked, cfg=cfg)
 
     # Append explicit citations to comprehensive script (for website readers / Spotify notes)
     refs: List[str] = []
@@ -391,7 +397,6 @@ def main() -> int:
             refs.append(f"[{i}] {title} — {src}")
     script_text = script_text.rstrip() + "\n" + "\n".join(refs) + "\n"
 
-    script_path = out_dir / f"podcast_script_{today}_llm.txt"
     write_text(script_path, script_text)
     script_text_clean = clean_for_tts(script_text)
     script_path_clean = out_dir / f"podcast_script_{today}_llm_clean.txt"
@@ -415,54 +420,46 @@ def main() -> int:
         encoding="utf-8",
     )
 
-    # 6) TTS chunk + merge (transition SFX between papers/news, not between chunks)
+    # 6) TTS: one MP3 per segment, concatenated with transition SFX between items
     if cfg.get("podcast", {}).get("enabled", True) and script_text_clean.strip():
         voice = cfg["podcast"]["voice"]
         rate = str(cfg["podcast"].get("voice_rate", "+20%"))
-        chunk_chars = int(cfg["podcast"]["tts_chunk_chars"])
         parts_dir = out_dir / "tts_parts"
         ensure_dir(parts_dir)
 
         # Keep raw_segments_all WITHOUT filtering so indices align with _item_segments.
         # (filtering shifts indices, causing every item after a missing segment to seek wrong)
         raw_segments_all = [s.strip() for s in script_text.split(TRANSITION_MARKER)]
-        groups: List[List[Path]] = []
-        _raw_seg_to_group: Dict[int, int] = {}  # raw_segment_index → group_index
+        seg_mp3s: List[Path] = []
+        _raw_seg_to_group: Dict[int, int] = {}  # raw_segment_index → seg_mp3s index
 
         for _si, _seg in enumerate(raw_segments_all):
             if not _seg:
                 continue
             _seg_clean = clean_for_tts(_seg)
-            _seg_dir = parts_dir / f"seg_{_si:03d}"
-            ensure_dir(_seg_dir)
-            _seg_parts = tts_text_to_mp3_chunked(
+            seg_mp3_path = parts_dir / f"seg_{_si:03d}.mp3"
+            tts_segment_to_mp3(
                 text=_seg_clean,
-                out_dir=_seg_dir,
+                out_path=seg_mp3_path,
                 voice=voice,
-                chunk_chars=chunk_chars,
                 rate=rate,
             )
-            if _seg_parts:
-                _raw_seg_to_group[_si] = len(groups)
-                groups.append(_seg_parts)
+            _raw_seg_to_group[_si] = len(seg_mp3s)
+            seg_mp3s.append(seg_mp3_path)
 
-        # Compute per-group start timestamps.
-        # With tierB_batch_size=1 every item has its own segment, so each item gets
-        # its own SFX + content block. For gi > 0 we point to the SFX transition START
-        # (= end of previous segment speech) so that clicking a highlight always plays
-        # the transition sound before the content begins.
+        # Compute per-segment SFX-start timestamps.
+        # For gi > 0 we point to the SFX transition START (= end of previous segment speech)
+        # so that clicking a highlight always plays the transition sound before content begins.
         _SFX_RAW = 2.3  # transition SFX raw duration (see audio.py)
-        _raw_durs: List[float] = [
-            sum(_ffprobe_duration_seconds(_p) for _p in _grp) for _grp in groups
-        ]
-        _group_ts: List[float] = []
+        _raw_durs: List[float] = [_ffprobe_duration_seconds(p) for p in seg_mp3s]
+        _seg_ts: List[float] = []
         _t = 0.0
         for _gi, _rd in enumerate(_raw_durs):
             if _gi == 0:
-                _group_ts.append(0.0)
+                _seg_ts.append(0.0)
             else:
                 # _t is at speech start of segment _gi; SFX started _SFX_RAW seconds earlier.
-                _group_ts.append(round((_t - _SFX_RAW) / PLAYBACK_ATEMPO, 2))
+                _seg_ts.append(round((_t - _SFX_RAW) / PLAYBACK_ATEMPO, 2))
             _t += _rd
             if _gi < len(_raw_durs) - 1:
                 _t += _SFX_RAW
@@ -471,15 +468,15 @@ def main() -> int:
         for _entry in _episode_items_list:
             _raw_si = _entry["segment"]
             _gi = _raw_seg_to_group.get(_raw_si)
-            _entry["timestamp"] = _group_ts[_gi] if _gi is not None else -1
+            _entry["timestamp"] = _seg_ts[_gi] if _gi is not None else -1
 
         _episode_items_file.write_text(
-            json.dumps({"timestamps": _group_ts, "items": _episode_items_list}, indent=2, ensure_ascii=False),
+            json.dumps({"timestamps": _seg_ts, "items": _episode_items_list}, indent=2, ensure_ascii=False),
             encoding="utf-8",
         )
 
         final_mp3 = out_dir / f"podcast_{today}.mp3"
-        concat_mp3_with_transitions(groups, final_mp3)
+        concat_mp3_with_transitions(seg_mp3s, final_mp3)
 
         # Clean up intermediate TTS chunks and temp ffmpeg files
         pub_cfg = cfg.get("publish", {})

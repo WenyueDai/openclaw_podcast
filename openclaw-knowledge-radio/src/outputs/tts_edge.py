@@ -2,6 +2,7 @@
 
 import asyncio
 import os
+import subprocess
 from pathlib import Path
 from typing import List, Tuple
 
@@ -145,6 +146,48 @@ def _split_text_in_two(text: str) -> Tuple[str, str]:
         b = text[mid:].strip()
 
     return a, b
+
+
+_MIN_VALID_MP3_BYTES = 5_000  # ~0.2s of audio; anything smaller is a bad file
+
+
+def _mp3_is_readable(path: Path) -> bool:
+    """Return True if ffprobe can read a valid duration from the file."""
+    try:
+        subprocess.check_output(
+            ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+             "-of", "default=noprint_wrappers=1:nokey=1", str(path)],
+            stderr=subprocess.DEVNULL,
+        )
+        return True
+    except Exception:
+        return False
+
+
+def tts_segment_to_mp3(
+    text: str,
+    out_path: Path,
+    voice: str,
+    rate: str = "+20%",
+) -> Path:
+    """Convert one podcast segment to a single MP3. No chunking — segments are short.
+
+    Skips generation if a valid file already exists (allows resume on re-run).
+    Retries up to 3 times if edge-tts produces a corrupt/empty file.
+    """
+    if out_path.exists() and out_path.stat().st_size > _MIN_VALID_MP3_BYTES and _mp3_is_readable(out_path):
+        print(f"[tts] Reusing existing {out_path.name}", flush=True)
+        return out_path
+
+    text = " ".join(text.split())  # collapse newlines Edge TTS reads as long pauses
+    for attempt in range(1, 4):
+        out_path.unlink(missing_ok=True)
+        asyncio.run(_save_one(text, voice, rate, out_path))
+        if out_path.exists() and out_path.stat().st_size > _MIN_VALID_MP3_BYTES:
+            return out_path
+        print(f"[tts] Attempt {attempt}: bad output for {out_path.name} "
+              f"({out_path.stat().st_size if out_path.exists() else 0} bytes), retrying...", flush=True)
+    raise RuntimeError(f"TTS failed to produce a valid MP3 after 3 attempts: {out_path}")
 
 
 def tts_text_to_mp3_chunked(
