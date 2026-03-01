@@ -445,38 +445,38 @@ audio {{ width:100%; margin:4px 0 6px; }}
     <h1>{html.escape(PODCAST_TITLE)}</h1>
     <p class='sub'>{html.escape(PODCAST_SUMMARY)}</p>
     <div class="about">
-      <p>I built this because I was spending too much time every morning hunting through journals trying to keep up with protein design research. Now a pipeline does it for me overnight — it pulls the latest papers from Nature, arXiv, PNAS, PubMed, and feeds for researchers I follow, picks out what's most relevant to <strong>protein design, antibody engineering, and enzyme design</strong>, then writes and narrates a ~60-minute digest I can listen to on my morning run.</p>
-      <p>The ranking learns from my reading habits over time. The three most recent episodes are shown here — click <strong>&#128218;</strong> to browse the full archive. My Notion databases are public if you want to dig deeper: <a href="https://clear-squid-8e3.notion.site/3155f58ea8c280258959fba00c0149ab?v=3155f58ea8c2803c8c0d000c76d1bfba" target="_blank">Paper Collection</a> (every paper that's run) · <a href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a> (my annotations on the ones that caught my eye).</p>
+      <p>I built this to keep up with protein design research without having to manually scan journals every morning. A pipeline runs overnight, picks out the most relevant papers on <strong>protein design, antibody engineering, and enzyme design</strong>, and turns them into a ~60-minute narrated digest I can listen to on my run.</p>
+      <p>The three most recent episodes are shown here — click <strong>&#128218;</strong> to browse older ones. I also keep public Notion databases if you want to go deeper: <a href="https://clear-squid-8e3.notion.site/3155f58ea8c280258959fba00c0149ab?v=3155f58ea8c2803c8c0d000c76d1bfba" target="_blank">Paper Collection</a> · <a href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a>.</p>
       <div class="feature-grid">
         <div class="feature-row">
           <span class="feature-badge open">Open to all</span>
           <div>
-            <strong>&#128231; Submit a missed paper</strong> — spotted something that should have been in the episode? Drop the title below. I'll get a diagnosis of why it was missed, and it may boost similar papers in future runs.
+            <strong>&#128231; Submit a missed paper</strong> — spotted something that should have been in the episode? Drop the title below and I'll look into it.
           </div>
         </div>
         <div class="feature-row">
           <span class="feature-badge owner">Owner only</span>
           <div>
-            <strong>&#9745; Feedback checkboxes</strong> — I tick these after listening to tell the ranker which papers I actually found useful. Needs my private GitHub token in &#9881; Settings.
+            <strong>&#9745; Feedback</strong> — I mark papers I found useful after each listen; this shapes what the next episode prioritises.
           </div>
         </div>
         <div class="feature-row">
           <span class="feature-badge owner">Owner only</span>
           <div>
-            <strong>&#9999;&#65039; My notes</strong> — when a paper stands out I click the pencil and leave a quick annotation. These are public once saved, so you can see what caught my attention.
+            <strong>&#9999;&#65039; My notes</strong> — short annotations I leave on papers that caught my attention. Visible to everyone once saved.
           </div>
         </div>
         <div class="feature-row">
           <span class="feature-badge tip">Tip</span>
           <div>
-            Click <strong>[N]</strong> next to any paper title to jump the audio player straight to that segment. A green left border means I left a note on it.
+            Click <strong>[N]</strong> next to a paper to jump the audio player straight to that segment. Green border = I left a note on it.
           </div>
         </div>
       </div>
     </div>
     <div class="missed-section">
       <h3>&#128231; Spotted a paper we missed?</h3>
-      <p>If you came across a protein-design paper that should have been in the episode, please do share it. I'll get a diagnosis of why the pipeline missed it, and if it's relevant it'll help tune future rankings — and go straight into my Notion reading list. Results show up after the 05:00 UTC daily run.</p>
+      <p>If you came across a protein-design paper that should have been in the episode, please share it — it helps make the show better. Results show up the following day.</p>
       <div class="missed-form">
         <input type="text" id="missed-title" placeholder="Paper title (required)">
         <input type="text" id="missed-url" placeholder="URL (optional)">
