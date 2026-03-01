@@ -1,5 +1,9 @@
 {
   "2026-03-01": {
-    "https://www.nature.com/articles/s41467-026-70061-7": "Need DD"
+    "https://www.nature.com/articles/s41467-026-70061-7": {
+      "note": "Need DD_t2",
+      "title": "Data storage and retrieval with unnatural proteins expressed via E. coli",
+      "source": "Nature - Protein Design"
+    }
   }
 }
