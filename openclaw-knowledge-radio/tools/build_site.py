@@ -468,8 +468,8 @@ audio {{ width:100%; margin:4px 0 6px; }}
       </div>
     </div>
     <div class="missed-section">
-      <h3>&#128231; Submit a missed paper</h3>
-      <p>Add a protein-design paper the pipeline should have included. Diagnosis and ranking boost run automatically at the next daily run.</p>
+      <h3>&#128231; Submit a missed paper <span class="feature-badge owner" style="vertical-align:middle;">Owner only</span></h3>
+      <p>This form is for my own use — visitors cannot submit. I use it to log papers the pipeline missed; it runs an automatic diagnosis and boosts similar papers in future rankings.</p>
       <div class="missed-form">
         <input type="text" id="missed-title" placeholder="Paper title (required)">
         <input type="text" id="missed-url" placeholder="URL (optional)">
