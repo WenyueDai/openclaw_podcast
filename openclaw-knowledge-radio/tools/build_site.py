@@ -801,9 +801,10 @@ function _renderMissedList(papers) {{
   var list = document.getElementById('missed-list');
   if (!list) return;
   if (!papers || !papers.length) {{ list.innerHTML = ''; return; }}
+  var visible = papers.slice(-10).reverse();
   var html = '';
-  for (var i = papers.length - 1; i >= 0; i--) {{
-    var p = papers[i];
+  for (var i = 0; i < visible.length; i++) {{
+    var p = visible[i];
     var titleHtml = p.url
       ? '<a href="' + p.url + '" target="_blank">' + p.title.replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</a>'
       : p.title.replace(/&/g,'&amp;').replace(/</g,'&lt;');
