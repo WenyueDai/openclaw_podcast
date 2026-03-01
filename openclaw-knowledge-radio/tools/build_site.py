@@ -326,6 +326,7 @@ def render_index(episodes, all_episodes=None):
     )
 
     missed_json = json.dumps(missed_papers, ensure_ascii=False)
+    missed_submit_token = os.environ.get("MISSED_SUBMIT_TOKEN", "")
 
     return f"""<!doctype html>
 <html>
@@ -446,9 +447,9 @@ audio {{ width:100%; margin:4px 0 6px; }}
       <p>Papers are ranked by journal quality, topic relevance, and the owner's personal reading history. The podcast is regenerated fresh each day via GitHub Actions. Only the 3 most recent episodes are shown — click <strong>📚</strong> to browse the full archive. Companion Notion databases: <a href="https://clear-squid-8e3.notion.site/3155f58ea8c280258959fba00c0149ab?v=3155f58ea8c2803c8c0d000c76d1bfba" target="_blank">Paper Collection</a> · <a href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a>.</p>
       <div class="feature-grid">
         <div class="feature-row">
-          <span class="feature-badge owner">Owner only</span>
+          <span class="feature-badge open">Open to all</span>
           <div>
-            <strong>&#128231; Submit a missed paper</strong> — use the form below to flag any protein-design paper the pipeline should have included. The pipeline will diagnose why it was missed and automatically tune future rankings. Requires a GitHub token (same ⚙ Settings as below).
+            <strong>&#128231; Submit a missed paper</strong> — use the form below to flag any protein-design paper the pipeline should have included. The pipeline diagnoses why it was missed and tunes future rankings. Submissions do not trigger any extra automated job — processing happens once per day at 05:00 UTC.
           </div>
         </div>
         <div class="feature-row">
@@ -472,8 +473,8 @@ audio {{ width:100%; margin:4px 0 6px; }}
       </div>
     </div>
     <div class="missed-section">
-      <h3>&#128231; Did we miss a paper?</h3>
-      <p>Submit a paper the pipeline should have included. The pipeline will diagnose why it was missed and tune future rankings automatically. Requires your GitHub token (⚙ Settings).</p>
+      <h3>&#128231; Found a paper we missed?</h3>
+      <p>Welcome! If you spotted a protein-design paper that should have been in the podcast, please share it — every submission helps make the show better. We'll diagnose why it was missed and use it to tune future rankings. Results appear after the 05:00 UTC daily run.</p>
       <div class="missed-form">
         <input type="text" id="missed-title" placeholder="Paper title (required)">
         <input type="text" id="missed-url" placeholder="URL (optional)">
@@ -790,6 +791,7 @@ loadNotes();
 
 // ── Missed papers ──────────────────────────────────────────────────────────
 var _bakedMissedPapers = {missed_json};
+var _missedSubmitToken = '{html.escape(missed_submit_token)}';
 
 function _diagLabel(entry) {{
   var d = entry.diagnosis;
@@ -842,9 +844,8 @@ async function loadMissedPapers() {{
 }}
 
 async function submitMissedPaper() {{
-  var token = localStorage.getItem('gh_token') || '';
+  var token = localStorage.getItem('gh_token') || _missedSubmitToken || '';
   var repo  = localStorage.getItem('gh_repo')  || '{html.escape("WenyueDai/openclaw_podcast")}';
-  if (!token) {{ openSettings(); return; }}
 
   var titleEl = document.getElementById('missed-title');
   var urlEl   = document.getElementById('missed-url');
@@ -852,6 +853,10 @@ async function submitMissedPaper() {{
   var title = (titleEl.value || '').trim();
   var url   = (urlEl.value || '').trim();
 
+  if (!token) {{
+    status.textContent = 'Submission not available (deploy token not configured). Contact the site owner.';
+    return;
+  }}
   if (!title) {{ status.textContent = 'Please enter a paper title.'; return; }}
 
   var path = 'openclaw-knowledge-radio/state/missed_papers.json';
@@ -871,6 +876,18 @@ async function submitMissedPaper() {{
       var meta = await get.json();
       sha = meta.sha;
       existing = JSON.parse(atob(meta.content.replace(/\\n/g,'')));
+    }}
+
+    // Server-side daily cap: max 10 submissions per day across all visitors.
+    // Owner (with personal gh_token) bypasses this.
+    var _isOwner = !!localStorage.getItem('gh_token');
+    if (!_isOwner) {{
+      var _today = new Date().toISOString().slice(0, 10);
+      var _todayCount = existing.filter(function(e) {{ return e.date_submitted === _today; }}).length;
+      if (_todayCount >= 10) {{
+        status.textContent = 'Daily limit reached (10 submissions per day). Please try again tomorrow.';
+        return;
+      }}
     }}
 
     // Duplicate check (case-insensitive title match)

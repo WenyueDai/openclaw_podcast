@@ -1,9 +1,9 @@
 {
   "date": "2026-03-01",
-  "time": "2026-03-01T06:24:22+00:00",
-  "n_items_raw": 248,
-  "n_items_used": 40,
+  "time": "2026-03-01T09:24:41+00:00",
+  "n_items_raw": 207,
+  "n_items_used": 34,
   "lookback_hours": 120,
-  "run_anchor": "2026-03-01T05:52:54+00:00",
-  "output_dir": "/home/runner/work/openclaw_podcast/openclaw_podcast/openclaw-knowledge-radio/output/2026-03-01"
+  "run_anchor": "2026-03-01T08:54:31+00:00",
+  "output_dir": "/home/eva/openclaw-knowledge-radio/openclaw-knowledge-radio/output/2026-03-01"
 }

@@ -1,366 +1,312 @@
 {
   "timestamps": [
     0.0,
-    121.02,
-    219.74,
-    336.01,
-    476.15,
-    605.05,
-    648.56,
-    695.82,
-    754.4,
-    811.01,
-    859.53,
-    922.49,
-    975.22,
-    1025.86,
-    1081.34,
-    1113.53,
-    1150.87,
-    1186.97,
-    1239.96,
-    1386.52,
-    1567.66,
-    1726.25,
-    1775.11,
-    1820.05,
-    1984.92,
-    2138.9,
-    2265.04,
-    2428.01,
-    2568.77,
-    2690.27,
-    2809.28,
-    2940.98,
-    3102.52,
-    3262.79,
-    3412.51,
-    3537.09,
-    3592.16,
-    3639.14,
-    3682.52,
-    3831.49
+    173.78,
+    315.58,
+    445.51,
+    582.45,
+    756.67,
+    800.32,
+    859.0,
+    915.44,
+    964.89,
+    1101.33,
+    1336.93,
+    1485.64,
+    1624.76,
+    1765.74,
+    1913.09,
+    2055.59,
+    2200.53,
+    2328.58,
+    2508.36,
+    2641.92,
+    2750.19,
+    2890.85,
+    3054.55,
+    3322.98,
+    3398.18,
+    3532.48,
+    3669.55,
+    3714.15,
+    3859.63,
+    3993.88,
+    4134.36,
+    4219.5,
+    4268.17
   ],
   "items": [
     {
-      "title": "Protein engineering fixes a major crop trade-off",
-      "url": "https://www.nature.com/articles/d41586-026-00293-6",
+      "title": "Coral microbiomes as reservoirs of unknown genomic and biosynthetic diversity",
+      "url": "https://www.nature.com/articles/s41586-026-10159-6",
       "source": "Nature (main journal)",
-      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/d41586-026-00293-6 Rational design of a regulatory protein decouples the ability to tolerate cold from the means to acquire phosphorus, effectively enhancing crop yield under cold stress.",
+      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-026-10159-6 Reconstructing microbial genomes from 820 reef-building corals collected at 99 reefs across 32 islands throughout the Pacific Ocean highlights the importance of conserving coral reefs as vital reservoirs of mole...",
       "segment": 0,
       "timestamp": 0.0
     },
     {
-      "title": "Identification and engineering of highly functional potyviral proteases in cells using co-evolutionary models",
-      "url": "https://www.nature.com/articles/s41467-026-69961-5",
-      "source": "Nature - Protein Engineering",
-      "one_liner": "",
+      "title": "Clonal-aggregative multicellularity tuned by salinity in a choanoflagellate",
+      "url": "https://www.nature.com/articles/s41586-026-10137-y",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-026-10137-y The choanoflagellate Choanoeca flexa forms motile and contractile cell monolayers purely clonally, purely aggregatively or through a combination of both processes depending on environmental conditions.",
       "segment": 1,
-      "timestamp": 121.02
+      "timestamp": 173.78
     },
     {
-      "title": "IQSPred-PLM: An Interpretable Quorum Sensing Peptides Prediction Model Based on Protein Language Model.",
-      "url": "https://doi.org/10.1007/s12539-025-00766-8",
-      "source": "PubMed — Interdisciplinary sciences, computational life sciences",
-      "one_liner": "Quorum sensing regulates cooperative behaviors in bacteria through the accumulation and detection of signaling molecules. This process plays a crucial role in various biological functions, including biofilm formation, antibiotic production, regulation of virulence factors, and immune modulation. Quorum sensing peptides (QSPs), primarily produced by Gram-p...",
+      "title": "OR7A10 GPCR engineering boosts CAR-NK therapy against solid tumours",
+      "url": "https://www.nature.com/articles/s41586-026-10149-8",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-026-10149-8 The identification of ‘boosters’ that drive gene overexpression directly in a CAR construct provides a simple and scalable strategy for developing effective CAR-NK cell therapies for solid tumours.",
       "segment": 2,
-      "timestamp": 219.74
+      "timestamp": 315.58
     },
     {
-      "title": "BioStruct-Africa's scalable framework for AlphaFold-enabled research training and sustainable workforce development in Africa.",
-      "url": "https://doi.org/10.1038/s42003-026-09711-x",
-      "source": "PubMed — Communications biology",
-      "one_liner": "Artificial intelligence is rapidly transforming structural biology and accelerating access to protein structures, yet many Africa-based scientists still lack infrastructure, training opportunities, and sustained mentorship to fully benefit. Here, we describe BioStruct-Africa’s community-driven framework integrating AlphaFold, experimental structural biolo...",
+      "title": "Data storage and retrieval with unnatural proteins expressed via E. coli",
+      "url": "https://www.nature.com/articles/s41467-026-70061-7",
+      "source": "Nature - Protein Design",
+      "one_liner": "",
       "segment": 3,
-      "timestamp": 336.01
+      "timestamp": 445.51
     },
     {
-      "title": "BEST: Basic Embedding Search Tool Enhancing Discovery of Novel Enzyme.",
-      "url": "https://doi.org/10.1007/s12539-025-00753-z",
-      "source": "PubMed — Interdisciplinary sciences, computational life sciences",
-      "one_liner": "The identification of protein homologs in large databases is critical for biological advancements. Traditional methods, such as protein sequence alignment, often miss remote homologs. To address this limitation, we present the Basic Embedding Search Tool (BEST), a fast and sensitive approach that employs protein language models to create sequence embeddin...",
+      "title": "Intermittent fasting evicts long-lived plasma cells from survival niche",
+      "url": "https://www.nature.com/articles/s41577-026-01286-2",
+      "source": "Nature - Antibodies",
+      "one_liner": "Intermittent fasting causes the eviction of long-lived plasma cells (LLPCs) from their survival niche in the bone marrow, thereby impairing the maintenance of humoral immunity and reducing protective antibody levels.\n\nMETHOD / APPROACH:\nThe study used mouse models.",
       "segment": 4,
-      "timestamp": 476.15
+      "timestamp": 582.45
     },
     {
-      "title": "Energy-driven innovations in computational de novo protein engineering.",
-      "url": "https://doi.org/10.1016/j.pbiomolbio.2026.01.005",
-      "source": "PubMed — Progress in biophysics and molecular biology",
-      "one_liner": "Energy models play a crucial role in the advancement of computational de novo protein engineering, enabling the design of novel proteins with tailored functionalities. Proteins serve as the foundation of biochemical processes, making their precise engineering essential for applications in biotechnology, medicine, and synthetic biology. Unlike traditional ...",
+      "title": "The endoplasmic reticulum in mitochondrial protein targeting: A neuronal perspective on organelle crosstalk",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1002/pro.70506?af=R",
+      "source": "Protein Science",
+      "one_liner": "Protein Science, Volume 35, Issue 3, March 2026.",
       "segment": 5,
-      "timestamp": 605.05
+      "timestamp": 756.67
     },
     {
-      "title": "De novo engineering of protein interactions: Retrospective and current advances.",
-      "url": "https://doi.org/10.1016/j.sbi.2026.103240",
-      "source": "PubMed — Current opinion in structural biology",
-      "one_liner": "New deep learning-based methods for modeling and generation of protein structures have opened a new chapter in the field of protein design, transforming many previously unattainable challenges into routine tasks. Protein-binder design, an important and challenging task in protein engineering, has also experienced significant progress, promising to provide...",
+      "title": "Deamidation and isomerization to elusive isoaspartate in a computationally designed miniprotein.",
+      "url": "https://doi.org/10.1002/pro.70508",
+      "source": "PubMed — Protein science : a publication of the Protein Society",
+      "one_liner": "Through the creation of de novo miniproteins that bind to specific sites on other natural proteins, computational protein design is enabling a revolution in how biological systems can be manipulated for therapeutic and research applications. We have previously used temperature-dependent nuclear magnetic resonance (NMR) and replica exchange molecular dynam...",
       "segment": 6,
-      "timestamp": 648.56
+      "timestamp": 800.32
     },
     {
-      "title": "Geometric deep learning assists protein engineering. Opportunities and Challenges.",
-      "url": "https://doi.org/10.1016/j.biotechadv.2025.108790",
-      "source": "PubMed — Biotechnology advances",
-      "one_liner": "Protein engineering is experiencing a paradigmatic transformation through the integration of geometric deep learning (GDL) into computational design workflows. While traditional approaches such as rational design and directed evolution have achieved significant progress, they remain constrained by the vastness of sequence space and the cost of experimenta...",
+      "title": "MemPPI platform for measuring and engineering membrane protein-protein interactions in mammalian cells via split nanoluciferase.",
+      "url": "https://doi.org/10.1002/pro.70496",
+      "source": "PubMed — Protein science : a publication of the Protein Society",
+      "one_liner": "Membrane protein-protein interactions (memPPIs) underlie critical biological processes including mediating signal transduction, transport, cell communication, and membrane organization. Despite their importance, systematic and quantitative measurement of protein transmembrane (TM) domains laterally interacting in mammalian cells remains challenging. Conve...",
       "segment": 7,
-      "timestamp": 695.82
+      "timestamp": 859.0
     },
     {
-      "title": "From traditional to AI-driven: The evolution of intelligent enzyme engineering for biocatalysis.",
-      "url": "https://doi.org/10.1016/j.biotechadv.2025.108788",
-      "source": "PubMed — Biotechnology advances",
-      "one_liner": "Enzyme engineering involves enhancing enzyme function and application through multidimensional technological systems. Its development encompasses elucidating sequence-structure-function relationships, exploring fitness landscapes, and multiscale regulation. Conventional enzyme engineering strategies include directed evolution (DE), rational/semi-rational ...",
+      "title": "Discovery of novel, high-affinity HBV T-cell epitopes by molecular dynamics-augmented proteome-wide screening.",
+      "url": "https://doi.org/10.1002/pro.70503",
+      "source": "PubMed — Protein science : a publication of the Protein Society",
+      "one_liner": "Accurate prediction of peptide-MHC (pMHC) binding is critical for vaccine design, yet conventional sequence-based methods alone lack the quantitative accuracy required to prioritize the most potent high-affinity epitopes. This creates a significant bottleneck in the development of T-cell-based immunotherapies. To address this, we established a sequential ...",
       "segment": 8,
-      "timestamp": 754.4
+      "timestamp": 915.44
     },
     {
-      "title": "CNNCaps-DBP: Leveraging protein language models with attention-augmented convolution for DNA-binding protein prediction.",
-      "url": "https://doi.org/10.1016/j.neunet.2025.108261",
-      "source": "PubMed — Neural networks : the official journal of the International Neural Network Society",
-      "one_liner": "DNA-binding proteins (DBPs) are fundamental to many key cellular processes, possessing distinct binding domains, differential affinities for single- and double-stranded DNA structures, and playing roles in fundamental biological functions such as DNA replication and gene regulation. They are intimately linked to the pathological mechanisms of diseases lik...",
+      "title": "Designing a novel vaccine against COVID-19 based on spike SARS-Cov-2 notable mutations using immunoinformatics approaches.",
+      "url": "https://doi.org/10.1371/journal.pone.0334662",
+      "source": "PubMed — PloS one",
+      "one_liner": "The rapid emergence of SARS-CoV-2 variants with spike protein mutations undermines the effectiveness of current vaccines, necessitating innovative strategies to ensure broad and lasting immunity. This study leverages an immunoinformatics approach to design two multi-epitope vaccine constructs Cov19-B (649 amino acids, 74 kDa) and Cov19-T (465 amino acids,...",
       "segment": 9,
-      "timestamp": 811.01
+      "timestamp": 964.89
     },
     {
-      "title": "Design, engineering, and functional evaluation of nanobody-based anti-CD73 for immunogenic cell death induction in chemoresistant colorectal Cancer cell line.",
-      "url": "https://doi.org/10.1016/j.intimp.2026.116174",
-      "source": "PubMed — International immunopharmacology",
-      "one_liner": "BACKGROUND: CD73 is a key immunosuppressive ectoenzyme overexpressed in colorectal cancer (CRC), facilitating tumor immune evasion by generating adenosine. While monoclonal antibodies have shown promise, their limited tissue penetration restricts efficacy. Nanobodies, due to their small size and high stability, provide a novel therapeutic platform. This s...",
+      "title": "Graph Learning in Bioinformatics: A Survey of Graph Neural Network Architectures, Biological Graph Construction and Bioinformatics Applications.",
+      "url": "https://doi.org/10.3390/biom16020333",
+      "source": "PubMed — Biomolecules",
+      "one_liner": "Graph Neural Networks (GNNs) have become a central methodology for modelling biological systems where entities and their interactions form inherently non-Euclidean structures. From protein interaction networks and gene regulatory circuits to molecular graphs and multi-omics integration, the relational nature of biological data makes GNNs particularly well...",
       "segment": 10,
-      "timestamp": 859.53
+      "timestamp": 1101.33
     },
     {
-      "title": "Unveiling the regio- and stereo-selectivity in situ primary amination of allylic and benzylic C(sp",
-      "url": "https://doi.org/10.1016/j.jinorgbio.2025.113184",
-      "source": "PubMed — Journal of inorganic biochemistry",
-      "one_liner": "Directed evolution of heme enzymes for the catalytic construction of benzylic C(sp",
+      "title": "Characterization of Conformational Instability of Monoclonal Antibodies During Chromatographic Purification.",
+      "url": "https://doi.org/10.3390/ijms27042064",
+      "source": "PubMed — International journal of molecular sciences",
+      "one_liner": "Monoclonal antibodies represent one of the fastest-growing sectors of the biopharmaceutical industry. Their high therapeutic efficacy and reduced incidence of adverse effects compared to conventional therapies have led to an increasing demand for these products. The costliest stages of monoclonal antibody production are the separation and purification pro...",
       "segment": 11,
-      "timestamp": 922.49
+      "timestamp": 1336.93
     },
     {
-      "title": "Protein Language Model Embeddings Distinguish Catalytic from Structural Zinc-Binding Sites with Interpretable Attention Signatures.",
-      "url": "https://doi.org/10.1021/acs.jcim.5c03142",
-      "source": "PubMed — Journal of chemical information and modeling",
-      "one_liner": "Zinc ions serve dual roles in proteins: as catalytic cofactors and as structural elements. Distinguishing these functional classes from sequence alone remains challenging, because both share similar coordination geometries. Here, we demonstrate that ESM-2 embeddings encode sufficient information to classify catalytic versus structural zinc sites with high...",
+      "title": "Scaffold Hopping-Guided Design of Novel PIM-1 Inhibitors with Anticancer Activities.",
+      "url": "https://doi.org/10.3390/molecules31040753",
+      "source": "PubMed — Molecules (Basel, Switzerland)",
+      "one_liner": "PIM kinases, as members of the serine/threonine kinase family, regulate key cellular processes such as proliferation, apoptosis, and metabolism by phosphorylating multiple substrates, making them important therapeutic targets for cancer treatment. In this study, we reported a series of structurally novel PIM-1 kinase inhibitors based on a scaffold-hopping...",
       "segment": 12,
-      "timestamp": 975.22
+      "timestamp": 1485.64
     },
     {
-      "title": "SOPE-MsL: Synergy-Optimized Protein Language Model Embeddings with Multiscale Learning for Interpretable Protein-Small-Molecule Binding-Site Prediction.",
-      "url": "https://doi.org/10.1021/acs.jcim.5c02619",
-      "source": "PubMed — Journal of chemical information and modeling",
-      "one_liner": "Protein-small-molecule interactions are fundamental to cellular regulation and represent critical targets for therapeutic intervention. Accurate identification of binding residues is essential for elucidating molecular recognition mechanisms and guiding the rational drug design. Experimental approaches, however, are often costly, time-consuming, and limit...",
+      "title": "Peptide-functionalized nanoparticles for brain-targeted therapeutics.",
+      "url": "https://doi.org/10.1007/s13346-025-01840-w",
+      "source": "PubMed — Drug delivery and translational research",
+      "one_liner": "Despite the rapid development of nanoparticle (NP)-based drug delivery systems, intravenous delivery of drugs to the brain remains a major challenge due to various biological barriers. To achieve therapeutic effects, NP-encapsulated drugs must avoid accumulation in off-target organs and selectively deliver to the brain, successfully cross the blood-brain ...",
       "segment": 13,
-      "timestamp": 1025.86
+      "timestamp": 1624.76
     },
     {
-      "title": "A survey of downstream applications of evolutionary scale modeling protein language models.",
-      "url": "https://doi.org/10.1002/qub2.70013",
-      "source": "PubMed — Quantitative biology (Beijing, China)",
-      "one_liner": "The evolutionary scale modeling (ESM) series is promising to revolutionize protein science and engineering through large language models (LLMs), providing a robust framework for understanding the relationships among sequences, structures, and functions of proteins. Trained on a large number of unlabeled protein sequences, ESM models are able to capture in...",
+      "title": "Dose-dependent IFN programs in myeloid cells after mRNA and adenovirus COVID-19 vaccination.",
+      "url": "https://doi.org/10.1172/jci.insight.199245",
+      "source": "PubMed — JCI insight",
+      "one_liner": "BACKGROUNDThe SARS-CoV-2 pandemic provided a rare opportunity to study how human immune responses develop to a novel viral antigen delivered through different vaccine platforms. However, to date, no study has directly compared immune responses to all 3 FDA-approved COVID-19 vaccines at single-cell multiomic resolution.METHODSWe longitudinally profiled SAR...",
       "segment": 14,
-      "timestamp": 1081.34
+      "timestamp": 1765.74
     },
     {
-      "title": "Inferring context-specific site variation with evotuned protein language models.",
-      "url": "https://doi.org/10.1093/nargab/lqag018",
-      "source": "PubMed — NAR genomics and bioinformatics",
-      "one_liner": "Multiple sequence alignments (MSAs) have been traditionally used for making inferences about site-specific diversity in proteins. Recent advancements in the field of artificial intelligence have highlighted the potential of protein language models (pLMs) to capture similar protein properties. Unlike MSAs, pLMs can make inferences from single sequences, wi...",
+      "title": "TRIM13 in situ engineering boosts anti-inflammatory capacity of CAR-Ms for liver fibrosis therapy.",
+      "url": "https://doi.org/10.1038/s41467-026-69858-3",
+      "source": "PubMed — Nature communications",
+      "one_liner": "Chimeric antigen receptor macrophages (CAR-Ms) therapy has shown great promise in liver fibrosis, however limited anti-inflammatory capacity of CAR-Ms in the fibrotic foci compromises their anti-fibrotic potency. We here report tripartite motif containing 13 (TRIM13) engineered CAR-Ms for effectively manipulating the anti-inflammatory phenotype of CAR-Ms,...",
       "segment": 15,
-      "timestamp": 1113.53
+      "timestamp": 1913.09
     },
     {
-      "title": "Crystal Structure of Měnglà Virus Nucleoprotein Bound by a Poorly Cross-Reactive Anti-Marburg Virus Nanobody Highlights a Single Amino Acid Affinity Switch, a Feature Also Evident in Dehong Virus.",
-      "url": "https://doi.org/10.1021/acsinfecdis.5c00920",
-      "source": "PubMed — ACS infectious diseases",
-      "one_liner": "Although Marburg and Měnglà viruses occupy different geographies and genera of the family",
+      "title": "Exploring the shared gene signatures between rheumatoid arthritis and type 2 diabetes and their implication for drug repositioning on bioinformatics analysis.",
+      "url": "https://doi.org/10.1097/MD.0000000000047809",
+      "source": "PubMed — Medicine",
+      "one_liner": "Numerous studies have demonstrated a pathogenic association between rheumatoid arthritis (RA) and type 2 diabetes mellitus (T2DM), 2 chronic inflammatory diseases. This study integrates transcriptomic and bioinformatic analyses to elucidate the shared molecular mechanisms underlying RA-associated T2DM, aiming to identify effective therapeutic strategies. ...",
       "segment": 16,
-      "timestamp": 1150.87
+      "timestamp": 2055.59
     },
     {
-      "title": "Mechanistic Insights into Nanobody-Based Quenchbody Sensing via Structural Modeling and Molecular Simulations.",
-      "url": "https://doi.org/10.1021/acs.jcim.5c02969",
-      "source": "PubMed — Journal of chemical information and modeling",
-      "one_liner": "Nanobody-based quenchbodies are powerful fluorescent sensors for detecting biomolecular targets. They rely on tryptophan residues in the antigen-binding site that can quench (darken) a fluorophore attached via a flexible linker; antigen binding displaces the fluorophore and increases the fluorescence. Quenchbodies targeting interleukin-6 (IL-6) exhibit va...",
+      "title": "Delivery of monoclonal antibodies to the brain: the impact of nanocarrier structure.",
+      "url": "https://doi.org/10.1007/s13346-025-01957-y",
+      "source": "PubMed — Drug delivery and translational research",
+      "one_liner": "Monoclonal antibodies (mAbs) are promising therapeutic agents for neurological disorders due to their high specificity. However, their clinical application is significantly hindered by their poor transport across the blood-brain barrier (BBB) and their limited diffusion within the brain parenchyma. While significant efforts have been oriented to tackle th...",
       "segment": 17,
-      "timestamp": 1186.97
+      "timestamp": 2200.53
     },
     {
-      "title": "Transposable element–gene chimera cartography, origination and role in enhancing transcriptome plasticity",
-      "url": "https://www.nature.com/articles/s41594-026-01757-z",
-      "source": "Nature Structural & Molecular Biology",
-      "one_liner": "Nature Structural & Molecular Biology, Published online: 25 February 2026; doi:10.1038/s41594-026-01757-z Leveraging long-read RNA sequencing and multiomics analyses, Cheon and Alvstad et al. systematically map transposable element (TE)-derived isoforms across species and cell stat...",
+      "title": "Optimizing uPAR-targeting radiopeptides for improved tissue distribution: progress towards radionuclide therapy.",
+      "url": "https://doi.org/10.1007/s00259-025-07602-7",
+      "source": "PubMed — European journal of nuclear medicine and molecular imaging",
+      "one_liner": "PURPOSE: The aim of this study was to develop radiopeptides for targeting the urokinase-type plasminogen activator receptor (uPAR) modified with an albumin-binding moiety to improve their tissue distribution profiles. METHODS: uPAR-11, uPAR-12, uPAR-14, uPAR-15, uPAR-17 and uPAR-18 were synthesized based on the AE105 nonapeptide which was modified with th...",
       "segment": 18,
-      "timestamp": 1239.96
+      "timestamp": 2328.58
     },
     {
-      "title": "Stress adaptation of mitochondrial protein import by OMA1-mediated degradation of DNAJC15",
-      "url": "https://www.nature.com/articles/s41594-026-01756-0",
-      "source": "Nature Structural & Molecular Biology",
-      "one_liner": "Nature Structural & Molecular Biology, Published online: 27 February 2026; doi:10.1038/s41594-026-01756-0 Kroczek et al show that degradation of DNAJC15 by OMA1 and AFG3L2 under stress limits mitochondrial protein import and OXPHOS biogenesis. Non-imported proteins lead to the indu...",
+      "title": "Therapeutic Potential of PCSK9 Inhibitors in Regulating Neuroinflammation in Acute Ischemic Stroke.",
+      "url": "https://doi.org/10.1007/s40263-026-01278-9",
+      "source": "PubMed — CNS drugs",
+      "one_liner": "Acute ischemic stroke (AIS) poses a substantial risk of permanent disability and death globally, with neuroinflammation being a key driver of secondary brain damage post-stroke. Proprotein convertase subtilisin/kexin type 9 (PCSK9), beyond its well-accepted role in cholesterol metabolism through low-density lipoprotein receptor (LDLR) degradation, has eme...",
       "segment": 19,
-      "timestamp": 1386.52
+      "timestamp": 2508.36
     },
     {
-      "title": "Zscan4 enables the formation of the Z compartment",
-      "url": "https://www.nature.com/articles/s41594-026-01764-0",
-      "source": "Nature Structural & Molecular Biology",
-      "one_liner": "Nature Structural & Molecular Biology, Published online: 26 February 2026; doi:10.1038/s41594-026-01764-0 The chromatin environment constitutes a mutable and tunable timer of early development that dictates timely and fine-tuned expression of certain transcriptional programs. In a ...",
+      "title": "Preclinical Evaluation of AHT-102, a CLDN18.2 × CD3 Bispecific Antibody: Pharmacokinetics, Anti-Tumor Efficacy, Tissue Distribution, and Safety Profile.",
+      "url": "https://doi.org/10.1007/s40268-026-00535-y",
+      "source": "PubMed — Drugs in R&D",
+      "one_liner": "BACKGROUND AND OBJECTIVES: Claudin18.2 (CLDN18.2) is a promising therapeutic target overexpressed in various tumor tissues. While CD3-engaging bispecific antibodies show great potential, their clinical application is often limited by poor efficacy in solid tumors and significant safety risks, such as cytokine release syndrome (CRS). The objective of this ...",
       "segment": 20,
-      "timestamp": 1567.66
+      "timestamp": 2641.92
     },
     {
-      "title": "Author Correction: Structure and mechanism of antiphage retron Eco2",
-      "url": "https://www.nature.com/articles/s41594-026-01775-x",
-      "source": "Nature Structural & Molecular Biology",
-      "one_liner": "Nature Structural & Molecular Biology, Published online: 25 February 2026; doi:10.1038/s41594-026-01775-x Author Correction: Structure and mechanism of antiphage retron Eco2",
+      "title": "Leptospira interrogans HtrA protease is a potent inducer of multifaceted cellular responses.",
+      "url": "https://doi.org/10.1007/s10482-026-02270-5",
+      "source": "PubMed — Antonie van Leeuwenhoek",
+      "one_liner": "Leptospirosis, a bacterial zoonosis caused by select pathogenic spirochetes belonging to the genus Leptospira, can trigger a systemic inflammatory response syndrome due to a cytokine storm that can occur during infection. However, the molecular mechanisms underlying the extensive inflammatory responses during leptospiral infection remain poorly understood...",
       "segment": 21,
-      "timestamp": 1726.25
+      "timestamp": 2750.19
     },
     {
-      "title": "Author Correction: Structural basis for translational control by the human 48S initiation complex",
-      "url": "https://www.nature.com/articles/s41594-026-01777-9",
-      "source": "Nature Structural & Molecular Biology",
-      "one_liner": "Nature Structural & Molecular Biology, Published online: 26 February 2026; doi:10.1038/s41594-026-01777-9 Author Correction: Structural basis for translational control by the human 48S initiation complex",
+      "title": "Structure-based drug discovery targeting",
+      "url": "https://doi.org/10.1515/znc-2025-0274",
+      "source": "PubMed — Zeitschrift fur Naturforschung. C, Journal of biosciences",
+      "one_liner": "Silver nanoparticles synthesized from *Calliandra harrisii* exhibit antimicrobial activity against *Staphylococcus* species by computationally targeting multidrug resistance mechanisms, specifically through interaction with genes like *spa*, *hld*, *fmhA*, and *lukD*.\n\nMETHOD / APPROACH:\nThe study used an in-silico (computational) approach.",
       "segment": 22,
-      "timestamp": 1775.11
+      "timestamp": 2890.85
     },
     {
-      "title": "A disease model resource reveals core principles of tissue-specific cancer evolution",
-      "url": "https://www.nature.com/articles/s41586-026-10187-2",
-      "source": "Nature (main journal)",
-      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-026-10187-2 The Mouse Cancer Cell line Atlas (MCCA) provides major advances towards a mechanistic understanding of cancer genomes.",
+      "title": "CPE-Pro: A Structure-Sensitive Deep Learning Method for Protein Representation and Origin Evaluation.",
+      "url": "https://doi.org/10.1007/s12539-025-00732-4",
+      "source": "PubMed — Interdisciplinary sciences, computational life sciences",
+      "one_liner": "Protein structures are fundamental to understanding their functions and interactions. With the continuous advancement of protein structure prediction methods, structure databases are rapidly expanding. Identifying the origin of protein structures is crucial for assessing the reliability of experimental resolution and computational prediction methods, as w...",
       "segment": 23,
-      "timestamp": 1820.05
+      "timestamp": 3054.55
     },
     {
-      "title": "Functional dissection of complex trait variants at single-nucleotide resolution",
-      "url": "https://www.nature.com/articles/s41586-026-10121-6",
-      "source": "Nature (main journal)",
-      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-026-10121-6 Massively parallel reporter assays across five cell types identify thousands of causal, noncoding regulatory variants among 220,000 loci, revealing diverse regulatory mechanisms shaping complex traits and disease.",
+      "title": "In silico structural and dynamic stability analysis of an endo-1,4-β-xylanase from Agrobacterium sp. strain DKPNP3, isolated from the gut of Gonocephalum sp.",
+      "url": "https://doi.org/10.1007/s10482-026-02271-4",
+      "source": "PubMed — Antonie van Leeuwenhoek",
+      "one_liner": "Xylanases are one of the most important hydrolytic enzymes involved in plant hemicellulose degradation with potential industrial as well as ecological significance. This study presents a comprehensive characterization of an endo-1,4-β-xylanase enzyme from Agrobacterium sp. Strain DKPNP3 isolated from the beetle gut of Gonocephalum sp. (Coleoptera: Tenebri...",
       "segment": 24,
-      "timestamp": 1984.92
+      "timestamp": 3322.98
     },
     {
-      "title": "Uncovering origins of heterogeneous superconductivity in La<sub>3</sub>Ni<sub>2</sub>O<sub>7</sub>",
-      "url": "https://www.nature.com/articles/s41586-025-10095-x",
-      "source": "Nature (main journal)",
-      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-025-10095-x Wide-field quantum sensing shows μm-scale inhomogeneous superconductivity in high-pressure La3Ni2O7, linking local diamagnetic response to stress and stoichiometry and clarifying mechanisms that suppress or enha...",
+      "title": "Target-stabilized base editors enable robust high-fidelity RNA editing.",
+      "url": "https://doi.org/10.1038/s41467-026-69835-w",
+      "source": "PubMed — Nature communications",
+      "one_liner": "RNA base editing using engineered deaminases represents a powerful tool to correct mutations at the RNA level. However, widespread off-target effects, primarily arising from dissociated free deaminases, remain a significant challenge. Here, we devise the RECODE (RNA editing with conditionally stable and enhanced ADAR1 deaminase variants) system, which emp...",
       "segment": 25,
-      "timestamp": 2138.9
+      "timestamp": 3398.18
     },
     {
-      "title": "Compact deep neural network models of the visual cortex",
-      "url": "https://www.nature.com/articles/s41586-026-10150-1",
-      "source": "Nature (main journal)",
-      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-026-10150-1 Parsimonious deep neural network models can be used for prediction of visual neuron responses.",
+      "title": "Use of Incurred Sample Reproducibility Data to Support Long Term Stability of Therapeutic Antibodies in Clinical Bioanalytical Methods.",
+      "url": "https://doi.org/10.1208/s12249-026-03336-3",
+      "source": "PubMed — AAPS PharmSciTech",
+      "one_liner": "The ICH Guideline M10, adopted by the EMA in July 2022 and implemented in January 2023, recommends that stability testing of quality controls (QCs) should match actual sample analyte concentrations, prompting adjustments in QC levels when samples exceed analytical ranges. Laboratories continue long-term stability (LTS) testing on ultra-high concentration ...",
       "segment": 26,
-      "timestamp": 2265.04
+      "timestamp": 3532.48
     },
     {
-      "title": "CLCC1 promotes hepatic neutral lipid flux and nuclear pore complex assembly",
-      "url": "https://www.nature.com/articles/s41586-025-10064-4",
-      "source": "Nature (main journal)",
-      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-025-10064-4 CRISPR–Cas9 screening identifies CLCC1 as a factor that increases neutral lipid flux to prevent hepatic steatosis and promotes nuclear pore complex assembly by promoting membrane bending and fusion.",
+      "title": "ISGylation prevents autophagic degradation of STING and promotes antitumor immunity in lung cancer.",
+      "url": "https://doi.org/10.1038/s41419-026-08527-1",
+      "source": "PubMed — Cell death & disease",
+      "one_liner": "The STING pathway plays a central role in immune activation; however, STING protein levels decline during the progression of various cancers, including lung cancer, thereby limiting the efficacy of immunotherapies. Our study uncovers a previously unrecognized mechanism whereby ISGylation stabilizes STING by preventing its autophagic degradation, thereby e...",
       "segment": 27,
-      "timestamp": 2428.01
+      "timestamp": 3669.55
     },
     {
-      "title": "A membrane-bound nuclease directly cleaves phage DNA during genome injection",
-      "url": "https://www.nature.com/articles/s41586-026-10207-1",
-      "source": "Nature (main journal)",
-      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-026-10207-1 A widespread bacterial defence system called SNIPE is shown to localize to the cell membrane, where it identifies and cleaves the DNA of infecting phage as it is injected into the bacterial cell.",
+      "title": "Design, synthesis, and experimental evaluation of rupestonic acid derivatives as novel anti-tumor agents guided by network pharmacology and molecular docking.",
+      "url": "https://doi.org/10.1038/s41598-026-39442-2",
+      "source": "PubMed — Scientific reports",
+      "one_liner": "This integrated study elucidates the antitumor potential of Artemisia rupestris L.'s primary bioactive component, rupestonic acid (RA), and advances a superior derivative through a systematic, multi-stage strategy. The investigation commenced with network pharmacology, which predicted RA's polypharmacology mechanism by associating it with 55 potential can...",
       "segment": 28,
-      "timestamp": 2568.77
+      "timestamp": 3714.15
     },
     {
-      "title": "Entanglement-assisted non-local optical interferometry in a quantum network",
-      "url": "https://www.nature.com/articles/s41586-026-10171-w",
-      "source": "Nature (main journal)",
-      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-026-10171-w Entangled quantum memories are used in a quantum network of silicon–vacancy centres in diamond nanocavities to experimentally perform non-local phase measurements.",
+      "title": "NeuroPpred-MSN: A Neuropeptide Prediction Model Based on Multi-feature Fusion and Siamese Networks.",
+      "url": "https://doi.org/10.1007/s12539-025-00730-6",
+      "source": "PubMed — Interdisciplinary sciences, computational life sciences",
+      "one_liner": "The discovery of neuropeptides offers numerous opportunities for identifying novel drugs and targets to treat a variety of diseases. While various computational methods have been proposed, there remains potential for further performance improvement. In this work, we introduce NeuroPpred-MSN, an innovative and efficient neuropeptide prediction model that l...",
       "segment": 29,
-      "timestamp": 2690.27
+      "timestamp": 3859.63
     },
     {
-      "title": "Why an industry career move is a taboo topic in academia",
-      "url": "https://www.nature.com/articles/d41586-026-00158-y",
-      "source": "Nature (main journal)",
-      "one_liner": "Nature, Published online: 26 February 2026; doi:10.1038/d41586-026-00158-y Adam Levy investigates why researchers are sometimes reluctant to disclose their plans to colleagues.",
+      "title": "EMMVEP: An Ensemble Method for Protein Missense Variant Effect Prediction Based on Multi-Source Feature Fusion.",
+      "url": "https://doi.org/10.1007/s12539-025-00812-5",
+      "source": "PubMed — Interdisciplinary sciences, computational life sciences",
+      "one_liner": "Missense mutations are common in the coding genome and can alter protein functions. Distinguishing pathogenic from benign variants remains challenging despite computational advances. In the present work, we introduce EMMVEP, an ensemble-based approach designed for predicting the effects of protein missense mutations. EMMVEP leverages categorical boosting ...",
       "segment": 30,
-      "timestamp": 2809.28
+      "timestamp": 3993.88
     },
     {
-      "title": "Human hippocampal neurogenesis in adulthood, ageing and Alzheimer’s disease",
-      "url": "https://www.nature.com/articles/s41586-026-10169-4",
-      "source": "Nature (main journal)",
-      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-026-10169-4 Mapping of neurogenesis in human hippocampi across ages and different cognitive abilities using multiomic single-cell sequencing reveals distinct signatures between cognitive preservation and decline.",
+      "title": "Structural insight into the assembly and D antigenicity of polio type 1 stabilized virus-like particles.",
+      "url": "https://doi.org/10.1038/s41541-026-01404-0",
+      "source": "PubMed — NPJ vaccines",
+      "one_liner": "The inherent instability of poliovirus capsids presents a formidable challenge for developing next-generation vaccines suitable for a post-eradication world. Here, we address this by engineering a thermally stabilized virus-like particle (sVLP) derived from the poliovirus serotype 1 (PV1) Mahoney-SC7 mutant and elucidating its atomic-level structure. Prod...",
       "segment": 31,
-      "timestamp": 2940.98
+      "timestamp": 4134.36
     },
     {
-      "title": "Mast cell extracellular granules are bioactive condensates assembled by heparin and polyamine",
-      "url": "https://www.nature.com/articles/s41589-026-02165-6",
-      "source": "Nature Chemical Biology",
-      "one_liner": "Nature Chemical Biology, Published online: 27 February 2026; doi:10.1038/s41589-026-02165-6 Mast cells are immune cells that release membraneless mast cell extracellular granules (MCEGs) in response to allergic inflammation and pathogen infection. MCEGs are found to be condensates form...",
+      "title": "Doug Ingram’s uneven legacy at Sarepta; Merck splits human health business, brings in Sanofi exec",
+      "url": "https://endpoints.news/doug-ingrams-uneven-legacy-at-sarepta-merck-splits-human-health-business-brings-in-sanofi-exec/",
+      "source": "Endpoints News",
+      "one_liner": "→ Merck said this week that it would divide its human health business into two groups — an oncology business unit and a specialty, pharma & infectious diseases business unit — suggesting that ...",
       "segment": 32,
-      "timestamp": 3102.52
+      "timestamp": 4219.5
     },
     {
-      "title": "Defining and refining the cysteine redoxome through sulfur chemical biology",
-      "url": "https://www.nature.com/articles/s41589-026-02145-w",
-      "source": "Nature Chemical Biology",
-      "one_liner": "Nature Chemical Biology, Published online: 27 February 2026; doi:10.1038/s41589-026-02145-w This study provides a chemical framework of sulfur, defining the cysteine redoxome, linking thiol reactivity with oxoform kinetics/dynamics to proteome-wide mapping, occupancy and flux, and reve...",
+      "title": "CHMP recommends Moderna's flu-Covid shot and Novartis pill for hives",
+      "url": "https://endpoints.news/chmp-recommends-modernas-flu-covid-shot-and-novartis-pill-for-hives/",
+      "source": "Endpoints News",
+      "one_liner": "The European Medicines Agency’s human medicines committee recommended approving six new medicines, including Moderna's flu-Covid-19 combo vaccine and Novartis' pill for hives.\n\n CHMP gives its recommendations to the European Commission, which has the final say ...",
       "segment": 33,
-      "timestamp": 3262.79
-    },
-    {
-      "title": "Grip it and rip it",
-      "url": "https://www.nature.com/articles/s41589-026-02162-9",
-      "source": "Nature Chemical Biology",
-      "one_liner": "Nature Chemical Biology, Published online: 26 February 2026; doi:10.1038/s41589-026-02162-9 Several models have been proposed to explain chromosome segregation during anaphase. By using chemical optogenetics, a study now identifies antiparallel sliding of central spindle microtubules a...",
-      "segment": 34,
-      "timestamp": 3412.51
-    },
-    {
-      "title": "In This Issue",
-      "url": "https://www.pnas.org/doi/abs/10.1073/iti0826123?af=R",
-      "source": "PNAS",
-      "one_liner": "Proceedings of the National Academy of Sciences, Volume 123, Issue 8, February 2026.",
-      "segment": 35,
-      "timestamp": 3537.09
-    },
-    {
-      "title": "Doug Ingram’s force of will meets its match as Sarepta CEO plans to depart",
-      "url": "https://endpoints.news/doug-ingrams-force-of-will-meets-its-match-as-sarepta-ceo-plans-to-depart/",
-      "source": "Endpoints News",
-      "one_liner": "Doug Ingram’s decision to step down as Sarepta’s CEO by year's end was a shocker, considering his never-say-die reputation.\n\n But after a terrible year and a tanking share price, Sarepta's next leader will have the ...",
-      "segment": 36,
-      "timestamp": 3592.16
-    },
-    {
-      "title": "AtaiBeckley stock drops on Phase 2a data; Disc to refile rare disease drug",
-      "url": "https://endpoints.news/ataibeckley-stock-drops-on-phase-2a-data-disc-to-refile-rare-disease-drug/",
-      "source": "Endpoints News",
-      "one_liner": "Plus, news about Boehringer Ingelheim, Sitryx Therapeutics, Argenx, Palvella Therapeutics, Vir Biotechnology, Larimar Therapeutics, Bristol Myers Squibb and SystImmune:\n\n 📉 AtaiBeckley releases Phase 2a data, stock falls: The company",
-      "segment": 37,
-      "timestamp": 3639.14
-    },
-    {
-      "title": "The Man Who Stole Infinity",
-      "url": "https://www.quantamagazine.org/the-man-who-stole-infinity-20260225/",
-      "source": "Quanta Magazine",
-      "one_liner": "In an 1874 paper, Georg Cantor proved that there are different sizes of infinity and changed math forever. A trove of newly unearthed letters shows that it was also an act of plagiarism. The post The Man Who Stole Infinity first appeared on",
-      "segment": 38,
-      "timestamp": 3682.52
-    },
-    {
-      "title": "Break It To Make It: How Fracturing Sculpts Tissues and Organs",
-      "url": "https://www.quantamagazine.org/break-it-to-make-it-how-fracturing-sculpts-tissues-and-organs-20260227/",
-      "source": "Quanta Magazine",
-      "one_liner": "Growing tissues can crack, break, and dissociate to form structures that can later withstand immense forces. The post Break It To Make It: How Fracturing Sculpts Tissues and Organs first appeared on",
-      "segment": 39,
-      "timestamp": 3831.49
+      "timestamp": 4268.17
     }
   ]
 }
