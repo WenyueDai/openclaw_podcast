@@ -382,14 +382,16 @@ audio {{ width:100%; margin:4px 0 6px; }}
 .abstract li.playing {{ background:rgba(79,143,106,.15); border-left:3px solid var(--accent); }}
 .item-row {{ display:flex; align-items:baseline; gap:6px; }}
 .cb-wrap {{ display:flex; align-items:baseline; gap:5px; cursor:pointer; flex:1; min-width:0; }}
-.star-cb {{ accent-color:var(--accent); width:14px; height:14px; flex-shrink:0; cursor:pointer; }}
+.star-cb {{ accent-color:var(--accent); width:14px; height:14px; flex-shrink:0; cursor:pointer; display:none; }}
+.owner-mode .star-cb {{ display:inline-block; }}
 .num {{ color:var(--muted); font-size:.82rem; font-weight:600; min-width:28px; flex-shrink:0; }}
 .num.seekable {{ color:var(--accent); cursor:pointer; }}
 .num.seekable:hover {{ text-decoration:underline; }}
 .src {{ color:var(--muted); font-size:.85rem; }}
 .summary {{ color:var(--muted); font-size:.87rem; margin-left:48px; display:block; }}
 .tip {{ font-size:.75rem; font-weight:400; color:var(--muted); }}
-.feedback-bar {{ margin-top:10px; padding:10px 12px; background:var(--bg2); border:1px solid var(--line); border-radius:10px; font-size:.88rem; }}
+.feedback-bar {{ margin-top:10px; padding:10px 12px; background:var(--bg2); border:1px solid var(--line); border-radius:10px; font-size:.88rem; display:none; }}
+.owner-mode .feedback-bar {{ display:block; }}
 .feedback-bar button {{ padding:4px 12px; border:1px solid var(--accent); border-radius:6px; background:var(--accent); color:#fff; cursor:pointer; font-size:.85rem; margin-right:8px; }}
 .feedback-bar button.sec {{ background:transparent; color:var(--accent); }}
 #fb-status {{ color:var(--muted); font-size:.82rem; }}
@@ -465,8 +467,6 @@ audio {{ width:100%; margin:4px 0 6px; }}
         <a href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a>
       </div>
     </div>
-    <p class="tip-row">&#128161; Click <strong>[N]</strong> next to any paper to jump the player to that segment &nbsp;·&nbsp; Green border = owner note</p>
-    {body}
     <details class="owner-tools">
       <summary>Owner tools</summary>
       <div class="missed-section">
@@ -496,6 +496,8 @@ audio {{ width:100%; margin:4px 0 6px; }}
         </details>
       </div>
     </details>
+    <p class="tip-row">&#128161; Click <strong>[N]</strong> next to any paper to jump the player to that segment &nbsp;·&nbsp; Green border = owner note</p>
+    {body}
     <div class="feedback-bar">
       <strong>Your selections:</strong>
       <span id="sel-count">0 checked</span> &nbsp;
@@ -569,7 +571,17 @@ function saveSettings() {{
   localStorage.setItem('gh_token', document.getElementById('gh-token-input').value.trim());
   localStorage.setItem('gh_repo', document.getElementById('gh-repo-input').value.trim());
   closeSettings();
+  _updateOwnerUI();
   setStatus('Settings saved.');
+}}
+
+// ── Show/hide owner-only UI based on token presence ───────────────────────
+function _updateOwnerUI() {{
+  if (localStorage.getItem('gh_token')) {{
+    document.body.classList.add('owner-mode');
+  }} else {{
+    document.body.classList.remove('owner-mode');
+  }}
 }}
 
 // ── Save feedback to GitHub ───────────────────────────────────────────────
@@ -679,6 +691,7 @@ document.querySelectorAll('audio[id^="audio-"]').forEach(function(audio) {{
 }});
 
 loadCheckboxes();
+_updateOwnerUI();
 
 // ── My Take notes ─────────────────────────────────────────────────────────
 function renderNoteHtml(text) {{
