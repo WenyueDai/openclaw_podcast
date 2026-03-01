@@ -271,6 +271,16 @@ llm:
   max_output_tokens: 8192
 
 ranking:
+  # Papers whose titles contain any of these are treated as absolute priority
+  # (same tier as tracked author feeds). Use for landmark tools / model families.
+  absolute_title_keywords:
+    - "AlphaFold"
+    - "RoseTTAFold"
+    - "ESMFold"
+    - "RFdiffusion"
+    - "ProteinMPNN"
+    - "structure prediction"
+
   absolute_source_substrings:
     - "david baker"
     - "sergey ovchinnikov"

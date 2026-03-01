@@ -131,6 +131,23 @@ def _absolute_author_priority(it: Dict[str, Any], cfg: Dict[str, Any]) -> int:
     return 1
 
 
+def _absolute_title_priority(it: Dict[str, Any], cfg: Dict[str, Any]) -> int:
+    """
+    0 if the item title contains any absolute_title_keywords, 1 otherwise.
+    Gives landmark papers (AlphaFold, RoseTTAFold, etc.) the same priority
+    tier as tracked author feeds, regardless of source.
+    """
+    r = (cfg.get("ranking") or {}) if isinstance(cfg, dict) else {}
+    kws = r.get("absolute_title_keywords") or []
+    if not kws:
+        return 1
+    hay = _norm(it.get("title") or "")
+    for kw in kws:
+        if _norm(kw) in hay:
+            return 0
+    return 1
+
+
 def _journal_quality_priority(it: Dict[str, Any], cfg: Dict[str, Any]) -> int:
     """
     Lower is better.
@@ -242,11 +259,14 @@ def rank_and_limit(items: List[Dict[str, Any]], cfg: Dict[str, Any]) -> List[Dic
     Input/Output compatible with your current pipeline.
 
     New ranking policy (lower is better):
-    0) ABSOLUTE: key researchers / author feeds (tag 'author' or Google Scholar, etc.)
-    1) Journal/source quality (Nature family, PNAS, etc.)
-    2) Bucket steering (protein/journal/ai_bio before news)
-    3) Fulltext as a small tie-breaker (NOT first)
-    4) Longer extracted text as tie-breaker
+    0) Feedback boost (liked sources / keywords)
+    1) ABSOLUTE: key researchers / author feeds (tag 'author' or Google Scholar, etc.)
+    2) ABSOLUTE: landmark paper titles (AlphaFold, RoseTTAFold, etc.)
+    3) On-topic keywords (topic_boost_keywords)
+    4) Journal/source quality (Nature family, PNAS, etc.)
+    5) Bucket steering (protein/journal/ai_bio before news)
+    6) Fulltext as a small tie-breaker
+    7) Longer extracted text as tie-breaker
     """
     # Limits (keep identical keys / defaults)
     lim = cfg.get("limits", {}) if isinstance(cfg, dict) else {}
@@ -267,12 +287,13 @@ def rank_and_limit(items: List[Dict[str, Any]], cfg: Dict[str, Any]) -> List[Dic
         has_fulltext = 1 if _has_fulltext(it, FULLTEXT_THRESHOLD) else 0
         return (
             _feedback_priority(it, liked_urls, liked_sources, liked_keywords),  # 0) feedback boost
-            _absolute_author_priority(it, cfg),      # 1) absolute researchers
-            _topic_keyword_priority(it, cfg),        # 2) on-topic keywords
-            _journal_quality_priority(it, cfg),      # 3) journal quality
-            _bucket_priority(it),                    # 4) research buckets
-            -has_fulltext,                           # 5) fulltext bonus
-            -extracted_chars,                        # 6) longer text tie-break
+            _absolute_author_priority(it, cfg),      # 1) absolute researchers / author feeds
+            _absolute_title_priority(it, cfg),       # 2) landmark paper titles (AlphaFold etc.)
+            _topic_keyword_priority(it, cfg),        # 3) on-topic keywords
+            _journal_quality_priority(it, cfg),      # 4) journal quality
+            _bucket_priority(it),                    # 5) research buckets
+            -has_fulltext,                           # 6) fulltext bonus
+            -extracted_chars,                        # 7) longer text tie-break
         )
 
     ranked = sorted(items, key=rank_key)
