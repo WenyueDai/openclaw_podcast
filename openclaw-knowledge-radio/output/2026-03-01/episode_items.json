@@ -1,0 +1,366 @@
+{
+  "timestamps": [
+    0.0,
+    121.02,
+    219.74,
+    336.01,
+    476.15,
+    605.05,
+    648.56,
+    695.82,
+    754.4,
+    811.01,
+    859.53,
+    922.49,
+    975.22,
+    1025.86,
+    1081.34,
+    1113.53,
+    1150.87,
+    1186.97,
+    1239.96,
+    1386.52,
+    1567.66,
+    1726.25,
+    1775.11,
+    1820.05,
+    1984.92,
+    2138.9,
+    2265.04,
+    2428.01,
+    2568.77,
+    2690.27,
+    2809.28,
+    2940.98,
+    3102.52,
+    3262.79,
+    3412.51,
+    3537.09,
+    3592.16,
+    3639.14,
+    3682.52,
+    3831.49
+  ],
+  "items": [
+    {
+      "title": "Protein engineering fixes a major crop trade-off",
+      "url": "https://www.nature.com/articles/d41586-026-00293-6",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/d41586-026-00293-6 Rational design of a regulatory protein decouples the ability to tolerate cold from the means to acquire phosphorus, effectively enhancing crop yield under cold stress.",
+      "segment": 0,
+      "timestamp": 0.0
+    },
+    {
+      "title": "Identification and engineering of highly functional potyviral proteases in cells using co-evolutionary models",
+      "url": "https://www.nature.com/articles/s41467-026-69961-5",
+      "source": "Nature - Protein Engineering",
+      "one_liner": "",
+      "segment": 1,
+      "timestamp": 121.02
+    },
+    {
+      "title": "IQSPred-PLM: An Interpretable Quorum Sensing Peptides Prediction Model Based on Protein Language Model.",
+      "url": "https://doi.org/10.1007/s12539-025-00766-8",
+      "source": "PubMed — Interdisciplinary sciences, computational life sciences",
+      "one_liner": "Quorum sensing regulates cooperative behaviors in bacteria through the accumulation and detection of signaling molecules. This process plays a crucial role in various biological functions, including biofilm formation, antibiotic production, regulation of virulence factors, and immune modulation. Quorum sensing peptides (QSPs), primarily produced by Gram-p...",
+      "segment": 2,
+      "timestamp": 219.74
+    },
+    {
+      "title": "BioStruct-Africa's scalable framework for AlphaFold-enabled research training and sustainable workforce development in Africa.",
+      "url": "https://doi.org/10.1038/s42003-026-09711-x",
+      "source": "PubMed — Communications biology",
+      "one_liner": "Artificial intelligence is rapidly transforming structural biology and accelerating access to protein structures, yet many Africa-based scientists still lack infrastructure, training opportunities, and sustained mentorship to fully benefit. Here, we describe BioStruct-Africa’s community-driven framework integrating AlphaFold, experimental structural biolo...",
+      "segment": 3,
+      "timestamp": 336.01
+    },
+    {
+      "title": "BEST: Basic Embedding Search Tool Enhancing Discovery of Novel Enzyme.",
+      "url": "https://doi.org/10.1007/s12539-025-00753-z",
+      "source": "PubMed — Interdisciplinary sciences, computational life sciences",
+      "one_liner": "The identification of protein homologs in large databases is critical for biological advancements. Traditional methods, such as protein sequence alignment, often miss remote homologs. To address this limitation, we present the Basic Embedding Search Tool (BEST), a fast and sensitive approach that employs protein language models to create sequence embeddin...",
+      "segment": 4,
+      "timestamp": 476.15
+    },
+    {
+      "title": "Energy-driven innovations in computational de novo protein engineering.",
+      "url": "https://doi.org/10.1016/j.pbiomolbio.2026.01.005",
+      "source": "PubMed — Progress in biophysics and molecular biology",
+      "one_liner": "Energy models play a crucial role in the advancement of computational de novo protein engineering, enabling the design of novel proteins with tailored functionalities. Proteins serve as the foundation of biochemical processes, making their precise engineering essential for applications in biotechnology, medicine, and synthetic biology. Unlike traditional ...",
+      "segment": 5,
+      "timestamp": 605.05
+    },
+    {
+      "title": "De novo engineering of protein interactions: Retrospective and current advances.",
+      "url": "https://doi.org/10.1016/j.sbi.2026.103240",
+      "source": "PubMed — Current opinion in structural biology",
+      "one_liner": "New deep learning-based methods for modeling and generation of protein structures have opened a new chapter in the field of protein design, transforming many previously unattainable challenges into routine tasks. Protein-binder design, an important and challenging task in protein engineering, has also experienced significant progress, promising to provide...",
+      "segment": 6,
+      "timestamp": 648.56
+    },
+    {
+      "title": "Geometric deep learning assists protein engineering. Opportunities and Challenges.",
+      "url": "https://doi.org/10.1016/j.biotechadv.2025.108790",
+      "source": "PubMed — Biotechnology advances",
+      "one_liner": "Protein engineering is experiencing a paradigmatic transformation through the integration of geometric deep learning (GDL) into computational design workflows. While traditional approaches such as rational design and directed evolution have achieved significant progress, they remain constrained by the vastness of sequence space and the cost of experimenta...",
+      "segment": 7,
+      "timestamp": 695.82
+    },
+    {
+      "title": "From traditional to AI-driven: The evolution of intelligent enzyme engineering for biocatalysis.",
+      "url": "https://doi.org/10.1016/j.biotechadv.2025.108788",
+      "source": "PubMed — Biotechnology advances",
+      "one_liner": "Enzyme engineering involves enhancing enzyme function and application through multidimensional technological systems. Its development encompasses elucidating sequence-structure-function relationships, exploring fitness landscapes, and multiscale regulation. Conventional enzyme engineering strategies include directed evolution (DE), rational/semi-rational ...",
+      "segment": 8,
+      "timestamp": 754.4
+    },
+    {
+      "title": "CNNCaps-DBP: Leveraging protein language models with attention-augmented convolution for DNA-binding protein prediction.",
+      "url": "https://doi.org/10.1016/j.neunet.2025.108261",
+      "source": "PubMed — Neural networks : the official journal of the International Neural Network Society",
+      "one_liner": "DNA-binding proteins (DBPs) are fundamental to many key cellular processes, possessing distinct binding domains, differential affinities for single- and double-stranded DNA structures, and playing roles in fundamental biological functions such as DNA replication and gene regulation. They are intimately linked to the pathological mechanisms of diseases lik...",
+      "segment": 9,
+      "timestamp": 811.01
+    },
+    {
+      "title": "Design, engineering, and functional evaluation of nanobody-based anti-CD73 for immunogenic cell death induction in chemoresistant colorectal Cancer cell line.",
+      "url": "https://doi.org/10.1016/j.intimp.2026.116174",
+      "source": "PubMed — International immunopharmacology",
+      "one_liner": "BACKGROUND: CD73 is a key immunosuppressive ectoenzyme overexpressed in colorectal cancer (CRC), facilitating tumor immune evasion by generating adenosine. While monoclonal antibodies have shown promise, their limited tissue penetration restricts efficacy. Nanobodies, due to their small size and high stability, provide a novel therapeutic platform. This s...",
+      "segment": 10,
+      "timestamp": 859.53
+    },
+    {
+      "title": "Unveiling the regio- and stereo-selectivity in situ primary amination of allylic and benzylic C(sp",
+      "url": "https://doi.org/10.1016/j.jinorgbio.2025.113184",
+      "source": "PubMed — Journal of inorganic biochemistry",
+      "one_liner": "Directed evolution of heme enzymes for the catalytic construction of benzylic C(sp",
+      "segment": 11,
+      "timestamp": 922.49
+    },
+    {
+      "title": "Protein Language Model Embeddings Distinguish Catalytic from Structural Zinc-Binding Sites with Interpretable Attention Signatures.",
+      "url": "https://doi.org/10.1021/acs.jcim.5c03142",
+      "source": "PubMed — Journal of chemical information and modeling",
+      "one_liner": "Zinc ions serve dual roles in proteins: as catalytic cofactors and as structural elements. Distinguishing these functional classes from sequence alone remains challenging, because both share similar coordination geometries. Here, we demonstrate that ESM-2 embeddings encode sufficient information to classify catalytic versus structural zinc sites with high...",
+      "segment": 12,
+      "timestamp": 975.22
+    },
+    {
+      "title": "SOPE-MsL: Synergy-Optimized Protein Language Model Embeddings with Multiscale Learning for Interpretable Protein-Small-Molecule Binding-Site Prediction.",
+      "url": "https://doi.org/10.1021/acs.jcim.5c02619",
+      "source": "PubMed — Journal of chemical information and modeling",
+      "one_liner": "Protein-small-molecule interactions are fundamental to cellular regulation and represent critical targets for therapeutic intervention. Accurate identification of binding residues is essential for elucidating molecular recognition mechanisms and guiding the rational drug design. Experimental approaches, however, are often costly, time-consuming, and limit...",
+      "segment": 13,
+      "timestamp": 1025.86
+    },
+    {
+      "title": "A survey of downstream applications of evolutionary scale modeling protein language models.",
+      "url": "https://doi.org/10.1002/qub2.70013",
+      "source": "PubMed — Quantitative biology (Beijing, China)",
+      "one_liner": "The evolutionary scale modeling (ESM) series is promising to revolutionize protein science and engineering through large language models (LLMs), providing a robust framework for understanding the relationships among sequences, structures, and functions of proteins. Trained on a large number of unlabeled protein sequences, ESM models are able to capture in...",
+      "segment": 14,
+      "timestamp": 1081.34
+    },
+    {
+      "title": "Inferring context-specific site variation with evotuned protein language models.",
+      "url": "https://doi.org/10.1093/nargab/lqag018",
+      "source": "PubMed — NAR genomics and bioinformatics",
+      "one_liner": "Multiple sequence alignments (MSAs) have been traditionally used for making inferences about site-specific diversity in proteins. Recent advancements in the field of artificial intelligence have highlighted the potential of protein language models (pLMs) to capture similar protein properties. Unlike MSAs, pLMs can make inferences from single sequences, wi...",
+      "segment": 15,
+      "timestamp": 1113.53
+    },
+    {
+      "title": "Crystal Structure of Měnglà Virus Nucleoprotein Bound by a Poorly Cross-Reactive Anti-Marburg Virus Nanobody Highlights a Single Amino Acid Affinity Switch, a Feature Also Evident in Dehong Virus.",
+      "url": "https://doi.org/10.1021/acsinfecdis.5c00920",
+      "source": "PubMed — ACS infectious diseases",
+      "one_liner": "Although Marburg and Měnglà viruses occupy different geographies and genera of the family",
+      "segment": 16,
+      "timestamp": 1150.87
+    },
+    {
+      "title": "Mechanistic Insights into Nanobody-Based Quenchbody Sensing via Structural Modeling and Molecular Simulations.",
+      "url": "https://doi.org/10.1021/acs.jcim.5c02969",
+      "source": "PubMed — Journal of chemical information and modeling",
+      "one_liner": "Nanobody-based quenchbodies are powerful fluorescent sensors for detecting biomolecular targets. They rely on tryptophan residues in the antigen-binding site that can quench (darken) a fluorophore attached via a flexible linker; antigen binding displaces the fluorophore and increases the fluorescence. Quenchbodies targeting interleukin-6 (IL-6) exhibit va...",
+      "segment": 17,
+      "timestamp": 1186.97
+    },
+    {
+      "title": "Transposable element–gene chimera cartography, origination and role in enhancing transcriptome plasticity",
+      "url": "https://www.nature.com/articles/s41594-026-01757-z",
+      "source": "Nature Structural & Molecular Biology",
+      "one_liner": "Nature Structural & Molecular Biology, Published online: 25 February 2026; doi:10.1038/s41594-026-01757-z Leveraging long-read RNA sequencing and multiomics analyses, Cheon and Alvstad et al. systematically map transposable element (TE)-derived isoforms across species and cell stat...",
+      "segment": 18,
+      "timestamp": 1239.96
+    },
+    {
+      "title": "Stress adaptation of mitochondrial protein import by OMA1-mediated degradation of DNAJC15",
+      "url": "https://www.nature.com/articles/s41594-026-01756-0",
+      "source": "Nature Structural & Molecular Biology",
+      "one_liner": "Nature Structural & Molecular Biology, Published online: 27 February 2026; doi:10.1038/s41594-026-01756-0 Kroczek et al show that degradation of DNAJC15 by OMA1 and AFG3L2 under stress limits mitochondrial protein import and OXPHOS biogenesis. Non-imported proteins lead to the indu...",
+      "segment": 19,
+      "timestamp": 1386.52
+    },
+    {
+      "title": "Zscan4 enables the formation of the Z compartment",
+      "url": "https://www.nature.com/articles/s41594-026-01764-0",
+      "source": "Nature Structural & Molecular Biology",
+      "one_liner": "Nature Structural & Molecular Biology, Published online: 26 February 2026; doi:10.1038/s41594-026-01764-0 The chromatin environment constitutes a mutable and tunable timer of early development that dictates timely and fine-tuned expression of certain transcriptional programs. In a ...",
+      "segment": 20,
+      "timestamp": 1567.66
+    },
+    {
+      "title": "Author Correction: Structure and mechanism of antiphage retron Eco2",
+      "url": "https://www.nature.com/articles/s41594-026-01775-x",
+      "source": "Nature Structural & Molecular Biology",
+      "one_liner": "Nature Structural & Molecular Biology, Published online: 25 February 2026; doi:10.1038/s41594-026-01775-x Author Correction: Structure and mechanism of antiphage retron Eco2",
+      "segment": 21,
+      "timestamp": 1726.25
+    },
+    {
+      "title": "Author Correction: Structural basis for translational control by the human 48S initiation complex",
+      "url": "https://www.nature.com/articles/s41594-026-01777-9",
+      "source": "Nature Structural & Molecular Biology",
+      "one_liner": "Nature Structural & Molecular Biology, Published online: 26 February 2026; doi:10.1038/s41594-026-01777-9 Author Correction: Structural basis for translational control by the human 48S initiation complex",
+      "segment": 22,
+      "timestamp": 1775.11
+    },
+    {
+      "title": "A disease model resource reveals core principles of tissue-specific cancer evolution",
+      "url": "https://www.nature.com/articles/s41586-026-10187-2",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-026-10187-2 The Mouse Cancer Cell line Atlas (MCCA) provides major advances towards a mechanistic understanding of cancer genomes.",
+      "segment": 23,
+      "timestamp": 1820.05
+    },
+    {
+      "title": "Functional dissection of complex trait variants at single-nucleotide resolution",
+      "url": "https://www.nature.com/articles/s41586-026-10121-6",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-026-10121-6 Massively parallel reporter assays across five cell types identify thousands of causal, noncoding regulatory variants among 220,000 loci, revealing diverse regulatory mechanisms shaping complex traits and disease.",
+      "segment": 24,
+      "timestamp": 1984.92
+    },
+    {
+      "title": "Uncovering origins of heterogeneous superconductivity in La<sub>3</sub>Ni<sub>2</sub>O<sub>7</sub>",
+      "url": "https://www.nature.com/articles/s41586-025-10095-x",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-025-10095-x Wide-field quantum sensing shows μm-scale inhomogeneous superconductivity in high-pressure La3Ni2O7, linking local diamagnetic response to stress and stoichiometry and clarifying mechanisms that suppress or enha...",
+      "segment": 25,
+      "timestamp": 2138.9
+    },
+    {
+      "title": "Compact deep neural network models of the visual cortex",
+      "url": "https://www.nature.com/articles/s41586-026-10150-1",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-026-10150-1 Parsimonious deep neural network models can be used for prediction of visual neuron responses.",
+      "segment": 26,
+      "timestamp": 2265.04
+    },
+    {
+      "title": "CLCC1 promotes hepatic neutral lipid flux and nuclear pore complex assembly",
+      "url": "https://www.nature.com/articles/s41586-025-10064-4",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-025-10064-4 CRISPR–Cas9 screening identifies CLCC1 as a factor that increases neutral lipid flux to prevent hepatic steatosis and promotes nuclear pore complex assembly by promoting membrane bending and fusion.",
+      "segment": 27,
+      "timestamp": 2428.01
+    },
+    {
+      "title": "A membrane-bound nuclease directly cleaves phage DNA during genome injection",
+      "url": "https://www.nature.com/articles/s41586-026-10207-1",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-026-10207-1 A widespread bacterial defence system called SNIPE is shown to localize to the cell membrane, where it identifies and cleaves the DNA of infecting phage as it is injected into the bacterial cell.",
+      "segment": 28,
+      "timestamp": 2568.77
+    },
+    {
+      "title": "Entanglement-assisted non-local optical interferometry in a quantum network",
+      "url": "https://www.nature.com/articles/s41586-026-10171-w",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-026-10171-w Entangled quantum memories are used in a quantum network of silicon–vacancy centres in diamond nanocavities to experimentally perform non-local phase measurements.",
+      "segment": 29,
+      "timestamp": 2690.27
+    },
+    {
+      "title": "Why an industry career move is a taboo topic in academia",
+      "url": "https://www.nature.com/articles/d41586-026-00158-y",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 26 February 2026; doi:10.1038/d41586-026-00158-y Adam Levy investigates why researchers are sometimes reluctant to disclose their plans to colleagues.",
+      "segment": 30,
+      "timestamp": 2809.28
+    },
+    {
+      "title": "Human hippocampal neurogenesis in adulthood, ageing and Alzheimer’s disease",
+      "url": "https://www.nature.com/articles/s41586-026-10169-4",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 25 February 2026; doi:10.1038/s41586-026-10169-4 Mapping of neurogenesis in human hippocampi across ages and different cognitive abilities using multiomic single-cell sequencing reveals distinct signatures between cognitive preservation and decline.",
+      "segment": 31,
+      "timestamp": 2940.98
+    },
+    {
+      "title": "Mast cell extracellular granules are bioactive condensates assembled by heparin and polyamine",
+      "url": "https://www.nature.com/articles/s41589-026-02165-6",
+      "source": "Nature Chemical Biology",
+      "one_liner": "Nature Chemical Biology, Published online: 27 February 2026; doi:10.1038/s41589-026-02165-6 Mast cells are immune cells that release membraneless mast cell extracellular granules (MCEGs) in response to allergic inflammation and pathogen infection. MCEGs are found to be condensates form...",
+      "segment": 32,
+      "timestamp": 3102.52
+    },
+    {
+      "title": "Defining and refining the cysteine redoxome through sulfur chemical biology",
+      "url": "https://www.nature.com/articles/s41589-026-02145-w",
+      "source": "Nature Chemical Biology",
+      "one_liner": "Nature Chemical Biology, Published online: 27 February 2026; doi:10.1038/s41589-026-02145-w This study provides a chemical framework of sulfur, defining the cysteine redoxome, linking thiol reactivity with oxoform kinetics/dynamics to proteome-wide mapping, occupancy and flux, and reve...",
+      "segment": 33,
+      "timestamp": 3262.79
+    },
+    {
+      "title": "Grip it and rip it",
+      "url": "https://www.nature.com/articles/s41589-026-02162-9",
+      "source": "Nature Chemical Biology",
+      "one_liner": "Nature Chemical Biology, Published online: 26 February 2026; doi:10.1038/s41589-026-02162-9 Several models have been proposed to explain chromosome segregation during anaphase. By using chemical optogenetics, a study now identifies antiparallel sliding of central spindle microtubules a...",
+      "segment": 34,
+      "timestamp": 3412.51
+    },
+    {
+      "title": "In This Issue",
+      "url": "https://www.pnas.org/doi/abs/10.1073/iti0826123?af=R",
+      "source": "PNAS",
+      "one_liner": "Proceedings of the National Academy of Sciences, Volume 123, Issue 8, February 2026.",
+      "segment": 35,
+      "timestamp": 3537.09
+    },
+    {
+      "title": "Doug Ingram’s force of will meets its match as Sarepta CEO plans to depart",
+      "url": "https://endpoints.news/doug-ingrams-force-of-will-meets-its-match-as-sarepta-ceo-plans-to-depart/",
+      "source": "Endpoints News",
+      "one_liner": "Doug Ingram’s decision to step down as Sarepta’s CEO by year's end was a shocker, considering his never-say-die reputation.\n\n But after a terrible year and a tanking share price, Sarepta's next leader will have the ...",
+      "segment": 36,
+      "timestamp": 3592.16
+    },
+    {
+      "title": "AtaiBeckley stock drops on Phase 2a data; Disc to refile rare disease drug",
+      "url": "https://endpoints.news/ataibeckley-stock-drops-on-phase-2a-data-disc-to-refile-rare-disease-drug/",
+      "source": "Endpoints News",
+      "one_liner": "Plus, news about Boehringer Ingelheim, Sitryx Therapeutics, Argenx, Palvella Therapeutics, Vir Biotechnology, Larimar Therapeutics, Bristol Myers Squibb and SystImmune:\n\n 📉 AtaiBeckley releases Phase 2a data, stock falls: The company",
+      "segment": 37,
+      "timestamp": 3639.14
+    },
+    {
+      "title": "The Man Who Stole Infinity",
+      "url": "https://www.quantamagazine.org/the-man-who-stole-infinity-20260225/",
+      "source": "Quanta Magazine",
+      "one_liner": "In an 1874 paper, Georg Cantor proved that there are different sizes of infinity and changed math forever. A trove of newly unearthed letters shows that it was also an act of plagiarism. The post The Man Who Stole Infinity first appeared on",
+      "segment": 38,
+      "timestamp": 3682.52
+    },
+    {
+      "title": "Break It To Make It: How Fracturing Sculpts Tissues and Organs",
+      "url": "https://www.quantamagazine.org/break-it-to-make-it-how-fracturing-sculpts-tissues-and-organs-20260227/",
+      "source": "Quanta Magazine",
+      "one_liner": "Growing tissues can crack, break, and dissociate to form structures that can later withstand immense forces. The post Break It To Make It: How Fracturing Sculpts Tissues and Organs first appeared on",
+      "segment": 39,
+      "timestamp": 3831.49
+    }
+  ]
+}
