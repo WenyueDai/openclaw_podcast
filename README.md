@@ -122,9 +122,9 @@ Each paper number `[N]` on the site is a `<span>` with `onclick="seekTo(this, ev
 **6b. Submitting a missed paper** (open to all visitors)
 Any visitor can submit a paper title (and optional URL) using the form at the top of the page. The JS:
 1. Checks the title against a protein-design keyword list — off-topic papers are rejected client-side
-2. Enforces a rate limit of **5 submissions per day** per browser (stored in `localStorage`) — bypassed for the site owner
-3. Calls `GET /contents/state/missed_papers.json` to fetch + SHA (using a baked deploy token, or the owner's token if logged in)
-4. Checks for duplicate titles (case-insensitive) to avoid double submissions
+2. Checks for duplicate titles (case-insensitive) to avoid double submissions
+3. Applies a **courtesy limit of 5 submissions per browser session per day** — stored in `localStorage`, so it is trivially bypassable (incognito window, different browser, clearing storage). This is a nudge against accidental spam, not real enforcement. True rate limiting would require a backend, which this static site does not have.
+4. Calls `GET /contents/state/missed_papers.json` to fetch + SHA (using a baked deploy token, or the owner's token if logged in)
 5. Appends the entry and calls `PUT` to commit it — triggering the `process_missed.yml` workflow
 
 The page immediately shows a **"pending"** badge next to the submitted paper. The diagnosis badge updates after the Action completes (~2–3 minutes); refresh the page to see it.
