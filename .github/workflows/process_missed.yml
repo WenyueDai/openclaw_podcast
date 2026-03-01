@@ -1,6 +1,7 @@
 name: Process Missed Papers
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
