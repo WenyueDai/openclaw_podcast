@@ -34,11 +34,12 @@ jobs:
 
       - name: Run daily pipeline
         env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          GITHUB_TOKEN:       ${{ secrets.GH_PAT }}
-          SLACK_WEBHOOK_URL:  ${{ secrets.SLACK_WEBHOOK_URL }}
-          NOTION_TOKEN:       ${{ secrets.NOTION_TOKEN }}
-          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+          OPENROUTER_API_KEY:   ${{ secrets.OPENROUTER_API_KEY }}
+          GITHUB_TOKEN:         ${{ secrets.GH_PAT }}
+          SLACK_WEBHOOK_URL:    ${{ secrets.SLACK_WEBHOOK_URL }}
+          NOTION_TOKEN:         ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID:   ${{ secrets.NOTION_DATABASE_ID }}
+          MISSED_SUBMIT_TOKEN:  ${{ secrets.MISSED_SUBMIT_TOKEN }}
         run: python run_daily.py
 
       - name: Process missed papers

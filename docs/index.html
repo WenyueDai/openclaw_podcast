@@ -92,7 +92,9 @@ audio { width:100%; margin:4px 0 6px; }
 .missed-form { display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-bottom:12px; }
 .missed-form input { flex:1; min-width:180px; padding:6px 10px; border:1px solid var(--line); border-radius:7px; font-size:.88rem; background:var(--card); color:var(--text); }
 .missed-form button { padding:6px 14px; background:var(--accent); color:#fff; border:1px solid var(--accent); border-radius:7px; cursor:pointer; font-size:.85rem; }
-#missed-status { font-size:.82rem; color:var(--muted); width:100%; }
+#missed-status { font-size:.85rem; width:100%; }
+#missed-status.ok  { color:#22863a; }
+#missed-status.err { color:#d73a49; font-weight:500; }
 .missed-item { display:flex; align-items:flex-start; gap:8px; padding:7px 4px; border-bottom:1px solid var(--line); font-size:.86rem; }
 .missed-item:last-child { border-bottom:none; }
 .missed-item-title { flex:1; color:var(--text); }
@@ -533,6 +535,11 @@ async function loadMissedPapers() {
   } catch(e) {}
 }
 
+function _setStatus(el, msg, isErr) {
+  el.textContent = msg;
+  el.className = isErr ? 'err' : 'ok';
+}
+
 async function submitMissedPaper() {
   var token = localStorage.getItem('gh_token') || _missedSubmitToken || '';
   var repo  = localStorage.getItem('gh_repo')  || 'WenyueDai/openclaw_podcast';
@@ -544,10 +551,10 @@ async function submitMissedPaper() {
   var url   = (urlEl.value || '').trim();
 
   if (!token) {
-    status.textContent = 'Submission not available (deploy token not configured). Contact the site owner.';
+    _setStatus(status, 'Submissions are not enabled yet — the site owner needs to configure a submit token.', true);
     return;
   }
-  if (!title) { status.textContent = 'Please enter a paper title.'; return; }
+  if (!title) { _setStatus(status, 'Please enter a paper title.', true); return; }
 
   var path = 'openclaw-knowledge-radio/state/missed_papers.json';
   var apiBase = 'https://api.github.com/repos/' + repo;
@@ -558,7 +565,7 @@ async function submitMissedPaper() {
     'Content-Type': 'application/json',
   };
 
-  status.textContent = 'Saving…';
+  _setStatus(status, 'Saving…', false);
   try {
     var existing = [], sha = null;
     var get = await fetch(apiBase + '/contents/' + path, {headers: headers});
@@ -575,7 +582,7 @@ async function submitMissedPaper() {
       var _today = new Date().toISOString().slice(0, 10);
       var _todayCount = existing.filter(function(e) { return e.date_submitted === _today; }).length;
       if (_todayCount >= 10) {
-        status.textContent = 'Daily limit reached (10 submissions per day). Please try again tomorrow.';
+        _setStatus(status, 'Daily limit reached (10 submissions/day). Please try again tomorrow.', true);
         return;
       }
     }
@@ -584,7 +591,7 @@ async function submitMissedPaper() {
     var titleLower = title.toLowerCase();
     for (var i = 0; i < existing.length; i++) {
       if ((existing[i].title || '').toLowerCase() === titleLower) {
-        status.textContent = 'Already submitted.';
+        _setStatus(status, 'Already submitted — thanks!', false);
         return;
       }
     }
@@ -610,15 +617,15 @@ async function submitMissedPaper() {
       method: 'PUT', headers: headers, body: JSON.stringify(body)
     });
     if (put.ok) {
-      status.textContent = '✓ Submitted! Diagnosis will appear after tomorrow's 05:00 UTC run.';
+      _setStatus(status, '✓ Submitted! Diagnosis will appear after the next 05:00 UTC daily run.', false);
       titleEl.value = '';
       urlEl.value = '';
       _renderMissedList(existing);
     } else {
       var err = await put.json();
-      status.textContent = 'Error: ' + (err.message || put.status);
+      _setStatus(status, 'Error: ' + (err.message || put.status), true);
     }
-  } catch(e) { status.textContent = 'Error: ' + e.message; }
+  } catch(e) { _setStatus(status, 'Error: ' + e.message, true); }
 }
 
 loadMissedPapers();
