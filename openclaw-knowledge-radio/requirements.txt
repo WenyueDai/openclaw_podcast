@@ -9,3 +9,4 @@ gTTS==2.5.4
 newspaper4k
 beautifulsoup4
 lxml
+mutagen

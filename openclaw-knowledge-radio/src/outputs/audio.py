@@ -38,10 +38,16 @@ def _build_transition_sfx(out_dir: Path) -> Path:
 
 
 def _ffprobe_duration_seconds(mp3_path: Path) -> float:
-    # ffprobe 输出时长（秒）
+    """Frame-accurate MP3 duration using mutagen (reads Xing header or counts frames).
+    Falls back to ffprobe bitrate estimate if mutagen is unavailable."""
+    try:
+        from mutagen.mp3 import MP3
+        return MP3(str(mp3_path)).info.length
+    except Exception:
+        pass
+    # ffprobe fallback
     cmd = [
-        "ffprobe",
-        "-v", "error",
+        "ffprobe", "-v", "error",
         "-show_entries", "format=duration",
         "-of", "default=noprint_wrappers=1:nokey=1",
         str(mp3_path),
