@@ -484,6 +484,10 @@ loadNotes();
 // ── Missed papers ──────────────────────────────────────────────────────────
 var _bakedMissedPapers = [];
 var _missedSubmitToken = '';
+var _tokenReady = fetch('submit_config.json')
+  .then(function(r){ return r.ok ? r.json() : {}; })
+  .then(function(cfg){ if(cfg.token) _missedSubmitToken = cfg.token; })
+  .catch(function(){});
 
 function _diagLabel(entry) {
   var d = entry.diagnosis;
@@ -541,6 +545,7 @@ function _setStatus(el, msg, isErr) {
 }
 
 async function submitMissedPaper() {
+  await _tokenReady;
   var token = localStorage.getItem('gh_token') || _missedSubmitToken || '';
   var repo  = localStorage.getItem('gh_repo')  || 'WenyueDai/openclaw_podcast';
 

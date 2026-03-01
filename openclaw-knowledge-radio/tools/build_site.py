@@ -326,7 +326,6 @@ def render_index(episodes, all_episodes=None):
     )
 
     missed_json = json.dumps(missed_papers, ensure_ascii=False)
-    missed_submit_token = os.environ.get("MISSED_SUBMIT_TOKEN", "")
 
     return f"""<!doctype html>
 <html>
@@ -793,7 +792,11 @@ loadNotes();
 
 // ── Missed papers ──────────────────────────────────────────────────────────
 var _bakedMissedPapers = {missed_json};
-var _missedSubmitToken = '{html.escape(missed_submit_token)}';
+var _missedSubmitToken = '';
+var _tokenReady = fetch('submit_config.json')
+  .then(function(r){{ return r.ok ? r.json() : {{}}; }})
+  .then(function(cfg){{ if(cfg.token) _missedSubmitToken = cfg.token; }})
+  .catch(function(){{}});
 
 function _diagLabel(entry) {{
   var d = entry.diagnosis;
@@ -851,6 +854,7 @@ function _setStatus(el, msg, isErr) {{
 }}
 
 async function submitMissedPaper() {{
+  await _tokenReady;
   var token = localStorage.getItem('gh_token') || _missedSubmitToken || '';
   var repo  = localStorage.getItem('gh_repo')  || '{html.escape("WenyueDai/openclaw_podcast")}';
 

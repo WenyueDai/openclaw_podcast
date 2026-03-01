@@ -5,15 +5,11 @@ on:
   push:
     branches: [main]
     paths:
-      - 'openclaw-knowledge-radio/tools/build_site.py'
       - '.github/workflows/rebuild_site.yml'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: openclaw-knowledge-radio
 
     steps:
       - name: Checkout repo
@@ -22,26 +18,15 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GH_PAT }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Rebuild site
+      - name: Write submit config
         env:
           MISSED_SUBMIT_TOKEN: ${{ secrets.MISSED_SUBMIT_TOKEN }}
-        run: python tools/build_site.py
+        run: |
+          echo "{\"token\":\"$MISSED_SUBMIT_TOKEN\"}" > docs/submit_config.json
 
       - name: Commit and push
-        working-directory: ${{ github.workspace }}
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-          else
-            git commit -m "Rebuild site [skip ci]"
-            git pull --rebase origin main
-            git push origin main
-          fi
+          git add docs/submit_config.json
+          git diff --cached --quiet && echo "No changes." || (git commit -m "Update submit config [skip ci]" && git push origin main)
