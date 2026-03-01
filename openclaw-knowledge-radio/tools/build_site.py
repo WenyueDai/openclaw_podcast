@@ -435,6 +435,12 @@ audio {{ width:100%; margin:4px 0 6px; }}
 .diag-ranking   {{ background:#f8d7da; color:#721c24; }}
 .diag-pending   {{ background:#e2e3e5; color:#383d41; }}
 .missed-kws {{ font-size:.75rem; color:var(--muted); margin-top:2px; }}
+.diag-guide {{ margin-top:12px; font-size:.83rem; color:var(--muted); }}
+.diag-guide summary {{ cursor:pointer; font-weight:600; color:var(--accent); }}
+.diag-guide dl {{ margin:8px 0 0; display:grid; grid-template-columns:auto 1fr; gap:6px 12px; align-items:start; }}
+.diag-guide dt {{ padding-top:1px; }}
+.diag-guide dd {{ margin:0; color:var(--text); }}
+.diag-guide code {{ font-size:.8rem; background:var(--bg2); padding:1px 5px; border-radius:4px; }}
 </style>
 </head>
 <body>
@@ -477,6 +483,21 @@ audio {{ width:100%; margin:4px 0 6px; }}
         <span id="missed-status"></span>
       </div>
       <div id="missed-list"></div>
+      <details class="diag-guide">
+        <summary>&#128270; Diagnosis guide</summary>
+        <dl>
+          <dt><span class="diag-badge diag-collected">already collected</span></dt>
+          <dd>The pipeline already fetched this URL in a previous episode — it&#39;s in <code>seen_ids.json</code>. Check the episode archive to find it.</dd>
+          <dt><span class="diag-badge diag-excluded">excluded term</span></dt>
+          <dd>The paper title matched a term in <code>excluded_terms</code> in <code>config.yaml</code> (e.g. &ldquo;mouse&rdquo;, &ldquo;single-cell&rdquo;). Remove or narrow the offending term if it&#39;s too aggressive.</dd>
+          <dt><span class="diag-badge diag-source">source not in RSS</span></dt>
+          <dd>The paper&#39;s domain isn&#39;t in any configured RSS source — the pipeline can&#39;t see it at all. Add the journal/feed to <code>rss_sources</code> in <code>config.yaml</code>, or the auto-discovery may have found a feed to add to <code>extra_rss_sources.json</code>.</dd>
+          <dt><span class="diag-badge diag-ranking">low ranking</span></dt>
+          <dd>The source IS in our RSS feeds but the paper was cut at the episode cap, or wasn&#39;t in the recent 24 h fetch window. Fix: add keywords from the title to <code>topic_boost_keywords</code> or <code>absolute_title_keywords</code> in <code>config.yaml</code> — or increase <code>max_items_total</code>.</dd>
+          <dt><span class="diag-badge diag-pending">pending</span></dt>
+          <dd>The workflow hasn&#39;t run yet. Diagnosis normally appears within ~2 minutes of submission.</dd>
+        </dl>
+      </details>
     </div>
     {body}
     <div class="feedback-bar">
