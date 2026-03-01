@@ -7,8 +7,8 @@ paths:
   state_dir: "state"
 
 limits:
-  max_items_total: 45
-  max_items_protein: 32
+  max_items_total: 52
+  max_items_protein: 38
   max_items_daily_knowledge: 5
   source_caps:
     "Nature News": 3
@@ -16,6 +16,7 @@ limits:
     "Nature (main journal)": 3
     "Nature Structural & Molecular Biology": 3
     "PNAS": 3
+    "Structure": 3
   max_items_per_news_source: 1
 
 excluded_terms:
@@ -30,7 +31,6 @@ excluded_terms:
   - "rat"
   - "zebrafish"
   - "drosophila"
-  - "in vivo"
   - "transposable element"
   - "hippocampal"
   - "neurogenesis"
@@ -67,6 +67,11 @@ rss_sources:
     tags: ["antibody-design", "nature", "topic"]
     bucket: "protein"
 
+  - name: "Nature - Enzyme Design"
+    url: "https://www.nature.com/subjects/enzyme-design.rss"
+    tags: ["enzyme-design", "nature", "topic"]
+    bucket: "protein"
+
   - name: "Nature Structural & Molecular Biology"
     url: "https://www.nature.com/nsmb.rss"
     tags: ["structural-biology", "protein", "journal"]
@@ -97,6 +102,11 @@ rss_sources:
     tags: ["protein-engineering", "journal"]
     bucket: "protein"
 
+  - name: "Structure"
+    url: "https://www.cell.com/structure/rss"
+    tags: ["structural-biology", "protein", "journal"]
+    bucket: "protein"
+
   # ── Top journals ───────────────────────────────────────────────────────────
   - name: "Nature Biotechnology"
     url: "https://www.nature.com/nbt.rss"
@@ -119,19 +129,9 @@ rss_sources:
     tags: ["machine-learning", "arxiv"]
     bucket: "ai_bio"
 
-  - name: "arXiv stat.ML"
-    url: "https://arxiv.org/rss/stat.ML"
-    tags: ["machine-learning", "statistics"]
-    bucket: "ai_bio"
-
   # ── Industry & news (capped) ───────────────────────────────────────────────
   - name: "Nature News"
     url: "https://www.nature.com/nature/articles?type=news&format=rss"
-    tags: ["science-news"]
-    bucket: "news"
-
-  - name: "Scientific American - Health"
-    url: "https://feeds.feedburner.com/ScientificAmerican-Health"
     tags: ["science-news"]
     bucket: "news"
 
@@ -186,6 +186,31 @@ rss_sources:
     tags: ["protein-design", "author"]
     bucket: "protein"
 
+  - name: "Noelia Ferruz (arXiv)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Noelia+Ferruz\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
+    tags: ["protein-LLM", "enzyme-design", "author"]
+    bucket: "protein"
+
+  - name: "Debora Marks (arXiv)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Debora+Marks\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
+    tags: ["protein-evolution", "fitness-landscape", "author"]
+    bucket: "protein"
+
+  - name: "Kevin Yang (arXiv)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Kevin+K.+Yang\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
+    tags: ["protein-engineering", "directed-evolution", "author"]
+    bucket: "protein"
+
+  - name: "Yaron Lipman (arXiv)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Yaron+Lipman\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
+    tags: ["diffusion", "protein-design", "author"]
+    bucket: "protein"
+
+  - name: "Chloe Hsu (arXiv)"
+    url: "http://export.arxiv.org/api/query?search_query=au:\"Chloe+Hsu\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
+    tags: ["protein-fitness", "protein-LLM", "author"]
+    bucket: "protein"
+
   - name: "Jure Leskovec (arXiv)"
     url: "http://export.arxiv.org/api/query?search_query=au:\"Jure+Leskovec\"&sortBy=submittedDate&sortOrder=descending&max_results=10"
     tags: ["graph-learning", "bio-ml", "author"]
@@ -206,7 +231,7 @@ rss_sources:
     tags: ["machine-learning", "bio-ml", "author"]
     bucket: "ai_bio"
 
-  # ── Substack blogs ─────────────────────────────────────────────────────────
+  # ── Blogs & Substacks ──────────────────────────────────────────────────────
   - name: "A-Alpha Bio (To Affinity And Beyond)"
     url: "https://aalphabio.substack.com/feed"
     tags: ["protein-design", "antibody-design", "substack", "author"]
@@ -221,6 +246,11 @@ rss_sources:
     url: "https://www.asimov.press/feed"
     tags: ["biology", "science-writing", "substack", "author"]
     bucket: "ai_bio"
+
+  - name: "Mohammed AlQuraishi (blog)"
+    url: "https://moalquraishi.wordpress.com/feed/"
+    tags: ["protein-structure", "protein-LLM", "author"]
+    bucket: "protein"
 
 pubmed:
   enabled: true
@@ -250,6 +280,8 @@ pubmed:
     # Protein engineering
     - "protein engineering stability"
     - "protein binder design"
+    - "protein fitness landscape"
+    - "protein directed evolution machine learning"
 
 daily_knowledge:
   enabled: false
@@ -295,6 +327,10 @@ ranking:
     - "ESMFold"
     - "RFdiffusion"
     - "ProteinMPNN"
+    - "OpenFold"
+    - "OmegaFold"
+    - "Chai-1"
+    - "Boltz"
     - "structure prediction"
 
   absolute_source_substrings:
@@ -310,6 +346,7 @@ ranking:
     - {contains: "nature chemical biology", priority: 1}
     - {contains: "nature structural", priority: 1}
     - {contains: "protein engineering design", priority: 1}
+    - {contains: "structure", priority: 2}
     - {contains: "pnas", priority: 2}
     - {contains: "nature (main journal)", priority: 2}
     - {contains: "protein science", priority: 3}
@@ -331,8 +368,14 @@ ranking:
     - "therapeutic antibody"
     - "protein language model"
     - "diffusion model"
+    - "fitness landscape"
+    - "protein fitness"
     - "AlphaFold"
     - "RoseTTAFold"
     - "ESMFold"
     - "ProteinMPNN"
     - "RFdiffusion"
+    - "OpenFold"
+    - "OmegaFold"
+    - "Chai-1"
+    - "Boltz"
