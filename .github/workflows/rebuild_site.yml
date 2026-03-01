@@ -1,7 +1,12 @@
 name: Rebuild Site
 
 on:
-  workflow_dispatch:   # manual trigger only
+  workflow_dispatch:   # manual trigger
+  push:
+    branches: [main]
+    paths:
+      - 'openclaw-knowledge-radio/tools/build_site.py'
+      - '.github/workflows/rebuild_site.yml'
 
 jobs:
   build:
