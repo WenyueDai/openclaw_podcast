@@ -119,15 +119,13 @@ These happen **in your browser**, not on GitHub's servers.
 **6a. Clicking [N] to seek audio**
 Each paper number `[N]` on the site is a `<span>` with `onclick="seekTo(this, event)"`. Clicking it sets `audio.currentTime = timestamp` where the timestamp was pre-calculated in Phase 4c. The audio player jumps to 0.5s before the transition tones for that paper.
 
-**6b. Submitting a missed paper** (owner only)
-The owner can submit a paper title (and optional URL) using the form at the top of the page. Requires the same GitHub token as feedback and notes (set once in ⚙ Settings). The JS:
-1. Calls `GET /contents/state/missed_papers.json` to fetch the current file
-2. Checks for duplicate titles (case-insensitive)
+**6b. Submitting a missed paper** (open to all visitors)
+The "Spotted a paper we missed?" form at the top of the page is open to everyone. The JS:
+1. Uses a read/write token (`MISSED_SUBMIT_TOKEN`) baked into the page at build time — visitors never need to configure anything
+2. Calls `GET /contents/state/missed_papers.json` to check today's submission count (server-side cap: 10/day) and for duplicate titles
 3. Appends the entry and calls `PUT` to commit it
 
-The page immediately shows a **"pending"** badge. Diagnosis and Notion stub are created the **next morning at 05:00 UTC** when the daily pipeline runs. No separate Actions workflow is triggered — processing is folded into the existing daily run, costing **zero extra GitHub Actions minutes**.
-
-> Visitor submission was considered but ruled out: each GitHub Actions run costs ~1–2 min; with 2 000 free min/month there is no headroom for unpredictable external submissions.
+Visitor submissions do **not** trigger any GitHub Actions workflow. The PUT goes directly to the file via the GitHub Contents API. Processing happens in bulk the next morning as part of the scheduled daily run — costing zero extra Actions minutes. Diagnosis and Notion stub appear after the 05:00 UTC run.
 
 **6c. Saving feedback** (owner only)
 Checking paper checkboxes and clicking "Save feedback" triggers JavaScript that:
@@ -231,11 +229,15 @@ GitHub API (authenticated with GH_PAT secret)
 
 **From your browser (JavaScript, no server needed):**
 ```
-GitHub API (authenticated with your token in localStorage)
+GitHub API (owner actions — authenticated with token in localStorage)
 ├── Read file + SHA   →  GET  /repos/.../contents/state/feedback.json
 ├── Write feedback    →  PUT  /repos/.../contents/state/feedback.json
 ├── Read notes file   →  GET  /repos/.../contents/state/paper_notes.json
 └── Write a note      →  PUT  /repos/.../contents/state/paper_notes.json
+
+GitHub API (visitor missed-paper form — authenticated with MISSED_SUBMIT_TOKEN baked into page)
+├── Read file + SHA   →  GET  /repos/.../contents/state/missed_papers.json
+└── Append entry      →  PUT  /repos/.../contents/state/missed_papers.json
 ```
 
 The `PUT /contents/...` endpoint is GitHub's way of creating or updating a single file. It requires the file's current `sha` (to prevent conflicting edits) and the new content as base64. No server is needed — this works directly from any web browser.
@@ -369,6 +371,7 @@ Go to `Settings → Secrets and variables → Actions` and add:
 | `NOTION_TOKEN` | Notion integration token for the **Paper Collection** database |
 | `NOTION_DATABASE_ID` | Paper Collection database ID |
 | `NOTION_API_KEY` | Notion integration token for the **Deep Dive Notes** database (same or different integration) |
+| `MISSED_SUBMIT_TOKEN` | Fine-grained PAT (Contents: read+write, this repo only) baked into the site HTML so visitors can submit missed papers without any personal token |
 
 ### 5. Browser setup (for owner interactive features)
 
