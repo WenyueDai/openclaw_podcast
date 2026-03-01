@@ -1,0 +1,41 @@
+name: Process Missed Papers
+
+on:
+  push:
+    paths:
+      - 'openclaw-knowledge-radio/state/missed_papers.json'
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install PyYAML
+
+      - name: Run process_missed_papers
+        run: python openclaw-knowledge-radio/tools/process_missed_papers.py
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_DATABASE_ID: 3165f58ea8c280498f72c770028aec0d
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add openclaw-knowledge-radio/state/missed_papers.json
+          git add openclaw-knowledge-radio/state/boosted_topics.json
+          git add openclaw-knowledge-radio/state/extra_rss_sources.json
+          git diff --staged --quiet || git commit -m "Process missed papers [skip ci]" && git push

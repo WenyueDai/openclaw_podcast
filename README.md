@@ -119,21 +119,51 @@ These happen **in your browser**, not on GitHub's servers.
 **6a. Clicking [N] to seek audio**
 Each paper number `[N]` on the site is a `<span>` with `onclick="seekTo(this, event)"`. Clicking it sets `audio.currentTime = timestamp` where the timestamp was pre-calculated in Phase 4c. The audio player jumps to 0.5s before the transition tones for that paper.
 
-**6b. Saving feedback** (owner only)
+**6b. Submitting a missed paper** (open to all visitors)
+Any visitor can submit a paper title (and optional URL) using the form at the top of the page. The JS:
+1. Checks the title against a protein-design keyword list — off-topic papers are rejected client-side
+2. Enforces a rate limit of **5 submissions per day** per browser (stored in `localStorage`) — bypassed for the site owner
+3. Calls `GET /contents/state/missed_papers.json` to fetch + SHA (using a baked deploy token, or the owner's token if logged in)
+4. Checks for duplicate titles (case-insensitive) to avoid double submissions
+5. Appends the entry and calls `PUT` to commit it — triggering the `process_missed.yml` workflow
+
+The page immediately shows a **"pending"** badge next to the submitted paper. The diagnosis badge updates after the Action completes (~2–3 minutes); refresh the page to see it.
+
+**6c. Saving feedback** (owner only)
 Checking paper checkboxes and clicking "Save feedback" triggers JavaScript that:
 1. Reads your GitHub token from `localStorage` (set once in ⚙ Settings)
-2. Calls `GET https://api.github.com/repos/WenyueDai/openclaw_podcast/contents/openclaw-knowledge-radio/state/feedback.json` to fetch the current file + its SHA
+2. Calls `GET /contents/state/feedback.json` to fetch the current file + its SHA
 3. Merges your new selections into the existing data
-4. Calls `PUT` to the same URL with the updated content + SHA to commit the change
+4. Calls `PUT` to commit the change
 
 The next day's pipeline reads `feedback.json` and uses it to re-rank papers.
 
-**6c. Writing "My Take" notes** (owner only)
+**6d. Writing "My Take" notes** (owner only)
 Clicking ✏️ next to a paper opens an inline textarea. Saving calls the same GitHub API pattern as feedback, but writes to `state/paper_notes.json` with `{note, title, source}` per paper URL. This commit to `paper_notes.json` **automatically triggers** the `sync_notes.yml` GitHub Actions workflow (see below).
 
 ---
 
-### Phase 7 — Notion Deep-Dive Sync (triggered by notes)
+### Phase 7 — Missed Paper Processing (triggered by visitor submissions)
+
+Whenever `missed_papers.json` is pushed (by any visitor submitting a paper), the **`process_missed.yml`** workflow fires:
+
+1. **Diagnose** each unprocessed entry:
+   | Diagnosis | Meaning |
+   |-----------|---------|
+   | `already_collected` | The URL's SHA1 was already in `seen_ids.json` — paper ran in a previous episode |
+   | `excluded_term` | An `excluded_terms` keyword (e.g. "mouse", "single-cell") matched the title |
+   | `source_not_in_rss` | The URL's domain is not in any configured RSS feed |
+   | `low_ranking` | The paper was reachable but scored below the episode cap |
+
+2. **Extract keywords** (for `low_ranking` and `source_not_in_rss`): calls OpenRouter LLM to extract 3–5 topic phrases from the title. These are merged (case-insensitive dedup) into `state/boosted_topics.json`. The next daily run's ranker uses these keywords to boost similar papers.
+
+3. **Discover RSS feed** (for `source_not_in_rss`): probes common feed paths (`/feed`, `/rss`, `/feed.xml`, etc.) on the paper's domain, and looks for `<link rel="alternate">` tags on the article page. If a valid feed is found, it is saved to `state/extra_rss_sources.json` and merged into the RSS collection on the next daily run.
+
+4. Commits `missed_papers.json` (with diagnoses filled in), `boosted_topics.json`, and `extra_rss_sources.json` back to `main` with `[skip ci]`.
+
+---
+
+### Phase 8 — Notion Deep-Dive Sync (triggered by notes)
 
 Whenever `paper_notes.json` is updated, the **`sync_notes.yml`** workflow fires automatically:
 
@@ -161,7 +191,8 @@ For this project:
 ```
 .github/workflows/
 ├── daily_podcast.yml    ← runs at 05:00 UTC daily (cron schedule)
-└── sync_notes.yml       ← runs whenever paper_notes.json is pushed
+├── sync_notes.yml       ← runs whenever paper_notes.json is pushed
+└── process_missed.yml   ← runs whenever missed_papers.json is pushed (visitor submissions)
 ```
 
 Each workflow run gets a **brand-new virtual machine**. It:
@@ -262,13 +293,17 @@ openclaw-knowledge-radio/         ← Python pipeline package
 │       └── notion_publish.py     ← Notion paper collection digest
 ├── tools/
 │   ├── build_site.py             ← generates docs/ (HTML + RSS feed)
-│   └── sync_notion_notes.py      ← syncs owner notes → Notion deep-dive stubs
+│   ├── sync_notion_notes.py      ← syncs owner notes → Notion deep-dive stubs
+│   └── process_missed_papers.py  ← diagnoses missed papers + extracts boost keywords
 ├── state/
 │   ├── seen_ids.json             ← URLs seen in previous runs (dedup)
 │   ├── release_index.json        ← date → GitHub Release audio URL
 │   ├── feedback.json             ← owner's paper selections (ranking signal)
 │   ├── paper_notes.json          ← owner's expert notes per paper
-│   └── notion_created.json       ← tracks which notes have been synced to Notion
+│   ├── notion_created.json       ← tracks which notes have been synced to Notion
+│   ├── missed_papers.json        ← visitor-submitted missed papers (with diagnoses)
+│   ├── boosted_topics.json       ← keywords extracted from missed papers (merged into ranker)
+│   └── extra_rss_sources.json    ← RSS feeds discovered from missed paper URLs (merged at runtime)
 └── output/YYYY-MM-DD/            ← per-episode data (kept 30 days)
     ├── podcast_YYYY-MM-DD.mp3    ← final audio
     ├── podcast_script_*_llm.txt  ← LLM-generated script
@@ -329,11 +364,12 @@ Go to `Settings → Secrets and variables → Actions` and add:
 | Secret | Description |
 |--------|-------------|
 | `GH_PAT` | GitHub PAT with `repo` + `workflow` scopes (for pushing commits and uploads) |
-| `OPENROUTER_API_KEY` | OpenRouter API key (for LLM script + analysis) |
+| `OPENROUTER_API_KEY` | OpenRouter API key (for LLM script + analysis + missed-paper keyword extraction) |
 | `SLACK_WEBHOOK_URL` | Slack incoming webhook (optional, for run notifications) |
 | `NOTION_TOKEN` | Notion integration token for the **Paper Collection** database |
 | `NOTION_DATABASE_ID` | Paper Collection database ID |
 | `NOTION_API_KEY` | Notion integration token for the **Deep Dive Notes** database (same or different integration) |
+| `MISSED_SUBMIT_TOKEN` | Fine-grained PAT with **Contents: read+write** on this repo only — baked into the site at build time so visitors can submit missed papers without logging in. If not set, only the owner can submit. |
 
 ### 5. Browser setup (for owner interactive features)
 
@@ -358,14 +394,15 @@ This is stored only in your browser's `localStorage`. It enables the feedback ch
 
 ---
 
-## Confirmed: tomorrow's GitHub Action runs with new code
+## Active features
 
-Every GitHub Actions run does `git checkout main` as its first step, so it always runs the **latest committed code**. All changes pushed today are in `main` and will be active from the next run at **05:00 UTC tomorrow**:
+Every GitHub Actions run does `git checkout main` as its first step, so it always runs the **latest committed code**.
 
 - ✅ Timestamp fix: clicking `[N]` lands 0.5s before transition tones
 - ✅ Source caps: Nature main / NSMB / PNAS capped at 3 items each
 - ✅ Expanded `excluded_terms`: cell biology, neuroscience, off-topic physics filtered
 - ✅ `daily_knowledge` disabled: no more Wikipedia filler
-- ✅ Feedback active: your paper selections from today's session will boost similar papers
+- ✅ Feedback active: paper selections boost similar papers in future rankings
 - ✅ "My Take" notes: ✏️ button on each paper, saves to GitHub + triggers Notion stub creation
-- ✅ Two Notion links in site header: Paper Collection + Deep Dive Notes
+- ✅ Missed paper form: visitors can submit papers the pipeline missed; diagnosis + keyword boost runs automatically
+- ✅ RSS discovery: `source_not_in_rss` papers trigger a feed probe; discovered feeds are merged into future runs

@@ -257,7 +257,17 @@ def main() -> int:
                 continue
     else:
         items: List[Dict[str, Any]] = []
-        items.extend(collect_rss_items(cfg["rss_sources"], tz=tz, lookback_hours=lookback_hours, now_ref=run_anchor))
+        _rss_sources = list(cfg["rss_sources"])
+        _extra_rss_file = state_dir / "extra_rss_sources.json"
+        if _extra_rss_file.exists():
+            try:
+                _extra = json.loads(_extra_rss_file.read_text(encoding="utf-8"))
+                if _extra:
+                    print(f"[rss] Merging {len(_extra)} extra source(s) from extra_rss_sources.json", flush=True)
+                    _rss_sources = _rss_sources + _extra
+            except Exception:
+                pass
+        items.extend(collect_rss_items(_rss_sources, tz=tz, lookback_hours=lookback_hours, now_ref=run_anchor))
         if cfg.get("pubmed", {}).get("enabled", False):
             static_terms = cfg.get("pubmed", {}).get("search_terms", [])
             dynamic_terms = _dynamic_pubmed_terms(state_dir, static_terms, max_new=5)

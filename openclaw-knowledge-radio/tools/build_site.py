@@ -17,6 +17,7 @@ SITE_DIR    = Path(os.environ.get("SITE_DIR",       str(_REPO_ROOT / "docs")))
 AUDIO_DIR   = SITE_DIR / "audio"
 RELEASE_INDEX = Path(os.environ.get("RELEASE_INDEX", str(_PACKAGE_DIR / "state" / "release_index.json")))
 NOTES_FILE    = Path(os.environ.get("NOTES_FILE",    str(_PACKAGE_DIR / "state" / "paper_notes.json")))
+MISSED_FILE   = Path(os.environ.get("MISSED_FILE",   str(_PACKAGE_DIR / "state" / "missed_papers.json")))
 
 
 def _load_notes() -> dict:
@@ -37,6 +38,16 @@ def _load_notes() -> dict:
         except Exception:
             return {}
     return {}
+
+def _load_missed_papers() -> list:
+    """Load missed_papers.json for baking into HTML."""
+    if MISSED_FILE.exists():
+        try:
+            return json.loads(MISSED_FILE.read_text(encoding="utf-8"))
+        except Exception:
+            return []
+    return []
+
 
 PODCAST_TITLE = os.environ.get("PODCAST_TITLE", "Daily Podcast")
 PODCAST_AUTHOR = os.environ.get("PODCAST_AUTHOR", "Eva Dai")
@@ -193,6 +204,7 @@ def generate_cover_svg(seed_text: str):
 
 def render_index(episodes, all_episodes=None):
     notes = _load_notes()   # {date: {url: note_text}} — baked in for static rendering
+    missed_papers = _load_missed_papers()   # baked for initial render
     cards = []
     for ep in episodes:
         s_link = f'<a href="{html.escape(ep["script_name"])}">script</a>' if ep["script_name"] else ""
@@ -313,6 +325,9 @@ def render_index(episodes, all_episodes=None):
         f'</aside>'
     )
 
+    missed_json = json.dumps(missed_papers, ensure_ascii=False)
+    missed_submit_token = os.environ.get("MISSED_SUBMIT_TOKEN", "")
+
     return f"""<!doctype html>
 <html>
 <head>
@@ -342,7 +357,12 @@ h1 {{ margin:0 0 6px; letter-spacing:.3px; }}
 .about {{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin-bottom:18px; font-size:.88rem; line-height:1.65; color:var(--text); }}
 .about p {{ margin:0 0 8px; }}
 .about p:last-child {{ margin:0; }}
-.about .note {{ font-size:.82rem; color:var(--muted); border-top:1px solid var(--line); padding-top:8px; margin-top:8px; }}
+.feature-grid {{ margin-top:10px; border-top:1px solid var(--line); padding-top:10px; display:flex; flex-direction:column; gap:7px; }}
+.feature-row {{ display:flex; align-items:flex-start; gap:10px; font-size:.86rem; }}
+.feature-badge {{ flex-shrink:0; font-size:.72rem; font-weight:700; padding:2px 8px; border-radius:10px; margin-top:2px; white-space:nowrap; }}
+.feature-badge.open  {{ background:#d4edda; color:#155724; }}
+.feature-badge.owner {{ background:#fff3cd; color:#856404; }}
+.feature-badge.tip   {{ background:#cce5ff; color:#004085; }}
 .card {{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; margin:14px 0; box-shadow:0 10px 22px rgba(79,143,106,.12); }}
 h2 {{ margin:0 0 4px; font-size:1.1rem; }}
 .meta {{ color:var(--muted); margin:0 0 8px; font-size:.88rem; }}
@@ -395,6 +415,25 @@ audio {{ width:100%; margin:4px 0 6px; }}
 .note-save {{ background:var(--accent); color:#fff; }}
 .note-cancel {{ background:transparent; color:var(--accent); }}
 .note-status {{ font-size:.77rem; color:var(--muted); }}
+/* ── Missed papers ── */
+.missed-section {{ margin-top:18px; padding:14px 16px; background:var(--bg2); border:1px solid var(--line); border-radius:14px; }}
+.missed-section h3 {{ margin:0 0 6px; font-size:.95rem; color:var(--accent); }}
+.missed-section > p {{ margin:0 0 10px; font-size:.85rem; color:var(--muted); }}
+.missed-form {{ display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-bottom:12px; }}
+.missed-form input {{ flex:1; min-width:180px; padding:6px 10px; border:1px solid var(--line); border-radius:7px; font-size:.88rem; background:var(--card); color:var(--text); }}
+.missed-form button {{ padding:6px 14px; background:var(--accent); color:#fff; border:1px solid var(--accent); border-radius:7px; cursor:pointer; font-size:.85rem; }}
+#missed-status {{ font-size:.82rem; color:var(--muted); width:100%; }}
+.missed-item {{ display:flex; align-items:flex-start; gap:8px; padding:7px 4px; border-bottom:1px solid var(--line); font-size:.86rem; }}
+.missed-item:last-child {{ border-bottom:none; }}
+.missed-item-title {{ flex:1; color:var(--text); }}
+.missed-item-title a {{ color:var(--accent); }}
+.diag-badge {{ font-size:.73rem; padding:2px 7px; border-radius:10px; font-weight:600; white-space:nowrap; flex-shrink:0; }}
+.diag-collected {{ background:#d4edda; color:#155724; }}
+.diag-excluded  {{ background:#fff3cd; color:#856404; }}
+.diag-source    {{ background:#cce5ff; color:#004085; }}
+.diag-ranking   {{ background:#f8d7da; color:#721c24; }}
+.diag-pending   {{ background:#e2e3e5; color:#383d41; }}
+.missed-kws {{ font-size:.75rem; color:var(--muted); margin-top:2px; }}
 </style>
 </head>
 <body>
@@ -405,9 +444,44 @@ audio {{ width:100%; margin:4px 0 6px; }}
     <p class='sub'>{html.escape(PODCAST_SUMMARY)}</p>
     <div class="about">
       <p>A daily auto-generated podcast for protein designers. Every morning an AI pipeline scans the latest publications from Nature, arXiv, PNAS, PubMed, and key researcher feeds — selects the most relevant papers on <strong>protein design, antibody engineering, enzyme design, and computational biology</strong> — then writes and narrates a ~60-minute digest using a large language model and text-to-speech synthesis.</p>
-      <p>Papers are ranked by journal quality, topic relevance, and the owner's personal reading history. The podcast is regenerated fresh each day and published here automatically via GitHub Actions. Only the 3 most recent episodes are shown here — click the <strong>📚</strong> button (right side of the page) to browse the full archive. Two Notion databases accompany this podcast: the <a href="https://clear-squid-8e3.notion.site/3155f58ea8c280258959fba00c0149ab?v=3155f58ea8c2803c8c0d000c76d1bfba" target="_blank">Paper Collection</a> contains every daily digest in full, and the <a href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a> contains the owner's expert annotations on selected papers.</p>
-      <p>&#127911; <strong>Tip:</strong> Highlighted paper titles are clickable — clicking the <strong>[N]</strong> number jumps the audio player to that paper's segment. Papers with a green left-border have an expert note from the site owner.</p>
-      <p class="note">&#128274; <strong>Note on interactive features:</strong> The checkboxes ("Save feedback") and ✏️ note buttons are for the <em>site owner only</em> — both require a private GitHub token stored in your own browser. Visitors can read any notes the owner has written, but cannot add or edit them.</p>
+      <p>Papers are ranked by journal quality, topic relevance, and the owner's personal reading history. The podcast is regenerated fresh each day via GitHub Actions. Only the 3 most recent episodes are shown — click <strong>📚</strong> to browse the full archive. Companion Notion databases: <a href="https://clear-squid-8e3.notion.site/3155f58ea8c280258959fba00c0149ab?v=3155f58ea8c2803c8c0d000c76d1bfba" target="_blank">Paper Collection</a> · <a href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a>.</p>
+      <div class="feature-grid">
+        <div class="feature-row">
+          <span class="feature-badge open">Open to all</span>
+          <div>
+            <strong>&#128231; Submit a missed paper</strong> — use the form below to flag any protein-design paper the pipeline should have included. The pipeline will diagnose why it was missed and automatically tune future rankings.
+          </div>
+        </div>
+        <div class="feature-row">
+          <span class="feature-badge owner">Owner only</span>
+          <div>
+            <strong>&#9745; Feedback checkboxes</strong> — check interesting papers at the bottom of the episode and click <em>Save feedback</em> to teach the ranker your preferences. Requires a private GitHub token.
+          </div>
+        </div>
+        <div class="feature-row">
+          <span class="feature-badge owner">Owner only</span>
+          <div>
+            <strong>&#9999;&#65039; Expert notes</strong> — click the pencil icon next to any paper to add a personal annotation (Notion links welcome). Notes are public and visible to all visitors once saved.
+          </div>
+        </div>
+        <div class="feature-row">
+          <span class="feature-badge tip">Tip</span>
+          <div>
+            Click the <strong>[N]</strong> number next to a paper to jump the audio player to that segment. Papers with a green left border have an expert note from the owner.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="missed-section">
+      <h3>&#128231; Did we miss a paper?</h3>
+      <p>Only submit papers on <strong>protein design, antibody engineering, enzyme design, or computational biology</strong>. The pipeline will diagnose why it was missed and tune future rankings automatically.</p>
+      <div class="missed-form">
+        <input type="text" id="missed-title" placeholder="Paper title (required)">
+        <input type="text" id="missed-url" placeholder="URL (optional)">
+        <button onclick="submitMissedPaper()">Submit</button>
+        <span id="missed-status"></span>
+      </div>
+      <div id="missed-list"></div>
     </div>
     {body}
     <div class="feedback-bar">
@@ -714,6 +788,170 @@ async function saveNote(btn) {{
 }}
 
 loadNotes();
+
+// ── Missed papers ──────────────────────────────────────────────────────────
+var _bakedMissedPapers = {missed_json};
+var _missedSubmitToken = '{html.escape(missed_submit_token)}';
+
+function _diagLabel(entry) {{
+  var d = entry.diagnosis;
+  if (!d) return '<span class="diag-badge diag-pending">pending</span>';
+  if (d === 'already_collected') return '<span class="diag-badge diag-collected">already collected</span>';
+  if (d === 'excluded_term')     return '<span class="diag-badge diag-excluded">excluded term</span>';
+  if (d === 'source_not_in_rss') return '<span class="diag-badge diag-source">source not in RSS</span>';
+  if (d === 'low_ranking')       return '<span class="diag-badge diag-ranking">low ranking</span>';
+  return '<span class="diag-badge diag-pending">' + d + '</span>';
+}}
+
+function _renderMissedList(papers) {{
+  var list = document.getElementById('missed-list');
+  if (!list) return;
+  if (!papers || !papers.length) {{ list.innerHTML = ''; return; }}
+  var html = '';
+  for (var i = papers.length - 1; i >= 0; i--) {{
+    var p = papers[i];
+    var titleHtml = p.url
+      ? '<a href="' + p.url + '" target="_blank">' + p.title.replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</a>'
+      : p.title.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+    var kwHtml = (p.keywords_added && p.keywords_added.length)
+      ? '<div class="missed-kws">Keywords added: ' + p.keywords_added.join(', ') + '</div>'
+      : '';
+    html += '<div class="missed-item">'
+      + '<div class="missed-item-title">' + titleHtml + kwHtml + '</div>'
+      + _diagLabel(p)
+      + '</div>';
+  }}
+  list.innerHTML = html;
+}}
+
+async function loadMissedPapers() {{
+  // Render baked data immediately
+  _renderMissedList(_bakedMissedPapers);
+
+  // Then try to fetch fresh data from GitHub
+  var repo = localStorage.getItem('gh_repo') || '{html.escape("WenyueDai/openclaw_podcast")}';
+  var path = 'openclaw-knowledge-radio/state/missed_papers.json';
+  var headers = {{'Accept': 'application/vnd.github+json'}};
+  var token = localStorage.getItem('gh_token');
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  try {{
+    var res = await fetch('https://api.github.com/repos/' + repo + '/contents/' + path, {{headers: headers}});
+    if (res.ok) {{
+      var data = JSON.parse(atob((await res.json()).content.replace(/\\n/g,'')));
+      _renderMissedList(data);
+    }}
+  }} catch(e) {{}}
+}}
+
+async function submitMissedPaper() {{
+  var token = localStorage.getItem('gh_token') || _missedSubmitToken || '';
+  var repo  = localStorage.getItem('gh_repo')  || '{html.escape("WenyueDai/openclaw_podcast")}';
+
+  var titleEl = document.getElementById('missed-title');
+  var urlEl   = document.getElementById('missed-url');
+  var status  = document.getElementById('missed-status');
+  var title = (titleEl.value || '').trim();
+  var url   = (urlEl.value || '').trim();
+
+  if (!title) {{ status.textContent = 'Please enter a paper title.'; return; }}
+
+  // Protein-design relevance filter
+  var _PROTEIN_TERMS = [
+    'protein','antibody','enzyme','peptide','nanobody','antigen','binder','scaffold',
+    'alphafold','rosetta','esmfold','rfdesign','rfdiffusion','proteinmpnn',
+    'amino acid','binding affinity','protein design','antibody design','enzyme design',
+    'protein engineering','protein language model','directed evolution',
+    'structural biology','computational biology','molecular dynamics',
+    'sequence design','structure prediction','drug design','cryo-em',
+    'protein folding','protein structure','deep learning protein','diffusion model',
+  ];
+  var _titleLow = title.toLowerCase();
+  var _relevant = _PROTEIN_TERMS.some(function(t) {{ return _titleLow.includes(t); }});
+  if (!_relevant) {{
+    status.textContent = 'Please only submit papers related to protein design, antibody engineering, enzyme design, or computational biology.';
+    return;
+  }}
+
+  if (!token) {{
+    status.textContent = 'Submission unavailable (no token configured). Contact the site owner.';
+    return;
+  }}
+
+  // Rate limit: max 5 submissions per day per browser (unless owner)
+  var _isOwner = !!localStorage.getItem('gh_token');
+  if (!_isOwner) {{
+    var _today = new Date().toISOString().slice(0, 10);
+    var _rateKey = 'missed_count_' + _today;
+    var _count = parseInt(localStorage.getItem(_rateKey) || '0', 10);
+    if (_count >= 5) {{
+      status.textContent = 'Daily limit reached (max 5 submissions per day). Thank you!';
+      return;
+    }}
+    localStorage.setItem(_rateKey, String(_count + 1));
+  }}
+
+  var path = 'openclaw-knowledge-radio/state/missed_papers.json';
+  var apiBase = 'https://api.github.com/repos/' + repo;
+  var headers = {{
+    'Authorization': 'Bearer ' + token,
+    'Accept': 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+    'Content-Type': 'application/json',
+  }};
+
+  status.textContent = 'Saving…';
+  try {{
+    // GET current file
+    var existing = [], sha = null;
+    var get = await fetch(apiBase + '/contents/' + path, {{headers: headers}});
+    if (get.ok) {{
+      var meta = await get.json();
+      sha = meta.sha;
+      existing = JSON.parse(atob(meta.content.replace(/\\n/g,'')));
+    }}
+
+    // Duplicate check (case-insensitive title match)
+    var titleLower = title.toLowerCase();
+    for (var i = 0; i < existing.length; i++) {{
+      if ((existing[i].title || '').toLowerCase() === titleLower) {{
+        status.textContent = 'Already submitted.';
+        return;
+      }}
+    }}
+
+    var entry = {{
+      id: Date.now().toString(),
+      title: title,
+      url: url || null,
+      date_submitted: new Date().toISOString().slice(0, 10),
+      processed: false,
+      diagnosis: null,
+      keywords_added: []
+    }};
+    existing.push(entry);
+
+    var body = {{
+      message: 'Missed paper: ' + title.slice(0, 60),
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(existing, null, 2))))
+    }};
+    if (sha) body.sha = sha;
+
+    var put = await fetch(apiBase + '/contents/' + path, {{
+      method: 'PUT', headers: headers, body: JSON.stringify(body)
+    }});
+    if (put.ok) {{
+      status.textContent = '✓ Submitted! The diagnosis badge usually appears within 2–3 minutes — refresh the page to check.';
+      titleEl.value = '';
+      urlEl.value = '';
+      _renderMissedList(existing);
+    }} else {{
+      var err = await put.json();
+      status.textContent = 'Error: ' + (err.message || put.status);
+    }}
+  }} catch(e) {{ status.textContent = 'Error: ' + e.message; }}
+}}
+
+loadMissedPapers();
 </script>
 </body>
 </html>

@@ -190,13 +190,22 @@ def _journal_quality_priority(it: Dict[str, Any], cfg: Dict[str, Any]) -> int:
     return 7
 
 
+_BOOST_FILE = Path(__file__).resolve().parent.parent.parent / "state" / "boosted_topics.json"
+
+
 def _topic_keyword_priority(it: Dict[str, Any], cfg: Dict[str, Any]) -> int:
     """
     0 if the item title/snippet matches a topic_boost_keyword, 1 otherwise.
     This makes on-topic items float above off-topic items within the same tier.
+    Keywords are merged from config.yaml and state/boosted_topics.json.
     """
-    keywords = (cfg.get("ranking") or {}).get("topic_boost_keywords") or []
-    if not keywords:
+    cfg_kws = (cfg.get("ranking") or {}).get("topic_boost_keywords") or []
+    try:
+        extra_kws = json.loads(_BOOST_FILE.read_text(encoding="utf-8")) if _BOOST_FILE.exists() else []
+    except Exception:
+        extra_kws = []
+    all_boost_kws = set(k.lower() for k in (cfg_kws + extra_kws))
+    if not all_boost_kws:
         return 0  # no config = no penalty
     hay = " ".join([
         (it.get("title") or ""),
@@ -204,8 +213,8 @@ def _topic_keyword_priority(it: Dict[str, Any], cfg: Dict[str, Any]) -> int:
         (it.get("snippet") or ""),
         (it.get("source") or ""),
     ]).lower()
-    for kw in keywords:
-        if kw.lower() in hay:
+    for kw in all_boost_kws:
+        if kw in hay:
             return 0
     return 1
 
