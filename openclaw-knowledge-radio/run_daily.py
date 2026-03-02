@@ -35,7 +35,7 @@ import os
 DEBUG_MODE = os.environ.get('DEBUG', 'false').lower() == 'true'
 REGEN_FROM_CACHE = os.environ.get('REGEN_FROM_CACHE', 'false').lower() == 'true'
 
-SITE_URL = "https://wenyuedai.github.io/openclaw_podcast"
+SITE_URL = "https://wenyuedai.github.io/protein_design_podcast"
 
 
 def _dynamic_pubmed_terms(state_dir: Path, existing_terms: list, max_new: int = 5) -> list:
@@ -379,7 +379,6 @@ def main() -> int:
         seen.save()
 
     # 4) Save ranked item list for the website (complete index, not just highlights)
-    import json as _json
     import re as _re
     try:
         from bs4 import BeautifulSoup as _BS

@@ -49,6 +49,10 @@ jobs:
                   openclaw-knowledge-radio/state/boosted_topics.json \
                   openclaw-knowledge-radio/state/extra_rss_sources.json \
                   docs/
-          git diff --cached --quiet || git commit -m "Process missed papers [skip ci]"
-          git pull --rebase origin main
-          git push origin main
+          git diff --cached --quiet && echo "Nothing to commit" && exit 0
+          git commit -m "Process missed papers [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin main && break
+            echo "Push attempt $i failed, retrying..."
+            sleep $((i * 3))
+          done
