@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}   # PAT needed for authenticated push
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -28,6 +31,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add openclaw-knowledge-radio/state/notion_created.json
-          git diff --staged --quiet || git commit -m "Sync notion_created.json [skip ci]"
-          git pull --rebase origin main || true
-          git push origin main
+          git diff --staged --quiet && echo "Nothing to commit" && exit 0
+          git commit -m "Sync notion_created.json [skip ci]"
+          # Retry push up to 3 times to handle concurrent note saves
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin main && break
+            echo "Push attempt $i failed, retrying..."
+            sleep $((i * 3))
+          done
