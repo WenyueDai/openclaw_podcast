@@ -726,7 +726,7 @@ async function saveFeedback() {{
     if (get.ok) {{
       const meta = await get.json();
       sha = meta.sha;
-      existing = JSON.parse(atob(meta.content.replace(/\\n/g,'')));
+      existing = JSON.parse(decodeURIComponent(escape(atob(meta.content.replace(/\\n/g,'')))));
     }}
 
     // Merge new selections with existing
@@ -840,7 +840,7 @@ async function loadNotes() {{
   try {{
     const res = await fetch('https://api.github.com/repos/' + repo + '/contents/' + path, {{headers: headers}});
     if (!res.ok) {{ _updateNoteButtons(); return; }}
-    const data = JSON.parse(atob((await res.json()).content.replace(/\\n/g,'')));
+    const data = JSON.parse(decodeURIComponent(escape(atob((await res.json()).content.replace(/\\n/g,'')))));
     document.querySelectorAll('li[data-url][data-date]').forEach(function(li) {{
       const val = (data[li.dataset.date] || {{}})[li.dataset.url];
       const note = !val ? '' : (typeof val === 'string' ? val : (val.note || ''));
@@ -887,7 +887,7 @@ async function saveNote(btn) {{
     if (get.ok) {{
       const meta = await get.json();
       sha = meta.sha;
-      existing = JSON.parse(atob(meta.content.replace(/\\n/g,'')));
+      existing = JSON.parse(decodeURIComponent(escape(atob(meta.content.replace(/\\n/g,'')))));
     }}
     if (!existing[date]) existing[date] = {{}};
     if (noteText) {{
@@ -982,7 +982,7 @@ async function loadMissedPapers() {{
   try {{
     var res = await fetch('https://api.github.com/repos/' + repo + '/contents/' + path, {{headers: headers}});
     if (res.ok) {{
-      var data = JSON.parse(atob((await res.json()).content.replace(/\\n/g,'')));
+      var data = JSON.parse(decodeURIComponent(escape(atob((await res.json()).content.replace(/\\n/g,'')))));
       _renderMissedList(data);
     }}
   }} catch(e) {{}}
@@ -1025,7 +1025,7 @@ async function submitMissedPaper() {{
     if (get.ok) {{
       var meta = await get.json();
       sha = meta.sha;
-      existing = JSON.parse(atob(meta.content.replace(/\\n/g,'')));
+      existing = JSON.parse(decodeURIComponent(escape(atob(meta.content.replace(/\\n/g,'')))));
     }}
 
     // Duplicate check (case-insensitive title match)
