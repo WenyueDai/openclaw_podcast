@@ -50,18 +50,32 @@ jobs:
       - name: Prune old output dirs (keep last 30 days)
         run: |
           python - <<'PYEOF'
-          import shutil
+          import shutil, time
           from pathlib import Path
           from datetime import date, timedelta
           cutoff = date.today() - timedelta(days=30)
+
+          # Prune old output dirs
           for d in Path("output").iterdir():
               if not d.is_dir(): continue
               try:
                   if date.fromisoformat(d.name) < cutoff:
                       shutil.rmtree(d)
-                      print(f"Pruned {d}")
+                      print(f"Pruned output/{d.name}")
               except ValueError:
                   pass
+
+          # Prune old article analysis cache (keep last 30 days by mtime)
+          cache_dir = Path("data/article_analysis")
+          if cache_dir.exists():
+              cutoff_ts = time.time() - 30 * 86400
+              pruned = 0
+              for f in cache_dir.iterdir():
+                  if f.is_file() and f.stat().st_mtime < cutoff_ts:
+                      f.unlink()
+                      pruned += 1
+              if pruned:
+                  print(f"Pruned {pruned} stale analysis cache file(s)")
           PYEOF
 
       - name: Commit and push changes

@@ -310,8 +310,8 @@ podcast:
     tierA_max: 999
     tierB_max: 999
     tierB_batch_size: 1
-    deep_dive_max_tokens: 2600
-    roundup_max_tokens: 2200
+    deep_dive_max_tokens: 1800
+    roundup_max_tokens: 1200
     use_merge_llm: false
 
 publish:
