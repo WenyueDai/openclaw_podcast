@@ -79,8 +79,13 @@
     "title": "A  Unified Dataset for Antibody and Nanobody Design Including Sequence, Structure, and Binding Affinity Data",
     "url": null,
     "date_submitted": "2026-03-02",
-    "processed": false,
-    "diagnosis": null,
-    "keywords_added": []
+    "processed": true,
+    "diagnosis": "low_ranking",
+    "keywords_added": [
+      "nanobody design",
+      "binding affinity data"
+    ],
+    "rss_feed_found": "",
+    "notion_page_id": "3175f58e-a8c2-819a-92a8-e614b02d51ec"
   }
 ]
