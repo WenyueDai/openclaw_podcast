@@ -555,15 +555,18 @@ audio {{ width:100%; margin:4px 0 6px; }}
 .owner-feedback button {{ padding:4px 12px; border:1px solid var(--accent); border-radius:6px; background:var(--accent); color:#fff; cursor:pointer; font-size:.85rem; margin-right:8px; }}
 .owner-feedback button.sec {{ background:transparent; color:var(--accent); }}
 /* ── Cat — eats, walks, sleeps ── */
-#ghibli-cat {{ position:fixed; z-index:55; pointer-events:none; user-select:none; width:128px; height:100px; }}
-#ghibli-cat svg {{ overflow:visible; }}
-.neko-tail {{ transform-box:fill-box; transform-origin:100% 100%; }}
+#ghibli-cat {{ position:fixed; z-index:55; pointer-events:none; user-select:none; width:130px; height:100px; }}
+#neko-front-svg,#neko-side-svg {{ position:absolute; top:0; left:0; overflow:visible; }}
+#neko-side-svg {{ display:none; }}
+#ghibli-cat.walking #neko-front-svg {{ display:none; }}
+#ghibli-cat.walking #neko-side-svg {{ display:block; }}
+.neko-tail {{ transform-box:fill-box; }}
 .neko-leg  {{ transform-box:fill-box; transform-origin:top center; }}
-.neko-eye-l {{ transform-box:fill-box; transform-origin:center; }}
+.neko-eye-l,.neko-eye-r {{ transform-box:fill-box; transform-origin:center; }}
 .neko-bowl,.neko-leg,.neko-zzz {{ display:none; }}
 #ghibli-cat.eating .neko-bowl {{ display:block; }}
 #ghibli-cat.eating .neko-body-group,#ghibli-cat.eating .neko-head-group {{ animation:neko-eat-float 2.6s ease-in-out infinite; }}
-#ghibli-cat.eating .neko-eye-l {{ animation:neko-eat-eyes 2.6s ease-in-out infinite; }}
+#ghibli-cat.eating .neko-eye-l,#ghibli-cat.eating .neko-eye-r {{ animation:neko-eat-eyes 2.6s ease-in-out infinite; }}
 #ghibli-cat.eating .neko-tail {{ animation:neko-eat-tail 3.2s ease-in-out infinite; }}
 #ghibli-cat.eating .neko-steam-1 {{ animation:neko-steam 2.6s ease-in 0s infinite; }}
 #ghibli-cat.eating .neko-steam-2 {{ animation:neko-steam 2.6s ease-in 0.95s infinite; }}
@@ -575,20 +578,21 @@ audio {{ width:100%; margin:4px 0 6px; }}
 #ghibli-cat.walking .neko-leg-ff,#ghibli-cat.walking .neko-leg-bn {{ animation:neko-walk-b .42s ease-in-out infinite; }}
 #ghibli-cat.walking .neko-body-group {{ animation:neko-bob .42s ease-in-out infinite; }}
 #ghibli-cat.walking .neko-tail {{ animation:neko-tail-walk .42s ease-in-out infinite; }}
-#ghibli-cat.sleeping .neko-eye-l {{ animation:none !important; transform:scaleY(0.06); }}
+#ghibli-cat.sleeping .neko-eye-l,#ghibli-cat.sleeping .neko-eye-r {{ animation:none !important; transform:scaleY(0.06); }}
 #ghibli-cat.sleeping .neko-body-group {{ animation:neko-sleep-breathe 6s ease-in-out infinite; }}
 #ghibli-cat.sleeping .neko-tail {{ animation:neko-tail-idle 5s ease-in-out infinite; }}
 #ghibli-cat.sleeping .neko-zzz {{ display:block; }}
 #ghibli-cat.sleeping .neko-zzz1 {{ animation:neko-zzz 3s ease-in-out infinite; }}
 #ghibli-cat.sleeping .neko-zzz2 {{ animation:neko-zzz 3s 1.1s ease-in-out infinite; }}
 #ghibli-cat.sleeping .neko-zzz3 {{ animation:neko-zzz 3s 2.2s ease-in-out infinite; }}
-#ghibli-cat.idle .neko-eye-l,#ghibli-cat.sitting .neko-eye-l {{ animation:neko-blink 4.5s ease-in-out infinite; }}
+#ghibli-cat.idle .neko-eye-l,#ghibli-cat.idle .neko-eye-r,
+#ghibli-cat.sitting .neko-eye-l,#ghibli-cat.sitting .neko-eye-r {{ animation:neko-blink 4.5s ease-in-out infinite; }}
 #ghibli-cat.idle .neko-body-group {{ animation:neko-breathe 3.5s ease-in-out infinite; }}
 #ghibli-cat.idle .neko-tail,#ghibli-cat.sitting .neko-tail {{ animation:neko-tail-idle 3s ease-in-out infinite; }}
 #ghibli-cat.face-left {{ transform:scaleX(-1); }}
 @keyframes neko-eat-float {{ 0%,100% {{ transform:translateY(0); }} 50% {{ transform:translateY(-6px); }} }}
 @keyframes neko-eat-eyes {{ 0%,18%,82%,100% {{ transform:scaleY(1); }} 30%,66% {{ transform:scaleY(0.1); }} }}
-@keyframes neko-eat-tail {{ 0%,100% {{ transform:rotate(0deg); }} 50% {{ transform:rotate(30deg); }} }}
+@keyframes neko-eat-tail {{ 0%,100% {{ transform:rotate(0deg); }} 50% {{ transform:rotate(28deg); }} }}
 @keyframes neko-steam {{ 0% {{ opacity:0; transform:translateY(0); }} 18% {{ opacity:0.6; }} 100% {{ opacity:0; transform:translateY(-22px); }} }}
 @keyframes neko-slurp {{ 0%,22% {{ opacity:0; transform:translateY(0); }} 30% {{ opacity:1; transform:translateY(0); }} 64% {{ opacity:0; transform:translateY(-9px); }} 100% {{ opacity:0; transform:translateY(0); }} }}
 @keyframes neko-walk-a {{ 0%,100% {{ transform:rotate(-24deg); }} 50% {{ transform:rotate(24deg); }} }}
@@ -597,8 +601,8 @@ audio {{ width:100%; margin:4px 0 6px; }}
 @keyframes neko-tail-walk {{ 0%,100% {{ transform:rotate(-18deg); }} 50% {{ transform:rotate(18deg); }} }}
 @keyframes neko-tail-idle {{ 0%,100% {{ transform:rotate(-5deg); }} 50% {{ transform:rotate(12deg); }} }}
 @keyframes neko-blink {{ 0%,88%,100% {{ transform:scaleY(1); }} 91%,94% {{ transform:scaleY(.08); }} }}
-@keyframes neko-breathe {{ 0%,100% {{ transform:translateY(0) scaleX(1); }} 50% {{ transform:translateY(-1px) scaleX(1.02); }} }}
-@keyframes neko-sleep-breathe {{ 0%,100% {{ transform:translateY(0) scaleX(1); }} 50% {{ transform:translateY(-0.4px) scaleX(1.01); }} }}
+@keyframes neko-breathe {{ 0%,100% {{ transform:translateY(0); }} 50% {{ transform:translateY(-2px); }} }}
+@keyframes neko-sleep-breathe {{ 0%,100% {{ transform:translateY(0); }} 50% {{ transform:translateY(-0.8px); }} }}
 @keyframes neko-zzz {{ 0% {{ opacity:0; transform:translate(0,0); }} 25% {{ opacity:0.75; }} 100% {{ opacity:0; transform:translate(5px,-13px); }} }}
 </style>
 </head>
@@ -1120,119 +1124,180 @@ async function submitMissedPaper() {{
 loadMissedPapers();
 </script>
 
-<!-- ── Cat — side-view: eats, walks, sleeps ── -->
+<!-- ── Cat: front-view (eat/sleep) + side-view (walk) ── -->
 <div id="ghibli-cat">
-<svg viewBox="0 0 135 108" width="122" height="97" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+
+<!-- ══ FRONT VIEW — eating & sleeping ══ -->
+<svg id="neko-front-svg" viewBox="0 0 100 118" width="80" height="94" xmlns="http://www.w3.org/2000/svg">
 <defs>
-  <filter id="neko-fur" x="-30%" y="-30%" width="160%" height="160%">
+  <filter id="neko-fur-f" x="-35%" y="-35%" width="170%" height="170%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.82 0.88" numOctaves="4" seed="4" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <clipPath id="bowl-clip-f">
+    <ellipse cx="50" cy="97" rx="21" ry="5.5"/>
+  </clipPath>
+</defs>
+<!-- Bowl (shown only when eating, drawn first so cat is in front) -->
+<g class="neko-bowl">
+  <path class="neko-steam-1" d="M37,91 Q35,83 37,76 Q39,69 37,62" stroke="#d8d4e8" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0"/>
+  <path class="neko-steam-2" d="M50,89 Q48,81 50,73 Q52,66 50,59" stroke="#d8d4e8" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0"/>
+  <path class="neko-steam-3" d="M63,91 Q65,83 63,75 Q61,68 63,61" stroke="#d8d4e8" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0"/>
+  <path d="M29,97 Q26,112 50,116 Q74,112 71,97" fill="#ede5d4" stroke="#c8c0ae" stroke-width="1.2"/>
+  <ellipse cx="50" cy="97" rx="21" ry="5.5" fill="#c08820"/>
+  <g clip-path="url(#bowl-clip-f)">
+    <path d="M30,97 Q37,92 44,97 Q51,102 58,97 Q64,92 70,97" stroke="#f8f080" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    <circle cx="40" cy="96" r="3.5" fill="#fff4f4" stroke="#f898a0" stroke-width="0.8"/>
+    <circle cx="40" cy="96" r="1.5" fill="#f87080"/>
+    <ellipse cx="60" cy="95" rx="4" ry="3" fill="#fffce8" stroke="#d4a840" stroke-width="0.6"/>
+    <rect x="46" y="91" width="4" height="8" rx="1" fill="#1a2e1a" opacity="0.9"/>
+  </g>
+  <ellipse cx="50" cy="97" rx="21" ry="5.5" fill="none" stroke="#b8b0a0" stroke-width="1.6"/>
+  <line x1="58" y1="83" x2="68" y2="107" stroke="#c09040" stroke-width="2" stroke-linecap="round"/>
+  <line x1="62" y1="81" x2="71" y2="105" stroke="#b07030" stroke-width="2" stroke-linecap="round"/>
+  <path class="neko-noodle" d="M50,91 Q48,83 50,75 Q52,68 50,61" stroke="#f0e870" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0"/>
+</g>
+<!-- Fur halo -->
+<g filter="url(#neko-fur-f)">
+  <circle cx="50" cy="34" r="28" fill="#f5f2ee"/>
+  <ellipse cx="50" cy="64" rx="24" ry="18" fill="#f5f2ee"/>
+  <polygon points="21,22 37,12 19,1" fill="#f5f2ee"/>
+  <polygon points="79,22 63,12 81,1" fill="#f5f2ee"/>
+</g>
+<!-- Tail -->
+<path class="neko-tail" style="transform-origin:0% 100%" d="M63,72 C78,64 84,46 79,32 C75,21 65,25 67,35 C69,45 76,41 72,29" stroke="#e0d8d8" stroke-width="6.5" fill="none" stroke-linecap="round"/>
+<path d="M73,30 C71,24 67,23 67,30" stroke="#fff4f8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<!-- Body group -->
+<g class="neko-body-group">
+  <ellipse cx="50" cy="64" rx="20" ry="16" fill="#f5f2ee"/>
+  <ellipse cx="50" cy="71" rx="14" ry="9" fill="#fff6f8"/>
+  <path d="M44,62 Q46,56 43,51" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M50,60 Q52,54 50,49" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M56,62 Q54,56 57,51" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <!-- Paws -->
+  <ellipse cx="34" cy="82" rx="12" ry="5" fill="#ede6e4"/>
+  <ellipse cx="66" cy="82" rx="12" ry="5" fill="#ede6e4"/>
+  <path d="M26,80 Q34,76 42,80" stroke="#d8d2ce" stroke-width="0.9" fill="none"/>
+  <path d="M58,80 Q66,76 74,80" stroke="#d8d2ce" stroke-width="0.9" fill="none"/>
+</g>
+<!-- Head group -->
+<g class="neko-head-group">
+  <circle cx="50" cy="34" r="22" fill="#f5f2ee"/>
+  <!-- Left ear -->
+  <polygon points="22,21 37,13 21,2"  fill="#f5f2ee"/>
+  <polygon points="25,20 36,15 25,8"  fill="#f8c0cc"/>
+  <!-- Right ear -->
+  <polygon points="78,21 63,13 79,2"  fill="#f5f2ee"/>
+  <polygon points="75,20 64,15 75,8"  fill="#f8c0cc"/>
+  <!-- Left eye -->
+  <g class="neko-eye-l">
+    <ellipse cx="38" cy="30" rx="7.5" ry="8.5" fill="#1e2a40"/>
+    <ellipse cx="38" cy="31" rx="6"   ry="7"   fill="#3a8acc"/>
+    <ellipse cx="38" cy="31" rx="1.8" ry="6"   fill="#080c18"/>
+    <circle  cx="42" cy="25" r="4.5"  fill="white"/>
+    <circle  cx="34.5" cy="36" r="2"  fill="white" opacity="0.55"/>
+  </g>
+  <!-- Right eye -->
+  <g class="neko-eye-r">
+    <ellipse cx="62" cy="30" rx="7.5" ry="8.5" fill="#1e2a40"/>
+    <ellipse cx="62" cy="31" rx="6"   ry="7"   fill="#3a8acc"/>
+    <ellipse cx="62" cy="31" rx="1.8" ry="6"   fill="#080c18"/>
+    <circle  cx="66" cy="25" r="4.5"  fill="white"/>
+    <circle  cx="58.5" cy="36" r="2"  fill="white" opacity="0.55"/>
+  </g>
+  <!-- Blush -->
+  <ellipse cx="26" cy="40" rx="9" ry="5.5" fill="#ffb0c0" opacity="0.28"/>
+  <ellipse cx="74" cy="40" rx="9" ry="5.5" fill="#ffb0c0" opacity="0.28"/>
+  <!-- Nose -->
+  <path d="M47.5,39 Q50,42.5 52.5,39 Q50,37 47.5,39" fill="#f0a0b8" stroke="#e090a8" stroke-width="0.4"/>
+  <line x1="50" y1="42.5" x2="50" y2="44" stroke="#d090a8" stroke-width="0.9" stroke-linecap="round"/>
+  <!-- Mouth ω -->
+  <path d="M44,44.5 Q47,48.5 50,45.5 Q53,48.5 56,44.5" stroke="#c07888" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Whiskers -->
+  <line x1="43" y1="40" x2="18" y2="37" stroke="#d8d4c4" stroke-width="1"/>
+  <line x1="43" y1="43" x2="18" y2="48" stroke="#d8d4c4" stroke-width="1"/>
+  <line x1="57" y1="40" x2="82" y2="37" stroke="#d8d4c4" stroke-width="1"/>
+  <line x1="57" y1="43" x2="82" y2="48" stroke="#d8d4c4" stroke-width="1"/>
+  <!-- ZZZ -->
+  <text class="neko-zzz neko-zzz1" x="67" y="19" font-size="10" fill="#9898cc" font-family="Georgia,serif" font-style="italic" opacity="0">z</text>
+  <text class="neko-zzz neko-zzz2" x="73" y="11" font-size="8"  fill="#9898cc" font-family="Georgia,serif" font-style="italic" opacity="0">z</text>
+  <text class="neko-zzz neko-zzz3" x="78" y="5"  font-size="6.5" fill="#9898cc" font-family="Georgia,serif" font-style="italic" opacity="0">z</text>
+</g>
+</svg>
+
+<!-- ══ SIDE VIEW — walking only ══ -->
+<svg id="neko-side-svg" viewBox="0 0 130 100" width="130" height="100" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <filter id="neko-fur-s" x="-30%" y="-30%" width="160%" height="160%">
     <feTurbulence type="fractalNoise" baseFrequency="0.85 0.90" numOctaves="4" seed="7" result="noise"/>
     <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
-  <clipPath id="bowl-clip">
-    <ellipse cx="114" cy="93" rx="17" ry="4.8"/>
-  </clipPath>
 </defs>
-
-<!-- Tail (drawn first = behind everything) -->
-<path class="neko-tail" d="M34,62 C20,54 8,38 14,22 C19,10 30,14 27,27 C24,38 13,34 17,23" stroke="#e0d8d8" stroke-width="7" fill="none" stroke-linecap="round"/>
-<path d="M17,23 C14,17 19,12 25,19" stroke="#fff4f8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-
-<!-- Far legs (behind body) -->
-<rect class="neko-leg neko-leg-bf" x="35" y="76" width="9" height="26" rx="4.5" fill="#dedad6"/>
-<rect class="neko-leg neko-leg-ff" x="79" y="76" width="9" height="26" rx="4.5" fill="#dedad6"/>
-
+<!-- Tail (behind everything, base at right-bottom of path bbox) -->
+<path class="neko-tail" style="transform-origin:100% 100%" d="M26,68 C10,60 2,42 7,26 C11,14 21,17 19,28 C16,40 6,36 10,24" stroke="#e0d8d8" stroke-width="6.5" fill="none" stroke-linecap="round"/>
+<path d="M10,24 C7,17 12,12 18,20" stroke="#fff4f8" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+<!-- Far legs (behind body, slightly darker) -->
+<rect class="neko-leg neko-leg-bf" x="34" y="73" width="9" height="22" rx="4.5" fill="#dedad6"/>
+<rect class="neko-leg neko-leg-ff" x="68" y="73" width="9" height="22" rx="4.5" fill="#dedad6"/>
 <!-- Body group -->
 <g class="neko-body-group">
-  <!-- Fur halo behind body -->
-  <g filter="url(#neko-fur)">
-    <ellipse cx="64" cy="60" rx="38" ry="23" fill="#f5f2ee"/>
-    <ellipse cx="100" cy="54" rx="17" ry="14" fill="#f5f2ee"/>
+  <g filter="url(#neko-fur-s)">
+    <ellipse cx="55" cy="60" rx="34" ry="22" fill="#f5f2ee"/>
+    <ellipse cx="88" cy="53" rx="14" ry="12" fill="#f5f2ee"/>
   </g>
-  <!-- Main body -->
-  <ellipse cx="63" cy="60" rx="34" ry="19" fill="#f5f2ee"/>
-  <!-- Belly -->
-  <ellipse cx="64" cy="68" rx="27" ry="10" fill="#fff6f8"/>
-  <!-- Chest fur marks -->
-  <path d="M80,56 Q82,51 80,47" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-  <path d="M84,58 Q87,53 85,49" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <ellipse cx="55" cy="60" rx="30" ry="18" fill="#f5f2ee"/>
+  <ellipse cx="56" cy="68" rx="22" ry="10" fill="#fff6f8"/>
+  <path d="M72,56 Q74,51 72,47" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M76,58 Q79,53 77,49" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
 </g>
-
-<!-- Near legs (in front of body) -->
-<rect class="neko-leg neko-leg-bn" x="43" y="76" width="9" height="26" rx="4.5" fill="#edeae6"/>
-<rect class="neko-leg neko-leg-fn" x="87" y="76" width="9" height="26" rx="4.5" fill="#edeae6"/>
-
-<!-- Paws (shown when not walking) -->
+<!-- Near legs (in front of body, slightly lighter) -->
+<rect class="neko-leg neko-leg-bn" x="41" y="73" width="9" height="22" rx="4.5" fill="#edeae6"/>
+<rect class="neko-leg neko-leg-fn" x="75" y="73" width="9" height="22" rx="4.5" fill="#edeae6"/>
+<!-- Paws -->
 <g class="neko-paws">
-  <!-- Back paw pair -->
-  <ellipse cx="47" cy="104" rx="13" ry="5" fill="#ede6e4"/>
-  <path d="M36,102 Q47,97 58,102" stroke="#d8d2ce" stroke-width="0.9" fill="none"/>
-  <!-- Front paw pair -->
-  <ellipse cx="91" cy="104" rx="13" ry="5" fill="#ede6e4"/>
-  <path d="M80,102 Q91,97 102,102" stroke="#d8d2ce" stroke-width="0.9" fill="none"/>
+  <ellipse cx="45" cy="96" rx="12" ry="4.5" fill="#ede6e4"/>
+  <path d="M35,94 Q45,89 55,94" stroke="#d8d2ce" stroke-width="0.9" fill="none"/>
+  <ellipse cx="79" cy="96" rx="12" ry="4.5" fill="#ede6e4"/>
+  <path d="M69,94 Q79,89 89,94" stroke="#d8d2ce" stroke-width="0.9" fill="none"/>
 </g>
-
-<!-- Head group (neck + head + ears + face) -->
+<!-- Head group -->
 <g class="neko-head-group">
-  <!-- Neck -->
-  <ellipse cx="96" cy="58" rx="12" ry="10" fill="#f5f2ee"/>
-  <!-- Head -->
-  <circle cx="104" cy="35" r="22" fill="#f5f2ee"/>
-  <!-- Far ear (slightly behind) -->
-  <polygon points="94,21 102,5 111,21" fill="#ede8e4"/>
-  <polygon points="96,21 102,9 110,21" fill="#f8c0cc"/>
-  <!-- Near ear (in front) -->
-  <polygon points="102,20 110,4 119,20" fill="#f5f2ee"/>
-  <polygon points="104,20 110,7 117,20" fill="#f8c0cc"/>
-  <!-- Eye -->
+  <!-- Neck connector -->
+  <ellipse cx="82" cy="52" rx="9" ry="8" fill="#f5f2ee"/>
+  <!-- Head (r=18, fits well within 130-wide viewBox) -->
+  <circle cx="95" cy="35" r="18" fill="#f5f2ee"/>
+  <!-- Far ear (slightly behind / smaller) -->
+  <polygon points="87,22 93,8  100,22" fill="#ede8e4"/>
+  <polygon points="88,22 93,11 99,22"  fill="#f8c0cc"/>
+  <!-- Near ear (slightly in front / slightly larger) -->
+  <polygon points="94,21 100,6 107,21" fill="#f5f2ee"/>
+  <polygon points="95,21 100,9 106,21" fill="#f8c0cc"/>
+  <!-- Eye (visible side, upper-right quadrant of head) -->
   <g class="neko-eye-l">
-    <ellipse cx="111" cy="29" rx="7" ry="8.5" fill="#1e2a40"/>
-    <ellipse cx="111" cy="30" rx="5.5" ry="7" fill="#3a8acc"/>
-    <ellipse cx="111" cy="30" rx="1.6" ry="6" fill="#080c18"/>
-    <circle  cx="114" cy="23" r="3.8" fill="white"/>
-    <circle  cx="108" cy="36" r="1.8" fill="white" opacity="0.55"/>
+    <ellipse cx="101" cy="29" rx="7" ry="8" fill="#1e2a40"/>
+    <ellipse cx="101" cy="30" rx="5.5" ry="6.5" fill="#3a8acc"/>
+    <ellipse cx="101" cy="30" rx="1.6" ry="5.5" fill="#080c18"/>
+    <circle  cx="105" cy="23" r="3.5" fill="white"/>
+    <circle  cx="98"  cy="35" r="1.5" fill="white" opacity="0.55"/>
   </g>
   <!-- Blush -->
-  <ellipse cx="117" cy="41" rx="9" ry="5.5" fill="#ffb0c0" opacity="0.28"/>
+  <ellipse cx="109" cy="42" rx="8" ry="5" fill="#ffb0c0" opacity="0.28"/>
   <!-- Snout muzzle -->
-  <ellipse cx="123" cy="43" rx="8" ry="6" fill="#f0ebe8"/>
-  <!-- Nose (heart) -->
-  <path d="M121,41 Q123,44.5 125,41 Q123,38.5 121,41" fill="#f0a0b8" stroke="#e090a8" stroke-width="0.4"/>
-  <!-- Philtrum -->
-  <line x1="123" y1="44.5" x2="123" y2="46" stroke="#d090a8" stroke-width="0.9" stroke-linecap="round"/>
-  <!-- Mouth ω -->
-  <path d="M120.5,46.5 Q122.5,50.5 123,47.5 Q123.5,50.5 125.5,46.5" stroke="#c07888" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-  <!-- Whiskers backward -->
-  <line x1="120" y1="42" x2="94" y2="36" stroke="#d8d4c4" stroke-width="1"/>
-  <line x1="120" y1="45" x2="94" y2="51" stroke="#d8d4c4" stroke-width="1"/>
-  <!-- Whiskers forward (short) -->
-  <line x1="126" y1="42" x2="135" y2="39" stroke="#d8d4c4" stroke-width="1"/>
-  <line x1="126" y1="45" x2="135" y2="48" stroke="#d8d4c4" stroke-width="1"/>
-  <!-- ZZZ -->
-  <text class="neko-zzz neko-zzz1" x="120" y="18" font-size="10" fill="#9898cc" font-family="Georgia,serif" font-style="italic" opacity="0">z</text>
-  <text class="neko-zzz neko-zzz2" x="126" y="10" font-size="8"  fill="#9898cc" font-family="Georgia,serif" font-style="italic" opacity="0">z</text>
-  <text class="neko-zzz neko-zzz3" x="131" y="4"  font-size="6.5" fill="#9898cc" font-family="Georgia,serif" font-style="italic" opacity="0">z</text>
-</g>
-
-<!-- Bowl (drawn last = in front, visible only when eating) -->
-<g class="neko-bowl">
-  <path class="neko-steam-1" d="M105,87 Q103,79 105,72 Q107,65 105,58" stroke="#d8d4e8" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0"/>
-  <path class="neko-steam-2" d="M114,85 Q112,77 114,70 Q116,63 114,56" stroke="#d8d4e8" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0"/>
-  <path class="neko-steam-3" d="M123,87 Q125,79 123,71 Q121,64 123,57" stroke="#d8d4e8" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0"/>
-  <path d="M97,93 Q95,107 114,110 Q133,107 131,93" fill="#ede5d4" stroke="#c8c0ae" stroke-width="1.2"/>
-  <ellipse cx="114" cy="93" rx="17" ry="4.8" fill="#c08820"/>
-  <g clip-path="url(#bowl-clip)">
-    <path d="M98,93 Q105,88 112,93 Q119,98 126,93 Q129,90 130,93" stroke="#f8f080" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-    <circle cx="106" cy="92" r="3.5" fill="#fff4f4" stroke="#f898a0" stroke-width="0.8"/>
-    <circle cx="106" cy="92" r="1.6" fill="#f87080"/>
-    <ellipse cx="120" cy="91" rx="4" ry="3" fill="#fffce8" stroke="#d4a840" stroke-width="0.6"/>
-    <rect x="111" y="88" width="4" height="8" rx="1" fill="#1a2e1a" opacity="0.9"/>
-  </g>
-  <ellipse cx="114" cy="93" rx="17" ry="4.8" fill="none" stroke="#b8b0a0" stroke-width="1.6"/>
-  <line x1="120" y1="80" x2="130" y2="103" stroke="#c09040" stroke-width="2" stroke-linecap="round"/>
-  <line x1="125" y1="78" x2="133" y2="101" stroke="#b07030" stroke-width="2" stroke-linecap="round"/>
-  <path class="neko-noodle" d="M114,88 Q112,80 114,72 Q116,65 114,58" stroke="#f0e870" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0"/>
+  <ellipse cx="110" cy="44" rx="7" ry="5" fill="#f0ebe8"/>
+  <!-- Nose -->
+  <path d="M108,41 Q110,44 112,41 Q110,39 108,41" fill="#f0a0b8" stroke="#e090a8" stroke-width="0.4"/>
+  <line x1="110" y1="44" x2="110" y2="45.5" stroke="#d090a8" stroke-width="0.9" stroke-linecap="round"/>
+  <!-- Mouth omega -->
+  <path d="M108,46.5 Q110,50 110.5,47.5 Q111,50 113,46.5" stroke="#c07888" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+  <!-- Whiskers left (back toward body) -->
+  <line x1="107" y1="43" x2="84" y2="38" stroke="#d8d4c4" stroke-width="0.9"/>
+  <line x1="107" y1="46" x2="84" y2="51" stroke="#d8d4c4" stroke-width="0.9"/>
+  <!-- Whiskers right (forward tip) -->
+  <line x1="116" y1="43" x2="127" y2="40" stroke="#d8d4c4" stroke-width="0.9"/>
+  <line x1="116" y1="46" x2="127" y2="49" stroke="#d8d4c4" stroke-width="0.9"/>
 </g>
 </svg>
+
 </div>
 <script>
 (function() {{
