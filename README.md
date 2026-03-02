@@ -47,15 +47,16 @@ Items are sorted by a 9-level priority key (lower = better):
 
 | Priority | Factor | Rationale |
 |----------|--------|-----------|
-| 0 | **Absolute author sources** — researcher feeds (Baker, Ovchinnikov…) and blogs with `author` tag | Curated, highest trust |
-| 1 | **Absolute title keywords** — AlphaFold, RoseTTAFold, ESMFold, RFdiffusion, ProteinMPNN, OpenFold, OmegaFold, Chai-1, Boltz, "structure prediction" | Landmark papers regardless of source |
-| 2 | **Missed paper keywords** — topics extracted from owner-submitted missed papers (`boosted_topics.json`) | Ground truth: papers actively sought out that the pipeline failed to collect |
-| 3 | **Config topic keywords** — "antibody design", "enzyme design", "diffusion model", "protein language model", etc. | Broad topic steering |
-| 4 | **Journal quality** — Nature Biotech/Chem Bio/Structural > PNAS > Nature main > arXiv > others | Source credibility |
-| 5 | **Research bucket** — protein/journal/ai_bio before news | Domain relevance |
-| 6 | **Feedback from likes** — papers from sources/titles the owner previously selected | Lighter weight: avoids selection-bias feedback loop |
-| 7 | **Fulltext available** — papers where full text was successfully extracted | Content quality |
-| 8 | **Extracted text length** | Final tie-breaker |
+| 0 | **Researcher arXiv feeds** — Baker, Ovchinnikov, Rives, Deane, Gray… (`author` tag + arXiv source) | Curated, highest trust — new papers from tracked researchers |
+| 1 | **Blog/substack sources** — A-Alpha Bio, Owl Posting, Asimov Press, BLOPIG, AlQuraishi, In the Pipeline (`author` tag, non-arXiv) | High-quality curated writing, just below new research |
+| 2 | **Absolute title keywords** — AlphaFold, RoseTTAFold, ESMFold, RFdiffusion, ProteinMPNN, OpenFold, OmegaFold, Chai-1, Boltz, "structure prediction" | Landmark papers regardless of source |
+| 3 | **Missed paper keywords** — topics extracted from owner-submitted missed papers (`boosted_topics.json`) | Ground truth: papers actively sought out that the pipeline failed to collect |
+| 4 | **Config topic keywords** — "antibody design", "enzyme design", "diffusion model", "protein language model", etc. | Broad topic steering |
+| 5 | **Journal quality** — Nature Biotech/Chem Bio/Structural > PNAS > Nature main > arXiv > others | Source credibility |
+| 6 | **Research bucket** — protein/journal/ai_bio before news | Domain relevance |
+| 7 | **Feedback from likes** — papers from sources/titles the owner previously selected | Lighter weight: avoids selection-bias feedback loop |
+| 8 | **Fulltext available** — papers where full text was successfully extracted | Content quality |
+| 9 | **Extracted text length** | Final tie-breaker |
 
 Top 52 items are selected for the episode (38 max from the `protein` bucket). Per-source and per-bucket caps apply.
 
@@ -421,7 +422,7 @@ This is stored only in your browser's `localStorage`. It enables the feedback ch
 Every GitHub Actions run does `git checkout main` as its first step, so it always runs the **latest committed code**.
 
 - ✅ 42 RSS sources covering protein design, structural biology, AI/ML, key researchers, and curated blogs
-- ✅ 9-level ranking: absolute authors → absolute title keywords → missed paper keywords → config topics → journal quality → bucket → feedback (lighter) → fulltext → length
+- ✅ 10-level ranking: researcher feeds → blogs → absolute title keywords → missed paper keywords → config topics → journal quality → bucket → feedback (lighter) → fulltext → length
 - ✅ Absolute author priority: researcher arXiv feeds and curated blogs (tagged `author`) always make the episode first
 - ✅ Absolute title keywords: AlphaFold, RoseTTAFold, ESMFold, RFdiffusion, ProteinMPNN, OpenFold, OmegaFold, Chai-1, Boltz, "structure prediction" get tier-1 priority regardless of source
 - ✅ Missed paper keyword boost: topics from owner-submitted missed papers go into `boosted_topics.json` at tier-2 — above config topic keywords and feedback

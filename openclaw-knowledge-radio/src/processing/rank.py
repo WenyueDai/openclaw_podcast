@@ -86,49 +86,49 @@ def _has_fulltext(it: Dict[str, Any], threshold: int) -> bool:
 # -----------------------------
 # Priority knobs (minimal, config-optional)
 # -----------------------------
-def _absolute_author_priority(it: Dict[str, Any], cfg: Dict[str, Any]) -> int:
+def _is_researcher_feed(it: Dict[str, Any], cfg: Dict[str, Any]) -> bool:
     """
-    Lower is better.
-
-    Your new rule: selected researchers / author feeds are ABSOLUTE priority.
-
-    Default behavior (no config changes needed):
-    - If item has tag 'author' -> absolute priority (0)
-    - If source contains 'google scholar' -> absolute priority (0)
-
-    Optional config (does not break if missing):
-      ranking:
-        absolute_sources:
-          - "Frances Arnold (Google Scholar)"
-          - "David Baker (arXiv)"
-        absolute_source_substrings:
-          - "google scholar"
-          - "david baker"
+    True if item comes from a tracked researcher arXiv feed.
+    Researcher feeds have tag 'author' AND '(arxiv)' in the source name,
+    or match absolute_source_substrings in config.
+    Blogs have tag 'author' but no arXiv in source name → not researcher feeds.
     """
     tags = _tags_lower(it)
     src = _norm(it.get("source") or "")
+    src_raw = (it.get("source") or "").strip()
 
-    if "author" in tags:
-        return 0
+    if "author" in tags and "arxiv" in src:
+        return True
     if "google scholar" in src:
-        return 0
+        return True
 
     r = (cfg.get("ranking") or {}) if isinstance(cfg, dict) else {}
-    abs_sources = r.get("absolute_sources") or []
-    abs_sub = r.get("absolute_source_substrings") or []
-
-    src_raw = (it.get("source") or "").strip()
-    # exact/contains match on configured names
-    for name in abs_sources:
-        if name and _norm(name) in src:
-            return 0
-        if name and name.strip() == src_raw:
-            return 0
-    for sub in abs_sub:
+    for name in (r.get("absolute_sources") or []):
+        if name and (_norm(name) in src or name.strip() == src_raw):
+            return True
+    for sub in (r.get("absolute_source_substrings") or []):
         if sub and _norm(sub) in src:
-            return 0
+            return True
+    return False
 
-    return 1
+
+def _is_blog_feed(it: Dict[str, Any]) -> bool:
+    """
+    True if item comes from a tracked blog/substack (author tag, no arXiv in source).
+    """
+    tags = _tags_lower(it)
+    src = _norm(it.get("source") or "")
+    return "author" in tags and "arxiv" not in src
+
+
+def _absolute_author_priority(it: Dict[str, Any], cfg: Dict[str, Any]) -> int:
+    """Tier 0: tracked researcher arXiv feeds only. Lower is better."""
+    return 0 if _is_researcher_feed(it, cfg) else 1
+
+
+def _absolute_blog_priority(it: Dict[str, Any]) -> int:
+    """Tier 1: tracked blog/substack sources. Lower is better."""
+    return 0 if _is_blog_feed(it) else 1
 
 
 def _absolute_title_priority(it: Dict[str, Any], cfg: Dict[str, Any]) -> int:
@@ -281,15 +281,16 @@ def rank_and_limit(items: List[Dict[str, Any]], cfg: Dict[str, Any]) -> List[Dic
     Input/Output compatible with your current pipeline.
 
     New ranking policy (lower is better):
-    0) ABSOLUTE: key researchers / author feeds (tag 'author' or Google Scholar, etc.)
-    1) ABSOLUTE: landmark paper titles (AlphaFold, RoseTTAFold, etc.)
-    2) Missed paper keywords (topics extracted from user-submitted missed papers)
-    3) On-topic keywords from config (topic_boost_keywords)
-    4) Journal/source quality (Nature family, PNAS, etc.)
-    5) Bucket steering (protein/journal/ai_bio before news)
-    6) Feedback boost (liked sources / keywords) — lighter weight, avoids selection bias
-    7) Fulltext as a small tie-breaker
-    8) Longer extracted text as tie-breaker
+    0) ABSOLUTE: tracked researcher arXiv feeds (tag 'author' + arXiv source)
+    1) ABSOLUTE: tracked blog/substack sources (tag 'author', non-arXiv)
+    2) ABSOLUTE: landmark paper titles (AlphaFold, RoseTTAFold, etc.)
+    3) Missed paper keywords (topics extracted from user-submitted missed papers)
+    4) On-topic keywords from config (topic_boost_keywords)
+    5) Journal/source quality (Nature family, PNAS, etc.)
+    6) Bucket steering (protein/journal/ai_bio before news)
+    7) Feedback boost (liked sources / keywords) — lighter weight, avoids selection bias
+    8) Fulltext as a small tie-breaker
+    9) Longer extracted text as tie-breaker
     """
     # Limits (keep identical keys / defaults)
     lim = cfg.get("limits", {}) if isinstance(cfg, dict) else {}
@@ -309,15 +310,16 @@ def rank_and_limit(items: List[Dict[str, Any]], cfg: Dict[str, Any]) -> List[Dic
         extracted_chars = int(it.get("extracted_chars", 0) or 0)
         has_fulltext = 1 if _has_fulltext(it, FULLTEXT_THRESHOLD) else 0
         return (
-            _absolute_author_priority(it, cfg),      # 0) ABSOLUTE: researchers / author feeds
-            _absolute_title_priority(it, cfg),       # 1) ABSOLUTE: landmark titles (AlphaFold etc.)
-            _missed_paper_keyword_priority(it),      # 2) missed paper keywords (user ground truth)
-            _topic_keyword_priority(it, cfg),        # 3) config topic keywords
-            _journal_quality_priority(it, cfg),      # 4) journal quality
-            _bucket_priority(it),                    # 5) research buckets
-            _feedback_priority(it, liked_urls, liked_sources, liked_keywords),  # 6) feedback (lighter)
-            -has_fulltext,                           # 7) fulltext bonus
-            -extracted_chars,                        # 8) longer text tie-break
+            _absolute_author_priority(it, cfg),      # 0) ABSOLUTE: researcher arXiv feeds
+            _absolute_blog_priority(it),             # 1) ABSOLUTE: blogs/substacks
+            _absolute_title_priority(it, cfg),       # 2) ABSOLUTE: landmark titles (AlphaFold etc.)
+            _missed_paper_keyword_priority(it),      # 3) missed paper keywords (user ground truth)
+            _topic_keyword_priority(it, cfg),        # 4) config topic keywords
+            _journal_quality_priority(it, cfg),      # 5) journal quality
+            _bucket_priority(it),                    # 6) research buckets
+            _feedback_priority(it, liked_urls, liked_sources, liked_keywords),  # 7) feedback (lighter)
+            -has_fulltext,                           # 8) fulltext bonus
+            -extracted_chars,                        # 9) longer text tie-break
         )
 
     ranked = sorted(items, key=rank_key)
