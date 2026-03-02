@@ -1106,63 +1106,67 @@ loadMissedPapers();
 
 <!-- ── Ghibli wandering cat ── -->
 <div id="ghibli-cat" class="idle">
-<svg viewBox="0 0 100 100" width="100" height="100" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+<svg viewBox="0 0 100 100" width="88" height="88" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
 <g class="neko-body-group">
-  <!-- Tail (drawn first = behind everything) -->
-  <path class="neko-tail" d="M63,80 C77,72 84,56 79,42 C75,31 65,35 67,44 C69,53 76,50 72,39" stroke="#b4b2cc" stroke-width="7" fill="none" stroke-linecap="round"/>
-  <path d="M73,40 C71,35 67,34 67,40" stroke="#dcdaf0" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- Tail -->
+  <path class="neko-tail" d="M63,80 C77,72 84,56 79,42 C75,31 65,35 67,44 C69,53 76,50 72,39" stroke="#c0bece" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M73,40 C71,35 67,34 67,40" stroke="#e8e6f8" stroke-width="4" fill="none" stroke-linecap="round"/>
   <!-- Body -->
-  <ellipse cx="50" cy="72" rx="28" ry="18" fill="#cac9e0"/>
-  <ellipse cx="50" cy="68" rx="10" ry="5" fill="#b8b6d2" opacity="0.45"/>
-  <!-- Belly -->
-  <ellipse cx="50" cy="77" rx="17" ry="11" fill="#eae9f8"/>
+  <ellipse cx="50" cy="72" rx="28" ry="18" fill="#d4d0c8"/>
+  <ellipse cx="50" cy="68" rx="10" ry="5" fill="#b8b4a8" opacity="0.4"/>
+  <!-- Belly (warm cream) -->
+  <ellipse cx="50" cy="77" rx="17" ry="11" fill="#f0ede4"/>
   <!-- Back legs -->
-  <rect class="neko-leg neko-leg-bl" x="27" y="84" width="12" height="18" rx="6" fill="#b4b2cc"/>
-  <rect class="neko-leg neko-leg-br" x="60" y="84" width="12" height="18" rx="6" fill="#b4b2cc"/>
-  <!-- Head (large round, classic Ghibli) -->
-  <circle cx="50" cy="38" r="27" fill="#cac9e0"/>
+  <rect class="neko-leg neko-leg-bl" x="27" y="84" width="12" height="18" rx="6" fill="#c0bcb4"/>
+  <rect class="neko-leg neko-leg-br" x="60" y="84" width="12" height="18" rx="6" fill="#c0bcb4"/>
+  <!-- Head -->
+  <circle cx="50" cy="38" r="25" fill="#d4d0c8"/>
   <!-- Ear left -->
-  <polygon points="26,22 18,5 38,18" fill="#cac9e0"/>
-  <polygon points="27,21 22,9 35,18" fill="#ffb8cc"/>
+  <polygon points="28,23 20,7 40,19" fill="#d4d0c8"/>
+  <polygon points="29,22 24,10 37,19" fill="#f8c0cc"/>
   <!-- Ear right -->
-  <polygon points="66,20 74,4 76,18" fill="#cac9e0"/>
-  <polygon points="65,20 71,9 74,19" fill="#ffb8cc"/>
+  <polygon points="64,21 72,6 74,19" fill="#d4d0c8"/>
+  <polygon points="64,22 70,10 72,20" fill="#f8c0cc"/>
   <!-- Forehead tabby stripes -->
-  <path d="M37,19 Q50,16 63,19" stroke="#b4b2d0" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-  <path d="M34,24 Q50,21 66,24" stroke="#b4b2d0" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-  <!-- Eyes (sclera) -->
-  <ellipse class="neko-eye-l" cx="37" cy="37" rx="8" ry="9.5" fill="#1e1c42"/>
-  <ellipse class="neko-eye-r" cx="63" cy="37" rx="8" ry="9.5" fill="#1e1c42"/>
-  <!-- Iris -->
-  <ellipse cx="37" cy="38" rx="5.5" ry="6.5" fill="#5e6ae0"/>
-  <ellipse cx="63" cy="38" rx="5.5" ry="6.5" fill="#5e6ae0"/>
-  <!-- Ghibli eye shine (two per eye) -->
-  <circle cx="40" cy="33.5" r="3" fill="white"/>
-  <circle cx="66" cy="33.5" r="3" fill="white"/>
-  <circle cx="35" cy="41" r="1.5" fill="white" opacity="0.45"/>
-  <circle cx="61" cy="41" r="1.5" fill="white" opacity="0.45"/>
-  <!-- Nose -->
-  <ellipse cx="50" cy="47" rx="4" ry="2.8" fill="#f4a0c0"/>
-  <!-- Philtrum -->
-  <line x1="50" y1="50" x2="50" y2="52" stroke="#d08098" stroke-width="1.4"/>
-  <!-- Mouth normal -->
-  <path class="neko-mouth-normal" d="M45,52 Q50,57 55,52" stroke="#d08098" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-  <!-- Mouth yawn -->
-  <ellipse class="neko-mouth-yawn" cx="50" cy="55" rx="10" ry="8" fill="#b03060"/>
-  <ellipse class="neko-mouth-yawn" cx="50" cy="56" rx="7" ry="5.5" fill="#ff80aa"/>
-  <!-- Whiskers -->
-  <line x1="44" y1="47" x2="13" y2="43" stroke="#d4d2ee" stroke-width="1.1"/>
-  <line x1="44" y1="49" x2="13" y2="55" stroke="#d4d2ee" stroke-width="1.1"/>
-  <line x1="56" y1="47" x2="87" y2="43" stroke="#d4d2ee" stroke-width="1.1"/>
-  <line x1="56" y1="49" x2="87" y2="55" stroke="#d4d2ee" stroke-width="1.1"/>
+  <path d="M38,20 Q50,17 62,20" stroke="#b8b4a8" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <path d="M35,25 Q50,22 65,25" stroke="#b8b4a8" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <!-- Eyes: warm dark base -->
+  <ellipse class="neko-eye-l" cx="37" cy="37" rx="8" ry="9" fill="#3a2808"/>
+  <ellipse class="neko-eye-r" cx="63" cy="37" rx="8" ry="9" fill="#3a2808"/>
+  <!-- Warm amber iris -->
+  <ellipse cx="37" cy="38" rx="6.5" ry="7.5" fill="#c88a18"/>
+  <ellipse cx="63" cy="38" rx="6.5" ry="7.5" fill="#c88a18"/>
+  <!-- Vertical slit pupil (cat-like) -->
+  <ellipse cx="37" cy="38" rx="2" ry="6.5" fill="#180c00"/>
+  <ellipse cx="63" cy="38" rx="2" ry="6.5" fill="#180c00"/>
+  <!-- BIG Ghibli shine (the signature sparkle) -->
+  <circle cx="41" cy="32" r="5" fill="white"/>
+  <circle cx="67" cy="32" r="5" fill="white"/>
+  <!-- Secondary small shine -->
+  <circle cx="33.5" cy="41.5" r="2.2" fill="white" opacity="0.55"/>
+  <circle cx="59.5" cy="41.5" r="2.2" fill="white" opacity="0.55"/>
+  <!-- Nose (heart-shaped hint) -->
+  <ellipse cx="50" cy="47" rx="3.5" ry="2.5" fill="#f0a0b8"/>
+  <!-- Mouth — gentle smile -->
+  <path class="neko-mouth-normal" d="M45.5,50 Q50,54.5 54.5,50" stroke="#c07888" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <!-- Mouth yawn — warm pink, not alarming -->
+  <ellipse class="neko-mouth-yawn" cx="50" cy="53" rx="9" ry="7" fill="#d06888"/>
+  <ellipse class="neko-mouth-yawn" cx="50" cy="54" rx="6" ry="4.5" fill="#f0a0b8"/>
+  <!-- Tongue (tiny, in yawn) -->
+  <ellipse class="neko-mouth-yawn" cx="50" cy="57" rx="4" ry="2.5" fill="#f8c0cc"/>
+  <!-- Whiskers (shorter, less aggressive) -->
+  <line x1="44" y1="47" x2="17" y2="43.5" stroke="#d8d4c4" stroke-width="1"/>
+  <line x1="44" y1="49" x2="17" y2="53.5" stroke="#d8d4c4" stroke-width="1"/>
+  <line x1="56" y1="47" x2="83" y2="43.5" stroke="#d8d4c4" stroke-width="1"/>
+  <line x1="56" y1="49" x2="83" y2="53.5" stroke="#d8d4c4" stroke-width="1"/>
   <!-- Front legs -->
-  <rect class="neko-leg neko-leg-fl" x="29" y="84" width="12" height="18" rx="6" fill="#b4b2cc"/>
-  <rect class="neko-leg neko-leg-fr" x="58" y="84" width="12" height="18" rx="6" fill="#b4b2cc"/>
-  <!-- Paws -->
-  <ellipse cx="35" cy="103" rx="7.5" ry="3.5" fill="#c6c4dc"/>
-  <ellipse cx="64" cy="103" rx="7.5" ry="3.5" fill="#c6c4dc"/>
-  <ellipse cx="33" cy="103" rx="7.5" ry="3.5" fill="#c6c4dc"/>
-  <ellipse cx="66" cy="103" rx="7.5" ry="3.5" fill="#c6c4dc"/>
+  <rect class="neko-leg neko-leg-fl" x="29" y="84" width="12" height="18" rx="6" fill="#c0bcb4"/>
+  <rect class="neko-leg neko-leg-fr" x="58" y="84" width="12" height="18" rx="6" fill="#c0bcb4"/>
+  <!-- Paws (soft rounded) -->
+  <ellipse cx="35" cy="103" rx="7" ry="3.5" fill="#cec8be"/>
+  <ellipse cx="64" cy="103" rx="7" ry="3.5" fill="#cec8be"/>
+  <ellipse cx="33" cy="103" rx="7" ry="3.5" fill="#cec8be"/>
+  <ellipse cx="66" cy="103" rx="7" ry="3.5" fill="#cec8be"/>
 </g>
 </svg>
 </div>
