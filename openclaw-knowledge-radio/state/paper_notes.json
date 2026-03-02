@@ -54,23 +54,23 @@
     },
     "https://doi.org/10.1080/07391102.2026.2630328": {
       "note": "DD",
-      "title": "How do AI ensemble pipelines treat disorder? A head-to-head comparison on ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ±-synuclein.",
-      "source": "PubMed ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Journal of biomolecular structure & dynamics"
+      "title": "How do AI ensemble pipelines treat disorder? A head-to-head comparison on ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ±-synuclein.",
+      "source": "PubMed ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Journal of biomolecular structure & dynamics"
     },
     "https://doi.org/10.1016/j.pep.2025.106857": {
       "note": "DD",
       "title": "A kaleidoscope of hosts: Expression systems of recombinant antibody reagents for immunological assays.",
-      "source": "PubMed ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Protein expression and purification"
+      "source": "PubMed ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Protein expression and purification"
     },
     "https://doi.org/10.1085/jgp.202413705": {
       "note": "DD",
       "title": "Exploring voltage-gated sodium channel conformations and protein-protein interactions using AlphaFold2.",
-      "source": "PubMed ÃÂ¢ÃÂÃÂ The Journal of general physiology"
+      "source": "PubMed ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ The Journal of general physiology"
     },
     "https://doi.org/10.1126/sciadv.adz4967": {
       "note": "DD",
       "title": "Diverse database and machine learning model to narrow the generalization gap in RNA structure prediction.",
-      "source": "PubMed Ã¢ÂÂ Science advances"
+      "source": "PubMed ÃÂ¢ÃÂÃÂ Science advances"
     },
     "https://arxiv.org/abs/2511.13550": {
       "note": "DD",
@@ -86,6 +86,11 @@
       "note": "DD",
       "title": "",
       "source": ""
+    },
+    "https://doi.org/10.1016/j.jinorgbio.2025.113193": {
+      "note": "DD",
+      "title": "Structure-activity relationships in catalytic amyloids.",
+      "source": "PubMed — Journal of inorganic biochemistry"
     }
   }
 }
