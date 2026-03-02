@@ -562,9 +562,9 @@ audio {{ width:100%; margin:4px 0 6px; }}
 .neko-eye-l,.neko-eye-r {{ transform-box:fill-box; transform-origin:center; }}
 .neko-bowl,.neko-legs,.neko-zzz {{ display:none; }}
 #ghibli-cat.eating .neko-bowl {{ display:block; }}
-#ghibli-cat.eating .neko-head-group {{ display:none; }}
-.neko-eating-pose {{ display:none; transform-box:fill-box; transform-origin:50% 0%; }}
-#ghibli-cat.eating .neko-eating-pose {{ display:block; animation:neko-eat-head 2.6s ease-in-out infinite; }}
+#ghibli-cat.eating .neko-head-group {{ animation:neko-eat-head 2.6s ease-in-out infinite; }}
+.neko-head-group {{ transform-box:fill-box; transform-origin:50% 0%; }}
+#ghibli-cat.eating .neko-eye-l,#ghibli-cat.eating .neko-eye-r {{ animation:neko-eat-eyes 2.6s ease-in-out infinite; }}
 #ghibli-cat.eating .neko-tail {{ animation:neko-eat-tail 3.2s ease-in-out infinite; }}
 #ghibli-cat.eating .neko-steam-1 {{ animation:neko-steam 2.6s ease-in 0s infinite; }}
 #ghibli-cat.eating .neko-steam-2 {{ animation:neko-steam 2.6s ease-in 0.95s infinite; }}
@@ -588,7 +588,7 @@ audio {{ width:100%; margin:4px 0 6px; }}
 #ghibli-cat.idle .neko-body-group {{ animation:neko-breathe 3.5s ease-in-out infinite; }}
 #ghibli-cat.idle .neko-tail,#ghibli-cat.sitting .neko-tail {{ animation:neko-tail-idle 3s ease-in-out infinite; }}
 #ghibli-cat.face-left {{ transform:scaleX(-1); }}
-@keyframes neko-eat-head {{ 0%,10%,90%,100% {{ transform:translateY(0); }} 35%,65% {{ transform:translateY(10px); }} 50% {{ transform:translateY(11px); }} }}
+@keyframes neko-eat-head {{ 0%,10%,90%,100% {{ transform:translateY(0); }} 30%,70% {{ transform:translateY(34px); }} 50% {{ transform:translateY(36px); }} }}
 @keyframes neko-eat-eyes {{ 0%,18%,82%,100% {{ transform:scaleY(1); }} 30%,66% {{ transform:scaleY(0.1); }} }}
 @keyframes neko-eat-tail {{ 0%,100% {{ transform:rotate(-8deg); }} 50% {{ transform:rotate(26deg); }} }}
 @keyframes neko-steam {{ 0% {{ opacity:0; transform:translateY(0); }} 18% {{ opacity:0.6; }} 100% {{ opacity:0; transform:translateY(-22px); }} }}
@@ -1187,30 +1187,7 @@ loadMissedPapers();
     <path d="M62,78 Q68,74 74,78" stroke="#d8d2ce" stroke-width="0.9" fill="none"/>
   </g>
 </g>
-<!-- Eating pose: top-of-head view, face hidden, crown bobs toward bowl -->
-<g class="neko-eating-pose">
-  <!-- Neck/spine blending into body — hunched forward -->
-  <ellipse cx="50" cy="71" rx="12" ry="7" fill="#f5f2ee"/>
-  <!-- Top of head (crown, seen from above/behind) -->
-  <ellipse cx="50" cy="57" rx="18" ry="14" fill="#f5f2ee"/>
-  <!-- Left ear from above -->
-  <polygon points="34,48 39,36 46,46" fill="#f5f2ee"/>
-  <polygon points="37,47 40,39 45,46" fill="#f8c0cc"/>
-  <!-- Right ear from above (mirror of left) -->
-  <polygon points="66,48 61,36 54,46" fill="#f5f2ee"/>
-  <polygon points="63,47 60,39 55,46" fill="#f8c0cc"/>
-  <!-- Blush cheeks visible from above -->
-  <ellipse cx="33" cy="58" rx="7" ry="4.5" fill="#ffb0c0" opacity="0.25"/>
-  <ellipse cx="67" cy="58" rx="7" ry="4.5" fill="#ffb0c0" opacity="0.25"/>
-  <!-- Snout hint at very bottom of head (barely visible) -->
-  <ellipse cx="50" cy="68" rx="5.5" ry="4" fill="#f0d8e0"/>
-  <!-- Whiskers splaying out from sides (seen from above) -->
-  <line x1="44" y1="65" x2="20" y2="59" stroke="#d8d4c4" stroke-width="1"/>
-  <line x1="44" y1="67" x2="20" y2="73" stroke="#d8d4c4" stroke-width="1"/>
-  <line x1="56" y1="65" x2="80" y2="59" stroke="#d8d4c4" stroke-width="1"/>
-  <line x1="56" y1="67" x2="80" y2="73" stroke="#d8d4c4" stroke-width="1"/>
-</g>
-<!-- Head: normal front-facing view (hidden during eating) -->
+<!-- Head: dips into bowl during eating (translateY 34px) -->
 <g class="neko-head-group">
   <circle cx="50" cy="34" r="23" fill="#f5f2ee"/>
   <!-- Ears: symmetric — right is exact mirror of left about x=50 -->
