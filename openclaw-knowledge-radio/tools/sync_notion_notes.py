@@ -82,6 +82,24 @@ def _ensure_source_property() -> None:
         pass
 
 
+def _find_existing_notion_page(title: str) -> str | None:
+    """Query Notion for a page with this exact title. Returns page_id or None."""
+    try:
+        r = requests.post(
+            f"https://api.notion.com/v1/databases/{DATABASE_ID}/query",
+            json={"filter": {"property": "Name", "title": {"equals": title}}},
+            headers=HEADERS,
+            timeout=30,
+        )
+        if r.ok:
+            results = r.json().get("results", [])
+            if results:
+                return results[0]["id"]
+    except Exception:
+        pass
+    return None
+
+
 def create_notion_page(title: str, url: str, date: str, source: str, note: str) -> str:
     body = {
         "parent": {"database_id": DATABASE_ID},
@@ -195,7 +213,12 @@ def main():
                 except Exception as e:
                     print(f"✗ Failed update for {url[:60]}: {e}")
             else:
-                # New note: create a Notion page
+                # New note: check Notion first (guards against notion_created.json being stale)
+                existing_id = _find_existing_notion_page(title)
+                if existing_id:
+                    print(f"↩ Already in Notion (skipped duplicate): {title[:70]}")
+                    created[key] = {"page_id": existing_id, "note": note_text}
+                    continue
                 try:
                     page_id = create_notion_page(title, url, date, source, note_text)
                     created[key] = {"page_id": page_id, "note": note_text}
