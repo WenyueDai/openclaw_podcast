@@ -202,9 +202,41 @@ def generate_cover_svg(seed_text: str):
 </svg>"""
 
 
+def _build_today_summary(episodes) -> str:
+    """Build a compact stats bar from the most recent episode, baked at build time."""
+    if not episodes:
+        return ""
+    ep = episodes[0]
+    items = ep.get("items") or []
+    if not items:
+        return ""
+    date = ep["date"]
+    total = len(items)
+    # Top 3 sources, with long names trimmed
+    from collections import Counter
+    def _short_src(s):
+        s = s or "Unknown"
+        # Strip "PubMed — " prefix
+        if s.startswith("PubMed"):
+            s = s.split("—")[-1].strip() if "—" in s else "PubMed"
+        return s[:35] + "…" if len(s) > 35 else s
+    source_counts = Counter(_short_src(it.get("source")) for it in items)
+    top_sources = " · ".join(f"{src} ({n})" for src, n in source_counts.most_common(3))
+    return (
+        f'<div class="today-summary">'
+        f'<span class="ts-date">&#128197; {date}</span>'
+        f'<span class="ts-sep">·</span>'
+        f'<span><strong>{total}</strong> papers in today&rsquo;s episode</span>'
+        f'<span class="ts-sep">·</span>'
+        f'<span class="ts-dim">{html.escape(top_sources)}</span>'
+        f'</div>'
+    )
+
+
 def render_index(episodes, all_episodes=None):
     notes = _load_notes()   # {date: {url: note_text}} — baked in for static rendering
     missed_papers = _load_missed_papers()   # baked for initial render
+    today_summary = _build_today_summary(episodes)
     cards = []
     for ep in episodes:
         s_link = f'<a href="{html.escape(ep["script_name"])}">script</a>' if ep["script_name"] else ""
@@ -266,8 +298,7 @@ def render_index(episodes, all_episodes=None):
             items_html = "".join(rows)
             section_html = (
                 f'<div class="abstract">'
-                f'<h3>Papers &amp; News ({len(items)}) '
-                f'<span class="tip">☑ check interesting ones → Save feedback</span></h3>'
+                f'<h3>Papers &amp; News ({len(items)})</h3>'
                 f'<ul>{items_html}</ul>'
                 f'</div>'
             )
@@ -390,10 +421,7 @@ audio {{ width:100%; margin:4px 0 6px; }}
 .src {{ color:var(--muted); font-size:.85rem; }}
 .summary {{ color:var(--muted); font-size:.87rem; margin-left:48px; display:block; }}
 .tip {{ font-size:.75rem; font-weight:400; color:var(--muted); }}
-.feedback-bar {{ margin-top:10px; padding:10px 12px; background:var(--bg2); border:1px solid var(--line); border-radius:10px; font-size:.88rem; display:none; }}
-.owner-mode .feedback-bar {{ display:block; }}
-.feedback-bar button {{ padding:4px 12px; border:1px solid var(--accent); border-radius:6px; background:var(--accent); color:#fff; cursor:pointer; font-size:.85rem; margin-right:8px; }}
-.feedback-bar button.sec {{ background:transparent; color:var(--accent); }}
+.owner-mode .owner-feedback {{ display:block; }}
 #fb-status {{ color:var(--muted); font-size:.82rem; }}
 .modal-bg {{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:100; align-items:center; justify-content:center; }}
 .modal-bg.open {{ display:flex; }}
@@ -449,6 +477,13 @@ audio {{ width:100%; margin:4px 0 6px; }}
 .diag-guide dt {{ padding-top:1px; }}
 .diag-guide dd {{ margin:0; color:var(--text); }}
 .diag-guide code {{ font-size:.8rem; background:var(--bg2); padding:1px 5px; border-radius:4px; }}
+.today-summary {{ display:flex; flex-wrap:wrap; gap:4px 10px; align-items:center; font-size:.83rem; color:var(--text); background:var(--card); border:1px solid var(--line); border-radius:10px; padding:8px 14px; margin-bottom:14px; }}
+.ts-date {{ font-weight:600; color:var(--accent); }}
+.ts-sep {{ color:var(--line); }}
+.ts-dim {{ color:var(--muted); }}
+.owner-feedback {{ margin-top:12px; padding:10px 12px; background:var(--bg2); border:1px solid var(--line); border-radius:10px; font-size:.88rem; }}
+.owner-feedback button {{ padding:4px 12px; border:1px solid var(--accent); border-radius:6px; background:var(--accent); color:#fff; cursor:pointer; font-size:.85rem; margin-right:8px; }}
+.owner-feedback button.sec {{ background:transparent; color:var(--accent); }}
 </style>
 </head>
 <body>
@@ -467,6 +502,7 @@ audio {{ width:100%; margin:4px 0 6px; }}
         <a href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a>
       </div>
     </div>
+    {today_summary}
     <details class="owner-tools">
       <summary>&#9881;&#65039; Owner tools &mdash; add missing paper</summary>
       <div class="missed-section">
@@ -494,16 +530,16 @@ audio {{ width:100%; margin:4px 0 6px; }}
             <dd>Workflow hasn&rsquo;t run yet — diagnosis appears within ~2 minutes.</dd>
           </dl>
         </details>
+        <div class="owner-feedback">
+          <strong>Feedback:</strong>
+          <span id="sel-count">0 checked</span> &nbsp;
+          <button onclick="saveFeedback()">Save to GitHub</button>
+          <button class="sec" onclick="openSettings()">&#9881; Settings</button>
+          <span id="fb-status"></span>
+        </div>
       </div>
     </details>
     {body}
-    <div class="feedback-bar">
-      <strong>Your selections:</strong>
-      <span id="sel-count">0 checked</span> &nbsp;
-      <button onclick="saveFeedback()">Save feedback to GitHub</button>
-      <button class="sec" onclick="openSettings()">⚙ Settings</button>
-      <span id="fb-status"></span>
-    </div>
   </div>
   {sidebar_html}
 </div>
