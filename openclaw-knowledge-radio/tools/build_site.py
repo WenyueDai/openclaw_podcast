@@ -562,7 +562,8 @@ audio {{ width:100%; margin:4px 0 6px; }}
 .neko-eye-l,.neko-eye-r {{ transform-box:fill-box; transform-origin:center; }}
 .neko-bowl,.neko-legs,.neko-zzz {{ display:none; }}
 #ghibli-cat.eating .neko-bowl {{ display:block; }}
-#ghibli-cat.eating .neko-body-group {{ animation:neko-eat-bob 2.6s ease-in-out infinite; }}
+#ghibli-cat.eating .neko-head-group {{ animation:neko-eat-head 2.6s ease-in-out infinite; }}
+.neko-head-group {{ transform-box:fill-box; transform-origin:50% 0%; }}
 #ghibli-cat.eating .neko-eye-l,#ghibli-cat.eating .neko-eye-r {{ animation:neko-eat-eyes 2.6s ease-in-out infinite; }}
 #ghibli-cat.eating .neko-tail {{ animation:neko-eat-tail 3.2s ease-in-out infinite; }}
 #ghibli-cat.eating .neko-steam-1 {{ animation:neko-steam 2.6s ease-in 0s infinite; }}
@@ -587,7 +588,7 @@ audio {{ width:100%; margin:4px 0 6px; }}
 #ghibli-cat.idle .neko-body-group {{ animation:neko-breathe 3.5s ease-in-out infinite; }}
 #ghibli-cat.idle .neko-tail,#ghibli-cat.sitting .neko-tail {{ animation:neko-tail-idle 3s ease-in-out infinite; }}
 #ghibli-cat.face-left {{ transform:scaleX(-1); }}
-@keyframes neko-eat-bob {{ 0%,15%,85%,100% {{ transform:translateY(0); }} 28%,68% {{ transform:translateY(11px); }} 48% {{ transform:translateY(12px); }} }}
+@keyframes neko-eat-head {{ 0%,10%,90%,100% {{ transform:translateY(0); }} 30%,70% {{ transform:translateY(34px); }} 50% {{ transform:translateY(36px); }} }}
 @keyframes neko-eat-eyes {{ 0%,18%,82%,100% {{ transform:scaleY(1); }} 30%,66% {{ transform:scaleY(0.1); }} }}
 @keyframes neko-eat-tail {{ 0%,100% {{ transform:rotate(-8deg); }} 50% {{ transform:rotate(26deg); }} }}
 @keyframes neko-steam {{ 0% {{ opacity:0; transform:translateY(0); }} 18% {{ opacity:0.6; }} 100% {{ opacity:0; transform:translateY(-22px); }} }}
@@ -1130,29 +1131,33 @@ loadMissedPapers();
     <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
   <clipPath id="bowl-clip">
-    <ellipse cx="50" cy="118" rx="23" ry="6.5"/>
+    <ellipse cx="50" cy="88" rx="23" ry="6.5"/>
   </clipPath>
 </defs>
+<!-- Bowl (visible only when eating) -->
 <g class="neko-bowl">
-  <path class="neko-steam-1" d="M37,112 Q35,104 37,97 Q39,90 37,83" stroke="#d8d4e8" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0"/>
-  <path class="neko-steam-2" d="M50,110 Q48,102 50,94 Q52,87 50,80" stroke="#d8d4e8" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0"/>
-  <path class="neko-steam-3" d="M63,112 Q65,104 63,96 Q61,89 63,82" stroke="#d8d4e8" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0"/>
-  <path d="M27,118 Q24,136 50,140 Q76,136 73,118" fill="#ede5d4" stroke="#c8c0ae" stroke-width="1.2"/>
-  <ellipse cx="50" cy="118" rx="23" ry="6.5" fill="#c08820"/>
+  <path class="neko-steam-1" d="M37,82 Q35,74 37,67 Q39,60 37,53" stroke="#d8d4e8" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0"/>
+  <path class="neko-steam-2" d="M50,80 Q48,72 50,64 Q52,57 50,50" stroke="#d8d4e8" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0"/>
+  <path class="neko-steam-3" d="M63,82 Q65,74 63,66 Q61,59 63,52" stroke="#d8d4e8" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0"/>
+  <path d="M27,88 Q24,106 50,110 Q76,106 73,88" fill="#ede5d4" stroke="#c8c0ae" stroke-width="1.2"/>
+  <ellipse cx="50" cy="88" rx="23" ry="6.5" fill="#c08820"/>
   <g clip-path="url(#bowl-clip)">
-    <path d="M29,118 Q35,113 41,118 Q47,123 53,118 Q59,113 65,118 Q69,122 71,118" stroke="#f8f080" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-    <path d="M27,121 Q34,116 40,121 Q47,126 53,121 Q59,116 65,121 Q69,124 73,121" stroke="#f8f080" stroke-width="2" fill="none" stroke-linecap="round"/>
-    <circle cx="41" cy="117" r="4.5" fill="#fff4f4" stroke="#f898a0" stroke-width="0.8"/>
-    <circle cx="41" cy="117" r="2" fill="#f87080"/>
-    <ellipse cx="61" cy="116" rx="5" ry="4" fill="#fffce8" stroke="#d4a840" stroke-width="0.6"/>
-    <circle cx="61" cy="116" r="2.5" fill="#f0c030"/>
-    <rect x="46" y="112" width="5" height="9" rx="1" fill="#1a2e1a" opacity="0.9"/>
+    <path d="M29,88 Q35,83 41,88 Q47,93 53,88 Q59,83 65,88 Q69,92 71,88" stroke="#f8f080" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <path d="M27,91 Q34,86 40,91 Q47,96 53,91 Q59,86 65,91 Q69,94 73,91" stroke="#f8f080" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <circle cx="41" cy="87" r="4.5" fill="#fff4f4" stroke="#f898a0" stroke-width="0.8"/>
+    <circle cx="41" cy="87" r="2" fill="#f87080"/>
+    <ellipse cx="61" cy="86" rx="5" ry="4" fill="#fffce8" stroke="#d4a840" stroke-width="0.6"/>
+    <circle cx="61" cy="86" r="2.5" fill="#f0c030"/>
+    <rect x="46" y="82" width="5" height="9" rx="1" fill="#1a2e1a" opacity="0.9"/>
   </g>
-  <ellipse cx="50" cy="118" rx="23" ry="6.5" fill="none" stroke="#b8b0a0" stroke-width="1.8"/>
-  <ellipse cx="50" cy="117" rx="21" ry="5" fill="none" stroke="#f0ece0" stroke-width="1" opacity="0.5"/>
-  <line x1="63" y1="104" x2="76" y2="128" stroke="#c09040" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="68" y1="102" x2="80" y2="126" stroke="#b07030" stroke-width="2.5" stroke-linecap="round"/>
+  <ellipse cx="50" cy="88" rx="23" ry="6.5" fill="none" stroke="#b8b0a0" stroke-width="1.8"/>
+  <ellipse cx="50" cy="87" rx="21" ry="5" fill="none" stroke="#f0ece0" stroke-width="1" opacity="0.5"/>
+  <line x1="63" y1="74" x2="76" y2="98" stroke="#c09040" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="68" y1="72" x2="80" y2="96" stroke="#b07030" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Noodle strand slurped up toward descending face -->
+  <path class="neko-noodle" d="M49,82 Q45,73 49,64 Q53,56 50,48" stroke="#f0e870" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0"/>
 </g>
+<!-- Body: fur halo, torso, tail, legs/paws — stays put during eating -->
 <g class="neko-body-group">
   <g filter="url(#neko-fur)">
     <circle cx="50" cy="34" r="29" fill="#f5f2ee"/>
@@ -1181,9 +1186,11 @@ loadMissedPapers();
     <path d="M26,78 Q32,74 38,78" stroke="#d8d2ce" stroke-width="0.9" fill="none"/>
     <path d="M62,78 Q68,74 74,78" stroke="#d8d2ce" stroke-width="0.9" fill="none"/>
   </g>
-  <path class="neko-noodle" d="M50,108 Q48,92 50,76 Q52,64 50,48" stroke="#f0e870" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0"/>
+</g>
+<!-- Head: dips into bowl during eating (translateY 34px) -->
+<g class="neko-head-group">
   <circle cx="50" cy="34" r="23" fill="#f5f2ee"/>
-  <!-- Ears: perfectly symmetric — right ear is exact mirror of left about x=50 -->
+  <!-- Ears: symmetric — right is exact mirror of left about x=50 -->
   <polygon points="22,22 36,16 20,4"  fill="#f5f2ee"/>
   <polygon points="25,21 34,17 24,9"  fill="#f8c0cc"/>
   <polygon points="78,22 64,16 80,4"  fill="#f5f2ee"/>
@@ -1230,52 +1237,52 @@ loadMissedPapers();
   }}
   function goEating() {{
     state = 'eating';
-    stateTimer = 500 + Math.floor(Math.random() * 400);
-    x = vw() - 116;
-    y = vh() - 168;
-    facingLeft = false;
+    stateTimer = 400 + Math.floor(Math.random() * 350);
     cls();
   }}
   function goSleep() {{
     state = 'sleeping';
-    stateTimer = 380 + Math.floor(Math.random() * 420);
+    stateTimer = 420 + Math.floor(Math.random() * 500);
     cls();
   }}
   function rest() {{
     var r = Math.random();
-    if      (r < .50) {{ goSleep(); }}
-    else if (r < .70) {{ state='sitting'; stateTimer=90+Math.floor(Math.random()*90); cls(); }}
+    if      (r < .60) {{ goSleep(); }}
+    else if (r < .80) {{ state='sitting'; stateTimer=90+Math.floor(Math.random()*90); cls(); }}
     else              {{ state='idle';    stateTimer=50+Math.floor(Math.random()*55); cls(); }}
   }}
   function tick() {{
     if (state === 'walking') {{
       var dx=tx-x, dy=ty-y, d=Math.sqrt(dx*dx+dy*dy);
       if (d < 3) {{
-        if (Math.random() < .40) {{ goEating(); }}
-        else {{ rest(); }}
+        var r=Math.random();
+        if      (r < .35) {{ goEating(); }}
+        else if (r < .55) {{ goSleep(); }}
+        else               {{ rest(); }}
       }} else {{
         x += dx/d*speed; y += dy/d*speed;
         var wl = dx < 0;
         if (wl !== facingLeft) {{ facingLeft=wl; cls(); }}
       }}
     }} else if (state === 'eating') {{
-      x = vw() - 116; y = vh() - 168;
       if (--stateTimer <= 0) {{
-        if (Math.random() < .30) {{ goEating(); }}
-        else {{ newTarget(); state='walking'; facingLeft=tx<x; cls(); }}
+        var r=Math.random();
+        if      (r < .25) {{ goEating(); }}
+        else if (r < .55) {{ rest(); }}
+        else               {{ newTarget(); state='walking'; facingLeft=tx<x; cls(); }}
       }}
     }} else if (state === 'sleeping') {{
       if (--stateTimer <= 0) {{
         var r = Math.random();
-        if      (r < .55) {{ goSleep(); }}
-        else if (r < .75) {{ goEating(); }}
+        if      (r < .50) {{ goSleep(); }}
+        else if (r < .70) {{ goEating(); }}
         else               {{ newTarget(); state='walking'; facingLeft=tx<x; cls(); }}
       }}
     }} else {{
       if (--stateTimer <= 0) {{
         var r = Math.random();
-        if      (r < .35) {{ goEating(); }}
-        else if (r < .60) {{ newTarget(); state='walking'; facingLeft=tx<x; cls(); }}
+        if      (r < .30) {{ goEating(); }}
+        else if (r < .55) {{ newTarget(); state='walking'; facingLeft=tx<x; cls(); }}
         else               {{ rest(); }}
       }}
     }}
@@ -1285,7 +1292,7 @@ loadMissedPapers();
   }}
   x = 20 + Math.random() * (vw() - 112);
   y = 20 + Math.random() * (vh() - 160);
-  goEating();
+  if (Math.random() < .4) {{ goSleep(); }} else {{ goEating(); }}
   requestAnimationFrame(tick);
 }})();
 </script>
