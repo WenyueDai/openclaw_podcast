@@ -135,7 +135,7 @@ audio { width:100%; margin:4px 0 6px; }
 .neko-tail { transform-box:fill-box; transform-origin:0% 100%; }
 .neko-eye-l,.neko-eye-r { transform-box:fill-box; transform-origin:center; animation:neko-blink 4.5s ease-in-out infinite; }
 .neko-eye-r { animation-delay:.08s; }
-.neko-mouth-yawn { display:none; }
+.neko-mouth-yawn,.neko-mouth-sleep,.neko-zzz { display:none; }
 @keyframes neko-walk-a { 0%,100% { transform:rotate(-22deg); } 50% { transform:rotate(22deg); } }
 @keyframes neko-walk-b { 0%,100% { transform:rotate(22deg); } 50% { transform:rotate(-22deg); } }
 @keyframes neko-bob { 0%,50%,100% { transform:translateY(0); } 25%,75% { transform:translateY(-3px); } }
@@ -144,6 +144,8 @@ audio { width:100%; margin:4px 0 6px; }
 @keyframes neko-tail-idle { 0%,100% { transform:rotate(-5deg); } 50% { transform:rotate(10deg); } }
 @keyframes neko-blink { 0%,88%,100% { transform:scaleY(1); } 91%,94% { transform:scaleY(.08); } }
 @keyframes neko-breathe { 0%,100% { transform:translateY(0) scaleY(1); } 50% { transform:translateY(1px) scaleY(1.03); } }
+@keyframes neko-sleep-breathe { 0%,100% { transform:translateY(0) scaleY(1); } 50% { transform:translateY(0.4px) scaleY(1.01); } }
+@keyframes neko-zzz { 0% { opacity:0; transform:translate(0,0); } 25% { opacity:0.75; } 100% { opacity:0; transform:translate(5px,-13px); } }
 #ghibli-cat.walking .neko-leg-fl,#ghibli-cat.walking .neko-leg-br { animation:neko-walk-a .44s ease-in-out infinite; }
 #ghibli-cat.walking .neko-leg-fr,#ghibli-cat.walking .neko-leg-bl { animation:neko-walk-b .44s ease-in-out infinite; }
 #ghibli-cat.walking .neko-body-group { animation:neko-bob .44s ease-in-out infinite; }
@@ -157,6 +159,16 @@ audio { width:100%; margin:4px 0 6px; }
 #ghibli-cat.yawning .neko-mouth-normal { display:none; }
 #ghibli-cat.yawning .neko-mouth-yawn   { display:block; }
 #ghibli-cat.yawning .neko-eye-l,#ghibli-cat.yawning .neko-eye-r { animation:none; transform:scaleY(.12); }
+/* sleeping state */
+#ghibli-cat.sleeping .neko-eye-l,#ghibli-cat.sleeping .neko-eye-r { animation:none !important; transform:scaleY(0.06); }
+#ghibli-cat.sleeping .neko-mouth-normal { display:none; }
+#ghibli-cat.sleeping .neko-mouth-sleep  { display:block; }
+#ghibli-cat.sleeping .neko-body-group { animation:neko-sleep-breathe 6s ease-in-out infinite; }
+#ghibli-cat.sleeping .neko-tail { animation:neko-tail-idle 5s ease-in-out infinite; }
+#ghibli-cat.sleeping .neko-zzz { display:block; }
+#ghibli-cat.sleeping .neko-zzz1 { animation:neko-zzz 3s ease-in-out infinite; }
+#ghibli-cat.sleeping .neko-zzz2 { animation:neko-zzz 3s 1.1s ease-in-out infinite; }
+#ghibli-cat.sleeping .neko-zzz3 { animation:neko-zzz 3s 2.2s ease-in-out infinite; }
 #ghibli-cat.face-left { transform:scaleX(-1); }
 </style>
 </head>
@@ -714,20 +726,20 @@ loadMissedPapers();
 </script>
 
 <!-- ── Ghibli wandering cat ── -->
-<div id="ghibli-cat" class="idle">
+<div id="ghibli-cat" class="sleeping">
 <svg viewBox="0 0 100 100" width="88" height="88" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
 <g class="neko-body-group">
   <!-- Tail -->
-  <path class="neko-tail" d="M63,80 C77,72 84,56 79,42 C75,31 65,35 67,44 C69,53 76,50 72,39" stroke="#c0bece" stroke-width="7" fill="none" stroke-linecap="round"/>
-  <path d="M73,40 C71,35 67,34 67,40" stroke="#e8e6f8" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <!-- Body -->
-  <ellipse cx="50" cy="72" rx="28" ry="18" fill="#d4d0c8"/>
-  <ellipse cx="50" cy="68" rx="10" ry="5" fill="#b8b4a8" opacity="0.4"/>
+  <path class="neko-tail" d="M62,80 C76,72 82,56 77,42 C73,31 63,35 65,44 C67,53 74,50 70,39" stroke="#c0bece" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M71,40 C69,35 65,34 65,40" stroke="#e8e6f8" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- Body — narrower than before -->
+  <ellipse cx="50" cy="72" rx="21" ry="17" fill="#d4d0c8"/>
+  <ellipse cx="50" cy="68" rx="9" ry="4" fill="#b8b4a8" opacity="0.4"/>
   <!-- Belly (warm cream) -->
-  <ellipse cx="50" cy="77" rx="17" ry="11" fill="#f0ede4"/>
-  <!-- Back legs -->
-  <rect class="neko-leg neko-leg-bl" x="27" y="84" width="12" height="18" rx="6" fill="#c0bcb4"/>
-  <rect class="neko-leg neko-leg-br" x="60" y="84" width="12" height="18" rx="6" fill="#c0bcb4"/>
+  <ellipse cx="50" cy="76" rx="14" ry="10" fill="#f0ede4"/>
+  <!-- Back legs — wider spread, longer -->
+  <rect class="neko-leg neko-leg-bl" x="19" y="83" width="11" height="23" rx="5.5" fill="#c0bcb4"/>
+  <rect class="neko-leg neko-leg-br" x="69" y="83" width="11" height="23" rx="5.5" fill="#c0bcb4"/>
   <!-- Head -->
   <circle cx="50" cy="38" r="25" fill="#d4d0c8"/>
   <!-- Ear left -->
@@ -739,43 +751,48 @@ loadMissedPapers();
   <!-- Forehead tabby stripes -->
   <path d="M38,20 Q50,17 62,20" stroke="#b8b4a8" stroke-width="1.8" fill="none" stroke-linecap="round"/>
   <path d="M35,25 Q50,22 65,25" stroke="#b8b4a8" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-  <!-- Eyes: warm dark base -->
-  <ellipse class="neko-eye-l" cx="37" cy="37" rx="8" ry="9" fill="#3a2808"/>
-  <ellipse class="neko-eye-r" cx="63" cy="37" rx="8" ry="9" fill="#3a2808"/>
-  <!-- Warm amber iris -->
-  <ellipse cx="37" cy="38" rx="6.5" ry="7.5" fill="#c88a18"/>
-  <ellipse cx="63" cy="38" rx="6.5" ry="7.5" fill="#c88a18"/>
-  <!-- Vertical slit pupil (cat-like) -->
-  <ellipse cx="37" cy="38" rx="2" ry="6.5" fill="#180c00"/>
-  <ellipse cx="63" cy="38" rx="2" ry="6.5" fill="#180c00"/>
-  <!-- BIG Ghibli shine (the signature sparkle) -->
-  <circle cx="41" cy="32" r="5" fill="white"/>
-  <circle cx="67" cy="32" r="5" fill="white"/>
-  <!-- Secondary small shine -->
-  <circle cx="33.5" cy="41.5" r="2.2" fill="white" opacity="0.55"/>
-  <circle cx="59.5" cy="41.5" r="2.2" fill="white" opacity="0.55"/>
-  <!-- Nose (heart-shaped hint) -->
+  <!-- Eyes: grouped so the entire eye squishes when sleeping/blinking -->
+  <g class="neko-eye-l">
+    <ellipse cx="37" cy="37" rx="8" ry="9" fill="#3a2808"/>
+    <ellipse cx="37" cy="38" rx="6.5" ry="7.5" fill="#c88a18"/>
+    <ellipse cx="37" cy="38" rx="2" ry="6.5" fill="#180c00"/>
+    <circle cx="41" cy="32" r="5" fill="white"/>
+    <circle cx="33.5" cy="41.5" r="2.2" fill="white" opacity="0.55"/>
+  </g>
+  <g class="neko-eye-r">
+    <ellipse cx="63" cy="37" rx="8" ry="9" fill="#3a2808"/>
+    <ellipse cx="63" cy="38" rx="6.5" ry="7.5" fill="#c88a18"/>
+    <ellipse cx="63" cy="38" rx="2" ry="6.5" fill="#180c00"/>
+    <circle cx="67" cy="32" r="5" fill="white"/>
+    <circle cx="59.5" cy="41.5" r="2.2" fill="white" opacity="0.55"/>
+  </g>
+  <!-- Nose -->
   <ellipse cx="50" cy="47" rx="3.5" ry="2.5" fill="#f0a0b8"/>
-  <!-- Mouth — gentle smile -->
+  <!-- Mouth — gentle smile (awake) -->
   <path class="neko-mouth-normal" d="M45.5,50 Q50,54.5 54.5,50" stroke="#c07888" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-  <!-- Mouth yawn — warm pink, not alarming -->
+  <!-- Mouth — relaxed/neutral (sleeping) -->
+  <path class="neko-mouth-sleep" d="M47,50 Q50,48.5 53,50" stroke="#c07888" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+  <!-- Mouth yawn -->
   <ellipse class="neko-mouth-yawn" cx="50" cy="53" rx="9" ry="7" fill="#d06888"/>
   <ellipse class="neko-mouth-yawn" cx="50" cy="54" rx="6" ry="4.5" fill="#f0a0b8"/>
-  <!-- Tongue (tiny, in yawn) -->
   <ellipse class="neko-mouth-yawn" cx="50" cy="57" rx="4" ry="2.5" fill="#f8c0cc"/>
-  <!-- Whiskers (shorter, less aggressive) -->
+  <!-- Whiskers -->
   <line x1="44" y1="47" x2="17" y2="43.5" stroke="#d8d4c4" stroke-width="1"/>
   <line x1="44" y1="49" x2="17" y2="53.5" stroke="#d8d4c4" stroke-width="1"/>
   <line x1="56" y1="47" x2="83" y2="43.5" stroke="#d8d4c4" stroke-width="1"/>
   <line x1="56" y1="49" x2="83" y2="53.5" stroke="#d8d4c4" stroke-width="1"/>
-  <!-- Front legs -->
-  <rect class="neko-leg neko-leg-fl" x="29" y="84" width="12" height="18" rx="6" fill="#c0bcb4"/>
-  <rect class="neko-leg neko-leg-fr" x="58" y="84" width="12" height="18" rx="6" fill="#c0bcb4"/>
-  <!-- Paws (soft rounded) -->
-  <ellipse cx="35" cy="103" rx="7" ry="3.5" fill="#cec8be"/>
-  <ellipse cx="64" cy="103" rx="7" ry="3.5" fill="#cec8be"/>
-  <ellipse cx="33" cy="103" rx="7" ry="3.5" fill="#cec8be"/>
-  <ellipse cx="66" cy="103" rx="7" ry="3.5" fill="#cec8be"/>
+  <!-- Front legs — wider spread, longer -->
+  <rect class="neko-leg neko-leg-fl" x="24" y="83" width="11" height="23" rx="5.5" fill="#c0bcb4"/>
+  <rect class="neko-leg neko-leg-fr" x="64" y="83" width="11" height="23" rx="5.5" fill="#c0bcb4"/>
+  <!-- Paws -->
+  <ellipse cx="24.5" cy="107" rx="7" ry="3" fill="#cec8be"/>
+  <ellipse cx="74.5" cy="107" rx="7" ry="3" fill="#cec8be"/>
+  <ellipse cx="29.5" cy="107" rx="7" ry="3" fill="#cec8be"/>
+  <ellipse cx="69.5" cy="107" rx="7" ry="3" fill="#cec8be"/>
+  <!-- Floating z's (visible only when sleeping) -->
+  <text class="neko-zzz neko-zzz1" x="67" y="23" font-size="10" fill="#9898cc" font-family="Georgia,serif" font-style="italic" opacity="0">z</text>
+  <text class="neko-zzz neko-zzz2" x="74" y="14" font-size="8"  fill="#9898cc" font-family="Georgia,serif" font-style="italic" opacity="0">z</text>
+  <text class="neko-zzz neko-zzz3" x="79" y="6"  font-size="6.5" fill="#9898cc" font-family="Georgia,serif" font-style="italic" opacity="0">z</text>
 </g>
 </svg>
 </div>
@@ -788,12 +805,17 @@ loadMissedPapers();
   function vh() { return Math.max(80, window.innerHeight - 120); }
   function cls() { cat.className = state + (facingLeft ? ' face-left' : ''); }
   function newTarget() { tx = 50 + Math.random()*(vw()-50); ty = 30 + Math.random()*(vh()-50); }
+  function goSleep() {
+    state = 'sleeping';
+    stateTimer = 320 + Math.floor(Math.random()*380);
+    cls();
+  }
   function rest() {
     var r = Math.random();
-    if      (r < .44) { state='sitting'; stateTimer=180+Math.floor(Math.random()*220); }
-    else if (r < .62) { state='yawning'; stateTimer=90; }
-    else              { state='idle';    stateTimer=60+Math.floor(Math.random()*100); }
-    cls();
+    if      (r < .52) { goSleep(); }
+    else if (r < .72) { state='sitting'; stateTimer=90+Math.floor(Math.random()*90); cls(); }
+    else if (r < .82) { state='yawning'; stateTimer=70; cls(); }
+    else              { state='idle';    stateTimer=50+Math.floor(Math.random()*55); cls(); }
   }
   function tick() {
     if (state === 'walking') {
@@ -805,10 +827,20 @@ loadMissedPapers();
         var wl = dx < 0;
         if (wl !== facingLeft) { facingLeft=wl; cls(); }
       }
+    } else if (state === 'sleeping') {
+      if (--stateTimer <= 0) {
+        var r = Math.random();
+        if      (r < .72) { goSleep(); }
+        else if (r < .87) { state='sitting'; stateTimer=80+Math.floor(Math.random()*70); cls(); }
+        else               { state='idle';   stateTimer=40+Math.floor(Math.random()*45); cls(); }
+      }
     } else {
       if (--stateTimer <= 0) {
-        if (Math.random() < .28) { rest(); }
-        else { newTarget(); state='walking'; facingLeft=tx<x; cls(); }
+        var r = Math.random();
+        if      (r < .55) { goSleep(); }
+        else if (r < .75) { newTarget(); state='walking'; facingLeft=tx<x; cls(); }
+        else if (r < .85) { state='yawning'; stateTimer=70; cls(); }
+        else               { rest(); }
       }
     }
     cat.style.left = Math.round(x)+'px';
@@ -816,7 +848,7 @@ loadMissedPapers();
     requestAnimationFrame(tick);
   }
   x=60+Math.random()*(vw()-80); y=40+Math.random()*(vh()-60);
-  newTarget(); state='idle'; stateTimer=50; facingLeft=false; cls();
+  goSleep();
   requestAnimationFrame(tick);
 })();
 </script>
