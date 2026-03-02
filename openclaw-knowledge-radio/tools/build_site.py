@@ -1210,8 +1210,9 @@ loadMissedPapers();
   </g>
   <ellipse cx="27" cy="41" rx="9" ry="5.5" fill="#ffb0c0" opacity="0.28"/>
   <ellipse cx="73" cy="41" rx="9" ry="5.5" fill="#ffb0c0" opacity="0.28"/>
-  <ellipse cx="50" cy="41" rx="3.2" ry="2.3" fill="#f0a0b8"/>
-  <path d="M45,44 Q50,50 55,44" stroke="#c07888" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M47.5,40 Q50,43.5 52.5,40 Q50,38 47.5,40" fill="#f0a0b8" stroke="#e090a8" stroke-width="0.4"/>
+  <line x1="50" y1="43.5" x2="50" y2="45" stroke="#d090a8" stroke-width="0.9" stroke-linecap="round"/>
+  <path d="M44,45.5 Q47,50 50,46.5 Q53,50 56,45.5" stroke="#c07888" stroke-width="1.5" fill="none" stroke-linecap="round"/>
   <line x1="43" y1="41" x2="18" y2="38" stroke="#d8d4c4" stroke-width="1"/>
   <line x1="43" y1="43" x2="18" y2="48" stroke="#d8d4c4" stroke-width="1"/>
   <line x1="57" y1="41" x2="82" y2="38" stroke="#d8d4c4" stroke-width="1"/>
