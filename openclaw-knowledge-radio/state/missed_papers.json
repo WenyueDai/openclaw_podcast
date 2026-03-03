@@ -119,8 +119,10 @@
     "title": "Accurate predictions of disordered protein ensembles with STARLING",
     "url": null,
     "date_submitted": "2026-03-03",
-    "processed": false,
-    "diagnosis": null,
-    "keywords_added": []
+    "processed": true,
+    "diagnosis": "excluded_term",
+    "keywords_added": [],
+    "rss_feed_found": "",
+    "notion_page_id": "3185f58e-a8c2-8139-b916-e2fb4fde2a04"
   }
 ]
