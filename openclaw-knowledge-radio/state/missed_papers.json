@@ -130,8 +130,14 @@
     "title": "FLAb tutorial: Benchmarking a protein language model for antibody expression prediction",
     "url": null,
     "date_submitted": "2026-03-03",
-    "processed": false,
-    "diagnosis": null,
-    "keywords_added": []
+    "processed": true,
+    "diagnosis": "low_ranking",
+    "keywords_added": [
+      "protein language model",
+      "antibody expression prediction",
+      "flab tutorial"
+    ],
+    "rss_feed_found": "",
+    "notion_page_id": "3185f58e-a8c2-8149-9173-c7bc767a7acd"
   }
 ]
