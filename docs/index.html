@@ -129,15 +129,12 @@ audio { width:100%; margin:4px 0 6px; }
 .owner-feedback button { padding:4px 12px; border:1px solid var(--accent); border-radius:6px; background:var(--accent); color:#fff; cursor:pointer; font-size:.85rem; margin-right:8px; }
 .owner-feedback button.sec { background:transparent; color:var(--accent); }
 /* ── Cat — eats, walks, reads, sleeps ── */
-#ghibli-cat { position:fixed; z-index:55; pointer-events:none; user-select:none; width:130px; height:100px; }
-#neko-front-svg,#neko-side-svg { position:absolute; top:0; left:0; overflow:visible; }
-#neko-side-svg { display:none; }
-#ghibli-cat.walking #neko-front-svg { display:none; }
-#ghibli-cat.walking #neko-side-svg { display:block; }
+#ghibli-cat { position:fixed; z-index:55; pointer-events:none; user-select:none; width:100px; height:105px; }
+#neko-front-svg { position:absolute; top:0; left:0; overflow:visible; }
 .neko-tail { transform-box:fill-box; }
-.neko-leg  { transform-box:fill-box; transform-origin:top center; }
 .neko-eye-l,.neko-eye-r { transform-box:fill-box; transform-origin:center; }
-.neko-bowl,.neko-leg,.neko-zzz { display:none; }
+.neko-leg-l,.neko-leg-r { transform-box:fill-box; transform-origin:top center; }
+.neko-bowl,.neko-zzz,.neko-legs { display:none; }
 .neko-book { display:none; transform-box:fill-box; transform-origin:center bottom; }
 #ghibli-cat.eating .neko-bowl { display:block; }
 #ghibli-cat.eating .neko-body-group,#ghibli-cat.eating .neko-head-group { animation:neko-eat-float 2.6s ease-in-out infinite; }
@@ -147,10 +144,10 @@ audio { width:100%; margin:4px 0 6px; }
 #ghibli-cat.eating .neko-steam-2 { animation:neko-steam 2.6s ease-in 0.95s infinite; }
 #ghibli-cat.eating .neko-steam-3 { animation:neko-steam 2.6s ease-in 1.85s infinite; }
 #ghibli-cat.eating .neko-noodle  { animation:neko-slurp 2.6s ease-in-out infinite; }
-#ghibli-cat.walking .neko-leg { display:block; }
 #ghibli-cat.walking .neko-paws { display:none; }
-#ghibli-cat.walking .neko-leg-fn,#ghibli-cat.walking .neko-leg-bf { animation:neko-walk-a .42s ease-in-out infinite; }
-#ghibli-cat.walking .neko-leg-ff,#ghibli-cat.walking .neko-leg-bn { animation:neko-walk-b .42s ease-in-out infinite; }
+#ghibli-cat.walking .neko-legs { display:block; }
+#ghibli-cat.walking .neko-leg-l { animation:neko-walk-a .42s ease-in-out infinite; }
+#ghibli-cat.walking .neko-leg-r { animation:neko-walk-b .42s ease-in-out infinite; }
 #ghibli-cat.walking .neko-body-group { animation:neko-bob .42s ease-in-out infinite; }
 #ghibli-cat.walking .neko-tail { animation:neko-tail-walk .42s ease-in-out infinite; }
 #ghibli-cat.sleeping .neko-eye-l,#ghibli-cat.sleeping .neko-eye-r { animation:none !important; transform:scaleY(0.06); }
@@ -753,10 +750,10 @@ async function submitMissedPaper() {
 loadMissedPapers();
 </script>
 
-<!-- ── Cat: front-view (eat/sleep/read) + side-view (walk) ── -->
+<!-- ── Cat: front-view (eat/walk/sleep/read) ── -->
 <div id="ghibli-cat">
 
-<!-- ══ FRONT VIEW — eating, sleeping, reading, idle ══ -->
+<!-- ══ FRONT VIEW — all states ══ -->
 <svg id="neko-front-svg" viewBox="0 0 100 118" width="80" height="94" xmlns="http://www.w3.org/2000/svg">
 <defs>
   <filter id="neko-fur-f" x="-35%" y="-35%" width="170%" height="170%">
@@ -803,17 +800,27 @@ loadMissedPapers();
   <path d="M44,62 Q46,56 43,51" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
   <path d="M50,60 Q52,54 50,49" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
   <path d="M56,62 Q54,56 57,51" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-  <!-- Legs (shown during walking) -->
+  <!-- Legs (shown during walking) — leg + small paw -->
   <g class="neko-legs">
-    <rect class="neko-leg-l" x="31" y="77" width="8" height="16" rx="4" fill="#ede6e4"/>
-    <rect class="neko-leg-r" x="61" y="77" width="8" height="16" rx="4" fill="#ede6e4"/>
+    <g class="neko-leg-l">
+      <rect x="31" y="77" width="8" height="13" rx="4" fill="#ede6e4"/>
+      <ellipse cx="35" cy="91" rx="5.5" ry="3.5" fill="#ede6e4"/>
+    </g>
+    <g class="neko-leg-r">
+      <rect x="61" y="77" width="8" height="13" rx="4" fill="#ede6e4"/>
+      <ellipse cx="65" cy="91" rx="5.5" ry="3.5" fill="#ede6e4"/>
+    </g>
   </g>
-  <!-- Paws (hidden during walking) -->
+  <!-- Paws (hidden during walking) — main pad + 3 toes -->
   <g class="neko-paws">
-    <ellipse cx="34" cy="82" rx="12" ry="5" fill="#ede6e4"/>
-    <ellipse cx="66" cy="82" rx="12" ry="5" fill="#ede6e4"/>
-    <path d="M26,80 Q34,76 42,80" stroke="#d8d2ce" stroke-width="0.9" fill="none"/>
-    <path d="M58,80 Q66,76 74,80" stroke="#d8d2ce" stroke-width="0.9" fill="none"/>
+    <ellipse cx="34" cy="86" rx="10" ry="5" fill="#ede6e4"/>
+    <circle cx="28" cy="80" r="3.5" fill="#ede6e4"/>
+    <circle cx="34" cy="78" r="3.5" fill="#ede6e4"/>
+    <circle cx="40" cy="80" r="3.5" fill="#ede6e4"/>
+    <ellipse cx="66" cy="86" rx="10" ry="5" fill="#ede6e4"/>
+    <circle cx="60" cy="80" r="3.5" fill="#ede6e4"/>
+    <circle cx="66" cy="78" r="3.5" fill="#ede6e4"/>
+    <circle cx="72" cy="80" r="3.5" fill="#ede6e4"/>
   </g>
 </g>
 <!-- Book (reading state) -->
@@ -882,77 +889,6 @@ loadMissedPapers();
 </g>
 </svg>
 
-<!-- ══ SIDE VIEW — walking only ══ -->
-<svg id="neko-side-svg" viewBox="0 0 130 100" width="130" height="100" xmlns="http://www.w3.org/2000/svg">
-<defs>
-  <filter id="neko-fur-s" x="-30%" y="-30%" width="160%" height="160%">
-    <feTurbulence type="fractalNoise" baseFrequency="0.85 0.90" numOctaves="4" seed="7" result="noise"/>
-    <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
-  </filter>
-</defs>
-<!-- Tail (behind everything) -->
-<path class="neko-tail" style="transform-origin:100% 100%" d="M26,63 C10,55 2,37 7,21 C11,9 21,12 19,23 C16,35 6,31 10,19" stroke="#e0d8d8" stroke-width="6.5" fill="none" stroke-linecap="round"/>
-<!-- Far legs (behind body) -->
-<rect class="neko-leg neko-leg-bf" x="34" y="73" width="9" height="22" rx="4.5" fill="#dedad6"/>
-<rect class="neko-leg neko-leg-ff" x="68" y="73" width="9" height="22" rx="4.5" fill="#dedad6"/>
-<!-- Body group -->
-<g class="neko-body-group">
-  <g filter="url(#neko-fur-s)">
-    <ellipse cx="55" cy="60" rx="34" ry="16" fill="#f5f2ee"/>
-    <ellipse cx="88" cy="53" rx="14" ry="9" fill="#f5f2ee"/>
-  </g>
-  <ellipse cx="55" cy="60" rx="30" ry="13" fill="#f5f2ee"/>
-  <ellipse cx="56" cy="66" rx="22" ry="8" fill="#fff6f8"/>
-  <path d="M72,54 Q74,49 72,45" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-  <path d="M76,56 Q79,51 77,47" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-</g>
-<!-- Near legs (in front of body) -->
-<rect class="neko-leg neko-leg-bn" x="41" y="73" width="9" height="22" rx="4.5" fill="#edeae6"/>
-<rect class="neko-leg neko-leg-fn" x="75" y="73" width="9" height="22" rx="4.5" fill="#edeae6"/>
-<!-- Paws -->
-<g class="neko-paws">
-  <ellipse cx="45" cy="96" rx="12" ry="4.5" fill="#ede6e4"/>
-  <path d="M35,94 Q45,89 55,94" stroke="#d8d2ce" stroke-width="0.9" fill="none"/>
-  <ellipse cx="79" cy="96" rx="12" ry="4.5" fill="#ede6e4"/>
-  <path d="M69,94 Q79,89 89,94" stroke="#d8d2ce" stroke-width="0.9" fill="none"/>
-</g>
-<!-- Head group -->
-<g class="neko-head-group">
-  <!-- Neck connector -->
-  <ellipse cx="82" cy="52" rx="9" ry="8" fill="#f5f2ee"/>
-  <!-- Head -->
-  <circle cx="95" cy="35" r="18" fill="#f5f2ee"/>
-  <!-- Far ear -->
-  <polygon points="87,22 93,8  100,22" fill="#ede8e4"/>
-  <polygon points="88,22 93,11 99,22"  fill="#f8c0cc"/>
-  <!-- Near ear -->
-  <polygon points="94,21 100,6 107,21" fill="#f5f2ee"/>
-  <polygon points="95,21 100,9 106,21" fill="#f8c0cc"/>
-  <!-- Eye (smaller — side profile) -->
-  <g class="neko-eye-l">
-    <ellipse cx="101" cy="29" rx="4" ry="5" fill="#1e2a40"/>
-    <ellipse cx="101" cy="30" rx="2.8" ry="3.8" fill="#3a8acc"/>
-    <ellipse cx="101" cy="30" rx="1.2" ry="3.2" fill="#080c18"/>
-    <circle  cx="103" cy="25" r="2.0" fill="white"/>
-    <circle  cx="99"  cy="33" r="0.9" fill="white" opacity="0.55"/>
-  </g>
-  <!-- Blush -->
-  <ellipse cx="109" cy="42" rx="8" ry="5" fill="#ffb0c0" opacity="0.28"/>
-  <!-- Snout muzzle -->
-  <ellipse cx="110" cy="44" rx="7" ry="5" fill="#f0ebe8"/>
-  <!-- Nose -->
-  <path d="M108,41 Q110,44 112,41 Q110,39 108,41" fill="#f0a0b8" stroke="#e090a8" stroke-width="0.4"/>
-  <line x1="110" y1="44" x2="110" y2="45.5" stroke="#d090a8" stroke-width="0.9" stroke-linecap="round"/>
-  <!-- Mouth -->
-  <path d="M108,46.5 Q110,50 110.5,47.5 Q111,50 113,46.5" stroke="#c07888" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-  <!-- Whiskers back -->
-  <line x1="107" y1="43" x2="84" y2="38" stroke="#d8d4c4" stroke-width="0.9"/>
-  <line x1="107" y1="46" x2="84" y2="51" stroke="#d8d4c4" stroke-width="0.9"/>
-  <!-- Whiskers forward -->
-  <line x1="116" y1="43" x2="127" y2="40" stroke="#d8d4c4" stroke-width="0.9"/>
-  <line x1="116" y1="46" x2="127" y2="49" stroke="#d8d4c4" stroke-width="0.9"/>
-</g>
-</svg>
 
 
 </div>
@@ -960,7 +896,7 @@ loadMissedPapers();
 (function() {
   var cat = document.getElementById('ghibli-cat');
   if (!cat) return;
-  var x, y, tx, ty, state, stateTimer, facingLeft, speed = 1.15;
+  var x, y, tx, ty, state, stateTimer, facingLeft, speed = 1.6;
   function vw() { return window.innerWidth; }
   function vh() { return window.innerHeight; }
   function cls() { cat.className = state + (facingLeft ? ' face-left' : ''); }
@@ -1031,9 +967,9 @@ loadMissedPapers();
     } else {
       if (--stateTimer <= 0) {
         var r = Math.random();
-        if      (r < .24) { goEating(); }
-        else if (r < .38) { goReading(); }
-        else if (r < .60) { newTarget(); state='walking'; facingLeft=tx<x; cls(); }
+        if      (r < .18) { goEating(); }
+        else if (r < .28) { goReading(); }
+        else if (r < .72) { newTarget(); state='walking'; facingLeft=tx<x; cls(); }
         else               { rest(); }
       }
     }
