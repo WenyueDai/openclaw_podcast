@@ -324,8 +324,8 @@ def render_index(episodes, all_episodes=None):
                 raw_title = it.get("title") or "Untitled"
                 raw_source = it.get("source") or ""
                 title_part = f'<a href="{url}" target="_blank">{title}</a>' if url else title
-                source_part = f' <span class="src">— {source}</span>' if source else ""
-                summary_part = f'<br><span class="summary">{one_liner}</span>' if one_liner else ""
+                source_part = f'<span class="src">{source}</span>' if source else ""
+                summary_part = f'<span class="summary">{one_liner}</span>' if one_liner else ""
                 seg_idx = it.get("segment", -1)
                 ts_val = it.get("timestamp", -1)
                 ts_str = str(ts_val)
@@ -361,7 +361,10 @@ def render_index(episodes, all_episodes=None):
                     f' data-date="{date}"'
                     f' data-source="{html.escape(raw_source)}"'
                     f' data-title="{html.escape(raw_title[:120])}"> '
-                    f'{title_part}{source_part}'
+                    f'<span class="item-main">'
+                    f'<span class="item-title">{title_part}</span>'
+                    f'{source_part}'
+                    f'</span>'
                     f'</label>'
                     f'</div>'
                     f'{summary_part}{note_part}</li>'
@@ -380,15 +383,19 @@ def render_index(episodes, all_episodes=None):
 
         cards.append(f"""
 <section class='card'>
-  <h2>{html.escape(ep['title'])}</h2>
-  {f"<p class='meta'>{s_link}</p>" if s_link else ""}
-  <audio id="audio-{html.escape(ep['date'])}" controls preload="metadata"><source src="{html.escape(ep['audio_url'])}" type="audio/mpeg"></audio>
-  <p class='speed-row'>Speed:
-    <button onclick="setRate(1)">1x</button>
-    <button onclick="setRate(1.2)">1.2x</button>
-    <button onclick="setRate(1.5)">1.5x</button>
-    <button onclick="setRate(2)">2x</button>
-  </p>
+  <div class='card-head'>
+    <h2>{html.escape(ep['title'])}</h2>
+    {f"<p class='meta'>{s_link}</p>" if s_link else ""}
+  </div>
+  <div class='player-box'>
+    <audio id="audio-{html.escape(ep['date'])}" controls preload="metadata"><source src="{html.escape(ep['audio_url'])}" type="audio/mpeg"></audio>
+    <p class='speed-row'><span>Speed</span>
+      <button onclick="setRate(1)">1x</button>
+      <button onclick="setRate(1.2)">1.2x</button>
+      <button onclick="setRate(1.5)">1.5x</button>
+      <button onclick="setRate(2)">2x</button>
+    </p>
+  </div>
   {section_html}
 </section>""")
 
@@ -423,6 +430,7 @@ def render_index(episodes, all_episodes=None):
     sidebar_html = (
         f'<aside class="sidebar" id="archive-panel">'
         f'<h3>Archive</h3>'
+        f'<p class="tip-row">Past episodes</p>'
         f'{"".join(sidebar_parts)}'
         f'</aside>'
     )
@@ -441,64 +449,74 @@ def render_index(episodes, all_episodes=None):
 body {{ margin:0; font-family:"Hiragino Sans","Noto Sans JP",Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:linear-gradient(160deg,var(--bg),var(--bg2)); color:var(--text); font-size:var(--body-size); line-height:var(--body-line); }}
 .layout {{ display:flex; gap:24px; max-width:1320px; margin:0 auto; padding:28px 16px 40px; align-items:flex-start; }}
 .main-col {{ flex:1; min-width:0; }}
-.hero {{ display:grid; grid-template-columns:minmax(0,1.45fr) minmax(260px,.9fr); gap:16px; margin-bottom:18px; }}
+.hero {{ display:flex; flex-direction:column; gap:16px; margin-bottom:16px; }}
 .hero-panel {{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:18px 20px; box-shadow:0 10px 24px rgba(79,143,106,.10); }}
 .hero-panel h1 {{ margin:0 0 8px; letter-spacing:.2px; font-size:clamp(1.8rem,3.2vw,2.5rem); line-height:1.05; }}
 .hero-kicker {{ margin:0 0 12px; font-size:.94rem; color:var(--muted); line-height:1.6; max-width:58ch; }}
-.hero-note {{ margin:0; font-size:.85rem; color:var(--muted); line-height:1.55; }}
+.intro-stack {{ display:flex; flex-direction:column; gap:8px; align-items:flex-start; }}
+.hero-line {{ display:flex; align-items:flex-start; gap:8px; color:var(--muted); }}
+.hero-icon {{ width:1.25rem; flex-shrink:0; text-align:center; line-height:1.55; }}
+.hero-note {{ margin:0; font-size:.85rem; color:var(--muted); line-height:1.55; flex:1; }}
 .hero-links {{ display:flex; flex-direction:column; gap:12px; }}
 .quick-links {{ display:flex; flex-wrap:wrap; gap:8px; }}
 .quick-links a {{ display:inline-flex; align-items:center; padding:7px 10px; border-radius:10px; background:var(--bg2); border:1px solid var(--line); font-size:.82rem; font-weight:600; }}
-.content-grid {{ display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:18px; align-items:start; }}
+.content-grid {{ display:block; }}
 .content-main {{ min-width:0; }}
 .section-head {{ display:flex; justify-content:space-between; align-items:flex-end; gap:12px; margin:0 0 10px; padding:0 2px; }}
 .section-head h2 {{ margin:0; font-size:1rem; color:var(--accent); letter-spacing:.02em; }}
 .section-head p {{ margin:0; color:var(--muted); font-size:.84rem; }}
-.utility-rail {{ display:flex; flex-direction:column; gap:14px; position:sticky; top:18px; }}
-.sidebar {{ width:220px; flex-shrink:0; transition:width .25s,opacity .25s; overflow:hidden; position:sticky; top:18px; }}
+.sidebar {{ width:200px; flex-shrink:0; transition:width .25s,opacity .25s; overflow:hidden; position:sticky; top:18px; opacity:.88; }}
 .sidebar.collapsed {{ width:0; opacity:0; pointer-events:none; }}
-.sidebar h3 {{ margin:0 0 10px; font-size:.95rem; color:var(--accent); display:flex; justify-content:space-between; align-items:center; }}
-.month-group {{ margin-bottom:6px; border:1px solid var(--line); border-radius:8px; overflow:hidden; }}
-.month-group summary {{ padding:6px 10px; font-size:.85rem; font-weight:600; color:var(--text); cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; background:var(--bg2); }}
+.sidebar h3 {{ margin:0 0 8px; font-size:.82rem; color:var(--muted); display:flex; justify-content:space-between; align-items:center; letter-spacing:.02em; }}
+.month-group {{ margin-bottom:5px; border:1px solid rgba(219,231,217,.8); border-radius:8px; overflow:hidden; background:rgba(255,253,246,.75); }}
+.month-group summary {{ padding:5px 9px; font-size:.8rem; font-weight:600; color:var(--muted); cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; background:rgba(247,244,233,.75); }}
 .month-group summary::-webkit-details-marker {{ display:none; }}
-.month-group[open] summary {{ border-bottom:1px solid var(--line); }}
+.month-group[open] summary {{ border-bottom:1px solid rgba(219,231,217,.8); }}
 .ep-count {{ font-weight:400; color:var(--muted); font-size:.78rem; }}
-.month-group ul {{ margin:0; padding:6px 10px; list-style:none; background:var(--card); }}
-.month-group li {{ margin:4px 0; font-size:.82rem; display:flex; align-items:center; gap:4px; }}
-.new-badge {{ color:var(--accent); font-size:.7rem; }}
+.month-group ul {{ margin:0; padding:5px 9px; list-style:none; background:transparent; }}
+.month-group li {{ margin:3px 0; font-size:.78rem; display:flex; align-items:center; gap:4px; }}
+.month-group a {{ color:var(--muted); }}
+.month-group a:hover {{ color:var(--accent); }}
+.new-badge {{ color:var(--accent); font-size:.62rem; }}
 .archive-toggle {{ position:fixed; right:16px; top:50%; transform:translateY(-50%); z-index:50; background:var(--accent); color:#fff; border:none; border-radius:50%; width:38px; height:38px; font-size:1rem; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.2); display:flex; align-items:center; justify-content:center; }}
 .tip-row {{ font-size:.83rem; color:var(--muted); margin:0 0 14px; padding:0 2px; }}
 .feature-badge {{ flex-shrink:0; font-size:.72rem; font-weight:700; padding:2px 8px; border-radius:10px; margin-top:2px; white-space:nowrap; }}
 .feature-badge.open  {{ background:#d4edda; color:#155724; }}
 .feature-badge.owner {{ background:#fff3cd; color:#856404; }}
 .feature-badge.tip   {{ background:#cce5ff; color:#004085; }}
-.owner-tools {{ margin-top:18px; }}
-.owner-tools > summary {{ font-size:.83rem; color:var(--muted); cursor:pointer; padding:4px 2px; list-style:none; display:flex; align-items:center; gap:6px; }}
+.owner-tools {{ margin:0; width:100%; }}
+.owner-tools > summary {{ font-size:.83rem; color:var(--muted); cursor:pointer; padding:0; list-style:none; display:flex; align-items:flex-start; gap:8px; }}
 .owner-tools > summary::-webkit-details-marker {{ display:none; }}
-.owner-tools > summary::before {{ content:'▸'; font-size:.7rem; }}
-.owner-tools[open] > summary::before {{ content:'▾'; }}
 .card {{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; margin:14px 0; box-shadow:0 10px 22px rgba(79,143,106,.12); }}
-h2 {{ margin:0 0 4px; font-size:1.1rem; }}
-.meta {{ color:var(--muted); margin:0 0 8px; font-size:.88rem; }}
+h2 {{ margin:0; font-size:1.1rem; }}
+.card-head {{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:10px; }}
+.meta {{ color:var(--muted); margin:0; font-size:.88rem; white-space:nowrap; }}
 a {{ color:var(--accent); text-decoration:none; }}
 a:hover {{ text-decoration:underline; }}
-audio {{ width:100%; margin:4px 0 6px; }}
-.speed-row {{ margin:0 0 8px; font-size:.88rem; color:var(--muted); }}
-.speed-row button {{ font-size:.82rem; padding:1px 7px; margin-right:3px; border:1px solid var(--line); border-radius:5px; background:var(--bg2); cursor:pointer; }}
-.abstract h3 {{ margin:8px 0 5px; font-size:.95rem; color:#4c6f5a; }}
+audio {{ width:100%; margin:0; }}
+.player-box {{ background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:10px 12px; margin-bottom:12px; }}
+.speed-row {{ margin:6px 0 0; font-size:.78rem; color:var(--muted); display:flex; flex-wrap:wrap; align-items:center; gap:5px; }}
+.speed-row span {{ margin-right:1px; opacity:.85; }}
+.speed-row button {{ font-size:.76rem; padding:2px 8px; border:1px solid rgba(219,231,217,.95); border-radius:999px; background:transparent; color:var(--muted); cursor:pointer; }}
+.speed-row button:hover {{ color:var(--accent); border-color:var(--accent); }}
+.abstract h3 {{ margin:0 0 8px; font-size:.95rem; color:#4c6f5a; }}
 .abstract ul {{ margin:0; padding-left:0; list-style:none; }}
-.abstract li {{ margin:5px 0; line-height:1.45; padding:4px 6px; border-radius:6px; transition:background .15s,border-left .15s; border-left:3px solid transparent; }}
+.abstract li {{ margin:0; line-height:1.45; padding:6px 8px; border-radius:8px; transition:background .15s,border-left .15s; border-left:3px solid transparent; }}
+.abstract li + li {{ margin-top:4px; }}
 .abstract li:hover {{ background:rgba(79,143,106,.07); }}
 .abstract li.playing {{ background:rgba(79,143,106,.15); border-left:3px solid var(--accent); }}
-.item-row {{ display:flex; align-items:baseline; gap:6px; }}
-.cb-wrap {{ display:flex; align-items:baseline; gap:5px; cursor:pointer; flex:1; min-width:0; }}
+.item-row {{ display:flex; align-items:flex-start; gap:8px; }}
+.cb-wrap {{ display:flex; align-items:flex-start; gap:6px; cursor:pointer; flex:1; min-width:0; }}
+.item-main {{ display:flex; flex-direction:column; gap:3px; min-width:0; flex:1; }}
+.item-title {{ color:var(--text); line-height:1.45; }}
+.item-title a {{ color:inherit; }}
 .star-cb {{ accent-color:var(--accent); width:14px; height:14px; flex-shrink:0; cursor:pointer; display:none; }}
 .owner-mode .star-cb {{ display:inline-block; }}
-.num {{ color:var(--muted); font-size:.82rem; font-weight:600; min-width:28px; flex-shrink:0; }}
-.num.seekable {{ color:var(--accent); cursor:pointer; }}
+.num {{ color:var(--muted); font-size:.72rem; font-weight:600; min-width:24px; flex-shrink:0; opacity:.75; padding-top:2px; }}
+.num.seekable {{ color:var(--muted); cursor:pointer; }}
 .num.seekable:hover {{ text-decoration:underline; }}
-.src {{ color:var(--muted); font-size:.85rem; }}
-.summary {{ color:var(--muted); font-size:.87rem; margin-left:48px; display:block; }}
+.src {{ display:inline-flex; align-items:center; width:max-content; max-width:100%; color:var(--muted); font-size:.75rem; padding:1px 8px; border-radius:999px; background:rgba(79,143,106,.08); }}
+.summary {{ color:var(--muted); font-size:.87rem; margin-left:38px; display:block; margin-top:3px; }}
 .tip {{ font-size:.75rem; font-weight:400; color:var(--muted); }}
 .owner-mode .owner-feedback {{ display:block; }}
 #fb-status {{ color:var(--muted); font-size:.82rem; }}
@@ -513,7 +531,7 @@ audio {{ width:100%; margin:4px 0 6px; }}
 .modal .save {{ background:var(--accent); color:#fff; }}
 .modal .cancel {{ background:transparent; color:var(--accent); }}
 /* ── My Take notes ── */
-.my-take {{ margin:3px 0 0 46px; }}
+.my-take {{ margin:3px 0 0 38px; }}
 .my-take-display {{ display:flex; align-items:flex-start; gap:6px; background:rgba(79,143,106,.10); border-left:3px solid var(--accent); border-radius:0 6px 6px 0; padding:5px 9px; }}
 .my-take-text {{ font-size:.86rem; color:#2d4a38; flex:1; white-space:pre-wrap; word-break:break-word; }}
 .my-take-text a {{ color:var(--accent); }}
@@ -567,7 +585,7 @@ audio {{ width:100%; margin:4px 0 6px; }}
 .owner-feedback {{ margin-top:12px; padding:10px 12px; background:var(--bg2); border:1px solid var(--line); border-radius:10px; font-size:.88rem; }}
 .owner-feedback button {{ padding:4px 12px; border:1px solid var(--accent); border-radius:6px; background:var(--accent); color:#fff; cursor:pointer; font-size:.85rem; margin-right:8px; }}
 .owner-feedback button.sec {{ background:transparent; color:var(--accent); }}
-.visitor-message {{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin-bottom:14px; }}
+.visitor-message {{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin-bottom:0; }}
 .visitor-message h3 {{ margin:0 0 6px; font-size:.95rem; color:var(--accent); }}
 .visitor-message p {{ margin:0 0 10px; font-size:.86rem; color:var(--muted); line-height:1.55; }}
 .visitor-form {{ display:flex; flex-direction:column; gap:8px; font-size:.86rem; line-height:1.5; }}
@@ -587,9 +605,6 @@ audio {{ width:100%; margin:4px 0 6px; }}
   .layout {{ flex-direction:column; max-width:1080px; }}
   .sidebar {{ width:100%; position:static; }}
   .sidebar.collapsed {{ width:100%; opacity:1; pointer-events:auto; display:none; }}
-  .hero,
-  .content-grid {{ grid-template-columns:1fr; }}
-  .utility-rail {{ position:static; }}
   .archive-toggle {{ top:auto; bottom:16px; transform:none; }}
 }}
 @media (max-width: 720px) {{
@@ -668,20 +683,57 @@ audio {{ width:100%; margin:4px 0 6px; }}
       <div class="hero-panel">
         <h1>Protein Design Podcast</h1>
         <p class="hero-kicker">A daily automated digest of new papers on <strong>protein design, antibody engineering, and enzyme design</strong>. The pipeline runs every morning, ranks new papers from 42 sources, and narrates them into a roughly hour-long episode.</p>
-        <p class="hero-note">&#9432; Built on free resources only, so the audio is best used for triage: find papers worth reading, then read the originals.</p>
+        <div class="intro-stack">
+          <div class="hero-line">
+            <span class="hero-icon">&#9432;</span>
+            <p class="hero-note">Built on free resources only, so the audio is best used for triage: find papers worth reading, then read the originals.</p>
+          </div>
+          <div class="hero-line">
+            <span class="hero-icon">&#128218;</span>
+            <p class="hero-note">Older releases move to the archive.</p>
+          </div>
+          <details class="owner-tools">
+            <summary>
+              <span class="hero-icon">&#9881;&#65039;</span>
+              <span>Owner tools &mdash; add missing paper</span>
+            </summary>
+            <div class="missed-section">
+              <h3>&#128231; Submit a missed paper</h3>
+              <p>Log a paper the pipeline missed — triggers an automatic diagnosis and boosts similar papers in future rankings.</p>
+              <div class="missed-form">
+                <input type="text" id="missed-title" placeholder="Paper title (required)">
+                <input type="text" id="missed-url" placeholder="URL (optional)">
+                <button onclick="submitMissedPaper()">Submit</button>
+                <span id="missed-status"></span>
+              </div>
+              <div id="missed-list"></div>
+              <details class="diag-guide">
+                <summary>&#128270; Diagnosis guide</summary>
+                <dl>
+                  <dt><span class="diag-badge diag-collected">already collected</span></dt>
+                  <dd>Already in a previous episode — check the archive.</dd>
+                  <dt><span class="diag-badge diag-excluded">excluded term</span></dt>
+                  <dd>Title matched a term in <code>excluded_terms</code> (e.g. &ldquo;mouse&rdquo;). Narrow the filter in <code>config.yaml</code> if too aggressive.</dd>
+                  <dt><span class="diag-badge diag-source">source not in RSS</span></dt>
+                  <dd>Domain not in any RSS feed — pipeline can&rsquo;t see it. Add to <code>rss_sources</code> or check <code>extra_rss_sources.json</code> for auto-discovered feeds.</dd>
+                  <dt><span class="diag-badge diag-ranking">low ranking</span></dt>
+                  <dd>In RSS but cut below the episode cap. Add keywords to <code>absolute_title_keywords</code> or increase <code>max_items_total</code>.</dd>
+                  <dt><span class="diag-badge diag-pending">pending</span></dt>
+                  <dd>Workflow hasn&rsquo;t run yet — diagnosis appears within ~2 minutes.</dd>
+                </dl>
+              </details>
+              <div class="owner-feedback">
+                <strong>Feedback:</strong>
+                <span id="sel-count">0 checked</span> &nbsp;
+                <button onclick="saveFeedback()">Save to GitHub</button>
+                <button class="sec" onclick="openSettings()">&#9881; Settings</button>
+                <span id="fb-status"></span>
+              </div>
+            </div>
+          </details>
+        </div>
       </div>
       <div class="hero-panel hero-links">
-        <section class="visitor-message">
-          <h3>&#128172; Leave a message</h3>
-          <div class="visitor-form">
-            <textarea id="visitor-message" placeholder="Leave a note, share a thought, or say hello..."></textarea>
-            <div class="visitor-actions">
-              <button class="primary" onclick="sendVisitorMessage()">Send message</button>
-              <button class="secondary" onclick="saveVisitorDraft()">Save draft</button>
-              <span id="visitor-status"></span>
-            </div>
-          </div>
-        </section>
         <div>
           <div class="section-head">
             <h2>Reference collections</h2>
@@ -693,52 +745,22 @@ audio {{ width:100%; margin:4px 0 6px; }}
         </div>
         {today_summary}
       </div>
+      <section class="visitor-message hero-panel">
+        <h3>&#128172; Leave a message</h3>
+        <div class="visitor-form">
+          <textarea id="visitor-message" placeholder="Leave a note, share a thought, or say hello..."></textarea>
+          <div class="visitor-actions">
+            <button class="primary" onclick="sendVisitorMessage()">Send message</button>
+            <button class="secondary" onclick="saveVisitorDraft()">Save draft</button>
+            <span id="visitor-status"></span>
+          </div>
+        </div>
+      </section>
     </section>
     <div class="content-grid">
       <div class="content-main">
-        <div class="section-head">
-          <p>&#128218; Older releases move to the archive</p>
-        </div>
         {body}
       </div>
-      <aside class="utility-rail">
-        <details class="owner-tools">
-          <summary>&#9881;&#65039; Owner tools &mdash; add missing paper</summary>
-          <div class="missed-section">
-            <h3>&#128231; Submit a missed paper</h3>
-            <p>Log a paper the pipeline missed — triggers an automatic diagnosis and boosts similar papers in future rankings.</p>
-            <div class="missed-form">
-              <input type="text" id="missed-title" placeholder="Paper title (required)">
-              <input type="text" id="missed-url" placeholder="URL (optional)">
-              <button onclick="submitMissedPaper()">Submit</button>
-              <span id="missed-status"></span>
-            </div>
-            <div id="missed-list"></div>
-            <details class="diag-guide">
-              <summary>&#128270; Diagnosis guide</summary>
-              <dl>
-                <dt><span class="diag-badge diag-collected">already collected</span></dt>
-                <dd>Already in a previous episode — check the archive.</dd>
-                <dt><span class="diag-badge diag-excluded">excluded term</span></dt>
-                <dd>Title matched a term in <code>excluded_terms</code> (e.g. &ldquo;mouse&rdquo;). Narrow the filter in <code>config.yaml</code> if too aggressive.</dd>
-                <dt><span class="diag-badge diag-source">source not in RSS</span></dt>
-                <dd>Domain not in any RSS feed — pipeline can&rsquo;t see it. Add to <code>rss_sources</code> or check <code>extra_rss_sources.json</code> for auto-discovered feeds.</dd>
-                <dt><span class="diag-badge diag-ranking">low ranking</span></dt>
-                <dd>In RSS but cut below the episode cap. Add keywords to <code>absolute_title_keywords</code> or increase <code>max_items_total</code>.</dd>
-                <dt><span class="diag-badge diag-pending">pending</span></dt>
-                <dd>Workflow hasn&rsquo;t run yet — diagnosis appears within ~2 minutes.</dd>
-              </dl>
-            </details>
-            <div class="owner-feedback">
-              <strong>Feedback:</strong>
-              <span id="sel-count">0 checked</span> &nbsp;
-              <button onclick="saveFeedback()">Save to GitHub</button>
-              <button class="sec" onclick="openSettings()">&#9881; Settings</button>
-              <span id="fb-status"></span>
-            </div>
-          </div>
-        </details>
-      </aside>
     </div>
   </div>
   {sidebar_html}
@@ -1586,7 +1608,12 @@ def main():
             f.unlink()
 
     (SITE_DIR / "episodes.json").write_text(json.dumps([
-        {"date": e["date"], "title": e["title"], "audio": e.get("audio_url", f"audio/{e['mp3_name']}"), "script": e["script_name"]}
+        {
+            "date": e["date"],
+            "title": e["title"],
+            "audio": e.get("audio_url", f"audio/{e['mp3_name']}"),
+            "script": e["script_name"],
+        }
         for e in web_episodes
     ], indent=2), encoding="utf-8")
 
