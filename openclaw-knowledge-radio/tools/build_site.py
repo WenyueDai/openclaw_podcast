@@ -1181,12 +1181,12 @@ loadMissedPapers();
   <!-- Legs (shown during walking) — leg + small paw -->
   <g class="neko-legs">
     <g class="neko-leg-l">
-      <rect x="31" y="77" width="8" height="13" rx="4" fill="#ede6e4"/>
-      <ellipse cx="35" cy="91" rx="5.5" ry="3.5" fill="#ede6e4"/>
+      <rect x="29" y="77" width="12" height="13" rx="5" fill="#ede6e4"/>
+      <ellipse cx="35" cy="91" rx="6.5" ry="4" fill="#ede6e4"/>
     </g>
     <g class="neko-leg-r">
-      <rect x="61" y="77" width="8" height="13" rx="4" fill="#ede6e4"/>
-      <ellipse cx="65" cy="91" rx="5.5" ry="3.5" fill="#ede6e4"/>
+      <rect x="59" y="77" width="12" height="13" rx="5" fill="#ede6e4"/>
+      <ellipse cx="65" cy="91" rx="6.5" ry="4" fill="#ede6e4"/>
     </g>
   </g>
   <!-- Paws (hidden during walking) — main pad + 3 toes -->
