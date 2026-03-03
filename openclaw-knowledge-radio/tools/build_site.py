@@ -1269,8 +1269,7 @@ loadMissedPapers();
   </filter>
 </defs>
 <!-- Tail (behind everything) -->
-<path class="neko-tail" style="transform-origin:100% 100%" d="M26,68 C10,60 2,42 7,26 C11,14 21,17 19,28 C16,40 6,36 10,24" stroke="#e0d8d8" stroke-width="6.5" fill="none" stroke-linecap="round"/>
-<path d="M10,24 C7,17 12,12 18,20" stroke="#fff4f8" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+<path class="neko-tail" style="transform-origin:100% 100%" d="M26,63 C10,55 2,37 7,21 C11,9 21,12 19,23 C16,35 6,31 10,19" stroke="#e0d8d8" stroke-width="6.5" fill="none" stroke-linecap="round"/>
 <!-- Far legs (behind body) -->
 <rect class="neko-leg neko-leg-bf" x="34" y="73" width="9" height="22" rx="4.5" fill="#dedad6"/>
 <rect class="neko-leg neko-leg-ff" x="68" y="73" width="9" height="22" rx="4.5" fill="#dedad6"/>
