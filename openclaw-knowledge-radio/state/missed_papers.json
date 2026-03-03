@@ -93,8 +93,14 @@
     "title": "A Systematic Benchmark for Peptide Property Prediction",
     "url": null,
     "date_submitted": "2026-03-03",
-    "processed": false,
-    "diagnosis": null,
-    "keywords_added": []
+    "processed": true,
+    "diagnosis": "low_ranking",
+    "keywords_added": [
+      "peptide property",
+      "benchmark study",
+      "systematic analysis"
+    ],
+    "rss_feed_found": "",
+    "notion_page_id": "3185f58e-a8c2-8133-b08e-e0674f55e2ca"
   }
 ]
