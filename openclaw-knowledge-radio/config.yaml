@@ -226,14 +226,39 @@ pubmed:
   bucket: "protein"
   tags: ["pubmed", "journal", "biology"]
   search_terms:
-    # Protein design — core
-    - "protein design deep learning"
+    # Cat 1 — Reviews (core design areas)
     - "de novo protein design"
     - "computational protein design"
-    - "protein structure prediction"
-    - "protein language model"
-    - "diffusion model protein design"
+    - "protein design deep learning"
+    - "peptide design machine learning"
+    - "de novo peptide design"
+    - "protein binder design"
+    # Cat 2 — Model-based design (structure prediction)
+    - "protein structure prediction deep learning"
     - "AlphaFold structure prediction"
+    - "RoseTTAFold protein structure"
+    - "protein hallucination design"
+    # Cat 3 — Function to Scaffold (backbone/scaffold generation)
+    - "protein backbone design diffusion"
+    - "protein scaffold design generative"
+    - "flow matching protein design"
+    - "score-based protein structure generation"
+    # Cat 4 — Scaffold to Sequence (inverse folding — biggest gap)
+    - "inverse protein folding"
+    - "fixed backbone protein sequence design"
+    - "protein sequence design graph neural network"
+    # Cat 5 — Function to Sequence
+    - "protein language model"
+    - "protein sequence generation generative"
+    - "autoregressive protein design"
+    - "diffusion model protein sequence"
+    # Cat 6 — Function to Structure
+    - "diffusion model protein structure"
+    # Cat 7 — Other (PLM, fitness, mutations)
+    - "protein representation learning"
+    - "protein mutation effect prediction"
+    - "protein fitness landscape"
+    - "protein directed evolution machine learning"
     # Antibody design
     - "antibody design machine learning"
     - "antibody engineering computational"
@@ -243,11 +268,6 @@ pubmed:
     - "enzyme design computational"
     - "enzyme engineering directed evolution"
     - "de novo enzyme design"
-    # Protein engineering
-    - "protein engineering stability"
-    - "protein binder design"
-    - "protein fitness landscape"
-    - "protein directed evolution machine learning"
 
 daily_knowledge:
   enabled: false
@@ -293,10 +313,13 @@ ranking:
     - "ESMFold"
     - "RFdiffusion"
     - "ProteinMPNN"
+    - "LigandMPNN"
     - "OpenFold"
     - "OmegaFold"
     - "Chai-1"
     - "Boltz"
+    - "EvoDiff"
+    - "Chroma"
     - "structure prediction"
 
   absolute_source_substrings:
@@ -322,26 +345,48 @@ ranking:
   # Items whose title or snippet contain any of these keywords are ranked
   # above other items of equal source quality.
   topic_boost_keywords:
+    # Cat 1 — Design areas
+    - "de novo protein"
+    - "peptide design"
+    - "binder design"
+    - "protein binder"
     - "antibody design"
     - "antibody engineering"
     - "nanobody"
     - "enzyme design"
     - "enzyme engineering"
-    - "directed evolution"
-    - "de novo protein"
-    - "protein binder"
-    - "protein engineering"
     - "therapeutic antibody"
-    - "protein language model"
+    - "protein engineering"
+    - "directed evolution"
+    # Cat 3 — Function to Scaffold
+    - "backbone design"
+    - "scaffold design"
+    - "protein hallucination"
+    - "flow matching"
     - "diffusion model"
+    # Cat 4 — Scaffold to Sequence
+    - "inverse folding"
+    - "inverse protein folding"
+    - "fixed backbone"
+    - "sequence design"
+    # Cat 5 — Function to Sequence
+    - "protein language model"
+    - "autoregressive protein"
+    # Cat 7 — PLM & fitness
+    - "representation learning"
     - "fitness landscape"
     - "protein fitness"
+    - "mutation effect"
+    # Landmark tools
     - "AlphaFold"
     - "RoseTTAFold"
     - "ESMFold"
     - "ProteinMPNN"
+    - "LigandMPNN"
     - "RFdiffusion"
     - "OpenFold"
     - "OmegaFold"
     - "Chai-1"
     - "Boltz"
+    - "EvoDiff"
+    - "Chroma"
