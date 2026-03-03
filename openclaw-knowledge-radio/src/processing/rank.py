@@ -394,13 +394,21 @@ def rank_and_limit(items: List[Dict[str, Any]], cfg: Dict[str, Any]) -> List[Dic
         capped.append(it)
     ranked = capped
 
-    # Bucket quotas
-    protein = [x for x in ranked if (x.get("bucket") == "protein")]
-    daily = [x for x in ranked if (x.get("bucket") == "daily")]
-    others = [x for x in ranked if x.get("bucket") not in ("protein", "daily")]
+    # Hoist absolute-priority items (tier 0: researcher feeds, tier 1: blogs) to the front
+    # so they are never buried behind the protein bucket flood.
+    def _is_top_priority(it: Dict[str, Any]) -> bool:
+        return _is_researcher_feed(it, cfg) or _is_blog_feed(it)
+
+    top = [it for it in ranked if _is_top_priority(it)]
+    rest = [it for it in ranked if not _is_top_priority(it)]
+
+    # Bucket quotas applied to the remaining items only
+    protein = [x for x in rest if (x.get("bucket") == "protein")]
+    daily = [x for x in rest if (x.get("bucket") == "daily")]
+    others = [x for x in rest if x.get("bucket") not in ("protein", "daily")]
 
     protein = protein[:max_protein]
     daily = daily[:max_daily]
 
-    merged = protein + others + daily
+    merged = top + protein + others + daily
     return merged[:max_total]

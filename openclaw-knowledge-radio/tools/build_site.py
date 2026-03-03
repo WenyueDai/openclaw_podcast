@@ -554,7 +554,7 @@ audio {{ width:100%; margin:4px 0 6px; }}
 .owner-feedback {{ margin-top:12px; padding:10px 12px; background:var(--bg2); border:1px solid var(--line); border-radius:10px; font-size:.88rem; }}
 .owner-feedback button {{ padding:4px 12px; border:1px solid var(--accent); border-radius:6px; background:var(--accent); color:#fff; cursor:pointer; font-size:.85rem; margin-right:8px; }}
 .owner-feedback button.sec {{ background:transparent; color:var(--accent); }}
-/* ── Cat — eats, walks, sleeps ── */
+/* ── Cat — eats, walks, reads, sleeps ── */
 #ghibli-cat {{ position:fixed; z-index:55; pointer-events:none; user-select:none; width:130px; height:100px; }}
 #neko-front-svg,#neko-side-svg {{ position:absolute; top:0; left:0; overflow:visible; }}
 #neko-side-svg {{ display:none; }}
@@ -564,6 +564,7 @@ audio {{ width:100%; margin:4px 0 6px; }}
 .neko-leg  {{ transform-box:fill-box; transform-origin:top center; }}
 .neko-eye-l,.neko-eye-r {{ transform-box:fill-box; transform-origin:center; }}
 .neko-bowl,.neko-leg,.neko-zzz {{ display:none; }}
+.neko-book {{ display:none; transform-box:fill-box; transform-origin:center bottom; }}
 #ghibli-cat.eating .neko-bowl {{ display:block; }}
 #ghibli-cat.eating .neko-body-group,#ghibli-cat.eating .neko-head-group {{ animation:neko-eat-float 2.6s ease-in-out infinite; }}
 #ghibli-cat.eating .neko-eye-l,#ghibli-cat.eating .neko-eye-r {{ animation:neko-eat-eyes 2.6s ease-in-out infinite; }}
@@ -589,6 +590,10 @@ audio {{ width:100%; margin:4px 0 6px; }}
 #ghibli-cat.sitting .neko-eye-l,#ghibli-cat.sitting .neko-eye-r {{ animation:neko-blink 4.5s ease-in-out infinite; }}
 #ghibli-cat.idle .neko-body-group {{ animation:neko-breathe 3.5s ease-in-out infinite; }}
 #ghibli-cat.idle .neko-tail,#ghibli-cat.sitting .neko-tail {{ animation:neko-tail-idle 3s ease-in-out infinite; }}
+#ghibli-cat.reading .neko-book {{ display:block; animation:neko-read-rock 5s ease-in-out infinite; }}
+#ghibli-cat.reading .neko-body-group {{ animation:neko-breathe 4s ease-in-out infinite; }}
+#ghibli-cat.reading .neko-eye-l,#ghibli-cat.reading .neko-eye-r {{ animation:neko-read-eyes 5s ease-in-out infinite; }}
+#ghibli-cat.reading .neko-tail {{ animation:neko-tail-idle 4s ease-in-out infinite; }}
 #ghibli-cat.face-left {{ transform:scaleX(-1); }}
 @keyframes neko-eat-float {{ 0%,100% {{ transform:translateY(0); }} 50% {{ transform:translateY(-6px); }} }}
 @keyframes neko-eat-eyes {{ 0%,18%,82%,100% {{ transform:scaleY(1); }} 30%,66% {{ transform:scaleY(0.1); }} }}
@@ -604,6 +609,8 @@ audio {{ width:100%; margin:4px 0 6px; }}
 @keyframes neko-breathe {{ 0%,100% {{ transform:translateY(0); }} 50% {{ transform:translateY(-2px); }} }}
 @keyframes neko-sleep-breathe {{ 0%,100% {{ transform:translateY(0); }} 50% {{ transform:translateY(-0.8px); }} }}
 @keyframes neko-zzz {{ 0% {{ opacity:0; transform:translate(0,0); }} 25% {{ opacity:0.75; }} 100% {{ opacity:0; transform:translate(5px,-13px); }} }}
+@keyframes neko-read-rock {{ 0%,100% {{ transform:rotate(-1.5deg); }} 50% {{ transform:rotate(1.5deg); }} }}
+@keyframes neko-read-eyes {{ 0%,100% {{ transform:scaleY(0.75) translateY(1px); }} 50% {{ transform:scaleY(0.65) translateY(2px); }} }}
 </style>
 </head>
 <body>
@@ -1124,10 +1131,10 @@ async function submitMissedPaper() {{
 loadMissedPapers();
 </script>
 
-<!-- ── Cat: front-view (eat/sleep) + side-view (walk) ── -->
+<!-- ── Cat: front-view (eat/sleep/read) + side-view (walk) ── -->
 <div id="ghibli-cat">
 
-<!-- ══ FRONT VIEW — eating & sleeping ══ -->
+<!-- ══ FRONT VIEW — eating, sleeping, reading, idle ══ -->
 <svg id="neko-front-svg" viewBox="0 0 100 118" width="80" height="94" xmlns="http://www.w3.org/2000/svg">
 <defs>
   <filter id="neko-fur-f" x="-35%" y="-35%" width="170%" height="170%">
@@ -1174,11 +1181,39 @@ loadMissedPapers();
   <path d="M44,62 Q46,56 43,51" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
   <path d="M50,60 Q52,54 50,49" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
   <path d="M56,62 Q54,56 57,51" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-  <!-- Paws -->
-  <ellipse cx="34" cy="82" rx="12" ry="5" fill="#ede6e4"/>
-  <ellipse cx="66" cy="82" rx="12" ry="5" fill="#ede6e4"/>
-  <path d="M26,80 Q34,76 42,80" stroke="#d8d2ce" stroke-width="0.9" fill="none"/>
-  <path d="M58,80 Q66,76 74,80" stroke="#d8d2ce" stroke-width="0.9" fill="none"/>
+  <!-- Legs (shown during walking) -->
+  <g class="neko-legs">
+    <rect class="neko-leg-l" x="31" y="77" width="8" height="16" rx="4" fill="#ede6e4"/>
+    <rect class="neko-leg-r" x="61" y="77" width="8" height="16" rx="4" fill="#ede6e4"/>
+  </g>
+  <!-- Paws (hidden during walking) -->
+  <g class="neko-paws">
+    <ellipse cx="34" cy="82" rx="12" ry="5" fill="#ede6e4"/>
+    <ellipse cx="66" cy="82" rx="12" ry="5" fill="#ede6e4"/>
+    <path d="M26,80 Q34,76 42,80" stroke="#d8d2ce" stroke-width="0.9" fill="none"/>
+    <path d="M58,80 Q66,76 74,80" stroke="#d8d2ce" stroke-width="0.9" fill="none"/>
+  </g>
+</g>
+<!-- Book (reading state) -->
+<g class="neko-book">
+  <!-- Left page -->
+  <path d="M16,90 Q33,87 50,90 L50,112 Q33,110 16,112 Z" fill="#fffef5" stroke="#c8c0a8" stroke-width="1.2"/>
+  <!-- Right page -->
+  <path d="M50,90 Q67,87 84,90 L84,112 Q67,110 50,112 Z" fill="#fffef5" stroke="#c8c0a8" stroke-width="1.2"/>
+  <!-- Spine -->
+  <path d="M48,89 Q50,87 52,89 L52,112 Q50,113 48,112 Z" fill="#5a4020"/>
+  <!-- Top arc crease -->
+  <path d="M16,90 Q50,85 84,90" stroke="#b0a890" stroke-width="1.2" fill="none"/>
+  <!-- Left page text lines -->
+  <line x1="20" y1="96"  x2="46" y2="95"  stroke="#c0bba8" stroke-width="0.8"/>
+  <line x1="20" y1="100" x2="46" y2="99"  stroke="#c0bba8" stroke-width="0.8"/>
+  <line x1="20" y1="104" x2="42" y2="103" stroke="#c0bba8" stroke-width="0.8"/>
+  <line x1="20" y1="108" x2="46" y2="107" stroke="#c0bba8" stroke-width="0.8"/>
+  <!-- Right page text lines -->
+  <line x1="54" y1="96"  x2="80" y2="95"  stroke="#c0bba8" stroke-width="0.8"/>
+  <line x1="54" y1="100" x2="80" y2="99"  stroke="#c0bba8" stroke-width="0.8"/>
+  <line x1="54" y1="104" x2="78" y2="103" stroke="#c0bba8" stroke-width="0.8"/>
+  <line x1="54" y1="108" x2="80" y2="107" stroke="#c0bba8" stroke-width="0.8"/>
 </g>
 <!-- Head group -->
 <g class="neko-head-group">
@@ -1233,24 +1268,24 @@ loadMissedPapers();
     <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
 </defs>
-<!-- Tail (behind everything, base at right-bottom of path bbox) -->
+<!-- Tail (behind everything) -->
 <path class="neko-tail" style="transform-origin:100% 100%" d="M26,68 C10,60 2,42 7,26 C11,14 21,17 19,28 C16,40 6,36 10,24" stroke="#e0d8d8" stroke-width="6.5" fill="none" stroke-linecap="round"/>
 <path d="M10,24 C7,17 12,12 18,20" stroke="#fff4f8" stroke-width="3.2" fill="none" stroke-linecap="round"/>
-<!-- Far legs (behind body, slightly darker) -->
+<!-- Far legs (behind body) -->
 <rect class="neko-leg neko-leg-bf" x="34" y="73" width="9" height="22" rx="4.5" fill="#dedad6"/>
 <rect class="neko-leg neko-leg-ff" x="68" y="73" width="9" height="22" rx="4.5" fill="#dedad6"/>
 <!-- Body group -->
 <g class="neko-body-group">
   <g filter="url(#neko-fur-s)">
-    <ellipse cx="55" cy="60" rx="34" ry="22" fill="#f5f2ee"/>
-    <ellipse cx="88" cy="53" rx="14" ry="12" fill="#f5f2ee"/>
+    <ellipse cx="55" cy="60" rx="34" ry="16" fill="#f5f2ee"/>
+    <ellipse cx="88" cy="53" rx="14" ry="9" fill="#f5f2ee"/>
   </g>
-  <ellipse cx="55" cy="60" rx="30" ry="18" fill="#f5f2ee"/>
-  <ellipse cx="56" cy="68" rx="22" ry="10" fill="#fff6f8"/>
-  <path d="M72,56 Q74,51 72,47" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-  <path d="M76,58 Q79,53 77,49" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <ellipse cx="55" cy="60" rx="30" ry="13" fill="#f5f2ee"/>
+  <ellipse cx="56" cy="66" rx="22" ry="8" fill="#fff6f8"/>
+  <path d="M72,54 Q74,49 72,45" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M76,56 Q79,51 77,47" stroke="#d4cfcc" stroke-width="1.2" fill="none" stroke-linecap="round"/>
 </g>
-<!-- Near legs (in front of body, slightly lighter) -->
+<!-- Near legs (in front of body) -->
 <rect class="neko-leg neko-leg-bn" x="41" y="73" width="9" height="22" rx="4.5" fill="#edeae6"/>
 <rect class="neko-leg neko-leg-fn" x="75" y="73" width="9" height="22" rx="4.5" fill="#edeae6"/>
 <!-- Paws -->
@@ -1264,21 +1299,21 @@ loadMissedPapers();
 <g class="neko-head-group">
   <!-- Neck connector -->
   <ellipse cx="82" cy="52" rx="9" ry="8" fill="#f5f2ee"/>
-  <!-- Head (r=18, fits well within 130-wide viewBox) -->
+  <!-- Head -->
   <circle cx="95" cy="35" r="18" fill="#f5f2ee"/>
-  <!-- Far ear (slightly behind / smaller) -->
+  <!-- Far ear -->
   <polygon points="87,22 93,8  100,22" fill="#ede8e4"/>
   <polygon points="88,22 93,11 99,22"  fill="#f8c0cc"/>
-  <!-- Near ear (slightly in front / slightly larger) -->
+  <!-- Near ear -->
   <polygon points="94,21 100,6 107,21" fill="#f5f2ee"/>
   <polygon points="95,21 100,9 106,21" fill="#f8c0cc"/>
-  <!-- Eye (visible side, upper-right quadrant of head) -->
+  <!-- Eye (smaller — side profile) -->
   <g class="neko-eye-l">
-    <ellipse cx="101" cy="29" rx="7" ry="8" fill="#1e2a40"/>
-    <ellipse cx="101" cy="30" rx="5.5" ry="6.5" fill="#3a8acc"/>
-    <ellipse cx="101" cy="30" rx="1.6" ry="5.5" fill="#080c18"/>
-    <circle  cx="105" cy="23" r="3.5" fill="white"/>
-    <circle  cx="98"  cy="35" r="1.5" fill="white" opacity="0.55"/>
+    <ellipse cx="101" cy="29" rx="4" ry="5" fill="#1e2a40"/>
+    <ellipse cx="101" cy="30" rx="2.8" ry="3.8" fill="#3a8acc"/>
+    <ellipse cx="101" cy="30" rx="1.2" ry="3.2" fill="#080c18"/>
+    <circle  cx="103" cy="25" r="2.0" fill="white"/>
+    <circle  cx="99"  cy="33" r="0.9" fill="white" opacity="0.55"/>
   </g>
   <!-- Blush -->
   <ellipse cx="109" cy="42" rx="8" ry="5" fill="#ffb0c0" opacity="0.28"/>
@@ -1287,16 +1322,17 @@ loadMissedPapers();
   <!-- Nose -->
   <path d="M108,41 Q110,44 112,41 Q110,39 108,41" fill="#f0a0b8" stroke="#e090a8" stroke-width="0.4"/>
   <line x1="110" y1="44" x2="110" y2="45.5" stroke="#d090a8" stroke-width="0.9" stroke-linecap="round"/>
-  <!-- Mouth omega -->
+  <!-- Mouth -->
   <path d="M108,46.5 Q110,50 110.5,47.5 Q111,50 113,46.5" stroke="#c07888" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-  <!-- Whiskers left (back toward body) -->
+  <!-- Whiskers back -->
   <line x1="107" y1="43" x2="84" y2="38" stroke="#d8d4c4" stroke-width="0.9"/>
   <line x1="107" y1="46" x2="84" y2="51" stroke="#d8d4c4" stroke-width="0.9"/>
-  <!-- Whiskers right (forward tip) -->
+  <!-- Whiskers forward -->
   <line x1="116" y1="43" x2="127" y2="40" stroke="#d8d4c4" stroke-width="0.9"/>
   <line x1="116" y1="46" x2="127" y2="49" stroke="#d8d4c4" stroke-width="0.9"/>
 </g>
 </svg>
+
 
 </div>
 <script>
@@ -1308,7 +1344,7 @@ loadMissedPapers();
   function vh() {{ return window.innerHeight; }}
   function cls() {{ cat.className = state + (facingLeft ? ' face-left' : ''); }}
   function newTarget() {{
-    tx = 20 + Math.random() * (vw() - 112);
+    tx = 20 + Math.random() * (vw() - 100);
     ty = 20 + Math.random() * (vh() - 160);
   }}
   function goEating() {{
@@ -1321,19 +1357,26 @@ loadMissedPapers();
     stateTimer = 420 + Math.floor(Math.random() * 500);
     cls();
   }}
+  function goReading() {{
+    state = 'reading';
+    stateTimer = 320 + Math.floor(Math.random() * 380);
+    cls();
+  }}
   function rest() {{
     var r = Math.random();
-    if      (r < .60) {{ goSleep(); }}
-    else if (r < .80) {{ state='sitting'; stateTimer=90+Math.floor(Math.random()*90); cls(); }}
-    else              {{ state='idle';    stateTimer=50+Math.floor(Math.random()*55); cls(); }}
+    if      (r < .45) {{ goSleep(); }}
+    else if (r < .62) {{ state='sitting'; stateTimer=90+Math.floor(Math.random()*90); cls(); }}
+    else if (r < .78) {{ state='idle';    stateTimer=50+Math.floor(Math.random()*55); cls(); }}
+    else              {{ goReading(); }}
   }}
   function tick() {{
     if (state === 'walking') {{
       var dx=tx-x, dy=ty-y, d=Math.sqrt(dx*dx+dy*dy);
       if (d < 3) {{
         var r=Math.random();
-        if      (r < .35) {{ goEating(); }}
-        else if (r < .55) {{ goSleep(); }}
+        if      (r < .28) {{ goEating(); }}
+        else if (r < .44) {{ goReading(); }}
+        else if (r < .58) {{ goSleep(); }}
         else               {{ rest(); }}
       }} else {{
         x += dx/d*speed; y += dy/d*speed;
@@ -1343,22 +1386,33 @@ loadMissedPapers();
     }} else if (state === 'eating') {{
       if (--stateTimer <= 0) {{
         var r=Math.random();
-        if      (r < .25) {{ goEating(); }}
-        else if (r < .55) {{ rest(); }}
+        if      (r < .18) {{ goEating(); }}
+        else if (r < .33) {{ goReading(); }}
+        else if (r < .62) {{ rest(); }}
         else               {{ newTarget(); state='walking'; facingLeft=tx<x; cls(); }}
       }}
     }} else if (state === 'sleeping') {{
       if (--stateTimer <= 0) {{
         var r = Math.random();
-        if      (r < .50) {{ goSleep(); }}
-        else if (r < .70) {{ goEating(); }}
+        if      (r < .44) {{ goSleep(); }}
+        else if (r < .60) {{ goEating(); }}
+        else if (r < .74) {{ goReading(); }}
+        else               {{ newTarget(); state='walking'; facingLeft=tx<x; cls(); }}
+      }}
+    }} else if (state === 'reading') {{
+      if (--stateTimer <= 0) {{
+        var r = Math.random();
+        if      (r < .18) {{ goReading(); }}
+        else if (r < .44) {{ rest(); }}
+        else if (r < .62) {{ goEating(); }}
         else               {{ newTarget(); state='walking'; facingLeft=tx<x; cls(); }}
       }}
     }} else {{
       if (--stateTimer <= 0) {{
         var r = Math.random();
-        if      (r < .30) {{ goEating(); }}
-        else if (r < .55) {{ newTarget(); state='walking'; facingLeft=tx<x; cls(); }}
+        if      (r < .24) {{ goEating(); }}
+        else if (r < .38) {{ goReading(); }}
+        else if (r < .60) {{ newTarget(); state='walking'; facingLeft=tx<x; cls(); }}
         else               {{ rest(); }}
       }}
     }}
@@ -1366,9 +1420,10 @@ loadMissedPapers();
     cat.style.top  = Math.round(y) + 'px';
     requestAnimationFrame(tick);
   }}
-  x = 20 + Math.random() * (vw() - 112);
+  x = 20 + Math.random() * (vw() - 100);
   y = 20 + Math.random() * (vh() - 160);
-  if (Math.random() < .4) {{ goSleep(); }} else {{ goEating(); }}
+  var r0 = Math.random();
+  if (r0 < .35) {{ goSleep(); }} else if (r0 < .75) {{ goEating(); }} else {{ goReading(); }}
   requestAnimationFrame(tick);
 }})();
 </script>
