@@ -452,6 +452,51 @@
       "url": "https://doi.org/10.1038/s41541-026-01404-0",
       "source": "PubMed — NPJ vaccines",
       "title": "Structural insight into the assembly and D antigenicity of polio type 1 stabilized virus-like particles."
+    },
+    {
+      "url": "https://doi.org/10.1002/pro.70496",
+      "source": "PubMed — Protein science : a publication of the Protein Society",
+      "title": "MemPPI platform for measuring and engineering membrane protein-protein interactions in mammalian cells via split nanoluc"
+    },
+    {
+      "url": "https://doi.org/10.1371/journal.pone.0334662",
+      "source": "PubMed — PloS one",
+      "title": "Designing a novel vaccine against COVID-19 based on spike SARS-Cov-2 notable mutations using immunoinformatics approache"
+    },
+    {
+      "url": "https://doi.org/10.3390/biom16020333",
+      "source": "PubMed — Biomolecules",
+      "title": "Graph Learning in Bioinformatics: A Survey of Graph Neural Network Architectures, Biological Graph Construction and Bioi"
+    },
+    {
+      "url": "https://doi.org/10.1007/s13346-025-01957-y",
+      "source": "PubMed — Drug delivery and translational research",
+      "title": "Delivery of monoclonal antibodies to the brain: the impact of nanocarrier structure."
+    },
+    {
+      "url": "https://doi.org/10.1515/znc-2025-0274",
+      "source": "PubMed — Zeitschrift fur Naturforschung. C, Journal of biosciences",
+      "title": "Structure-based drug discovery targeting"
+    },
+    {
+      "url": "https://doi.org/10.1007/s12539-025-00732-4",
+      "source": "PubMed — Interdisciplinary sciences, computational life sciences",
+      "title": "CPE-Pro: A Structure-Sensitive Deep Learning Method for Protein Representation and Origin Evaluation."
+    },
+    {
+      "url": "https://doi.org/10.1007/s12539-025-00730-6",
+      "source": "PubMed — Interdisciplinary sciences, computational life sciences",
+      "title": "NeuroPpred-MSN: A Neuropeptide Prediction Model Based on Multi-feature Fusion and Siamese Networks."
+    },
+    {
+      "url": "https://doi.org/10.1007/s12539-025-00812-5",
+      "source": "PubMed — Interdisciplinary sciences, computational life sciences",
+      "title": "EMMVEP: An Ensemble Method for Protein Missense Variant Effect Prediction Based on Multi-Source Feature Fusion."
+    },
+    {
+      "url": "https://doi.org/10.1038/s41541-026-01404-0",
+      "source": "PubMed — NPJ vaccines",
+      "title": "Structural insight into the assembly and D antigenicity of polio type 1 stabilized virus-like particles."
     }
   ],
   "2026-03-02": [
@@ -489,6 +534,43 @@
       "url": "https://doi.org/10.1002/pro.70512",
       "source": "PubMed — Protein science : a publication of the Protein Society",
       "title": "Intermediate heterogeneity modulates coupling between chain compaction and structure formation during protein folding."
+    }
+  ],
+  "2026-03-03": [
+    {
+      "url": "https://doi.org/10.1021/acs.molpharmaceut.5c01464",
+      "source": "PubMed — Molecular pharmaceutics",
+      "title": "Hotspot Interactions between Two Fab Molecules in Molecular Dynamics Simulations Improve Predictive Models of Aggregatio"
+    },
+    {
+      "url": "https://doi.org/10.1093/bib/bbag078",
+      "source": "PubMed — Briefings in bioinformatics",
+      "title": "Master of Metals2: a graph neural network based architecture for the prediction of zinc binding sites in protein structu"
+    },
+    {
+      "url": "https://doi.org/10.1016/j.jinorgbio.2025.113193",
+      "source": "PubMed — Journal of inorganic biochemistry",
+      "title": "Structure-activity relationships in catalytic amyloids."
+    },
+    {
+      "url": "https://doi.org/10.1016/j.humimm.2025.111654",
+      "source": "PubMed — Human immunology",
+      "title": "In-silico design of a therapeutic multi-epitope peptide candidate vaccine against rheumatoid arthritis."
+    },
+    {
+      "url": "https://doi.org/10.1016/j.actbio.2026.01.036",
+      "source": "PubMed — Acta biomaterialia",
+      "title": "Self-crosslinkable protein hydrogel stamps for rapid and wash-free immunostaining in cells and tissues."
+    },
+    {
+      "url": "https://www.asimov.press/p/legibility-problem",
+      "source": "Asimov Press",
+      "title": "The Legibility Problem"
+    },
+    {
+      "url": "https://www.owlposting.com/p/neurotechnology-for-cancer-ben-woodington",
+      "source": "Owl Posting (Abhishaike Mahajan)",
+      "title": "Neurotechnology? For Cancer? (Ben Woodington & Elise Jenkins)"
     }
   ]
 }
