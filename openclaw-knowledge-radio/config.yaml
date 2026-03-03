@@ -538,6 +538,113 @@ podcast:
     roundup_max_tokens: 1200
     use_merge_llm: false
 
+biorxiv_authors:
+  enabled: true
+  lookback_days: 3
+  authors:
+    # ── Baker lab / UW Seattle ───────────────────────────────────────────────
+    - name: "David Baker"
+      match: "Baker, D"
+      institution: "Washington"   # disambiguate from other D. Bakers
+    - name: "Frank DiMaio"
+      match: "DiMaio, F"
+    - name: "Gaurav Bhardwaj"
+      match: "Bhardwaj, G"
+    - name: "Neil King"
+      match: "King, N"
+      institution: "Washington"
+    - name: "Brian Trippe"
+      match: "Trippe, B"
+    # ── UCSF / Kortemme ─────────────────────────────────────────────────────
+    - name: "Tanja Kortemme"
+      match: "Kortemme, T"
+    - name: "William DeGrado"
+      match: "DeGrado, W"
+    # ── Weizmann / Fleishman ─────────────────────────────────────────────────
+    - name: "Sarel Fleishman"
+      match: "Fleishman, S"
+    # ── EPFL / Correia ───────────────────────────────────────────────────────
+    - name: "Bruno Correia"
+      match: "Correia, B"
+      institution: "Lausanne"
+    # ── ETH Zurich / Hilvert ─────────────────────────────────────────────────
+    - name: "Donald Hilvert"
+      match: "Hilvert, D"
+    # ── Stanford ─────────────────────────────────────────────────────────────
+    - name: "Po-Ssu Huang"
+      match: "Huang, P"
+      institution: "Stanford"
+    - name: "Ron Dror"
+      match: "Dror, R"
+    - name: "Rhiju Das"
+      match: "Das, R"
+      institution: "Stanford"
+    # ── MIT / Barzilay / Jaakkola / Berger ───────────────────────────────────
+    - name: "Regina Barzilay"
+      match: "Barzilay, R"
+    - name: "Tommi Jaakkola"
+      match: "Jaakkola, T"
+    - name: "Bonnie Berger"
+      match: "Berger, B"
+      institution: "MIT"
+    # ── Harvard / Keating / Marks ────────────────────────────────────────────
+    - name: "Amy Keating"
+      match: "Keating, A"
+      institution: "MIT"
+    - name: "Debora Marks"
+      match: "Marks, D"
+      institution: "Harvard"
+    # ── UNC / Kuhlman ────────────────────────────────────────────────────────
+    - name: "Brian Kuhlman"
+      match: "Kuhlman, B"
+    # ── Caltech / Arnold ─────────────────────────────────────────────────────
+    - name: "Frances Arnold"
+      match: "Arnold, F"
+      institution: "Caltech"
+    # ── Seoul National / Baek / Steinegger ───────────────────────────────────
+    - name: "Minkyung Baek"
+      match: "Baek, M"
+      institution: "Seoul"
+    - name: "Martin Steinegger"
+      match: "Steinegger, M"
+    # ── Copenhagen / Lindorff-Larsen ─────────────────────────────────────────
+    - name: "Kresten Lindorff-Larsen"
+      match: "Lindorff-Larsen, K"
+    # ── Oxford / Deane ───────────────────────────────────────────────────────
+    - name: "Charlotte Deane"
+      match: "Deane, C"
+    # ── Johns Hopkins / Gray ─────────────────────────────────────────────────
+    - name: "Jeffrey Gray"
+      match: "Gray, J"
+      institution: "Hopkins"
+    # ── Northwestern / Rocklin ───────────────────────────────────────────────
+    - name: "Gabriel Rocklin"
+      match: "Rocklin, G"
+    # ── Columbia / Ranganathan ───────────────────────────────────────────────
+    - name: "Rama Ranganathan"
+      match: "Ranganathan, R"
+      institution: "Columbia"
+    # ── Berkeley / Song ──────────────────────────────────────────────────────
+    - name: "Yun Song"
+      match: "Song, Y"
+      institution: "Berkeley"
+    # ── Toronto / Philip Kim ─────────────────────────────────────────────────
+    - name: "Philip Kim"
+      match: "Kim, P"
+      institution: "Toronto"
+    # ── Pranam Chatterjee ────────────────────────────────────────────────────
+    - name: "Pranam Chatterjee"
+      match: "Chatterjee, P"
+    # ── Nicholas Polizzi ─────────────────────────────────────────────────────
+    - name: "Nicholas Polizzi"
+      match: "Polizzi, N"
+    # ── Frank Noe ────────────────────────────────────────────────────────────
+    - name: "Frank Noe"
+      match: "Noe, F"
+    # ── Anne-Florence Bitbol ─────────────────────────────────────────────────
+    - name: "Anne-Florence Bitbol"
+      match: "Bitbol, A"
+
 publish:
   enabled: true
   github_release_repo: "WenyueDai/protein_design_podcast"

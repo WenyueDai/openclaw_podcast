@@ -133,7 +133,7 @@ def _is_researcher_feed(it: Dict[str, Any], cfg: Dict[str, Any]) -> bool:
     src = _norm(it.get("source") or "")
     src_raw = (it.get("source") or "").strip()
 
-    if "author" in tags and "arxiv" in src:
+    if "author" in tags and ("arxiv" in src or "biorxiv" in src):
         return True
     if "google scholar" in src:
         return True
