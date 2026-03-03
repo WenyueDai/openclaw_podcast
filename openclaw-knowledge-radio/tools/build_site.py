@@ -377,7 +377,7 @@ def render_index(episodes, all_episodes=None):
 <section class='card'>
   <h2>{html.escape(ep['title'])}</h2>
   <p class='meta'>Published: {html.escape(ep['date'])} {s_link}</p>
-  <audio id="audio-{html.escape(ep['date'])}" controls src="{html.escape(ep['audio_url'])}"></audio>
+  <audio id="audio-{html.escape(ep['date'])}" controls preload="none"><source src="{html.escape(ep['audio_url'])}" type="audio/mpeg"></audio>
   <p class='speed-row'>Speed:
     <button onclick="setRate(1)">1x</button>
     <button onclick="setRate(1.2)">1.2x</button>
