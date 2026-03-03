@@ -25,3 +25,10 @@ openclaw-knowledge-radio/state/kokoro_api.pid
 
 # ignore the .venv directory if it exists
 .venv/
+
+# Cloudflare Worker local state and secrets
+visitor-message-worker/.wrangler/
+visitor-message-worker/.dev.vars
+visitor-message-worker/.env
+
+visitor-message-worker/node_modules/

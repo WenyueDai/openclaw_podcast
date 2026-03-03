@@ -1,0 +1,9 @@
+name = "visitor-message-worker"
+main = "src/index.js"
+compatibility_date = "2026-03-03"
+workers_dev = true
+preview_urls = false
+
+[vars]
+ALLOWED_ORIGIN = "https://wenyuedai.github.io"
+NOTION_TITLE_PROPERTY = "Name"

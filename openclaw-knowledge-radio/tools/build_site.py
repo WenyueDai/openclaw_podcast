@@ -58,6 +58,11 @@ PODCAST_AUTHOR = os.environ.get("PODCAST_AUTHOR", "Eva Dai")
 PODCAST_EMAIL = os.environ.get("PODCAST_EMAIL", "daiwenyueva@gmail.com")
 PODCAST_SUMMARY = os.environ.get("PODCAST_SUMMARY", "Daily automated digest of protein design, antibody engineering & enzyme design research")
 PODCAST_COVER_URL = os.environ.get("PODCAST_COVER_URL", "https://wenyuedai.github.io/protein_design_podcast/cover.svg")
+VISITOR_MESSAGE_ENDPOINT = os.environ.get("VISITOR_MESSAGE_ENDPOINT", "").strip()
+VISITOR_MESSAGE_HINT = os.environ.get(
+    "VISITOR_MESSAGE_HINT",
+    "Connect this form to your Cloudflare Worker URL (or another form backend) to enable submissions."
+)
 
 
 def _load_release_index() -> dict:
@@ -554,6 +559,18 @@ audio {{ width:100%; margin:4px 0 6px; }}
 .owner-feedback {{ margin-top:12px; padding:10px 12px; background:var(--bg2); border:1px solid var(--line); border-radius:10px; font-size:.88rem; }}
 .owner-feedback button {{ padding:4px 12px; border:1px solid var(--accent); border-radius:6px; background:var(--accent); color:#fff; cursor:pointer; font-size:.85rem; margin-right:8px; }}
 .owner-feedback button.sec {{ background:transparent; color:var(--accent); }}
+.visitor-message {{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin-bottom:14px; }}
+.visitor-message h3 {{ margin:0 0 6px; font-size:1rem; color:var(--accent); }}
+.visitor-message p {{ margin:0 0 10px; font-size:.86rem; color:var(--muted); line-height:1.55; }}
+.visitor-form {{ display:flex; flex-direction:column; gap:8px; }}
+.visitor-form input,
+.visitor-form textarea {{ width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:8px; font:inherit; background:var(--bg2); color:var(--text); }}
+.visitor-form textarea {{ min-height:100px; resize:vertical; }}
+.visitor-actions {{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }}
+.visitor-actions button {{ padding:7px 14px; border:1px solid var(--accent); border-radius:7px; cursor:pointer; font-size:.85rem; }}
+.visitor-actions .primary {{ background:var(--accent); color:#fff; }}
+.visitor-actions .secondary {{ background:transparent; color:var(--accent); }}
+#visitor-status {{ font-size:.84rem; color:var(--muted); }}
 /* ── Cat — eats, walks, reads, sleeps ── */
 #ghibli-cat {{ position:fixed; z-index:55; pointer-events:none; user-select:none; width:100px; height:105px; }}
 #neko-front-svg {{ position:absolute; top:0; left:0; overflow:visible; }}
@@ -626,6 +643,19 @@ audio {{ width:100%; margin:4px 0 6px; }}
         <a href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a>
       </div>
     </div>
+    <section class="visitor-message">
+      <h3>&#128172; Leave a message</h3>
+      <p>Visitors can submit a note directly from the page. The form saves a draft in this browser so the message is not lost if the page reloads.</p>
+      <div class="visitor-form">
+        <input type="text" id="visitor-name" placeholder="Your name (optional)">
+        <textarea id="visitor-message" placeholder="Write your message here..."></textarea>
+        <div class="visitor-actions">
+          <button class="primary" onclick="sendVisitorMessage()">Send message</button>
+          <button class="secondary" onclick="saveVisitorDraft()">Save draft</button>
+          <span id="visitor-status"></span>
+        </div>
+      </div>
+    </section>
     {today_summary}
     <details class="owner-tools">
       <summary>&#9881;&#65039; Owner tools &mdash; add missing paper</summary>
@@ -718,6 +748,68 @@ document.querySelectorAll('.star-cb').forEach(cb => {{
 
 // ── Playback speed ────────────────────────────────────────────────────────
 function setRate(v) {{ document.querySelectorAll('audio').forEach(a => a.playbackRate = v); }}
+
+// ── Visitor message form ───────────────────────────────────────────────────
+function _visitorDraftKey() {{ return 'visitor_message_draft'; }}
+
+function _setVisitorStatus(msg) {{
+  var el = document.getElementById('visitor-status');
+  if (el) el.textContent = msg;
+}}
+
+function loadVisitorDraft() {{
+  try {{
+    var raw = localStorage.getItem(_visitorDraftKey());
+    if (!raw) return;
+    var data = JSON.parse(raw);
+    document.getElementById('visitor-name').value = data.name || '';
+    document.getElementById('visitor-message').value = data.message || '';
+  }} catch (e) {{}}
+}}
+
+function saveVisitorDraft() {{
+  var name = (document.getElementById('visitor-name').value || '').trim();
+  var message = (document.getElementById('visitor-message').value || '').trim();
+  localStorage.setItem(_visitorDraftKey(), JSON.stringify({{ name: name, message: message }}));
+  _setVisitorStatus(message ? 'Draft saved on this device.' : 'Draft cleared.');
+}}
+
+function sendVisitorMessage() {{
+  var endpoint = {json.dumps(VISITOR_MESSAGE_ENDPOINT)};
+  var name = (document.getElementById('visitor-name').value || '').trim();
+  var message = (document.getElementById('visitor-message').value || '').trim();
+  if (!message) {{
+    _setVisitorStatus('Please write a message first.');
+    return;
+  }}
+  if (!endpoint) {{
+    _setVisitorStatus({json.dumps(VISITOR_MESSAGE_HINT)});
+    return;
+  }}
+  saveVisitorDraft();
+  _setVisitorStatus('Sending...');
+  var payload = {{
+    name: name || null,
+    message: message,
+    submitted_at: new Date().toISOString(),
+    site: window.location.href,
+    page_title: document.title
+  }};
+
+  fetch(endpoint, {{
+    method: 'POST',
+    headers: {{ 'Content-Type': 'application/json' }},
+    body: JSON.stringify(payload)
+  }}).then(function(res) {{
+    if (!res.ok) throw new Error('Request failed (' + res.status + ')');
+    document.getElementById('visitor-name').value = '';
+    document.getElementById('visitor-message').value = '';
+    localStorage.removeItem(_visitorDraftKey());
+    _setVisitorStatus('Message sent. Thank you.');
+  }}).catch(function(err) {{
+    _setVisitorStatus('Could not send message: ' + err.message);
+  }});
+}}
 
 // ── Settings modal ────────────────────────────────────────────────────────
 function openSettings() {{
@@ -851,6 +943,7 @@ document.querySelectorAll('audio[id^="audio-"]').forEach(function(audio) {{
 
 loadCheckboxes();
 _updateOwnerUI();
+loadVisitorDraft();
 
 // ── My Take notes ─────────────────────────────────────────────────────────
 function renderNoteHtml(text) {{
