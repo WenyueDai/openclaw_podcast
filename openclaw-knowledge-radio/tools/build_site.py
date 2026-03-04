@@ -446,17 +446,18 @@ def render_index(episodes, all_episodes=None):
 <style>
 :root {{ --bg:#eef7ef; --bg2:#f7f4e9; --card:#fffdf6; --text:#2d3d33; --muted:#6d7f71; --accent:#4f8f6a; --line:#dbe7d9; --body-size:0.95rem; --body-line:1.6; }}
 * {{ box-sizing:border-box; }}
+html, body {{ max-width:100%; overflow-x:hidden; }}
 body {{ margin:0; font-family:"Hiragino Sans","Noto Sans JP",Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:linear-gradient(160deg,var(--bg),var(--bg2)); color:var(--text); font-size:var(--body-size); line-height:var(--body-line); }}
 .layout {{ display:flex; gap:24px; max-width:1320px; margin:0 auto; padding:28px 16px 40px; align-items:flex-start; }}
 .main-col {{ flex:1; min-width:0; }}
 .hero {{ display:flex; flex-direction:column; gap:16px; margin-bottom:16px; }}
-.hero-panel {{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:18px 20px; box-shadow:0 10px 24px rgba(79,143,106,.10); }}
+.hero-panel {{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:18px 20px; box-shadow:0 10px 24px rgba(79,143,106,.10); width:min(100%, 52rem); }}
 .hero-panel h1 {{ margin:0 0 8px; letter-spacing:.2px; font-size:clamp(1.8rem,3.2vw,2.5rem); line-height:1.05; }}
-.hero-kicker {{ margin:0 0 12px; font-size:.94rem; color:var(--muted); line-height:1.6; max-width:58ch; }}
-.intro-stack {{ display:flex; flex-direction:column; gap:8px; align-items:flex-start; }}
-.hero-line {{ display:flex; align-items:flex-start; gap:8px; color:var(--muted); }}
+.hero-kicker {{ margin:0 0 12px; font-size:.94rem; color:var(--muted); line-height:1.6; width:100%; }}
+.intro-stack {{ display:flex; flex-direction:column; gap:8px; align-items:flex-start; width:100%; }}
+.hero-line {{ display:flex; align-items:flex-start; gap:8px; color:var(--muted); width:100%; }}
 .hero-icon {{ width:1.25rem; flex-shrink:0; text-align:center; line-height:1.55; }}
-.hero-note {{ margin:0; font-size:.85rem; color:var(--muted); line-height:1.55; flex:1; }}
+.hero-note {{ margin:0; font-size:.85rem; color:var(--muted); line-height:1.55; flex:1; min-width:0; width:100%; overflow-wrap:anywhere; }}
 .hero-links {{ display:flex; flex-direction:column; gap:12px; }}
 .quick-links {{ display:flex; flex-wrap:wrap; gap:8px; }}
 .quick-links a {{ display:inline-flex; align-items:center; padding:7px 10px; border-radius:10px; background:var(--bg2); border:1px solid var(--line); font-size:.82rem; font-weight:600; }}
@@ -485,16 +486,17 @@ body {{ margin:0; font-family:"Hiragino Sans","Noto Sans JP",Inter,system-ui,-ap
 .feature-badge.owner {{ background:#fff3cd; color:#856404; }}
 .feature-badge.tip   {{ background:#cce5ff; color:#004085; }}
 .owner-tools {{ margin:0; width:100%; }}
-.owner-tools > summary {{ font-size:.83rem; color:var(--muted); cursor:pointer; padding:0; list-style:none; display:flex; align-items:flex-start; gap:8px; }}
+.owner-tools > summary {{ font-size:.83rem; color:var(--muted); cursor:pointer; padding:0; list-style:none; display:flex; align-items:flex-start; gap:8px; width:100%; }}
 .owner-tools > summary::-webkit-details-marker {{ display:none; }}
-.card {{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; margin:14px 0; box-shadow:0 10px 22px rgba(79,143,106,.12); }}
+.owner-tools > summary span:last-child {{ flex:1; min-width:0; overflow-wrap:anywhere; }}
+.card {{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; margin:14px 0; box-shadow:0 10px 22px rgba(79,143,106,.12); width:min(100%, 52rem); }}
 h2 {{ margin:0; font-size:1.1rem; }}
 .card-head {{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:10px; }}
 .meta {{ color:var(--muted); margin:0; font-size:.88rem; white-space:nowrap; }}
 a {{ color:var(--accent); text-decoration:none; }}
 a:hover {{ text-decoration:underline; }}
 audio {{ width:100%; margin:0; }}
-.player-box {{ background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:10px 12px; margin-bottom:12px; }}
+.player-box {{ background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:10px 12px; margin-bottom:12px; width:100%; }}
 .speed-row {{ margin:6px 0 0; font-size:.78rem; color:var(--muted); display:flex; flex-wrap:wrap; align-items:center; gap:5px; }}
 .speed-row span {{ margin-right:1px; opacity:.85; }}
 .speed-row button {{ font-size:.76rem; padding:2px 8px; border:1px solid rgba(219,231,217,.95); border-radius:999px; background:transparent; color:var(--muted); cursor:pointer; }}
@@ -508,7 +510,7 @@ audio {{ width:100%; margin:0; }}
 .item-row {{ display:flex; align-items:flex-start; gap:8px; }}
 .cb-wrap {{ display:flex; align-items:flex-start; gap:6px; cursor:pointer; flex:1; min-width:0; }}
 .item-main {{ display:flex; flex-direction:column; gap:3px; min-width:0; flex:1; }}
-.item-title {{ color:var(--text); line-height:1.45; }}
+.item-title {{ color:var(--text); line-height:1.45; overflow-wrap:anywhere; }}
 .item-title a {{ color:inherit; }}
 .star-cb {{ accent-color:var(--accent); width:14px; height:14px; flex-shrink:0; cursor:pointer; display:none; }}
 .owner-mode .star-cb {{ display:inline-block; }}
@@ -516,7 +518,7 @@ audio {{ width:100%; margin:0; }}
 .num.seekable {{ color:var(--muted); cursor:pointer; }}
 .num.seekable:hover {{ text-decoration:underline; }}
 .src {{ display:inline-flex; align-items:center; width:max-content; max-width:100%; color:var(--muted); font-size:.75rem; padding:1px 8px; border-radius:999px; background:rgba(79,143,106,.08); }}
-.summary {{ color:var(--muted); font-size:.87rem; margin-left:38px; display:block; margin-top:3px; }}
+.summary {{ color:var(--muted); font-size:.87rem; margin-left:38px; display:block; margin-top:3px; overflow-wrap:anywhere; }}
 .tip {{ font-size:.75rem; font-weight:400; color:var(--muted); }}
 .owner-mode .owner-feedback {{ display:block; }}
 #fb-status {{ color:var(--muted); font-size:.82rem; }}
@@ -585,7 +587,7 @@ audio {{ width:100%; margin:0; }}
 .owner-feedback {{ margin-top:12px; padding:10px 12px; background:var(--bg2); border:1px solid var(--line); border-radius:10px; font-size:.88rem; }}
 .owner-feedback button {{ padding:4px 12px; border:1px solid var(--accent); border-radius:6px; background:var(--accent); color:#fff; cursor:pointer; font-size:.85rem; margin-right:8px; }}
 .owner-feedback button.sec {{ background:transparent; color:var(--accent); }}
-.visitor-message {{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin-bottom:0; }}
+.visitor-message {{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin-bottom:0; width:min(100%, 52rem); }}
 .visitor-message h3 {{ margin:0 0 6px; font-size:.95rem; color:var(--accent); }}
 .visitor-message p {{ margin:0 0 10px; font-size:.86rem; color:var(--muted); line-height:1.55; }}
 .visitor-form {{ display:flex; flex-direction:column; gap:8px; font-size:.86rem; line-height:1.5; }}
@@ -603,7 +605,7 @@ audio {{ width:100%; margin:0; }}
 .hero-panel h1 {{ font-size:clamp(1.8rem,3.2vw,2.5rem); line-height:1.05; }}
 @media (max-width: 1080px) {{
   .layout {{ flex-direction:column; max-width:1080px; }}
-  .sidebar {{ width:100%; position:static; }}
+  .sidebar {{ width:100%; position:static; max-width:none; }}
   .sidebar.collapsed {{ width:100%; opacity:1; pointer-events:auto; display:none; }}
   .archive-toggle {{ top:auto; bottom:16px; transform:none; }}
 }}
@@ -613,7 +615,13 @@ audio {{ width:100%; margin:0; }}
   .card,
   .visitor-message,
   .missed-section,
-  .today-summary {{ padding-left:14px; padding-right:14px; }}
+  .today-summary {{ padding-left:14px; padding-right:14px; width:100%; max-width:none; }}
+  .card {{ padding-top:12px; padding-bottom:12px; }}
+  .card-head {{ flex-direction:column; align-items:flex-start; gap:4px; }}
+  .meta {{ white-space:normal; }}
+  .player-box {{ padding:8px 10px; margin-bottom:10px; }}
+  .speed-row {{ gap:4px; font-size:.74rem; }}
+  .speed-row button {{ padding:1px 7px; font-size:.72rem; }}
   .item-row {{ align-items:flex-start; }}
   .summary,
   .my-take {{ margin-left:34px; }}
