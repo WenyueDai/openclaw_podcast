@@ -79,7 +79,13 @@ PODCAST_AUTHOR = os.environ.get("PODCAST_AUTHOR", "Eva Dai")
 PODCAST_EMAIL = os.environ.get("PODCAST_EMAIL", "daiwenyueva@gmail.com")
 PODCAST_SUMMARY = os.environ.get("PODCAST_SUMMARY", "Daily automated digest of protein design, antibody engineering & enzyme design research")
 PODCAST_COVER_URL = os.environ.get("PODCAST_COVER_URL", "https://wenyuedai.github.io/protein_design_podcast/cover.svg")
-VISITOR_MESSAGE_ENDPOINT = os.environ.get("VISITOR_MESSAGE_ENDPOINT", "").strip()
+DEFAULT_VISITOR_MESSAGE_ENDPOINT = "https://visitor-message-worker.wenyuedai.workers.dev"
+_visitor_message_env = os.environ.get("VISITOR_MESSAGE_ENDPOINT")
+VISITOR_MESSAGE_ENDPOINT = (
+    _visitor_message_env.strip()
+    if _visitor_message_env and _visitor_message_env.strip()
+    else DEFAULT_VISITOR_MESSAGE_ENDPOINT
+)
 VISITOR_MESSAGE_HINT = os.environ.get(
     "VISITOR_MESSAGE_HINT",
     "Connect this form to your Cloudflare Worker URL (or another form backend) to enable submissions."

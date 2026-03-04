@@ -326,7 +326,7 @@ audio { width:100%; margin:0; }
             <a href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a>
           </div>
         </div>
-        <div class="today-summary"><div class="ts-row"><span class="ts-date">&#128197; 2026-03-04</span><span class="ts-sep">·</span><span><strong>40</strong> papers in today&rsquo;s episode</span></div><div class="ts-row ts-dim">&#128300; No tracked researcher papers today</div><div class="ts-row ts-dim">&#128221; No blog updates today</div></div>
+        <div class="today-summary"><div class="ts-row"><span class="ts-date">&#128197; 2026-03-04</span><span class="ts-sep">·</span><span><strong>40</strong> papers in today&rsquo;s episode</span></div><div class="ts-row ts-dim">&#128300; No tracked researcher papers today</div><div class="ts-row"><span class="ts-label ts-blog">&#128221; Blog updates</span><span class="ts-dim">In the Pipeline (Derek Lowe)</span></div></div>
       </div>
       <section class="site-alert hero-panel" id="site-alert-panel">
         <div class="site-alert-flag" id="site-alert-flag"></div>
@@ -619,13 +619,13 @@ function bindOwnerAlertEditor() {
 
 // ── Visit tracking ────────────────────────────────────────────────────────
 function _visitEndpoint() {
-  var base = "";
+  var base = "https://visitor-message-worker.wenyuedai.workers.dev";
   if (!base) return '';
   return base.replace(/\/+$/, '') + '/visit';
 }
 
 function _visitStatsEndpoint() {
-  var base = "";
+  var base = "https://visitor-message-worker.wenyuedai.workers.dev";
   if (!base) return '';
   return base.replace(/\/+$/, '') + '/visit-stats';
 }
@@ -726,7 +726,7 @@ function saveVisitorDraft() {
 }
 
 function sendVisitorMessage() {
-  var endpoint = "";
+  var endpoint = "https://visitor-message-worker.wenyuedai.workers.dev";
   var message = (document.getElementById('visitor-message').value || '').trim();
   if (!message) {
     _setVisitorStatus('Please write a message first.');
