@@ -135,6 +135,11 @@
       "note": "DD",
       "title": "One protein is all you need",
       "source": "arXiv q-bio.BM"
+    },
+    "https://arxiv.org/abs/2508.10760": {
+      "note": "DD",
+      "title": "FROGENT: An End-to-End Full-process Drug Design Multi-Agent System",
+      "source": "arXiv q-bio.BM"
     }
   }
 }
