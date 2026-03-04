@@ -150,6 +150,11 @@
       "note": "DD",
       "title": "Greater than the Sum of Its Parts: Building Substructure into Protein Encoding Models",
       "source": "arXiv q-bio.QM"
+    },
+    "https://arxiv.org/abs/2511.11758": {
+      "note": "DD",
+      "title": "Protein Structure Tokenization via Geometric Byte Pair Encoding",
+      "source": "arXiv q-bio.QM"
     }
   }
 }
