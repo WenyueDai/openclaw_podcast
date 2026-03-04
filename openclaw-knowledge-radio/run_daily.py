@@ -18,7 +18,7 @@ from src.collectors.pubmed import collect_pubmed_items
 from src.collectors.biorxiv_authors import collect_biorxiv_author_items
 from src.processing.rank import rank_and_limit
 from src.processing.script_llm import build_podcast_script_llm_chunked, build_podcast_script_llm_chunked_with_map, TRANSITION_MARKER
-from src.outputs.tts_edge import tts_segment_to_mp3
+from src.outputs.tts_edge import tts_segment_to_mp3, last_tts_backend
 from src.outputs.audio import concat_mp3_with_transitions, _ffprobe_duration_seconds, PLAYBACK_ATEMPO
 
 from src.utils.text import clean_for_tts
@@ -478,6 +478,9 @@ def main() -> int:
             _raw_seg_to_group[_si] = len(seg_mp3s)
             seg_mp3s.append(seg_mp3_path)
 
+        tts_backend = last_tts_backend()
+        final_playback_atempo = 1.0 if tts_backend == "edge" else PLAYBACK_ATEMPO
+
         # Compute per-segment SFX-start timestamps.
         # For gi > 0 we point to 0.5s before the transition tones so clicking lands
         # on audible tones immediately.  The SFX structure is:
@@ -495,7 +498,7 @@ def main() -> int:
                 _seg_ts.append(0.0)
             else:
                 # _t is at content start of segment _gi; seek to 0.5s before the tones.
-                _seg_ts.append(max(0.0, round((_t - _SFX_SEEK_OFFSET) / PLAYBACK_ATEMPO, 2)))
+                _seg_ts.append(max(0.0, round((_t - _SFX_SEEK_OFFSET) / final_playback_atempo, 2)))
             _t += _rd
             if _gi < len(_raw_durs) - 1:
                 _t += _SFX_RAW
@@ -512,7 +515,7 @@ def main() -> int:
         )
 
         final_mp3 = out_dir / f"podcast_{today}.mp3"
-        concat_mp3_with_transitions(seg_mp3s, final_mp3)
+        concat_mp3_with_transitions(seg_mp3s, final_mp3, playback_atempo=final_playback_atempo)
 
         # Clean up intermediate TTS chunks and temp ffmpeg files
         pub_cfg = cfg.get("publish", {})

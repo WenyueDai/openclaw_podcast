@@ -18,6 +18,7 @@ PREFER_KOKORO = os.environ.get("PREFER_KOKORO", "false").lower() == "true"
 KOKORO_API_URL = os.environ.get("KOKORO_API_URL", "http://localhost:8880/v1/audio/speech")
 KOKORO_VOICE = os.environ.get("KOKORO_VOICE", "bm_george")
 KOKORO_SPEED = float(os.environ.get("KOKORO_SPEED", "1.35"))
+_LAST_TTS_BACKEND = None
 
 from src.utils.text import chunk_text
 from src.utils.io import ensure_dir
@@ -47,6 +48,18 @@ def _voice_candidates(primary: str) -> List[str]:
     return out
 
 
+def configured_tts_backend() -> str:
+    if PREFER_KOKORO:
+        return "kokoro"
+    if PREFER_GTTS:
+        return "gtts"
+    return "edge"
+
+
+def last_tts_backend() -> str:
+    return _LAST_TTS_BACKEND or configured_tts_backend()
+
+
 def _save_with_kokoro_api(text: str, out_path: Path) -> bool:
     try:
         r = requests.post(
@@ -69,11 +82,11 @@ def _save_with_kokoro_api(text: str, out_path: Path) -> bool:
     return False
 
 
-async def _save_one(text: str, voice: str, rate: str, out_path: Path) -> None:
+async def _save_one(text: str, voice: str, rate: str, out_path: Path) -> str:
     # Primary: Kokoro (if PREFER_KOKORO=true and server is running)
     if PREFER_KOKORO:
         if _save_with_kokoro_api(text, out_path):
-            return
+            return "kokoro"
 
     last_err = None
     for v in _voice_candidates(voice):
@@ -81,21 +94,21 @@ async def _save_one(text: str, voice: str, rate: str, out_path: Path) -> None:
             try:
                 communicate = edge_tts.Communicate(text, v, rate=rate)
                 await asyncio.wait_for(communicate.save(str(out_path)), timeout=25)
-                return
+                return "edge"
             except Exception as e:
                 last_err = e
                 await asyncio.sleep(0.8 * attempt)
 
     # Fallback 1: local Kokoro API (if running and not already tried)
     if not PREFER_KOKORO and _save_with_kokoro_api(text, out_path):
-        return
+        return "kokoro"
 
     # Fallback 2: gTTS (optional)
     if USE_GTTS_FALLBACK:
         try:
             tts = gTTS(text=text, lang="en", slow=False)
             tts.save(str(out_path))
-            return
+            return "gtts"
         except Exception:
             pass
 
@@ -175,14 +188,16 @@ def tts_segment_to_mp3(
     Skips generation if a valid file already exists (allows resume on re-run).
     Retries up to 3 times if edge-tts produces a corrupt/empty file.
     """
+    global _LAST_TTS_BACKEND
     if out_path.exists() and out_path.stat().st_size > _MIN_VALID_MP3_BYTES and _mp3_is_readable(out_path):
+        _LAST_TTS_BACKEND = configured_tts_backend()
         print(f"[tts] Reusing existing {out_path.name}", flush=True)
         return out_path
 
     text = " ".join(text.split())  # collapse newlines Edge TTS reads as long pauses
     for attempt in range(1, 4):
         out_path.unlink(missing_ok=True)
-        asyncio.run(_save_one(text, voice, rate, out_path))
+        _LAST_TTS_BACKEND = asyncio.run(_save_one(text, voice, rate, out_path))
         if out_path.exists() and out_path.stat().st_size > _MIN_VALID_MP3_BYTES:
             return out_path
         print(f"[tts] Attempt {attempt}: bad output for {out_path.name} "

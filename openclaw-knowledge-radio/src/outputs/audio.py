@@ -120,7 +120,7 @@ def _split_mp3_into_size_limited_parts(mp3_path: Path, target_bytes: int) -> Lis
 PLAYBACK_ATEMPO = float(os.environ.get("PODCAST_ATEMPO", "1.2"))
 
 
-def _concat_sequence(seq: List[Path], out_mp3: Path) -> None:
+def _concat_sequence(seq: List[Path], out_mp3: Path, playback_atempo: float = PLAYBACK_ATEMPO) -> None:
     list_file = out_mp3.parent / "ffmpeg_concat_list.txt"
     lines = [f"file '{p.as_posix()}'" for p in seq]
     list_file.write_text("\n".join(lines), encoding="utf-8")
@@ -129,26 +129,30 @@ def _concat_sequence(seq: List[Path], out_mp3: Path) -> None:
         "ffmpeg", "-y",
         "-f", "concat", "-safe", "0",
         "-i", str(list_file),
-        "-filter:a", f"atempo={PLAYBACK_ATEMPO}",
+        "-filter:a", f"atempo={playback_atempo}",
         "-codec:a", "libmp3lame", "-q:a", "4",
         str(out_mp3),
     ]
     subprocess.run(cmd, check=True)
 
 
-def concat_mp3_ffmpeg(part_files: List[Path], out_mp3: Path) -> None:
+def concat_mp3_ffmpeg(part_files: List[Path], out_mp3: Path, playback_atempo: float = PLAYBACK_ATEMPO) -> None:
     if not part_files:
         raise RuntimeError("No MP3 parts to merge")
 
     # Plain concat (no transitions) for backward compatibility.
-    _concat_sequence(part_files, out_mp3)
+    _concat_sequence(part_files, out_mp3, playback_atempo=playback_atempo)
 
     # If final >10MB, also generate chunk files for Telegram delivery limits.
     if out_mp3.stat().st_size > THRESHOLD_BYTES:
         _split_mp3_into_size_limited_parts(out_mp3, TARGET_BYTES)
 
 
-def concat_mp3_with_transitions(segments: List[Path], out_mp3: Path) -> None:
+def concat_mp3_with_transitions(
+    segments: List[Path],
+    out_mp3: Path,
+    playback_atempo: float = PLAYBACK_ATEMPO,
+) -> None:
     """
     Concat per-segment MP3s (one per paper/news item) with transition SFX between them.
     """
@@ -163,4 +167,4 @@ def concat_mp3_with_transitions(segments: List[Path], out_mp3: Path) -> None:
         if i < len(non_empty) - 1:
             seq.append(sfx)
 
-    _concat_sequence(seq, out_mp3)
+    _concat_sequence(seq, out_mp3, playback_atempo=playback_atempo)
