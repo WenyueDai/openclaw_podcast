@@ -22,6 +22,7 @@ AUDIO_DIR   = SITE_DIR / "audio"
 RELEASE_INDEX = Path(os.environ.get("RELEASE_INDEX", str(_PACKAGE_DIR / "state" / "release_index.json")))
 NOTES_FILE    = Path(os.environ.get("NOTES_FILE",    str(_PACKAGE_DIR / "state" / "paper_notes.json")))
 MISSED_FILE   = Path(os.environ.get("MISSED_FILE",   str(_PACKAGE_DIR / "state" / "missed_papers.json")))
+OWNER_ALERT_FILE = Path(os.environ.get("OWNER_ALERT_FILE", str(_PACKAGE_DIR / "state" / "site_alert.json")))
 
 
 def _load_notes() -> dict:
@@ -51,6 +52,26 @@ def _load_missed_papers() -> list:
         except Exception:
             return []
     return []
+
+
+def _load_owner_alert() -> dict:
+    """Load site_alert.json for baking owner notices into the static page."""
+    if not OWNER_ALERT_FILE.exists():
+        return {}
+    try:
+        raw = json.loads(OWNER_ALERT_FILE.read_text(encoding="utf-8"))
+        if isinstance(raw, str):
+            return {"message": raw}
+        if isinstance(raw, dict):
+            msg = (raw.get("message") or "").strip()
+            if msg:
+                return {
+                    "message": msg,
+                    "updated_at": raw.get("updated_at") or "",
+                }
+    except Exception:
+        return {}
+    return {}
 
 
 PODCAST_TITLE = os.environ.get("PODCAST_TITLE", "Protein Design Podcast")
@@ -307,6 +328,7 @@ def _build_today_summary(episodes) -> str:
 def render_index(episodes, all_episodes=None):
     notes = _load_notes()   # {date: {url: note_text}} — baked in for static rendering
     missed_papers = _load_missed_papers()   # baked for initial render
+    owner_alert = _load_owner_alert()   # baked for initial render
     today_summary = _build_today_summary(episodes)
     cards = []
     for ep in episodes:
@@ -436,6 +458,7 @@ def render_index(episodes, all_episodes=None):
     )
 
     missed_json = json.dumps(missed_papers, ensure_ascii=False)
+    owner_alert_json = json.dumps(owner_alert, ensure_ascii=False)
 
     return f"""<!doctype html>
 <html>
@@ -585,6 +608,22 @@ audio {{ width:100%; margin:0; }}
 .owner-feedback {{ margin-top:12px; padding:10px 12px; background:var(--bg2); border:1px solid var(--line); border-radius:10px; font-size:.88rem; }}
 .owner-feedback button {{ padding:4px 12px; border:1px solid var(--accent); border-radius:6px; background:var(--accent); color:#fff; cursor:pointer; font-size:.85rem; margin-right:8px; }}
 .owner-feedback button.sec {{ background:transparent; color:var(--accent); }}
+.site-alert {{ display:block; margin-bottom:0; width:min(100%, 52rem); background:transparent; border:none; box-shadow:none; padding:0; }}
+.site-alert + .visitor-message {{ margin-top:-6px; }}
+.site-alert-flag {{ display:none; padding:10px 12px; border:1px solid #f0c36d; border-radius:10px; background:#fff8e1; color:#7a4b00; font-size:.88rem; line-height:1.55; }}
+.site-alert.has-alert .site-alert-flag {{ display:block; }}
+.owner-mode .site-alert-flag {{ display:none !important; }}
+.site-alert-title {{ font-weight:700; color:#9a5a00; margin-right:6px; }}
+.site-alert-meta {{ display:block; margin-top:4px; font-size:.77rem; color:#8d6b2b; }}
+.site-alert-editor {{ display:block; margin-top:0; }}
+.site-alert.has-alert .site-alert-editor {{ margin-top:12px; }}
+.site-alert.visitor-view .site-alert-editor {{ display:none; }}
+.owner-mode .site-alert.has-alert .site-alert-editor {{ margin-top:0; }}
+.site-alert-editor textarea {{ width:100%; min-height:56px; padding:10px 12px; border:1px solid #f0c36d; border-radius:10px; font:inherit; background:#fff8e1; color:#7a4b00; resize:vertical; box-sizing:border-box; }}
+.site-alert-editor-row {{ margin-top:0; height:0; display:flex; justify-content:flex-end; align-items:center; font-size:.8rem; color:var(--muted); }}
+#owner-alert-status {{ font-size:.8rem; color:var(--muted); opacity:0; transform:translateY(2px); transition:opacity .18s ease; }}
+#owner-alert-status.active {{ opacity:1; }}
+#owner-alert-status.err {{ color:#d73a49; opacity:1; }}
 .visitor-message {{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 18px; margin-bottom:0; width:min(100%, 52rem); }}
 .visitor-message h3 {{ margin:0 0 6px; font-size:.95rem; color:var(--accent); }}
 .visitor-message p {{ margin:0 0 10px; font-size:.86rem; color:var(--muted); line-height:1.55; }}
@@ -609,6 +648,7 @@ audio {{ width:100%; margin:0; }}
   .layout {{ padding:18px 12px 28px; gap:16px; }}
   .hero-panel,
   .card,
+  .site-alert,
   .visitor-message,
   .missed-section,
   .today-summary {{ padding-left:14px; padding-right:14px; width:100%; max-width:none; }}
@@ -748,6 +788,15 @@ audio {{ width:100%; margin:0; }}
         </div>
         {today_summary}
       </div>
+      <section class="site-alert hero-panel" id="site-alert-panel">
+        <div class="site-alert-flag" id="site-alert-flag"></div>
+        <div class="site-alert-editor">
+          <textarea id="owner-alert-input" placeholder="Owner note for visitors. Example: Today&rsquo;s episode may have incomplete bioRxiv coverage due to API timeouts."></textarea>
+          <div class="site-alert-editor-row">
+            <span id="owner-alert-status"></span>
+          </div>
+        </div>
+      </section>
       <section class="visitor-message hero-panel">
         <h3>&#128172; Leave a message</h3>
         <div class="visitor-form">
@@ -819,6 +868,175 @@ document.querySelectorAll('.star-cb').forEach(cb => {{
 
 // ── Playback speed ────────────────────────────────────────────────────────
 function setRate(v) {{ document.querySelectorAll('audio').forEach(a => a.playbackRate = v); }}
+
+// ── Site owner alert ──────────────────────────────────────────────────────
+var _bakedOwnerAlert = {owner_alert_json};
+var _ownerAlertSaveTimer = null;
+var _lastOwnerAlertMessage = (_bakedOwnerAlert && _bakedOwnerAlert.message ? (_bakedOwnerAlert.message || '').trim() : '');
+
+function _ownerAlertPath() {{ return 'openclaw-knowledge-radio/state/site_alert.json'; }}
+
+function _setOwnerAlertStatus(msg) {{
+  var el = document.getElementById('owner-alert-status');
+  if (!el) return;
+  el.textContent = msg || '';
+  el.className = '';
+  if (msg) el.classList.add('active');
+}}
+
+function _setOwnerAlertError(msg) {{
+  var el = document.getElementById('owner-alert-status');
+  if (!el) return;
+  el.textContent = msg || '';
+  el.className = msg ? 'err' : '';
+}}
+
+function _clearOwnerAlertStatusSoon() {{
+  setTimeout(function() {{
+    var el = document.getElementById('owner-alert-status');
+    if (!el) return;
+    el.textContent = '';
+    el.className = '';
+  }}, 1200);
+}}
+
+function _renderOwnerAlert(data) {{
+  var panel = document.getElementById('site-alert-panel');
+  var flag = document.getElementById('site-alert-flag');
+  var input = document.getElementById('owner-alert-input');
+  if (!panel || !flag || !input) return;
+
+  data = data || {{}};
+  var message = (data.message || '').trim();
+  var displayMessage = message || 'No alert for today.';
+  var updated = (data.updated_at || '').trim();
+  var isOwner = !!localStorage.getItem('gh_token');
+
+  input.value = message;
+  _lastOwnerAlertMessage = message;
+  panel.classList.toggle('visitor-view', !isOwner);
+
+  if (displayMessage) {{
+    var safeMsg = displayMessage.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\\n/g,'<br>');
+    var meta = (message && updated) ? '<span class="site-alert-meta">Updated ' + updated.replace('T', ' ').replace('Z', ' UTC') + '</span>' : '';
+    flag.innerHTML = '<span class="site-alert-title">&#128681; Owner note:</span>' + safeMsg + meta;
+    panel.classList.add('has-alert');
+  }} else {{
+    flag.innerHTML = '';
+    panel.classList.remove('has-alert');
+  }}
+
+  panel.style.display = 'block';
+}}
+
+async function loadOwnerAlert() {{
+  _renderOwnerAlert(_bakedOwnerAlert);
+
+  var repo = localStorage.getItem('gh_repo') || '{html.escape("WenyueDai/protein_design_podcast")}';
+  var headers = {{'Accept': 'application/vnd.github+json'}};
+  var token = localStorage.getItem('gh_token');
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  try {{
+    var res = await fetch('https://api.github.com/repos/' + repo + '/contents/' + _ownerAlertPath(), {{headers: headers}});
+    if (!res.ok) return;
+    var meta = await res.json();
+    var data = JSON.parse(decodeURIComponent(escape(atob(meta.content.replace(/\\n/g,'')))));
+    _bakedOwnerAlert = data || {{}};
+    _renderOwnerAlert(_bakedOwnerAlert);
+  }} catch (e) {{}}
+}}
+
+async function _commitOwnerAlert(message) {{
+  var token = localStorage.getItem('gh_token') || '';
+  var repo  = localStorage.getItem('gh_repo')  || '{html.escape("WenyueDai/protein_design_podcast")}';
+  if (!token) {{ openSettings(); return; }}
+
+  var apiBase = 'https://api.github.com/repos/' + repo;
+  var headers = {{
+    'Authorization': 'Bearer ' + token,
+    'Accept': 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+    'Content-Type': 'application/json',
+  }};
+
+  try {{
+    var existing = {{}}, sha = null;
+    var get = await fetch(apiBase + '/contents/' + _ownerAlertPath(), {{headers: headers}});
+    if (get.ok) {{
+      var meta = await get.json();
+      sha = meta.sha;
+      existing = JSON.parse(decodeURIComponent(escape(atob(meta.content.replace(/\\n/g,'')))));
+    }}
+
+    if (message) {{
+      existing = existing && typeof existing === 'object' ? existing : {{}};
+      existing.message = message;
+      existing.updated_at = new Date().toISOString();
+
+      var body = {{
+        message: 'Update site alert ' + new Date().toISOString().slice(0,10),
+        content: btoa(unescape(encodeURIComponent(JSON.stringify(existing, null, 2))))
+      }};
+      if (sha) body.sha = sha;
+
+      var put = await fetch(apiBase + '/contents/' + _ownerAlertPath(), {{
+        method: 'PUT', headers: headers, body: JSON.stringify(body)
+      }});
+      if (put.ok) {{
+        _bakedOwnerAlert = existing;
+        _renderOwnerAlert(existing);
+        _setOwnerAlertStatus('Saved');
+        _clearOwnerAlertStatusSoon();
+      }} else {{
+        var putErr = await put.json();
+        _setOwnerAlertError('Error: ' + (putErr.message || put.status));
+      }}
+    }} else {{
+      if (get.ok && sha) {{
+        var del = await fetch(apiBase + '/contents/' + _ownerAlertPath(), {{
+          method: 'DELETE',
+          headers: headers,
+          body: JSON.stringify({{
+            message: 'Clear site alert ' + new Date().toISOString().slice(0,10),
+            sha: sha
+          }})
+        }});
+        if (!del.ok) {{
+          var delErr = await del.json();
+          _setOwnerAlertError('Error: ' + (delErr.message || del.status));
+          return;
+        }}
+      }}
+      _bakedOwnerAlert = {{}};
+      _renderOwnerAlert(_bakedOwnerAlert);
+      _setOwnerAlertStatus('Cleared');
+      _clearOwnerAlertStatusSoon();
+    }}
+  }} catch(e) {{
+    _setOwnerAlertError('Error: ' + e.message);
+  }}
+}}
+
+function queueOwnerAlertSave() {{
+  var input = document.getElementById('owner-alert-input');
+  if (!input) return;
+  if (!localStorage.getItem('gh_token')) return;
+  var message = (input.value || '').trim();
+  if (message === _lastOwnerAlertMessage) return;
+  _setOwnerAlertStatus('');
+  if (_ownerAlertSaveTimer) clearTimeout(_ownerAlertSaveTimer);
+  _ownerAlertSaveTimer = setTimeout(function() {{
+    _ownerAlertSaveTimer = null;
+    _commitOwnerAlert(message);
+  }}, 900);
+}}
+
+function bindOwnerAlertEditor() {{
+  var input = document.getElementById('owner-alert-input');
+  if (!input) return;
+  input.addEventListener('input', queueOwnerAlertSave);
+  input.addEventListener('blur', queueOwnerAlertSave);
+}}
 
 // ── Visitor message form ───────────────────────────────────────────────────
 function _visitorDraftKey() {{ return 'visitor_message_draft'; }}
@@ -899,6 +1117,7 @@ function _updateOwnerUI() {{
   }} else {{
     document.body.classList.remove('owner-mode');
   }}
+  _renderOwnerAlert(_bakedOwnerAlert);
 }}
 
 // ── Save feedback to GitHub ───────────────────────────────────────────────
@@ -994,6 +1213,8 @@ document.querySelectorAll('audio[id^="audio-"]').forEach(function(audio) {{
 
 loadCheckboxes();
 _updateOwnerUI();
+bindOwnerAlertEditor();
+loadOwnerAlert();
 loadVisitorDraft();
 
 // ── My Take notes ─────────────────────────────────────────────────────────
