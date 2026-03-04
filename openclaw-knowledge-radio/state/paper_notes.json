@@ -130,6 +130,11 @@
       "note": "DD",
       "title": "Expression and production of recombinant SARS-CoV-2 RBD protein in E. coli system: comparison of performance, functional",
       "source": "PubMed — Protein expression and purification"
+    },
+    "https://arxiv.org/abs/2411.02109": {
+      "note": "DD",
+      "title": "One protein is all you need",
+      "source": "arXiv q-bio.BM"
     }
   }
 }
