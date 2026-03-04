@@ -636,7 +636,7 @@ function saveVisitorDraft() {
 }
 
 function sendVisitorMessage() {
-  var endpoint = "";
+  var endpoint = "https://visitor-message-worker.wenyuedai.workers.dev";
   var message = (document.getElementById('visitor-message').value || '').trim();
   if (!message) {
     _setVisitorStatus('Please write a message first.');
