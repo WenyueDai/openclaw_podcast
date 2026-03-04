@@ -120,6 +120,11 @@
       "note": "DD",
       "title": "Computational Evolution of Anti-PD-1 Antibodies Induces Structural Refolding for High-Affinity Interactions.",
       "source": "PubMed — Biochemistry"
+    },
+    "https://doi.org/10.1093/bib/bbag088": {
+      "note": "DD",
+      "title": "Could statistical potential models achieve comparable or better performance than deep learning models?",
+      "source": "PubMed — Briefings in bioinformatics"
     }
   }
 }
