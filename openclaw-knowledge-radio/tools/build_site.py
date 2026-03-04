@@ -615,7 +615,7 @@ audio {{ width:100%; margin:0; }}
 .site-alert.has-alert .site-alert-flag {{ display:block; }}
 .owner-mode .site-alert-flag {{ display:none !important; }}
 .site-alert-title {{ font-weight:700; color:#9a5a00; margin-right:6px; }}
-.site-alert-meta {{ display:block; margin-top:4px; font-size:.77rem; color:#8d6b2b; }}
+.site-alert-meta {{ display:block; margin-top:4px; font-size:.88rem; color:#8d6b2b; font-family:inherit; line-height:1.55; }}
 .site-alert-editor {{ display:block; margin-top:0; }}
 .site-alert.has-alert .site-alert-editor {{ margin-top:12px; }}
 .site-alert.visitor-view .site-alert-editor {{ display:none; }}
