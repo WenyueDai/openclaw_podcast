@@ -140,6 +140,11 @@
       "note": "DD",
       "title": "FROGENT: An End-to-End Full-process Drug Design Multi-Agent System",
       "source": "arXiv q-bio.BM"
+    },
+    "https://arxiv.org/abs/2506.02052": {
+      "note": "DD",
+      "title": "General Protein Pretraining or Domain-Specific Designs? Benchmarking Protein Modeling on Realistic Applications",
+      "source": "arXiv q-bio.BM"
     }
   }
 }
