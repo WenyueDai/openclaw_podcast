@@ -265,6 +265,14 @@ def main() -> int:
 
     lookback_hours = int(os.environ.get("LOOKBACK_HOURS") or cfg.get("lookback_hours", 48))
     raw_collected_items: List[Dict[str, Any]] = []
+    collector_counts: Dict[str, int] = {
+        "rss": 0,
+        "pubmed": 0,
+        "biorxiv_keywords": 0,
+        "biorxiv_authors": 0,
+        "daily_knowledge": 0,
+        "wiki_context": 0,
+    }
 
     # 1) Collect (or regenerate from cached seed)
     seed_file = data_dir / "items.jsonl"
@@ -279,6 +287,13 @@ def main() -> int:
             except Exception:
                 continue
         raw_collected_items = list(new_items)
+        source_type_counts = Counter((it.get("source_type") or "unknown").strip() or "unknown" for it in raw_collected_items)
+        collector_counts["rss"] = int(source_type_counts.get("rss", 0))
+        collector_counts["pubmed"] = int(source_type_counts.get("pubmed", 0))
+        collector_counts["biorxiv_keywords"] = int(source_type_counts.get("biorxiv", 0))
+        collector_counts["biorxiv_authors"] = sum(
+            1 for it in raw_collected_items if "bioRxiv" in ((it.get("source") or ""))
+        )
     else:
         items: List[Dict[str, Any]] = []
         _rss_sources = list(cfg["rss_sources"])
@@ -291,27 +306,41 @@ def main() -> int:
                     _rss_sources = _rss_sources + _extra
             except Exception:
                 pass
-        items.extend(collect_rss_items(_rss_sources, tz=tz, lookback_hours=lookback_hours, now_ref=run_anchor))
+        rss_items = collect_rss_items(_rss_sources, tz=tz, lookback_hours=lookback_hours, now_ref=run_anchor)
+        collector_counts["rss"] = len(rss_items)
+        items.extend(rss_items)
         if cfg.get("pubmed", {}).get("enabled", False):
             static_terms = cfg.get("pubmed", {}).get("search_terms", [])
             dynamic_terms = _dynamic_pubmed_terms(state_dir, static_terms, max_new=5)
             if dynamic_terms:
                 print(f"[pubmed] Adding {len(dynamic_terms)} dynamic term(s) from feedback: {dynamic_terms}", flush=True)
-            items.extend(collect_pubmed_items(cfg, lookback_hours=lookback_hours, extra_terms=dynamic_terms))
+            pubmed_items = collect_pubmed_items(cfg, lookback_hours=lookback_hours, extra_terms=dynamic_terms)
+            collector_counts["pubmed"] = len(pubmed_items)
+            items.extend(pubmed_items)
             if cfg.get("biorxiv_keywords", {}).get("enabled", False):
-                items.extend(collect_biorxiv_keyword_items(cfg, lookback_hours=lookback_hours, extra_terms=dynamic_terms))
-        if cfg.get("biorxiv_authors", {}).get("enabled", True):
-            items.extend(collect_biorxiv_author_items(cfg))
-        if cfg.get("daily_knowledge", {}).get("enabled", True):
-            items.extend(collect_daily_knowledge_items(tz=tz))
-        if cfg.get("wiki_context", {}).get("enabled", False):
-            items.extend(
-                collect_wiki_context_items(
-                    cfg.get("wiki_context", {}).get("topics", []),
-                    date_str=today,
-                    max_items=int(cfg.get("wiki_context", {}).get("max_items", 4)),
+                biorxiv_keyword_items = collect_biorxiv_keyword_items(
+                    cfg,
+                    lookback_hours=lookback_hours,
+                    extra_terms=dynamic_terms,
                 )
+                collector_counts["biorxiv_keywords"] = len(biorxiv_keyword_items)
+                items.extend(biorxiv_keyword_items)
+        if cfg.get("biorxiv_authors", {}).get("enabled", True):
+            biorxiv_author_items = collect_biorxiv_author_items(cfg)
+            collector_counts["biorxiv_authors"] = len(biorxiv_author_items)
+            items.extend(biorxiv_author_items)
+        if cfg.get("daily_knowledge", {}).get("enabled", True):
+            daily_items = collect_daily_knowledge_items(tz=tz)
+            collector_counts["daily_knowledge"] = len(daily_items)
+            items.extend(daily_items)
+        if cfg.get("wiki_context", {}).get("enabled", False):
+            wiki_items = collect_wiki_context_items(
+                cfg.get("wiki_context", {}).get("topics", []),
+                date_str=today,
+                max_items=int(cfg.get("wiki_context", {}).get("max_items", 4)),
             )
+            collector_counts["wiki_context"] = len(wiki_items)
+            items.extend(wiki_items)
         raw_collected_items = list(items)
 
         # 2) Dedup across days + topical filtering
@@ -555,6 +584,10 @@ def main() -> int:
         "n_items_used": len(ranked),
         "lookback_hours": lookback_hours,
         "run_anchor": run_anchor.isoformat(timespec="seconds"),
+        "pubmed_matches": collector_counts["pubmed"],
+        "biorxiv_keyword_matches": collector_counts["biorxiv_keywords"],
+        "biorxiv_author_matches": collector_counts["biorxiv_authors"],
+        "collector_counts": collector_counts,
         "collected_by_source_type": dict(source_type_counts.most_common()),
         "collected_by_source": dict(source_counts.most_common()),
         "output_dir": str(out_dir),

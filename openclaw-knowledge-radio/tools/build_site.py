@@ -639,8 +639,8 @@ audio {{ width:100%; margin:0; }}
 .visitor-actions .primary {{ background:var(--accent); color:#fff; }}
 .visitor-actions .secondary {{ background:transparent; color:var(--accent); }}
 #visitor-status {{ font-size:.84rem; color:var(--muted); }}
-.site-metrics {{ margin:22px auto 10px; width:min(100%, 52rem); text-align:center; font-size:.82rem; color:var(--muted); }}
-.site-metrics strong {{ color:var(--text); font-weight:600; }}
+.site-metrics {{ position:sticky; bottom:0; left:0; right:0; z-index:30; margin:24px 0 0; padding:10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); text-align:center; font-size:.84rem; color:#6b4e16; background:rgba(255, 248, 225, 0.96); border-top:1px solid #f0c36d; box-shadow:0 -4px 14px rgba(122, 75, 0, 0.08); backdrop-filter:saturate(130%) blur(3px); }}
+.site-metrics strong {{ color:#7a4b00; font-weight:700; }}
 .layout :is(h2, h3, p, li, a, label, span, button, input, textarea, summary, dt, dd) {{ font-family:inherit; font-size:var(--body-size); line-height:var(--body-line); }}
 .hero-panel h1 {{ font-size:clamp(1.8rem,3.2vw,2.5rem); line-height:1.05; }}
 @media (max-width: 1080px) {{
@@ -820,8 +820,8 @@ audio {{ width:100%; margin:0; }}
 </div>
   {sidebar_html}
 </div>
-<footer class="site-metrics" id="site-metrics" hidden>
-  <span id="lifetime-visitor-count"></span>
+<footer class="site-metrics" id="site-metrics">
+  <span id="lifetime-visitor-count">Loading visitor count...</span>
 </footer>
 
 <!-- Settings modal -->
@@ -1062,11 +1062,10 @@ function _setLifetimeVisitorCount(value) {{
   var label = document.getElementById('lifetime-visitor-count');
   if (!footer || !label) return;
   if (!Number.isFinite(value) || value < 0) {{
-    footer.hidden = true;
+    label.textContent = 'Visitor count unavailable right now';
     return;
   }}
   label.innerHTML = '<strong>' + value.toLocaleString() + '</strong> unique visitors since launch';
-  footer.hidden = false;
 }}
 
 function _visitDayKey() {{
