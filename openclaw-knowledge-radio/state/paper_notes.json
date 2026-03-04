@@ -145,6 +145,11 @@
       "note": "DD",
       "title": "General Protein Pretraining or Domain-Specific Designs? Benchmarking Protein Modeling on Realistic Applications",
       "source": "arXiv q-bio.BM"
+    },
+    "https://arxiv.org/abs/2512.18114": {
+      "note": "DD",
+      "title": "Greater than the Sum of Its Parts: Building Substructure into Protein Encoding Models",
+      "source": "arXiv q-bio.QM"
     }
   }
 }
