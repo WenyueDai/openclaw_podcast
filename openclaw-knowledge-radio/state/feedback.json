@@ -572,5 +572,27 @@
       "source": "Owl Posting (Abhishaike Mahajan)",
       "title": "Neurotechnology? For Cancer? (Ben Woodington & Elise Jenkins)"
     }
+  ],
+  "2026-03-04": [
+    {
+      "url": "https://doi.org/10.1021/acs.biochem.5c00574",
+      "source": "PubMed — Biochemistry",
+      "title": "Computational Evolution of Anti-PD-1 Antibodies Induces Structural Refolding for High-Affinity Interactions."
+    },
+    {
+      "url": "https://doi.org/10.1093/bib/bbag088",
+      "source": "PubMed — Briefings in bioinformatics",
+      "title": "Could statistical potential models achieve comparable or better performance than deep learning models?"
+    },
+    {
+      "url": "https://doi.org/10.1016/j.pep.2025.106877",
+      "source": "PubMed — Protein expression and purification",
+      "title": "Expression and production of recombinant SARS-CoV-2 RBD protein in E. coli system: comparison of performance, functional"
+    },
+    {
+      "url": "https://arxiv.org/abs/2411.02109",
+      "source": "arXiv q-bio.BM",
+      "title": "One protein is all you need"
+    }
   ]
 }
