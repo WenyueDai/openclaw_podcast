@@ -4,7 +4,7 @@ import asyncio
 import os
 import subprocess
 from pathlib import Path
-from typing import List, Tuple
+from typing import Any, Dict, List, Tuple
 
 import edge_tts
 import requests
@@ -19,6 +19,8 @@ KOKORO_API_URL = os.environ.get("KOKORO_API_URL", "http://localhost:8880/v1/audi
 KOKORO_VOICE = os.environ.get("KOKORO_VOICE", "bm_george")
 KOKORO_SPEED = float(os.environ.get("KOKORO_SPEED", "1.35"))
 _LAST_TTS_BACKEND = None
+_LAST_TTS_ERROR_SUMMARY = ""
+_TTS_BACKEND_COUNTS: Dict[str, int] = {"edge": 0, "kokoro": 0, "gtts": 0}
 
 from src.utils.text import chunk_text
 from src.utils.io import ensure_dir
@@ -60,6 +62,31 @@ def last_tts_backend() -> str:
     return _LAST_TTS_BACKEND or configured_tts_backend()
 
 
+def _short_err(e: Exception) -> str:
+    msg = str(e).strip() or e.__class__.__name__
+    msg = msg.replace("\n", " ").replace("\r", " ")
+    return msg[:220]
+
+
+def last_tts_error_summary() -> str:
+    return _LAST_TTS_ERROR_SUMMARY
+
+
+def tts_backend_stats() -> Dict[str, Any]:
+    configured = configured_tts_backend()
+    total = sum(_TTS_BACKEND_COUNTS.values())
+    fallback_happened = total > 0 and any(
+        (k != configured and v > 0) for k, v in _TTS_BACKEND_COUNTS.items()
+    )
+    return {
+        "configured_backend": configured,
+        "last_backend": last_tts_backend(),
+        "counts": {k: int(v) for k, v in _TTS_BACKEND_COUNTS.items()},
+        "fallback_happened": fallback_happened,
+        "fallback_reason": _LAST_TTS_ERROR_SUMMARY or "",
+    }
+
+
 def _save_with_kokoro_api(text: str, out_path: Path) -> bool:
     try:
         r = requests.post(
@@ -83,24 +110,34 @@ def _save_with_kokoro_api(text: str, out_path: Path) -> bool:
 
 
 async def _save_one(text: str, voice: str, rate: str, out_path: Path) -> str:
+    global _LAST_TTS_ERROR_SUMMARY
     # Primary: Kokoro (if PREFER_KOKORO=true and server is running)
     if PREFER_KOKORO:
         if _save_with_kokoro_api(text, out_path):
             return "kokoro"
 
     last_err = None
+    edge_errs: List[str] = []
+    edge_attempts = 0
     for v in _voice_candidates(voice):
         for attempt in range(1, 4):
+            edge_attempts += 1
             try:
                 communicate = edge_tts.Communicate(text, v, rate=rate)
                 await asyncio.wait_for(communicate.save(str(out_path)), timeout=25)
                 return "edge"
             except Exception as e:
                 last_err = e
+                edge_errs.append(f"{v}#{attempt}: {_short_err(e)}")
                 await asyncio.sleep(0.8 * attempt)
 
     # Fallback 1: local Kokoro API (if running and not already tried)
     if not PREFER_KOKORO and _save_with_kokoro_api(text, out_path):
+        _LAST_TTS_ERROR_SUMMARY = (
+            f"Edge failed ({edge_attempts} attempts): "
+            f"{edge_errs[-1] if edge_errs else (last_err.__class__.__name__ if last_err else 'unknown')}. "
+            "Fell back to Kokoro."
+        )
         return "kokoro"
 
     # Fallback 2: gTTS (optional)
@@ -108,8 +145,18 @@ async def _save_one(text: str, voice: str, rate: str, out_path: Path) -> str:
         try:
             tts = gTTS(text=text, lang="en", slow=False)
             tts.save(str(out_path))
+            _LAST_TTS_ERROR_SUMMARY = (
+                f"Edge failed ({edge_attempts} attempts): "
+                f"{edge_errs[-1] if edge_errs else (last_err.__class__.__name__ if last_err else 'unknown')}. "
+                "Kokoro unavailable, fell back to gTTS."
+            )
             return "gtts"
-        except Exception:
+        except Exception as gtts_err:
+            _LAST_TTS_ERROR_SUMMARY = (
+                f"Edge failed ({edge_attempts} attempts): "
+                f"{edge_errs[-1] if edge_errs else (last_err.__class__.__name__ if last_err else 'unknown')}. "
+                f"gTTS also failed: {_short_err(gtts_err)}"
+            )
             pass
 
     raise last_err
@@ -188,9 +235,10 @@ def tts_segment_to_mp3(
     Skips generation if a valid file already exists (allows resume on re-run).
     Retries up to 3 times if edge-tts produces a corrupt/empty file.
     """
-    global _LAST_TTS_BACKEND
+    global _LAST_TTS_BACKEND, _LAST_TTS_ERROR_SUMMARY
     if out_path.exists() and out_path.stat().st_size > _MIN_VALID_MP3_BYTES and _mp3_is_readable(out_path):
         _LAST_TTS_BACKEND = configured_tts_backend()
+        _TTS_BACKEND_COUNTS[_LAST_TTS_BACKEND] = _TTS_BACKEND_COUNTS.get(_LAST_TTS_BACKEND, 0) + 1
         print(f"[tts] Reusing existing {out_path.name}", flush=True)
         return out_path
 
@@ -198,6 +246,9 @@ def tts_segment_to_mp3(
     for attempt in range(1, 4):
         out_path.unlink(missing_ok=True)
         _LAST_TTS_BACKEND = asyncio.run(_save_one(text, voice, rate, out_path))
+        _TTS_BACKEND_COUNTS[_LAST_TTS_BACKEND] = _TTS_BACKEND_COUNTS.get(_LAST_TTS_BACKEND, 0) + 1
+        if _LAST_TTS_BACKEND == "edge":
+            _LAST_TTS_ERROR_SUMMARY = ""
         if out_path.exists() and out_path.stat().st_size > _MIN_VALID_MP3_BYTES:
             return out_path
         print(f"[tts] Attempt {attempt}: bad output for {out_path.name} "

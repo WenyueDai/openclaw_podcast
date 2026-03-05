@@ -20,7 +20,12 @@ from src.collectors.biorxiv_authors import collect_biorxiv_author_items
 from src.collectors.biorxiv_keywords import collect_biorxiv_keyword_items
 from src.processing.rank import rank_and_limit
 from src.processing.script_llm import build_podcast_script_llm_chunked, build_podcast_script_llm_chunked_with_map, TRANSITION_MARKER
-from src.outputs.tts_edge import tts_segment_to_mp3, last_tts_backend
+from src.outputs.tts_edge import (
+    tts_segment_to_mp3,
+    last_tts_backend,
+    last_tts_error_summary,
+    tts_backend_stats,
+)
 from src.outputs.audio import concat_mp3_with_transitions, _ffprobe_duration_seconds, PLAYBACK_ATEMPO
 
 from src.utils.text import clean_for_tts
@@ -487,6 +492,10 @@ def main() -> int:
         encoding="utf-8",
     )
 
+    tts_backend = None
+    tts_fallback_summary = ""
+    tts_stats: Dict[str, Any] = {}
+
     # 6) TTS: one MP3 per segment, concatenated with transition SFX between items
     if cfg.get("podcast", {}).get("enabled", True) and script_text_clean.strip():
         voice = cfg["podcast"]["voice"]
@@ -515,6 +524,8 @@ def main() -> int:
             seg_mp3s.append(seg_mp3_path)
 
         tts_backend = last_tts_backend()
+        tts_fallback_summary = last_tts_error_summary()
+        tts_stats = tts_backend_stats()
         final_playback_atempo = 1.0 if tts_backend == "edge" else PLAYBACK_ATEMPO
 
         # Compute per-segment SFX-start timestamps.
@@ -590,6 +601,9 @@ def main() -> int:
         "collector_counts": collector_counts,
         "collected_by_source_type": dict(source_type_counts.most_common()),
         "collected_by_source": dict(source_counts.most_common()),
+        "tts_backend": tts_backend,
+        "tts_fallback_reason": tts_fallback_summary,
+        "tts_stats": tts_stats,
         "output_dir": str(out_dir),
     }
     (out_dir / "status.json").write_text(json.dumps(status, indent=2), encoding="utf-8")
