@@ -172,6 +172,11 @@
       "note": "DD",
       "title": "Structural Plausibility Without Binding Specificity: Limits of AI-Based Antibody-Antigen Structure Prediction Confidence",
       "source": "bioRxiv — bioinformatics"
+    },
+    "https://doi.org/10.1021/acs.biochem.5c00782": {
+      "note": "DD",
+      "title": "The Power of Protein Dynamics in Binding and Allostery.",
+      "source": "PubMed — Biochemistry"
     }
   }
 }
