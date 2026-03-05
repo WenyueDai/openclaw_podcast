@@ -187,6 +187,11 @@
       "note": "DD",
       "title": "LLPSight: enhancing prediction of LLPS-driving proteins using machine learning and protein Language Models",
       "source": "bioRxiv — bioinformatics"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.03.02.707336": {
+      "note": "DD",
+      "title": "EvoStructCLIP: A Mutation-Centered Multimodal Embedding Model for CAGI7 Variant Effect Prediction",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
