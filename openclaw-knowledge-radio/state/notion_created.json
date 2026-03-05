@@ -150,5 +150,13 @@
   "2026-03-05|https://www.biorxiv.org/content/10.64898/2026.03.02.709196": {
     "page_id": "31a5f58e-a8c2-8174-988f-c338d73e0fe2",
     "note": "DD"
+  },
+  "2026-03-05|https://www.biorxiv.org/content/10.64898/2026.02.28.708726": {
+    "page_id": "31a5f58e-a8c2-8146-a41f-cabcdb52e77b",
+    "note": "DD"
+  },
+  "2026-03-05|https://arxiv.org/abs/2504.10525": {
+    "page_id": "31a5f58e-a8c2-81e9-a15d-effc33a08a96",
+    "note": "DD"
   }
 }
