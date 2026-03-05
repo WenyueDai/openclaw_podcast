@@ -594,5 +594,37 @@
       "source": "arXiv q-bio.BM",
       "title": "One protein is all you need"
     }
+  ],
+  "2026-03-05": [
+    {
+      "url": "https://doi.org/10.1073/pnas.2530709123",
+      "source": "PubMed — Proceedings of the National Academy of Sciences of the United States of America",
+      "title": "Bias in the AlphaFold3 prediction of ligand-induced domain motion in enzymes."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.02.708997",
+      "source": "bioRxiv — bioinformatics",
+      "title": "Pinc: a simple probabilistic AlphaFold interaction score"
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.02.709004",
+      "source": "bioRxiv — bioinformatics",
+      "title": "Structural Plausibility Without Binding Specificity: Limits of AI-Based Antibody-Antigen Structure Prediction Confidence"
+    },
+    {
+      "url": "https://doi.org/10.1021/acs.biochem.5c00782",
+      "source": "PubMed — Biochemistry",
+      "title": "The Power of Protein Dynamics in Binding and Allostery."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.01.708814",
+      "source": "bioRxiv — bioinformatics",
+      "title": "LLPSight: enhancing prediction of LLPS-driving proteins using machine learning and protein Language Models"
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.02.708607",
+      "source": "bioRxiv — molecular biology",
+      "title": "On improving experimental binding affinity predictions with synthetic data"
+    }
   ]
 }
