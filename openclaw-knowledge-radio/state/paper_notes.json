@@ -167,6 +167,11 @@
       "note": "DD",
       "title": "Pinc: a simple probabilistic AlphaFold interaction score",
       "source": "bioRxiv — bioinformatics"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.03.02.709004": {
+      "note": "DD",
+      "title": "Structural Plausibility Without Binding Specificity: Limits of AI-Based Antibody-Antigen Structure Prediction Confidence",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
