@@ -182,6 +182,11 @@
       "note": "DD",
       "title": "On improving experimental binding affinity predictions with synthetic data",
       "source": "bioRxiv — molecular biology"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.03.01.708814": {
+      "note": "DD",
+      "title": "LLPSight: enhancing prediction of LLPS-driving proteins using machine learning and protein Language Models",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
