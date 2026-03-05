@@ -441,6 +441,8 @@ function setRate(v) { document.querySelectorAll('audio').forEach(a => a.playback
 // ── Site owner alert ──────────────────────────────────────────────────────
 var _bakedOwnerAlert = {"message": "I tried a new txt-to-speech source and forget to change the speed, so today's episode speaks super fast... Use 0.8x to slow down...", "updated_at": "2026-03-04T07:57:44.938Z"};
 var _ownerAlertSaveTimer = null;
+var _ownerAlertSaveInFlight = false;
+var _pendingOwnerAlertMessage = null;
 var _lastOwnerAlertMessage = (_bakedOwnerAlert && _bakedOwnerAlert.message ? (_bakedOwnerAlert.message || '').trim() : '');
 
 function _ownerAlertPath() { return 'openclaw-knowledge-radio/state/site_alert.json'; }
@@ -519,6 +521,11 @@ async function _commitOwnerAlert(message) {
   var token = localStorage.getItem('gh_token') || '';
   var repo  = localStorage.getItem('gh_repo')  || 'WenyueDai/protein_design_podcast';
   if (!token) { openSettings(); return; }
+  if (_ownerAlertSaveInFlight) {
+    _pendingOwnerAlertMessage = message;
+    return;
+  }
+  _ownerAlertSaveInFlight = true;
 
   var apiBase = 'https://api.github.com/repos/' + repo;
   var headers = {
@@ -583,6 +590,13 @@ async function _commitOwnerAlert(message) {
     }
   } catch(e) {
     _setOwnerAlertError('Error: ' + e.message);
+  } finally {
+    _ownerAlertSaveInFlight = false;
+    if (_pendingOwnerAlertMessage !== null) {
+      var nextMessage = _pendingOwnerAlertMessage;
+      _pendingOwnerAlertMessage = null;
+      if (nextMessage !== _lastOwnerAlertMessage) _commitOwnerAlert(nextMessage);
+    }
   }
 }
 

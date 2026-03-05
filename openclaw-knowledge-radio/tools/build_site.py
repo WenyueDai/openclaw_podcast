@@ -884,6 +884,8 @@ function setRate(v) {{ document.querySelectorAll('audio').forEach(a => a.playbac
 // ── Site owner alert ──────────────────────────────────────────────────────
 var _bakedOwnerAlert = {owner_alert_json};
 var _ownerAlertSaveTimer = null;
+var _ownerAlertSaveInFlight = false;
+var _pendingOwnerAlertMessage = null;
 var _lastOwnerAlertMessage = (_bakedOwnerAlert && _bakedOwnerAlert.message ? (_bakedOwnerAlert.message || '').trim() : '');
 
 function _ownerAlertPath() {{ return 'openclaw-knowledge-radio/state/site_alert.json'; }}
@@ -962,6 +964,11 @@ async function _commitOwnerAlert(message) {{
   var token = localStorage.getItem('gh_token') || '';
   var repo  = localStorage.getItem('gh_repo')  || '{html.escape("WenyueDai/protein_design_podcast")}';
   if (!token) {{ openSettings(); return; }}
+  if (_ownerAlertSaveInFlight) {{
+    _pendingOwnerAlertMessage = message;
+    return;
+  }}
+  _ownerAlertSaveInFlight = true;
 
   var apiBase = 'https://api.github.com/repos/' + repo;
   var headers = {{
@@ -1026,6 +1033,13 @@ async function _commitOwnerAlert(message) {{
     }}
   }} catch(e) {{
     _setOwnerAlertError('Error: ' + e.message);
+  }} finally {{
+    _ownerAlertSaveInFlight = false;
+    if (_pendingOwnerAlertMessage !== null) {{
+      var nextMessage = _pendingOwnerAlertMessage;
+      _pendingOwnerAlertMessage = null;
+      if (nextMessage !== _lastOwnerAlertMessage) _commitOwnerAlert(nextMessage);
+    }}
   }}
 }}
 
