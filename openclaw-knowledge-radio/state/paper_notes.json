@@ -202,6 +202,11 @@
       "note": "DD",
       "title": "Universal functionalization of extracellular vesicles with nanobody adapters",
       "source": "bioRxiv — bioengineering"
+    },
+    "https://arxiv.org/abs/2504.10525": {
+      "note": "DD",
+      "title": "BioChemInsight: An Online Platform for Automated Extraction of Chemical Structures and Activity Data from Patents",
+      "source": "arXiv q-bio.QM"
     }
   }
 }
