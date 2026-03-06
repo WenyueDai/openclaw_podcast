@@ -11,100 +11,95 @@ limits:
   max_items_protein: 38
   max_items_daily_knowledge: 5
   source_caps:
-    "Endpoints News": 2
+    "Nature Communications": 4
     "Nature (main journal)": 3
-    "Nature Structural & Molecular Biology": 3
+    "Science Advances": 3
     "PNAS": 3
-    "Structure": 3
+    "Nature Microbiology": 5
+    "Microbiome": 4
+    "mSystems": 3
+    "Journal of Bacteriology": 2
   max_items_per_news_source: 1
 
 excluded_terms:
-  # Cell / molecular biology off-topic
-  - "cell biology"
-  - "single-cell"
-  - "single cell"
-  - "animal model"
-  - "murine"
-  - "mouse"
-  - "mice"
-  - "rat"
-  - "zebrafish"
-  - "drosophila"
-  - "transposable element"
-  - "hippocampal"
-  - "neurogenesis"
-  - "neural circuit"
   # Off-topic physical sciences
   - "superconductiv"
   - "quantum network"
   - "quantum optic"
   - "interferometry"
+  - "quantum computing"
   # Administrative / non-research
   - "author correction"
   - "in this issue"
   - "retraction notice"
+  # Off-topic biology (protein design tools, not gut microbiota)
+  - "protein design"
+  - "antibody design"
+  - "AlphaFold"
+  - "RFdiffusion"
+  - "ProteinMPNN"
 
 rss_sources:
-  # ── Core protein / structural biology ──────────────────────────────────────
-  - name: "arXiv q-bio.BM"
-    url: "https://arxiv.org/rss/q-bio.BM"
-    tags: ["protein-design", "preprint", "arxiv"]
+  # ── Core gut microbiota journals ──────────────────────────────────────────────
+  - name: "Nature Microbiology"
+    url: "https://www.nature.com/nmicrobiol.rss"
+    tags: ["microbiology", "microbiota", "journal"]
     bucket: "protein"
 
-  - name: "Nature - Protein Design"
-    url: "https://www.nature.com/subjects/protein-design.rss"
-    tags: ["protein-design", "nature", "topic"]
+  - name: "Nature Reviews Microbiology"
+    url: "https://www.nature.com/nrmicro.rss"
+    tags: ["microbiology", "review", "journal"]
     bucket: "protein"
 
-  - name: "Nature - Protein Engineering"
-    url: "https://www.nature.com/subjects/protein-engineering.rss"
-    tags: ["protein-engineering", "nature", "topic"]
+  - name: "Cell Host and Microbe"
+    url: "https://www.cell.com/cell-host-microbe/inpress.rss"
+    tags: ["microbiota", "host-microbe", "journal"]
     bucket: "protein"
 
-  - name: "Nature - Antibodies"
-    url: "https://www.nature.com/subjects/antibodies.rss"
-    tags: ["antibody-design", "nature", "topic"]
+  - name: "Microbiome"
+    url: "https://microbiomejournal.biomedcentral.com/articles/most-recent.rss"
+    tags: ["microbiome", "gut", "journal"]
     bucket: "protein"
 
-  - name: "Nature Structural & Molecular Biology"
-    url: "https://www.nature.com/nsmb.rss"
-    tags: ["structural-biology", "protein", "journal"]
+  - name: "ISME Journal"
+    url: "https://www.nature.com/ismej.rss"
+    tags: ["microbial-ecology", "microbiome", "journal"]
     bucket: "protein"
 
+  - name: "Gut Microbes"
+    url: "https://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=kgmi20"
+    tags: ["gut-microbiota", "journal"]
+    bucket: "protein"
+
+  - name: "npj Biofilms and Microbiomes"
+    url: "https://www.nature.com/npjbiofilms.rss"
+    tags: ["microbiome", "biofilm", "journal"]
+    bucket: "protein"
+
+  - name: "mSystems"
+    url: "https://journals.asm.org/action/showFeed?type=etoc&feed=rss&jc=msystems"
+    tags: ["microbiology", "systems-biology", "journal"]
+    bucket: "protein"
+
+  - name: "Journal of Bacteriology"
+    url: "https://journals.asm.org/action/showFeed?type=etoc&feed=rss&jc=jb"
+    tags: ["microbiology", "bacteria", "journal"]
+    bucket: "protein"
+
+  # ── Top general journals ───────────────────────────────────────────────────────
   - name: "Nature (main journal)"
-    url: "https://www.nature.com/nature/current_issue/rss"
+    url: "https://www.nature.com/nature.rss"
     tags: ["nature", "journal"]
-    bucket: "protein"
-
-  - name: "arXiv q-bio.QM"
-    url: "https://arxiv.org/rss/q-bio.QM"
-    tags: ["quantitative-biology", "preprint", "arxiv"]
-    bucket: "protein"
-
-  - name: "Nature Methods"
-    url: "https://www.nature.com/nmeth/current_issue/rss"
-    tags: ["journal", "methods"]
-    bucket: "protein"
-
-  - name: "Protein Science"
-    url: "https://onlinelibrary.wiley.com/feed/1469896x/most-recent"
-    tags: ["protein"]
-    bucket: "protein"
-
-  - name: "Structure"
-    url: "https://www.cell.com/structure/inpress.rss"
-    tags: ["structural-biology", "protein", "journal"]
-    bucket: "protein"
-
-  # ── Top journals ───────────────────────────────────────────────────────────
-  - name: "Nature Biotechnology"
-    url: "https://www.nature.com/nbt.rss"
-    tags: ["biotech", "journal"]
     bucket: "journal"
 
-  - name: "Nature Chemical Biology"
-    url: "https://www.nature.com/nchembio.rss"
-    tags: ["chemical-biology", "journal"]
+  - name: "Cell"
+    url: "https://www.cell.com/cell/inpress.rss"
+    tags: ["cell", "journal"]
+    bucket: "journal"
+
+  - name: "Science"
+    url: "https://www.science.org/action/showFeed?type=etoc&feed=rss&jc=science"
+    tags: ["science", "journal"]
     bucket: "journal"
 
   - name: "PNAS"
@@ -112,364 +107,84 @@ rss_sources:
     tags: ["biology", "journal"]
     bucket: "journal"
 
-  # ── AI / ML for biology ───────────────────────────────────────────────────
+  - name: "Nature Communications"
+    url: "https://www.nature.com/ncomms.rss"
+    tags: ["nature", "communications", "journal"]
+    bucket: "journal"
+
+  - name: "Nature Cancer"
+    url: "https://www.nature.com/natcancer.rss"
+    tags: ["cancer", "microbiome", "journal"]
+    bucket: "journal"
+
+  - name: "Cell Systems"
+    url: "https://www.cell.com/cell-systems/inpress.rss"
+    tags: ["systems-biology", "journal"]
+    bucket: "journal"
+
+  - name: "Science Advances"
+    url: "https://www.science.org/action/showFeed?type=etoc&feed=rss&jc=sciadv"
+    tags: ["science", "multidisciplinary", "journal"]
+    bucket: "journal"
+
+  - name: "Molecular Systems Biology"
+    url: "https://www.embopress.org/action/showFeed?type=etoc&feed=rss&jc=msb"
+    tags: ["systems-biology", "journal"]
+    bucket: "journal"
+
+  # ── Methods ────────────────────────────────────────────────────────────────────
+  - name: "Nature Methods"
+    url: "https://www.nature.com/nmeth.rss"
+    tags: ["methods", "journal"]
+    bucket: "protein"
+
+  - name: "Nature Protocols"
+    url: "https://www.nature.com/nprot.rss"
+    tags: ["protocols", "methods", "journal"]
+    bucket: "protein"
+
+  - name: "Cell STAR Protocols"
+    url: "https://www.cell.com/star-protocols/inpress.rss"
+    tags: ["protocols", "methods", "journal"]
+    bucket: "protein"
+
+  # ── Bioinformatics & Computational ────────────────────────────────────────────
+  - name: "PLOS Computational Biology"
+    url: "https://journals.plos.org/ploscompbiol/feed/atom"
+    tags: ["computational-biology", "journal"]
+    bucket: "ai_bio"
+
+  - name: "Bioinformatics (OUP)"
+    url: "https://academic.oup.com/rss/site_5504/3823.xml"
+    tags: ["bioinformatics", "computational", "journal"]
+    bucket: "ai_bio"
+
+  # ── arXiv ─────────────────────────────────────────────────────────────────────
+  - name: "arXiv q-bio.GN (Genomics)"
+    url: "https://arxiv.org/rss/q-bio.GN"
+    tags: ["genomics", "metagenomics", "preprint", "arxiv"]
+    bucket: "ai_bio"
+
+  - name: "arXiv q-bio.PE (Populations & Evolution)"
+    url: "https://arxiv.org/rss/q-bio.PE"
+    tags: ["microbial-ecology", "evolution", "preprint", "arxiv"]
+    bucket: "ai_bio"
+
   - name: "arXiv cs.LG (AI/ML)"
     url: "https://arxiv.org/rss/cs.LG"
     tags: ["machine-learning", "arxiv"]
     bucket: "ai_bio"
 
-  # ── Industry & news (capped) ───────────────────────────────────────────────
-  - name: "Endpoints News"
-    url: "https://endpts.com/feed/"
-    tags: ["biotech", "industry"]
-    bucket: "ai_bio"
-
-  - name: "Quanta Magazine"
-    url: "https://www.quantamagazine.org/feed/"
-    tags: ["math", "science"]
+  # ── News & outreach ───────────────────────────────────────────────────────────
+  - name: "Gut Microbiota for Health"
+    url: "https://www.gutmicrobiotaforhealth.com/feed/"
+    tags: ["microbiome", "outreach", "news"]
     bucket: "daily"
 
-  # ── Key researchers — protein / antibody / enzyme design ──────────────────
-  # Note: URLs use HTTPS and are fetched via requests (not feedparser's built-in
-  # fetcher) to avoid arXiv API 400 errors on HTTP→HTTPS redirects.
-  - name: "Sergey Ovchinnikov (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Sergey+Ovchinnikov%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-design", "author"]
-    bucket: "protein"
-
-  - name: "Brian Hie (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Brian+Hie%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-LLM", "evolution", "author"]
-    bucket: "protein"
-
-  - name: "Charlotte Deane (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Charlotte+M.+Deane%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["antibody-design", "author"]
-    bucket: "protein"
-
-  - name: "Jeffrey Gray (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Jeffrey+J.+Gray%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["antibody-design", "rosetta", "author"]
-    bucket: "protein"
-
-  - name: "Noelia Ferruz (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Noelia+Ferruz%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-LLM", "enzyme-design", "author"]
-    bucket: "protein"
-
-  - name: "Debora Marks (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Debora+Marks%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-evolution", "fitness-landscape", "author"]
-    bucket: "protein"
-
-  - name: "Kevin Yang (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Kevin+K.+Yang%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-engineering", "directed-evolution", "author"]
-    bucket: "protein"
-
-  - name: "Yaron Lipman (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Yaron+Lipman%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["diffusion", "protein-design", "author"]
-    bucket: "protein"
-
-  - name: "Jure Leskovec (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Jure+Leskovec%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["graph-learning", "bio-ml", "author"]
-    bucket: "ai_bio"
-
-  - name: "Regina Barzilay (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Regina+Barzilay%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["ai-biomed", "author"]
-    bucket: "ai_bio"
-
-  - name: "Bonnie Berger (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Bonnie+Berger%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["computational-biology", "author"]
-    bucket: "ai_bio"
-
-  - name: "Tommi Jaakkola (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Tommi+Jaakkola%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["machine-learning", "bio-ml", "author"]
-    bucket: "ai_bio"
-
-  # ── 🇺🇸 US — MIT ────────────────────────────────────────────────────────────
-  - name: "Tess Smidt (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Tess+Smidt%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["equivariant-nn", "protein-design", "author"]
-    bucket: "protein"
-
-  - name: "Alexandre Rives (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Alexander+Rives%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-LLM", "author"]
-    bucket: "protein"
-
-  - name: "Amy Keating (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Amy+E.+Keating%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-design", "protein-interaction", "author"]
-    bucket: "protein"
-
-  - name: "Yilun Du (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Yilun+Du%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["diffusion", "generative-model", "author"]
-    bucket: "ai_bio"
-
-  # ── 🇺🇸 US — Harvard ─────────────────────────────────────────────────────────
-  - name: "Marinka Zitnik (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Marinka+Zitnik%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["graph-ml", "bio-ml", "author"]
-    bucket: "ai_bio"
-
-  - name: "Nicholas Polizzi (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Nicholas+Polizzi%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-design", "author"]
-    bucket: "protein"
-
-  # ── 🇺🇸 US — Stanford ────────────────────────────────────────────────────────
-  - name: "Po-Ssu Huang (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Po-Ssu+Huang%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-design", "author"]
-    bucket: "protein"
-
-  - name: "Rhiju Das (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Rhiju+Das%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["rna-design", "protein-design", "author"]
-    bucket: "protein"
-
-  - name: "Brian Trippe (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Brian+L.+Trippe%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["diffusion", "protein-design", "author"]
-    bucket: "protein"
-
-  - name: "Ron Dror (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Ron+O.+Dror%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["molecular-simulation", "protein-design", "author"]
-    bucket: "protein"
-
-  - name: "James Zou (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22James+Zou%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["ml-biology", "author"]
-    bucket: "ai_bio"
-
-  # ── 🇺🇸 US — University of Washington ────────────────────────────────────────
-  - name: "David Baker (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22David+Baker%22+AND+%28protein+OR+design%29&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-design", "author"]
-    bucket: "protein"
-
-  - name: "Frank DiMaio (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Frank+DiMaio%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-design", "structure-determination", "author"]
-    bucket: "protein"
-
-  - name: "Gaurav Bhardwaj (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Gaurav+Bhardwaj%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-design", "author"]
-    bucket: "protein"
-
-  - name: "Neil King (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Neil+P.+King%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-design", "nanotechnology", "author"]
-    bucket: "protein"
-
-  # ── 🇺🇸 US — UCSF ────────────────────────────────────────────────────────────
-  - name: "Tanja Kortemme (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Tanja+Kortemme%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-design", "author"]
-    bucket: "protein"
-
-  - name: "William DeGrado (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22William+F.+DeGrado%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-design", "author"]
-    bucket: "protein"
-
-  # ── 🇺🇸 US — UC Berkeley ──────────────────────────────────────────────────────
-  - name: "Jennifer Listgarten (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Jennifer+Listgarten%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["ml-biology", "protein-engineering", "author"]
-    bucket: "protein"
-
-  - name: "Yun Song (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Yun+S.+Song%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["computational-biology", "author"]
-    bucket: "ai_bio"
-
-  # ── 🇺🇸 US — Caltech ─────────────────────────────────────────────────────────
-  - name: "Frances Arnold (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Frances+H.+Arnold%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["directed-evolution", "enzyme-design", "author"]
-    bucket: "protein"
-
-  - name: "Yisong Yue (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Yisong+Yue%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["machine-learning", "bio-ml", "author"]
-    bucket: "ai_bio"
-
-  # ── 🇺🇸 US — University of Chicago ───────────────────────────────────────────
-  - name: "Rama Ranganathan (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Rama+Ranganathan%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-evolution", "fitness-landscape", "author"]
-    bucket: "protein"
-
-  - name: "Andrew Ferguson (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Andrew+L.+Ferguson%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-design", "ml-biology", "author"]
-    bucket: "protein"
-
-  # ── 🇺🇸 US — Princeton / Duke / Columbia / NYU / Northwestern ────────────────
-  - name: "Ellen Zhong (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Ellen+D.+Zhong%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["cryo-em", "protein-structure", "author"]
-    bucket: "protein"
-
-  - name: "Alexander Tong (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Alexander+Tong%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["flow-matching", "generative-model", "author"]
-    bucket: "protein"
-
-  - name: "Mohammed AlQuraishi (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Mohammed+AlQuraishi%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-structure", "protein-design", "author"]
-    bucket: "protein"
-
-  - name: "Kyunghyun Cho (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Kyunghyun+Cho%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["machine-learning", "bio-ml", "author"]
-    bucket: "ai_bio"
-
-  - name: "Andrew Gordon Wilson (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Andrew+Gordon+Wilson%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["bayesian-ml", "author"]
-    bucket: "ai_bio"
-
-  - name: "Gabriel Rocklin (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Gabriel+J.+Rocklin%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-stability", "protein-design", "author"]
-    bucket: "protein"
-
-  - name: "Wengong Jin (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Wengong+Jin%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["molecular-design", "graph-ml", "author"]
-    bucket: "ai_bio"
-
-  - name: "Brian Kuhlman (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Brian+Kuhlman%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-design", "author"]
-    bucket: "protein"
-
-  - name: "Pranam Chatterjee (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Pranam+Chatterjee%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-editing", "protein-design", "author"]
-    bucket: "protein"
-
-  # ── 🇨🇭 Switzerland — ETH / EPFL ─────────────────────────────────────────────
-  - name: "Donald Hilvert (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Donald+Hilvert%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["enzyme-design", "author"]
-    bucket: "protein"
-
-  - name: "Bruno Correia (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Bruno+E.+Correia%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-design", "vaccine-design", "author"]
-    bucket: "protein"
-
-  - name: "Anne-Florence Bitbol (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Anne-Florence+Bitbol%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-evolution", "coevolution", "author"]
-    bucket: "protein"
-
-  # ── 🇨🇦 Canada ────────────────────────────────────────────────────────────────
-  - name: "Jian Tang (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Jian+Tang%22+AND+%28protein+OR+molecule+OR+drug%29&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["molecular-design", "graph-ml", "author"]
-    bucket: "ai_bio"
-
-  - name: "Philip Kim (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Philip+M.+Kim%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-design", "author"]
-    bucket: "protein"
-
-  # ── 🇬🇧 UK ────────────────────────────────────────────────────────────────────
-  - name: "Michael Bronstein (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Michael+M.+Bronstein%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["geometric-dl", "bio-ml", "author"]
-    bucket: "ai_bio"
-
-  - name: "Yarin Gal (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Yarin+Gal%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["bayesian-ml", "uncertainty", "author"]
-    bucket: "ai_bio"
-
-  # ── 🇩🇪 Germany ───────────────────────────────────────────────────────────────
-  - name: "Frank Noe (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Frank+No%C3%A9%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["ml-molecular", "diffusion", "author"]
-    bucket: "protein"
-
-  # ── 🇮🇱 Israel ────────────────────────────────────────────────────────────────
-  - name: "Sarel Fleishman (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Sarel+J.+Fleishman%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-design", "author"]
-    bucket: "protein"
-
-  # ── 🇰🇷 South Korea ───────────────────────────────────────────────────────────
-  - name: "Minkyung Baek (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Minkyung+Baek%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-structure", "rosettafold", "author"]
-    bucket: "protein"
-
-  - name: "Martin Steinegger (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Martin+Steinegger%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-structure", "sequence-analysis", "author"]
-    bucket: "protein"
-
-  # ── 🇩🇰 Denmark ───────────────────────────────────────────────────────────────
-  - name: "Kresten Lindorff-Larsen (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Kresten+Lindorff-Larsen%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-dynamics", "protein-design", "author"]
-    bucket: "protein"
-
-  # ── 🇸🇪 Sweden ────────────────────────────────────────────────────────────────
-  - name: "Patrick Bryant (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Patrick+Bryant%22&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-structure", "protein-design", "author"]
-    bucket: "protein"
-
-  # ── 🇸🇬 Singapore ─────────────────────────────────────────────────────────────
-  - name: "Yang Zhang (arXiv)"
-    url: "https://export.arxiv.org/api/query?search_query=au:%22Yang+Zhang%22+AND+%28protein+structure+OR+threading%29&sortBy=submittedDate&sortOrder=descending&max_results=10"
-    tags: ["protein-structure", "author"]
-    bucket: "protein"
-
-  # ── Blogs & Substacks ──────────────────────────────────────────────────────
-  - name: "A-Alpha Bio (To Affinity And Beyond)"
-    url: "https://aalphabio.substack.com/feed"
-    tags: ["protein-design", "antibody-design", "substack", "author"]
-    bucket: "protein"
-
-  - name: "Owl Posting (Abhishaike Mahajan)"
-    url: "https://www.owlposting.com/feed"
-    tags: ["machine-learning", "biology", "substack", "author"]
-    bucket: "ai_bio"
-
-  - name: "Asimov Press"
-    url: "https://www.asimov.press/feed"
-    tags: ["biology", "science-writing", "substack", "author"]
-    bucket: "ai_bio"
-
-  - name: "Levitate Bio Blog"
-    url: "https://levitate.bio/resources/blog/"
-    tags: ["protein-design", "biotech", "blog", "author"]
-    bucket: "protein"
-
-  - name: "BLOPIG (Oxford Protein Informatics Group)"
-    url: "https://www.blopig.com/blog/feed/"
-    tags: ["protein-design", "antibody-design", "structural-biology", "author"]
-    bucket: "protein"
-
-  - name: "In the Pipeline (Derek Lowe)"
-    url: "https://www.science.org/digital-feed/pipeline"
-    tags: ["drug-discovery", "biotech", "author"]
-    bucket: "ai_bio"
+  - name: "ISAPP Science"
+    url: "https://isappscience.org/feed/"
+    tags: ["probiotics", "prebiotics", "science-communication"]
+    bucket: "daily"
 
 pubmed:
   enabled: true
@@ -479,48 +194,48 @@ pubmed:
   bucket: "protein"
   tags: ["pubmed", "journal", "biology"]
   search_terms:
-    # Cat 1 — Reviews (core design areas)
-    - "de novo protein design"
-    - "computational protein design"
-    - "protein design deep learning"
-    - "peptide design machine learning"
-    - "de novo peptide design"
-    - "protein binder design"
-    # Cat 2 — Model-based design (structure prediction)
-    - "protein structure prediction deep learning"
-    - "AlphaFold structure prediction"
-    - "RoseTTAFold protein structure"
-    - "protein hallucination design"
-    # Cat 3 — Function to Scaffold (backbone/scaffold generation)
-    - "protein backbone design diffusion"
-    - "protein scaffold design generative"
-    - "flow matching protein design"
-    - "score-based protein structure generation"
-    # Cat 4 — Scaffold to Sequence (inverse folding — biggest gap)
-    - "inverse protein folding"
-    - "fixed backbone protein sequence design"
-    - "protein sequence design graph neural network"
-    # Cat 5 — Function to Sequence
-    - "protein language model"
-    - "protein sequence generation generative"
-    - "autoregressive protein design"
-    - "diffusion model protein sequence"
-    # Cat 6 — Function to Structure
-    - "diffusion model protein structure"
-    # Cat 7 — Other (PLM, fitness, mutations)
-    - "protein representation learning"
-    - "protein mutation effect prediction"
-    - "protein fitness landscape"
-    - "protein directed evolution machine learning"
-    # Antibody design
-    - "antibody design machine learning"
-    - "antibody engineering computational"
-    - "nanobody design"
-    - "therapeutic antibody optimization"
-    # Enzyme design
-    - "enzyme design computational"
-    - "enzyme engineering directed evolution"
-    - "de novo enzyme design"
+    # Core gut microbiota
+    - "gut microbiota"
+    - "gut microbiome"
+    - "intestinal microbiota"
+    - "intestinal microbiome"
+    # Metabolism & metabolites
+    - "gut microbiome metabolism"
+    - "short-chain fatty acids gut microbiota"
+    - "butyrate gut microbiota"
+    - "microbiome metabolomics"
+    - "gut microbiome bile acids"
+    - "microbial metabolites host"
+    # Host-microbiome interactions
+    - "host-microbiome interaction"
+    - "gut microbiota immunity"
+    - "microbiota intestinal barrier"
+    - "gut epithelial barrier microbiome"
+    - "gut-brain axis microbiome"
+    - "microbiota inflammation"
+    - "microbiome immune system"
+    # Disease
+    - "gut microbiome inflammatory bowel disease"
+    - "microbiome colorectal cancer"
+    - "gut microbiota obesity"
+    - "gut microbiota type 2 diabetes"
+    - "microbiome liver disease"
+    # Interventions
+    - "fecal microbiota transplantation"
+    - "probiotics clinical trial"
+    - "prebiotics gut microbiota"
+    - "dietary fiber gut microbiota"
+    # Methods
+    - "shotgun metagenomics gut"
+    - "16S rRNA gut microbiome"
+    - "metatranscriptomics gut microbiome"
+    - "multi-omics gut microbiome"
+    - "metagenome-assembled genomes gut"
+    # Specific organisms
+    - "Akkermansia muciniphila"
+    - "Faecalibacterium prausnitzii"
+    # Computational
+    - "machine learning microbiome"
 
 biorxiv_keywords:
   enabled: true
@@ -550,111 +265,13 @@ podcast:
     use_merge_llm: false
 
 biorxiv_authors:
-  enabled: true
+  enabled: false
   lookback_days: 3
-  authors:
-    # ── Baker lab / UW Seattle ───────────────────────────────────────────────
-    - name: "David Baker"
-      match: "Baker, D"
-      institution: "Washington"   # disambiguate from other D. Bakers
-    - name: "Frank DiMaio"
-      match: "DiMaio, F"
-    - name: "Gaurav Bhardwaj"
-      match: "Bhardwaj, G"
-    - name: "Neil King"
-      match: "King, N"
-      institution: "Washington"
-    - name: "Brian Trippe"
-      match: "Trippe, B"
-    # ── UCSF / Kortemme ─────────────────────────────────────────────────────
-    - name: "Tanja Kortemme"
-      match: "Kortemme, T"
-    - name: "William DeGrado"
-      match: "DeGrado, W"
-    # ── Weizmann / Fleishman ─────────────────────────────────────────────────
-    - name: "Sarel Fleishman"
-      match: "Fleishman, S"
-    # ── EPFL / Correia ───────────────────────────────────────────────────────
-    - name: "Bruno Correia"
-      match: "Correia, B"
-      institution: "Lausanne"
-    # ── ETH Zurich / Hilvert ─────────────────────────────────────────────────
-    - name: "Donald Hilvert"
-      match: "Hilvert, D"
-    # ── Stanford ─────────────────────────────────────────────────────────────
-    - name: "Po-Ssu Huang"
-      match: "Huang, P"
-      institution: "Stanford"
-    - name: "Ron Dror"
-      match: "Dror, R"
-    - name: "Rhiju Das"
-      match: "Das, R"
-      institution: "Stanford"
-    # ── MIT / Barzilay / Jaakkola / Berger ───────────────────────────────────
-    - name: "Regina Barzilay"
-      match: "Barzilay, R"
-    - name: "Tommi Jaakkola"
-      match: "Jaakkola, T"
-    - name: "Bonnie Berger"
-      match: "Berger, B"
-      institution: "MIT"
-    # ── Harvard / Keating / Marks ────────────────────────────────────────────
-    - name: "Amy Keating"
-      match: "Keating, A"
-      institution: "MIT"
-    - name: "Debora Marks"
-      match: "Marks, D"
-      institution: "Harvard"
-    # ── UNC / Kuhlman ────────────────────────────────────────────────────────
-    - name: "Brian Kuhlman"
-      match: "Kuhlman, B"
-    # ── Caltech / Arnold ─────────────────────────────────────────────────────
-    - name: "Frances Arnold"
-      match: "Arnold, F"
-      institution: "Caltech"
-    # ── Seoul National / Baek / Steinegger ───────────────────────────────────
-    - name: "Minkyung Baek"
-      match: "Baek, M"
-      institution: "Seoul"
-    - name: "Martin Steinegger"
-      match: "Steinegger, M"
-    # ── Copenhagen / Lindorff-Larsen ─────────────────────────────────────────
-    - name: "Kresten Lindorff-Larsen"
-      match: "Lindorff-Larsen, K"
-    # ── Oxford / Deane ───────────────────────────────────────────────────────
-    - name: "Charlotte Deane"
-      match: "Deane, C"
-    # ── Johns Hopkins / Gray ─────────────────────────────────────────────────
-    - name: "Jeffrey Gray"
-      match: "Gray, J"
-      institution: "Hopkins"
-    # ── Northwestern / Rocklin ───────────────────────────────────────────────
-    - name: "Gabriel Rocklin"
-      match: "Rocklin, G"
-    # ── Columbia / Ranganathan ───────────────────────────────────────────────
-    - name: "Rama Ranganathan"
-      match: "Ranganathan, R"
-      institution: "Columbia"
-    # ── Berkeley / Song ──────────────────────────────────────────────────────
-    - name: "Yun Song"
-      match: "Song, Y"
-      institution: "Berkeley"
-    # ── Toronto / Philip Kim ─────────────────────────────────────────────────
-    - name: "Philip Kim"
-      match: "Kim, P"
-      institution: "Toronto"
-    # ── Pranam Chatterjee ────────────────────────────────────────────────────
-    - name: "Pranam Chatterjee"
-      match: "Chatterjee, P"
-    # ── Nicholas Polizzi ─────────────────────────────────────────────────────
-    - name: "Nicholas Polizzi"
-      match: "Polizzi, N"
-    # ── Frank Noe ────────────────────────────────────────────────────────────
-    - name: "Frank Noe"
-      match: "Noe, F"
-    # ── Anne-Florence Bitbol ─────────────────────────────────────────────────
-    - name: "Anne-Florence Bitbol"
-      match: "Bitbol, A"
+  authors: []
+  # Add key researchers in your field here. Example:
+  # - name: "Researcher Name"
+  #   match: "Surname, F"
+  #   institution: "University"   # optional, helps disambiguate common names
 
 publish:
   enabled: true
@@ -672,110 +289,109 @@ llm:
 
 ranking:
   # Papers whose titles contain any of these are treated as absolute priority
-  # (same tier as tracked author feeds). Use for landmark tools / model families.
+  # (same tier as tracked author feeds). Use for landmark databases / methods.
   absolute_title_keywords:
-    - "AlphaFold"
-    - "RoseTTAFold"
-    - "ESMFold"
-    - "RFdiffusion"
-    - "ProteinMPNN"
-    - "LigandMPNN"
-    - "OpenFold"
-    - "OmegaFold"
-    - "Chai-1"
-    - "Boltz"
-    - "EvoDiff"
-    - "Chroma"
-    - "structure prediction"
+    - "gut microbiota"
+    - "gut microbiome"
+    - "intestinal microbiota"
+    - "intestinal microbiome"
+    - "Akkermansia"
+    - "Faecalibacterium"
+    - "fecal microbiota transplant"
+    - "dysbiosis"
 
-  absolute_source_substrings:
-    # Original
-    - "sergey ovchinnikov"
-    - "charlotte deane"
-    - "jeffrey gray"
-    - "noelia ferruz"
-    - "debora marks"
-    - "kevin yang"
-    - "yaron lipman"
-    # 🇺🇸 US — top priority
-    - "david baker"
-    - "tanja kortemme"
-    - "william degrado"
-    - "brian hie"
-    - "brian trippe"
-    - "alexander tong"
-    - "mohammed alquraishi"
-    - "ellen zhong"
-    - "po-ssu huang"
-    - "gabriel rocklin"
-    - "tess smidt"
-    - "alexandre rives"
-    - "jennifer listgarten"
-    - "rama ranganathan"
-    - "gaurav bhardwaj"
-    - "frank dimaio"
-    - "pranam chatterjee"
-    # 🇨🇭 Switzerland — top priority
-    - "bruno correia"
-    - "anne-florence bitbol"
-    - "donald hilvert"
+  absolute_source_substrings: []
+  # Add tracked researchers here once defined. Example:
+  # - "researcher surname"
 
   source_priority_rules:
-    - {contains: "nature biotechnology", priority: 1}
-    - {contains: "nature chemical biology", priority: 1}
-    - {contains: "nature structural", priority: 1}
-    - {contains: "structure", priority: 2}
+    - {contains: "nature microbiology", priority: 1}
+    - {contains: "nature reviews microbiology", priority: 1}
+    - {contains: "cell host and microbe", priority: 1}
+    - {contains: "cell host & microbe", priority: 1}
+    - {contains: "microbiome", priority: 1}
+    - {contains: "isme journal", priority: 1}
+    - {contains: "gut microbes", priority: 2}
+    - {contains: "npj biofilms", priority: 2}
+    - {contains: "cell systems", priority: 2}
+    - {contains: "msystems", priority: 2}
     - {contains: "pnas", priority: 2}
-    - {contains: "nature (main journal)", priority: 2}
-    - {contains: "protein science", priority: 3}
+    - {contains: "nature communications", priority: 3}
+    - {contains: "science advances", priority: 3}
+    - {contains: "molecular systems biology", priority: 3}
+    - {contains: "journal of bacteriology", priority: 3}
+    - {contains: "plos computational biology", priority: 4}
+    - {contains: "bioinformatics", priority: 4}
     - {contains: "arxiv", priority: 5}
-    - {contains: "sciencedirect", priority: 6}
 
   # Items whose title or snippet contain any of these keywords are ranked
   # above other items of equal source quality.
   topic_boost_keywords:
-    # Cat 1 — Design areas
-    - "de novo protein"
-    - "peptide design"
-    - "binder design"
-    - "protein binder"
-    - "antibody design"
-    - "antibody engineering"
-    - "nanobody"
-    - "enzyme design"
-    - "enzyme engineering"
-    - "therapeutic antibody"
-    - "protein engineering"
-    - "directed evolution"
-    # Cat 3 — Function to Scaffold
-    - "backbone design"
-    - "scaffold design"
-    - "protein hallucination"
-    - "flow matching"
-    - "diffusion model"
-    # Cat 4 — Scaffold to Sequence
-    - "inverse folding"
-    - "inverse protein folding"
-    - "fixed backbone"
-    - "sequence design"
-    # Cat 5 — Function to Sequence
-    - "protein language model"
-    - "autoregressive protein"
-    # Cat 7 — PLM & fitness
-    - "representation learning"
-    - "fitness landscape"
-    - "protein fitness"
-    - "mutation effect"
-    # Landmark tools
-    - "AlphaFold"
-    - "RoseTTAFold"
-    - "ESMFold"
-    - "ProteinMPNN"
-    - "LigandMPNN"
-    - "RFdiffusion"
-    - "OpenFold"
-    - "OmegaFold"
-    - "Chai-1"
-    - "Boltz"
-    - "EvoDiff"
-    - "Chroma"
+    # Core microbiota
+    - "gut microbiota"
+    - "gut microbiome"
+    - "intestinal microbiota"
+    - "intestinal microbiome"
+    - "microbial community"
+    - "microbiome composition"
+    - "alpha diversity"
+    - "beta diversity"
+    - "dysbiosis"
+    # Metabolism & metabolites
+    - "short-chain fatty acids"
+    - "SCFA"
+    - "butyrate"
+    - "propionate"
+    - "acetate"
+    - "bile acids"
+    - "microbial metabolites"
+    - "microbiome metabolomics"
+    - "tryptophan metabolism"
+    - "indole"
+    # Host interactions
+    - "host-microbiome"
+    - "intestinal barrier"
+    - "gut permeability"
+    - "epithelial barrier"
+    - "tight junction"
+    - "mucus layer"
+    - "mucosal immunity"
+    - "gut immunity"
+    - "gut-brain axis"
+    - "gut inflammation"
+    - "microbial translocation"
+    - "microbiota colonization"
+    # Specific organisms
+    - "Akkermansia"
+    - "Faecalibacterium"
+    - "Bacteroides"
+    - "Bifidobacterium"
+    - "Lactobacillus"
+    - "Prevotella"
+    - "Ruminococcus"
+    - "Clostridium"
+    - "Lachnospiraceae"
+    # Interventions
+    - "fecal microbiota transplant"
+    - "fecal transplant"
+    - "probiotics"
+    - "prebiotics"
+    - "synbiotics"
+    - "dietary fiber"
+    - "dietary intervention"
+    # Methods
+    - "metagenomics"
+    - "16S rRNA"
+    - "metatranscriptomics"
+    - "metaproteomics"
+    - "metagenome-assembled"
+    - "multi-omics"
+    - "microbiome analysis"
+    # Disease associations
+    - "inflammatory bowel disease"
+    - "Crohn's disease"
+    - "ulcerative colitis"
+    - "colorectal cancer"
+    - "obesity microbiome"
+    - "diabetes microbiome"
+    - "metabolic syndrome"
