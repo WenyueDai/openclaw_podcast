@@ -234,6 +234,11 @@
       "note": "DD",
       "title": "RePaRank: An Efficient Architecture for Antibody-Antigen Interface Prediction by Proximity Ranking",
       "source": "bioRxiv — immunology"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.03.03.709280": {
+      "note": "DD",
+      "title": "Evolutionary profile enhancement improves protein function annotation for remote homologs",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
