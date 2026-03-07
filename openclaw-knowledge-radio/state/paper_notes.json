@@ -255,5 +255,12 @@
       "title": "Towards building a World Model to simulate perturbation-induced cellular dynamics by AlphaCell",
       "source": "bioRxiv — bioinformatics"
     }
+  },
+  "2026-03-07": {
+    "https://www.biorxiv.org/content/10.64898/2026.03.02.709114": {
+      "note": "DD",
+      "title": "A framework for testing structural hypotheses of protein dynamics against experimental HDX-MS data",
+      "source": "Charlotte Deane (bioRxiv)"
+    }
   }
 }
