@@ -1,0 +1,366 @@
+{
+  "timestamps": [
+    0.0,
+    46.6,
+    98.15,
+    146.29,
+    197.17,
+    246.05,
+    429.46,
+    482.28,
+    601.14,
+    661.79,
+    709.83,
+    753.58,
+    802.01,
+    857.88,
+    910.74,
+    958.91,
+    1002.27,
+    1052.14,
+    1105.08,
+    1154.88,
+    1197.69,
+    1250.94,
+    1405.5,
+    1568.72,
+    1691.64,
+    1820.23,
+    1941.4,
+    1988.82,
+    2133.94,
+    2253.39,
+    2306.4,
+    2459.11,
+    2497.86,
+    2549.15,
+    2598.66,
+    2641.08,
+    2690.76,
+    2742.62,
+    2790.47,
+    2934.78
+  ],
+  "items": [
+    {
+      "title": "A framework for testing structural hypotheses of protein dynamics against experimental HDX-MS data",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.02.709114",
+      "source": "Charlotte Deane (bioRxiv)",
+      "one_liner": "Protein dynamics determine biological function, yet extracting structural ensembles from Hydrogen-Deuterium Exchange Mass Spectrometry (HDX-MS) remains a challenging inverse problem. Current ensemble-fitting approaches often achieve good agreement with uptake curves but lack rigorous validation and uncertainty quantification, limiting structural confidence. We propose ValDX, a validation framework",
+      "segment": 0,
+      "timestamp": 0.0
+    },
+    {
+      "title": "Dupeless Reeducation",
+      "url": "https://www.science.org/content/blog-post/dupeless-reeducation",
+      "source": "In the Pipeline (Derek Lowe)",
+      "one_liner": "",
+      "segment": 1,
+      "timestamp": 46.6
+    },
+    {
+      "title": "EpiExpr: Predicting gene expression using epigenetic data and chromatin interactions",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.02.06.704509",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Decoding gene expression from epigenomic landscapes remains a fundamental challenge in genomics. We introduce EpiExpr, a flexible deep learning framework that predicts gene expression from 1D epigenetic tracks (EpiExpr-1D) and integrates 3D chromatin interactions (EpiExpr-3D) to capture distal regulatory effects. Leveraging residual convolutional networks...",
+      "segment": 2,
+      "timestamp": 98.15
+    },
+    {
+      "title": "Gold Nanoparticle Immunochromatography Assay for Identification of Acetaminophen Adulterant in Herbal Tea.",
+      "url": "https://doi.org/10.1021/acs.jafc.5c17229",
+      "source": "PubMed — Journal of agricultural and food chemistry",
+      "one_liner": "Acetaminophen (APAP), a medicinal drug, is illegally added to herbal tea, which poses health risks. This study developed a rapid on-site detection method. Through rational hapten design and computational chemistry, a high-affinity monoclonal antibody with an IC",
+      "segment": 3,
+      "timestamp": 146.29
+    },
+    {
+      "title": "An Energy Landscape Approach to Miniaturizing Enzymes using Protein Language Model Embeddings",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.04.709378",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "We present a general approach to find amino acid sequences corresponding to the most compact enzyme likely to retain the structure of a given catalytic site. Our approach is based on using Monte Carlo (MC) simulations to sample an energy landscape where minima correspond, by construction, to sequences with the aforementioned properties. Building on previo...",
+      "segment": 4,
+      "timestamp": 197.17
+    },
+    {
+      "title": "AbAffinity: A Large Language Model for Predicting Antibody Binding Affinity against SARS-CoV-2",
+      "url": "https://arxiv.org/abs/2603.04480",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2603.04480v1 Announce Type: new \nAbstract: Machine learning-based antibody design is emerging as one of the most promising approaches to combat infectious diseases, due to significant advancements in the field of artificial intelligence and an exponential surge in experimental antibody data (in particular related to COVID-19). The ability of an anti...",
+      "segment": 5,
+      "timestamp": 246.05
+    },
+    {
+      "title": "HighRelax: Physics-Based Refinement of Deep Learning Protein Predictions with Noncanonical Amino Acids.",
+      "url": "https://doi.org/10.1021/acs.jctc.5c01807",
+      "source": "PubMed — Journal of chemical theory and computation",
+      "one_liner": "Noncanonical amino acids (NCAAs) have emerged as essential building blocks in protein engineering and peptide drug development owing to their advantages in enhancing metabolic stability, membrane permeability, and resistance to proteolytic degradation. Accurate construction of 3D protein structures containing NCAAs is crucial for elucidating their functio...",
+      "segment": 6,
+      "timestamp": 429.46
+    },
+    {
+      "title": "Mutation Reporter: Protein-Level Identification of Single and Compound Mutations in NGS Data",
+      "url": "https://www.biorxiv.org/content/10.1101/2024.05.30.595736",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Next-generation sequencing (NGS) has accelerated precision medicine by enabling simultaneous analysis of multiple genes and detection of low-frequency mutations. However, few open-source tools allow non-specialized users to transparently adjust quality parameters during mutation analysis. Mutation Reporter was developed to identify both single and compoun...",
+      "segment": 7,
+      "timestamp": 482.28
+    },
+    {
+      "title": "t2pmhc: A Structure-Informed Graph Neural Network to predict TCR-pMHC Binding",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.02.27.708137",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Mapping of T cell receptors (TCRs) to their cognate MHC-presented peptides (pMHC) is central for the development of precision immunotherapies and vaccine design. However, accurate prediction of TCR affinity to peptide antigens remains an open challenge. Most approaches rely solely on sequence information, although increasing evidence suggests that TCR-pMH...",
+      "segment": 8,
+      "timestamp": 601.14
+    },
+    {
+      "title": "Reliable prediction of short linear motifs in the human proteome",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.04.709504",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Short linear motifs (SLiMs) are small, often transient interaction modules within intrinsically disordered regions (IDRs) of proteins that interact with particular domains and thereby regulate numerous biological processes. The limited sequence information within these short peptides leads to frequent false positive hits in both computational and experime...",
+      "segment": 9,
+      "timestamp": 661.79
+    },
+    {
+      "title": "What Do Biological Foundation Models Compute? Sparse Autoencoders from Feature Recovery to Mechanistic Interpretability",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.04.709491",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Foundation models trained on protein and DNA sequences are increasingly deployed for variant interpretation, drug design, and gene regulation prediction, yet their internal representations remain opaque, limiting both biological insight and trust in model-guided decisions. Existing interpretation approaches establish what these models encode but cannot re...",
+      "segment": 10,
+      "timestamp": 709.83
+    },
+    {
+      "title": "In silico drug repurposing and in vitro validation of cestode fatty acid binding proteins",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.04.709508",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Echinococcosis is a Neglected Tropical Disease (NTD) caused by Echinococcus granulosus and Echinococcus multilocularis, the etiological agents of cystic and alveolar echinococcosis, respectively. These infections pose a significant public health burden, particularly in endemic regions. Cestodes lack key enzymes involved in lipid metabolism and must acquir...",
+      "segment": 11,
+      "timestamp": 753.58
+    },
+    {
+      "title": "From variability to consensus: rescoring harmonizes peptide identification across diverse search engines and datasets",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.04.709532",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Peptide-spectrum match (PSM) rescoring has become standard in proteomics workflows, improving peptide identification accuracy across diverse search engines. Despite the availability of multiple rescoring strategies, systematic comparisons spanning several search engines, datasets, and database configurations remain limited. Here, we benchmarked seven publ...",
+      "segment": 12,
+      "timestamp": 802.01
+    },
+    {
+      "title": "Minimal Amino Acid Alphabet for Protein Design",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.06.710107",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Proteins are built from 20 canonical amino acids. It is interesting to explore whether proteins can be formed from significantly reduced amino acid alphabets. Our bioinformatics survey of UniProt (more than 250 M sequences) revealed that proteins composed of reduced amino acid alphabets (<~10) are extremely rare among existing proteins. Next, we used comp...",
+      "segment": 13,
+      "timestamp": 857.88
+    },
+    {
+      "title": "GWAS Summary Statistic Tool: A Meta-Analysis and Parsing Tool for Polygenic Risk Score Calculation",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.04.709666",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Motivation: GWAS (genome-wide association study) summary statistic files are essential inputs for polygenic risk score (PRS) calculation, yet identifying suitable files across thousands of catalog entries requires downloading large files and manually inspecting their column structures---a process that is time-consuming and storage-intensive. Results:We pr...",
+      "segment": 14,
+      "timestamp": 910.74
+    },
+    {
+      "title": "Early Identification of At-Risk Patients: ProteomicSignature Predicts Progression to DecompensatedCirrhosis",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.04.709475",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Background & Aims: Early identification of decompensation in patients with cirrhosis is important to enable timely detection, management of complications and for effective treatment. This study investigates the biology of decompensation and aim to identify protein biomarkers for identification of high-risk patients. Methods: The primary analysis included ...",
+      "segment": 15,
+      "timestamp": 958.91
+    },
+    {
+      "title": "GalNAc-T13 maintains neurite architecture and memory retention via O-GalNAc glycosylation of seizure protein 6.",
+      "url": "https://doi.org/10.1073/pnas.2508476123",
+      "source": "PubMed — Proceedings of the National Academy of Sciences of the United States of America",
+      "one_liner": "Glycosylation, a key and prevalent modification in brain proteins and lipids, is essential for brain development and function. O-GalNAc glycosylation, initiated by the family of polypeptide N-acetylgalactosaminyltransferases (GalNAc-Ts,",
+      "segment": 16,
+      "timestamp": 1002.27
+    },
+    {
+      "title": "Primary biomolecular adsorption energetics of core-shell nanocomplexes: Implications for biological interactions.",
+      "url": "https://doi.org/10.1073/pnas.2535339123",
+      "source": "PubMed — Proceedings of the National Academy of Sciences of the United States of America",
+      "one_liner": "Molecular organization at the nano-bio interface governing the colloidal stability, reactivity, immune recognition, and drug delivery performance of nanoparticles remains difficult to predict. Quantifying the primary hydration energetics of biomolecule-coated nanomaterials can determine those interactions and provide a basis for engineered nanocarriers wi...",
+      "segment": 17,
+      "timestamp": 1052.14
+    },
+    {
+      "title": "Dissecting spatial patterning and signaling with directional diffusion in spatial multi-omics.",
+      "url": "https://doi.org/10.1073/pnas.2517283123",
+      "source": "PubMed — Proceedings of the National Academy of Sciences of the United States of America",
+      "one_liner": "Spatial multi-omics sequencing enables the simultaneous profiling of transcriptomics, proteomics, and epigenomics at a spatial resolution, offering insights into complex tissue organization and molecular regulation. However, the effective integration of multiple omics modalities in a spatial context remains a major challenge. Here, we present SpaDDM, a sp...",
+      "segment": 18,
+      "timestamp": 1105.08
+    },
+    {
+      "title": "Unveiling hidden intermediate states in protein folding with AI-based conditional transition clustering.",
+      "url": "https://doi.org/10.1073/pnas.2531221123",
+      "source": "PubMed — Proceedings of the National Academy of Sciences of the United States of America",
+      "one_liner": "Revealing the complex mechanisms of protein folding, including the transient intermediate states that govern the process, is a fundamental goal in computational biophysics. While molecular dynamics (MD) simulations generate vast amounts of data to this end, extracting a clear kinetic model from these complex, high-dimensional trajectories remains a signif...",
+      "segment": 19,
+      "timestamp": 1154.88
+    },
+    {
+      "title": "Solution Architecture of Ancestral Cytochrome P450 Reductase Lipoprotein Nanodiscs.",
+      "url": "https://doi.org/10.1021/acs.biochem.5c00728",
+      "source": "PubMed — Biochemistry",
+      "one_liner": "Microsomal cytochromes P450 (CYPs) require electrons transferred from NADPH by cytochrome P450 reductase (CPR) to support O",
+      "segment": 20,
+      "timestamp": 1197.69
+    },
+    {
+      "title": "Understanding the direct and indirect impacts of disease response phenotypes on chicken coccidiosis epidemiology: A modelling approach.",
+      "url": "https://doi.org/10.1371/journal.pone.0343712",
+      "source": "PubMed — PloS one",
+      "one_liner": "Coccidiosis, a widespread disease in poultry caused by protozoan parasites of the genus Eimeria, leads to significant economic losses. The increasing resistance of Eimeria species to anti-parasitics, combined with the high cost of vaccines, underscores the need for alternative intervention strategies against coccidiosis. This article explores the relative...",
+      "segment": 21,
+      "timestamp": 1250.94
+    },
+    {
+      "title": "Immunoinformatics approach to engineer a multi-epitope vaccine against SdrG in skin commensal Staphylococcus epidermidis.",
+      "url": "https://doi.org/10.1371/journal.pone.0327534",
+      "source": "PubMed — PloS one",
+      "one_liner": "The human skin serves as a dynamic ecosystem for beneficial commensal bacteria such as Staphylococcus epidermidis, which play a crucial role in maintaining skin barrier integrity and modulating immune responses. Remarkably, recent research has demonstrated that the skin can function as a natural vaccination site, producing specific antibodies against comm...",
+      "segment": 22,
+      "timestamp": 1405.5
+    },
+    {
+      "title": "Salmonella enterica persister cells exhibit distinct susceptibility profiles following exposure to human serum and macrophages.",
+      "url": "https://doi.org/10.1371/journal.pone.0343532",
+      "source": "PubMed — PloS one",
+      "one_liner": "Salmonella enterica, particularly non-typhoidal serovars (NTS), is a leading cause of foodborne illness, with invasive infections posing high mortality risks in developing countries. Fluoroquinolones and third-generation cephalosporins, such as ceftazidime (CAZ), are used to treat severe infections, yet they are facing concerning rates of antimicrobial re...",
+      "segment": 23,
+      "timestamp": 1568.72
+    },
+    {
+      "title": "Detection of spike protein in term placentas of COVID-19 vaccinated and/or SARS-CoV-2 infected women.",
+      "url": "https://doi.org/10.1371/journal.pone.0344185",
+      "source": "PubMed — PloS one",
+      "one_liner": "INTRODUCTION: COVID-19 (Corona Virus Induced Disease-19) caused by the SARS-CoV-2 coronavirus can be a serious in pregnancy. Therefore, vaccination with modRNA vaccines was recommended depending on the immunity status for women of reproductive age and pregnant women since 2022. However, there are only preliminary data on transplacental transmission of the...",
+      "segment": 24,
+      "timestamp": 1691.64
+    },
+    {
+      "title": "Gonococcal outer membrane vesicle vaccines: bacterial population biology, clinical trials, immune profiling, and vaccine design.",
+      "url": "https://doi.org/10.1038/s41541-026-01410-2",
+      "source": "PubMed — NPJ vaccines",
+      "one_liner": "Gonorrhoea is a global health concern exacerbated by rising antimicrobial resistance. Retrospective analyses indicate that outer membrane vesicle (OMV) vaccines derived from Neisseria meningitidis (MeNZB, 4CMenB) may offer partial cross-protection against gonococcal infection. This review outlines the influence of gonococcal population biology on coverage...",
+      "segment": 25,
+      "timestamp": 1820.23
+    },
+    {
+      "title": "Peripheral rotavirus-specific T-cell responses following monovalent oral rotavirus vaccine in infants.",
+      "url": "https://doi.org/10.1038/s41541-026-01405-z",
+      "source": "PubMed — NPJ vaccines",
+      "one_liner": "Despite evidence of varying vaccine effectiveness, T cell responses to rotavirus (RV) vaccines remain incompletely studied. To address this research gap, RV-specific T cells in the blood of infants pre- and post-monovalent RV vaccination (RV1) were analyzed for memory recall and functionality using RV-specific peptide pool stimulation. We find that RV vac...",
+      "segment": 26,
+      "timestamp": 1941.4
+    },
+    {
+      "title": "An oral Eimeria-vectored vaccine induces protective immunity against chicken infectious anemia.",
+      "url": "https://doi.org/10.1038/s41541-026-01416-w",
+      "source": "PubMed — NPJ vaccines",
+      "one_liner": "Effective mucosal vaccines are critical for controlling infectious diseases in poultry, yet limitations in antigen delivery systems hinder their development. Here, we present a transgenic Eimeria tenella platform engineered to express multicopy viral capsid protein 1 (VP1) and viral capsid protein 2 (VP2) antigens of chicken infectious anemia virus (CIAV)...",
+      "segment": 27,
+      "timestamp": 1988.82
+    },
+    {
+      "title": "Qualitative analysis of genomic mutations and antibiotic susceptibility testing of Pseudomonas aeruginosa isolates from chronic lung infections.",
+      "url": "https://doi.org/10.1371/journal.pone.0341613",
+      "source": "PubMed — PloS one",
+      "one_liner": "P. aeruginosa is intrinsically resistant to many antibiotics and may acquire resistance to others. The aim was to reconcile phenotypic resistance of isolates obtained from patients with chronic respiratory infection with the results of WGS. A total of 497 isolates were recovered from 4 countries between 2002 and 2016 from patients chronic pulmonary condit...",
+      "segment": 28,
+      "timestamp": 2133.94
+    },
+    {
+      "title": "A post-translational regulatory map of chronic antigen-driven human T cell dysfunction.",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.04.709614",
+      "source": "bioRxiv — immunology",
+      "one_liner": "T cells exposed to persistent antigen in the context of chronic viral infections or cancer lose self-renewal and cytotoxic capacity. Several transcriptional, epigenetic, and metabolic drivers of this process have been identified. However, the post-transcriptional regulatory mechanisms influencing the proteome of dysfunctional T cells are not well understo...",
+      "segment": 29,
+      "timestamp": 2253.39
+    },
+    {
+      "title": "RNA Dynamics and Interactions Revealed through Atomistic Simulations",
+      "url": "https://arxiv.org/abs/2507.08474",
+      "source": "arXiv q-bio.BM",
+      "one_liner": "arXiv:2507.08474v2 Announce Type: replace-cross \nAbstract: RNA function is deeply intertwined with its conformational dynamics. In this review, we survey recent advances in the use of atomistic molecular dynamics simulations to characterize RNA dynamics in diverse contexts, including isolated molecules and complexes with ions, small molecules, or proteins...",
+      "segment": 30,
+      "timestamp": 2306.4
+    },
+    {
+      "title": "Toll-like receptor signaling outcome is determined by the stoichiometry of the endogenous TRIFosome.",
+      "url": "https://doi.org/10.1126/sciadv.aeb9507",
+      "source": "PubMed — Science advances",
+      "one_liner": "Toll-like receptors (TLRs) drive innate immunity via assembly of macromolecular signal transduction platforms [supramolecular organizing centers (SMOCs)] coordinated by adaptor proteins such as Toll/interleukin-1 receptor (IL-1R) domain-containing adaptor-inducing interferon-β (TRIF), but whether oligomeric TRIFosomes form is unknown. Here, using cryo-ele...",
+      "segment": 31,
+      "timestamp": 2459.11
+    },
+    {
+      "title": "Polycomb repression works without Siesta, the",
+      "url": "https://doi.org/10.1126/sciadv.aec0733",
+      "source": "PubMed — Science advances",
+      "one_liner": "Polycomb group proteins mediate epigenetic repression via multisubunit complexes, including canonical Polycomb Repressive Complex 1 (PRC1), which monoubiquitylates histone H2A and binds histone H3 trimethylated at lysine-27 (H3K27me3). The RING1 subunit of PRC1, critical for H2A ubiquitylation, forms other complexes. These variant RING1 complexes also ubi...",
+      "segment": 32,
+      "timestamp": 2497.86
+    },
+    {
+      "title": "Structural basis of diadinoxanthin-Chl a/b-binding proteins in the photosystem I supercomplex of",
+      "url": "https://doi.org/10.1126/sciadv.aea5561",
+      "source": "PubMed — Science advances",
+      "one_liner": "",
+      "segment": 33,
+      "timestamp": 2549.15
+    },
+    {
+      "title": "Claudin 24-A novel enhancer of AMPA receptor fidelity.",
+      "url": "https://doi.org/10.1126/sciadv.aeb0196",
+      "source": "PubMed — Science advances",
+      "one_liner": "High-fidelity fast excitatory neurotransmission in the mammalian central nervous system is conducted by the AMPA receptor (AMPAR) subfamily of ionotropic glutamate receptors. AMPARs exist as complexes of the pore-lining α subunits GluA1-4 and a number of auxiliary subunits shaping their functional properties. The first discovered family of auxiliary subun...",
+      "segment": 34,
+      "timestamp": 2598.66
+    },
+    {
+      "title": "D-amino acid aminotransferase1 regulates grain chalkiness in rice by modulating endoplasmic reticulum stress response.",
+      "url": "https://doi.org/10.1073/pnas.2519395123",
+      "source": "PubMed — Proceedings of the National Academy of Sciences of the United States of America",
+      "one_liner": "D-amino acids are key components of the bacterial cell wall and play important roles in neural communication and inflammatory responses in animals. However, knowledge about D-amino acid metabolism and physiological functions in plants is limited. Here, we isolated and characterized a rice",
+      "segment": 35,
+      "timestamp": 2641.08
+    },
+    {
+      "title": "Enzyme Kinetic Analysis for the 21st Century.",
+      "url": "https://doi.org/10.1021/acs.biochem.5c00765",
+      "source": "PubMed — Biochemistry",
+      "one_liner": "For much of the 20th century, enzyme kinetic analysis relied on deriving simplified rate equations under the steady-state approximation and later by analytical integration of differential equations for transient kinetics. This approach has since been surpassed by computational methods using numerical integration of rate equations to directly fit experimen...",
+      "segment": 36,
+      "timestamp": 2690.76
+    },
+    {
+      "title": "Rewiring of 3D Enhancer-Promoter Interactome Underlies Diabetic Endothelial Dysfunction",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.03.709273",
+      "source": "bioRxiv — genomics",
+      "one_liner": "Background: Diabetic vascular complications are driven by endothelial dysfunction, yet the role of 3D genome organization in this process is unknown. We sought to define the alterations in chromatin architecture in diabetic endothelium and identify the key regulators involved. Methods: We generated a high-resolution 3D epigenomic atlas of diabetic endothe...",
+      "segment": 37,
+      "timestamp": 2742.62
+    },
+    {
+      "title": "INTENSE: Detecting and disentangling neuronal selectivity in calcium imaging data",
+      "url": "https://arxiv.org/abs/2603.04622",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2603.04622v1 Announce Type: cross \nAbstract: Neurons encode information about the environment through their activity. As animals explore the environment, neurons rapidly acquire selectivity for distinct features of the external world; characterizing how these selectivity patterns emerge, reorganize, and overlap is key to linking neural activity to b...",
+      "segment": 38,
+      "timestamp": 2790.47
+    },
+    {
+      "title": "Spinverse: Differentiable Physics for Permeability-Aware Microstructure Reconstruction from Diffusion MRI",
+      "url": "https://arxiv.org/abs/2603.04638",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2603.04638v1 Announce Type: cross \nAbstract: Diffusion MRI (dMRI) is sensitive to microstructural barriers, yet most existing methods either assume impermeable boundaries or estimate voxel-level parameters without recovering explicit interfaces. We present Spinverse, a permeability-aware reconstruction method that inverts dMRI measurements through a...",
+      "segment": 39,
+      "timestamp": 2934.78
+    }
+  ]
+}
