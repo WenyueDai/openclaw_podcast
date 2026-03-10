@@ -307,6 +307,11 @@
       "note": "DD",
       "title": "Unexpected Applications of AlphaFold in Molecular Sciences.",
       "source": "PubMed — Annual review of biochemistry"
+    },
+    "https://arxiv.org/abs/2603.07710": {
+      "note": "DD",
+      "title": "Reverse Distillation: Consistently Scaling Protein Language Model Representations",
+      "source": "arXiv q-bio.BM"
     }
   }
 }
