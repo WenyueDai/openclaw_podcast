@@ -1,0 +1,366 @@
+{
+  "timestamps": [
+    0.0,
+    171.79,
+    227.61,
+    360.4,
+    492.78,
+    680.67,
+    734.66,
+    790.87,
+    846.45,
+    900.95,
+    960.32,
+    1001.96,
+    1048.25,
+    1095.84,
+    1144.07,
+    1185.95,
+    1317.63,
+    1460.26,
+    1573.1,
+    1699.0,
+    1748.3,
+    1802.12,
+    1852.95,
+    1980.6,
+    2125.25,
+    2180.23,
+    2233.72,
+    2375.17,
+    2534.38,
+    2646.1,
+    2806.06,
+    2934.26,
+    3062.32,
+    3221.2,
+    3354.42,
+    3500.81,
+    3638.52,
+    3776.28,
+    3909.86,
+    4102.6
+  ],
+  "items": [
+    {
+      "title": "Why Are Viral Capsids Icosahedral?",
+      "url": "https://www.asimov.press/p/viral-capsids",
+      "source": "Asimov Press",
+      "one_liner": "Viral capsid structure is a geometric packing problem under genetic constraints.",
+      "segment": 0,
+      "timestamp": 0.0
+    },
+    {
+      "title": "Unexpected Applications of AlphaFold in Molecular Sciences.",
+      "url": "https://doi.org/10.1146/annurev-biochem-051424-071952",
+      "source": "PubMed — Annual review of biochemistry",
+      "one_liner": "AlphaFold, a groundbreaking artificial intelligence model developed by DeepMind, has transformed the field of structural biology by predicting protein structures with unprecedented accuracy. Despite its widespread recognition and application across academia and industry, comprehensive reviews detailing AlphaFold's unexpected applications within the molecu...",
+      "segment": 1,
+      "timestamp": 171.79
+    },
+    {
+      "title": "Reverse Distillation: Consistently Scaling Protein Language Model Representations",
+      "url": "https://arxiv.org/abs/2603.07710",
+      "source": "arXiv q-bio.BM",
+      "one_liner": "arXiv:2603.07710v1 Announce Type: cross \nAbstract: Unlike the predictable scaling laws in natural language processing and computer vision, protein language models (PLMs) scale poorly: for many tasks, models within the same family plateau or even decrease in performance, with mid-sized models often outperforming the largest in the family. We introduce Reve...",
+      "segment": 2,
+      "timestamp": 227.61
+    },
+    {
+      "title": "ViroGym: Realistic Large-Scale Benchmarks for Evaluating Viral Proteins",
+      "url": "https://arxiv.org/abs/2603.06740",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2603.06740v1 Announce Type: new \nAbstract: Protein language models (pLMs) have shown strong potential in prediction of the functional effects of missense variants in zero-shot settings. Despite this progress, benchmarking pLMs for viral proteins remains limited and systematic strategies for integrating in silico metrics with in vitro validation to g...",
+      "segment": 3,
+      "timestamp": 360.4
+    },
+    {
+      "title": "RadDiff: Retrieval-Augmented Denoising Diffusion for Protein Inverse Folding",
+      "url": "https://arxiv.org/abs/2512.00126",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2512.00126v2 Announce Type: replace \nAbstract: Protein inverse folding, the design of an amino acid sequence based on a target protein structure, is a fundamental problem of computational protein engineering. Existing methods either generate sequences without leveraging external knowledge or relying on protein language models~(PLMs). The former omit...",
+      "segment": 4,
+      "timestamp": 492.78
+    },
+    {
+      "title": "NAStructuralDB : structural database to facilitate computational studies of molecular modeling and recognition of proteins with special focus on antibody-antigen interactions.",
+      "url": "https://doi.org/10.1080/19420862.2026.2630438",
+      "source": "PubMed — mAbs",
+      "one_liner": "Studying the interactions between antibodies and antigens is fundamental to the development of novel therapeutic biologics. Predictions of such interactions start with data collection. Though there exist reliable resources to identify antibody structures in the Protein Data Bank (PDB), such data still requires substantial processing to be usable in predic...",
+      "segment": 5,
+      "timestamp": 680.67
+    },
+    {
+      "title": "A Novel Glycoproteomics Platform for High-Throughput Identification of Disease-Associated Glycoforms",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.06.708406",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Glycosylation is a critical post-translational modification, and its aberrant forms are potent disease biomarkers; however, the comprehensive, site-specific identification of all glycosites and glycoforms across an entire proteome remains prohibitively slow and computationally demanding. To address this bottleneck and accelerate biomarker discovery, we in...",
+      "segment": 6,
+      "timestamp": 734.66
+    },
+    {
+      "title": "A lipoprotein partner for the Escherichia coli outer membrane protein TolC",
+      "url": "https://www.biorxiv.org/content/10.1101/2025.03.19.644130",
+      "source": "bioRxiv — molecular biology",
+      "one_liner": "The outer-membrane protein TolC from Escherichia coli belongs to an extensive superfamily whose members are found throughout the didermal, Gram-negative bacterial lineages. The protein serves as an activated exit duct in multi-drug efflux pumps and protein secretion machinery. Many TolC homologs bear a lipid modification on the N-terminus that embeds into...",
+      "segment": 7,
+      "timestamp": 790.87
+    },
+    {
+      "title": "Modulation of the internal dynamics of the Homer1 EVH1 domain by putative autism-associated mutations",
+      "url": "https://www.biorxiv.org/content/10.64898/2025.12.17.694870",
+      "source": "bioRxiv — molecular biology",
+      "one_liner": "The EVH1 domain of the Homer1 scaffold protein interacts with the proline-rich region of Shank3, forming a key network within the postsynaptic density. Two mutations in EVH1, M65I and S97L, were suggested to be associated with autism spectrum disorder. Combining experimental and computational investigations, we show here that neither the overall structure...",
+      "segment": 8,
+      "timestamp": 846.45
+    },
+    {
+      "title": "The human DEAD-box protein DDX3X regulates host and viral mRNA translation during Sendai Virus infection",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.08.707086",
+      "source": "bioRxiv — molecular biology",
+      "one_liner": "DDX3X is a multifunctional DEAD-box RNA helicase with important roles in translation initiation and antiviral innate immune signaling, yet it is currently unknown whether viral infection affects its interactions with host RNAs. Here, we define the transcriptome-wide binding landscape of endogenous DDX3X in Sendai virus-infected human cells using PAR-CLIP....",
+      "segment": 9,
+      "timestamp": 900.95
+    },
+    {
+      "title": "Regulation and Function of the HPV16 CircE7 RNA",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.09.710444",
+      "source": "bioRxiv — molecular biology",
+      "one_liner": "High-risk human papillomaviruses (HPV), including HPV16, produce circular RNA that encompass the E7 oncogene (circE7). CircE7 can be detected in HPV16-positive cells and tumors, is preferentially localized to the cytoplasm, is N6-methyladenosine (m6A) modified and can be translated to produce the E7 oncoprotein. Here, we explored the regulation and functi...",
+      "segment": 10,
+      "timestamp": 960.32
+    },
+    {
+      "title": "Adhesion forces between macrophages and cancer cells promote early tumor development.",
+      "url": "https://doi.org/10.1073/pnas.2514484123",
+      "source": "PubMed — Proceedings of the National Academy of Sciences of the United States of America",
+      "one_liner": "Biochemical mechanisms of macrophage-driven tumor promotion are well documented, but the contribution of physical forces to early tumor development remains poorly understood. Here, we combine experimental analyses with physical modeling to investigate these forces in Kras",
+      "segment": 11,
+      "timestamp": 1001.96
+    },
+    {
+      "title": "Identification and characterization of a wet adhesive protein extracted from",
+      "url": "https://doi.org/10.1073/pnas.2537453123",
+      "source": "PubMed — Proceedings of the National Academy of Sciences of the United States of America",
+      "one_liner": "Mechanisms of wet adhesion have evolved in several aquatic organisms over millions of years. Yet, the repertoire of synthetic biocompatible wet adhesive materials is still limited. The byssus is a well-studied proteinaceous bioadhesive structure utilized by several bivalves to support sessile lifestyles in turbulent conditions. The quagga mussel (",
+      "segment": 12,
+      "timestamp": 1048.25
+    },
+    {
+      "title": "Elucidating the design principles for engineering plant organ size.",
+      "url": "https://doi.org/10.1073/pnas.2516183123",
+      "source": "PubMed — Proceedings of the National Academy of Sciences of the United States of America",
+      "one_liner": "Enhancements to crop morphology, such as the semidwarfing that helped drive the green revolution, are often driven by changes in gene expression. These are challenging to translate across species, which slows the rate of crop improvement. Synthetic transcription factors (SynTFs) offer a rapid alternative to generate targeted alterations to gene expression...",
+      "segment": 13,
+      "timestamp": 1095.84
+    },
+    {
+      "title": "The membrane-associated ubiquitin ligase MARCHF8 degrades MHC-I in HPV-positive head and neck cancer for immune evasion.",
+      "url": "https://doi.org/10.1073/pnas.2525730123",
+      "source": "PubMed — Proceedings of the National Academy of Sciences of the United States of America",
+      "one_liner": "The loss of major histocompatibility complex class I (MHC-I) molecules has been proposed as a mechanism for cancer immune evasion. Nevertheless, the mechanism is poorly understood. We report here that membrane-associated RING-CH-type finger 8 (MARCHF8), upregulated by human papillomavirus (HPV), ubiquitinates and degrades MHC-I in HPV-positive head and ne...",
+      "segment": 14,
+      "timestamp": 1144.07
+    },
+    {
+      "title": "Maritime traffic congestion identification and ship trajectory prediction using temporal graph convolutional networks.",
+      "url": "https://doi.org/10.1371/journal.pone.0342781",
+      "source": "PubMed — PloS one",
+      "one_liner": "With the rapid growth of global maritime trade, the efficient and safe management of maritime traffic has become increasingly critical. This study proposes a comprehensive framework for ship trajectory prediction and maritime traffic congestion identification based on Automatic Identification System (AIS) data. We integrate spatiotemporal analysis with de...",
+      "segment": 15,
+      "timestamp": 1185.95
+    },
+    {
+      "title": "In silico design of novel recombinant antigens containing immunologically relevant regions of wild-type and escape mutant variants of HBsAg.",
+      "url": "https://doi.org/10.1371/journal.pone.0344362",
+      "source": "PubMed — PloS one",
+      "one_liner": "Hepatitis B virus (HBV) contributes substantially to liver cancer, related mortality, and liver transplantation worldwide. The small hepatitis B surface antigen (HBsAg), particularly its major hydrophilic region (MHR) and the \"a\" determinant, is the primary target of serological diagnostics. However, escape mutant amino acid variants (EMAVs) within this r...",
+      "segment": 16,
+      "timestamp": 1317.63
+    },
+    {
+      "title": "Serological profile of naïve patients affected by the first sars-cov-2 variant: A prospective study.",
+      "url": "https://doi.org/10.1371/journal.pone.0344308",
+      "source": "PubMed — PloS one",
+      "one_liner": "BACKGROUND: Understanding post-infection immunity with the first SARS-CoV-2 variant may provide valuable insights into the duration and effectiveness of the humoral immune response. This study aims to characterize the serological profile of naïve individuals infected with the first SARS-CoV-2 variant. METHODS: A prospective study with repeated measures wa...",
+      "segment": 17,
+      "timestamp": 1460.26
+    },
+    {
+      "title": "Modelling approaches for estimating vaccine effectiveness of consecutive SARS-CoV-2 variant sublineages in the absence of study-specific genetic sequencing data, VEBIS hospital network, Europe, 2023/24.",
+      "url": "https://doi.org/10.1371/journal.pone.0343988",
+      "source": "PubMed — PloS one",
+      "one_liner": "INTRODUCTION: Genetic changes in COVID-19 variants/sublineages (VSLs) can reduce vaccine effectiveness (VE). Timely VSL-specific VE estimates are essential, but study-specific VSL identification by whole genome sequencing (the \"gold standard\") is expensive and time-consuming. Alternatively, VSL-specific VE has been estimated from external sequencing data ...",
+      "segment": 18,
+      "timestamp": 1573.1
+    },
+    {
+      "title": "Oligomerization of PER2 as a dynamic mode of regulation of the mammalian circadian clock.",
+      "url": "https://doi.org/10.1073/pnas.2525373123",
+      "source": "PubMed — Proceedings of the National Academy of Sciences of the United States of America",
+      "one_liner": "PER2 is a central transcriptional regulator in the mammalian circadian clock that closes the negative transcription-translation feedback loop by repressing its own transcription. The balance between the synthesis of PER2 and its degradation is a key factor that determines the circadian period. PER2 stability hinges on antagonistic phosphorylation events-p...",
+      "segment": 19,
+      "timestamp": 1699.0
+    },
+    {
+      "title": "Bacterial reporter-paired scRNA sequencing reveals cross talk between zinc starvation and zinc toxicity in macrophage antibacterial defense.",
+      "url": "https://doi.org/10.1073/pnas.2530503123",
+      "source": "PubMed — Proceedings of the National Academy of Sciences of the United States of America",
+      "one_liner": "Mechanisms by which macrophages deploy antibacterial zinc toxicity are poorly understood. To gain insight into this antimicrobial pathway, we developed bacterial reporter-paired single-cell RNA sequencing of human monocyte-derived macrophages (HMDM) infected with an",
+      "segment": 20,
+      "timestamp": 1748.3
+    },
+    {
+      "title": "Improving the immunogenicity of E. coli FimH via multivalent display on I53-50 nanoparticles",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.05.709951",
+      "source": "bioRxiv — immunology",
+      "one_liner": "Urinary tract infections, caused primarily by uropathogenic E. coli, are a significant public health burden, affecting approximately 50% of women worldwide. The adhesin FimH is responsible for host receptor binding and is therefore a promising vaccine candidate, but prior studies showed that recombinant monomeric FimH is poorly immunogenic. Here we displa...",
+      "segment": 21,
+      "timestamp": 1802.12
+    },
+    {
+      "title": "A thermodynamic metric quantitatively predicts disordered protein partitioning and multicomponent phase behavior",
+      "url": "https://arxiv.org/abs/2603.08300",
+      "source": "arXiv q-bio.BM",
+      "one_liner": "arXiv:2603.08300v1 Announce Type: cross \nAbstract: Intrinsically disordered regions (IDRs) of proteins mediate sequence-specific interactions underlying diverse cellular processes, including the formation of biomolecular condensates. Although IDRs strongly influence condensate compositions, quantitative frameworks that predict and explain their phase beha...",
+      "segment": 22,
+      "timestamp": 1852.95
+    },
+    {
+      "title": "CryoNet.Refine: A One-step Diffusion Model for Rapid Refinement of Structural Models with Cryo-EM Density Map Restraints",
+      "url": "https://arxiv.org/abs/2602.22263",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2602.22263v2 Announce Type: replace-cross \nAbstract: High-resolution structure determination by cryo-electron microscopy (cryo-EM) requires the accurate fitting of an atomic model into an experimental density map. Traditional refinement pipelines such as Phenix.real_space_refine and Rosetta are computationally expensive, demand extensive manual tuni...",
+      "segment": 23,
+      "timestamp": 1980.6
+    },
+    {
+      "title": "De Novo Multi-Mechanism Antimicrobial Peptide Design via Multimodal Deep Learning.",
+      "url": "https://doi.org/10.1002/advs.202515835",
+      "source": "PubMed — Advanced science (Weinheim, Baden-Wurttemberg, Germany)",
+      "one_liner": "Artificial intelligence (AI)-driven discovery of antimicrobial peptides (AMPs) is yet to fully utilize their three-dimensional (3D) structural characteristics, microbial species-specific antimicrobial activities, and mechanisms. Here, we constructed a QLAPD database comprising the sequence, structures, and antimicrobial properties of 12 914 AMPs. QLAPD un...",
+      "segment": 24,
+      "timestamp": 2125.25
+    },
+    {
+      "title": "IALA-LNN: Deep Learning for Peptide Retention Time Prediction Based on Improved Artificial Lemming Algorithm-Optimized Liquid Neural Networks.",
+      "url": "https://doi.org/10.1021/acs.jcim.5c02548",
+      "source": "PubMed — Journal of chemical information and modeling",
+      "one_liner": "Accurate prediction of peptide retention times is crucial for reliable identification in liquid chromatography-tandem mass spectrometry (LC-MS/MS) proteomics. Current methods using static neural networks fail to capture the complex sequential dependencies in peptide structures that determine retention patterns. Moreover, conventional hyperparameter optimi...",
+      "segment": 25,
+      "timestamp": 2180.23
+    },
+    {
+      "title": "A Modelling Assessment of the Impact of Control Measures on Simulated Foot-and-Mouth Disease Spread in Mato Grosso do Sul, Brazil",
+      "url": "https://arxiv.org/abs/2603.06694",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2603.06694v1 Announce Type: cross \nAbstract: This study simulated the introduction of Foot-and-mouth disease (FMD) into Mato Grosso do Sul, Brazil, to evaluate the effectiveness of outbreak control strategies. Our susceptible-exposed-infected-recovered model generated a range of outbreak sizes across the state. These outbreaks were used to model con...",
+      "segment": 26,
+      "timestamp": 2233.72
+    },
+    {
+      "title": "Label-free pathological subtyping of non-small cell lung cancer using deep classification and virtual immunohistochemical staining",
+      "url": "https://arxiv.org/abs/2503.20817",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2503.20817v2 Announce Type: replace \nAbstract: The differentiation between pathological subtypes of non-small cell lung cancer (NSCLC) is an essential step in guiding treatment options and prognosis. However, current clinical practice relies on multi-step staining and labelling processes that are time-intensive and costly, requiring highly specialis...",
+      "segment": 27,
+      "timestamp": 2375.17
+    },
+    {
+      "title": "CITS: Nonparametric Statistical Causal Modeling for High-Resolution Neural Time Series",
+      "url": "https://arxiv.org/abs/2508.01920",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2508.01920v2 Announce Type: replace-cross \nAbstract: Identifying causal interactions in complex dynamical systems is a fundamental challenge across the computational sciences. Existing functional connectivity methods capture correlations but not causation. While addressing directionality, popular causal inference tools such as Granger causality and ...",
+      "segment": 28,
+      "timestamp": 2534.38
+    },
+    {
+      "title": "Three-Dimensional Volumetric Reconstruction of Native Chilean Pollen via Lens-Free Digital In-line Holographic Microscopy",
+      "url": "https://arxiv.org/abs/2601.14205",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2601.14205v2 Announce Type: replace-cross \nAbstract: This study presents a robust methodology for the three-dimensional (3D) volumetric reconstruction and morphological characterization of native Chilean pollen grains using a lens-free Digital In-line Holographic Microscopy (DLHM) system. Utilizing a 532 nm laser point-source configuration and a 3.4...",
+      "segment": 29,
+      "timestamp": 2646.1
+    },
+    {
+      "title": "Neural Control and Learning of Simulated Hand Movements With an EMG-Based Closed-Loop Interface",
+      "url": "https://arxiv.org/abs/2603.07364",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2603.07364v1 Announce Type: new \nAbstract: The standard engineering approach when facing uncertainty is modelling. Mixing data from a well-calibrated model with real recordings has led to breakthroughs in many applications of AI, from computer vision to autonomous driving. This type of model-based data augmentation is now beginning to show promising...",
+      "segment": 30,
+      "timestamp": 2806.06
+    },
+    {
+      "title": "When Many Trees Go to War: On Sets of Phylogenetic Trees With Almost No Common Structure",
+      "url": "https://arxiv.org/abs/2508.21749",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2508.21749v3 Announce Type: replace-cross \nAbstract: It is known that any two trees on the same $n$ leaves can be displayed by a network with $n-2$ reticulations, and there are two trees that cannot be displayed by a network with fewer reticulations. But how many reticulations are needed to display multiple trees? For any set of $t$ trees on $n$ lea...",
+      "segment": 31,
+      "timestamp": 2934.26
+    },
+    {
+      "title": "Distilling and Adapting: A Topology-Aware Framework for Zero-Shot Interaction Prediction in Multiplex Biological Networks",
+      "url": "https://arxiv.org/abs/2603.06618",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2603.06618v1 Announce Type: cross \nAbstract: Multiplex Biological Networks (MBNs), which represent multiple interaction types between entities, are crucial for understanding complex biological systems. Yet, existing methods often inadequately model multiplexity, struggle to integrate structural and sequence information, and face difficulties in zero...",
+      "segment": 32,
+      "timestamp": 3062.32
+    },
+    {
+      "title": "CAN-STRESS: A Real-World Multimodal Dataset for Understanding Cannabis Use, Stress, and Physiological Responses",
+      "url": "https://arxiv.org/abs/2503.19935",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2503.19935v2 Announce Type: replace \nAbstract: Coping with stress is one of the most frequently cited reasons for chronic cannabis use. Therefore, it is hypothesized that cannabis users exhibit distinct physiological stress responses compared to non-users, and these differences would be more pronounced during moments of consumption. However, there i...",
+      "segment": 33,
+      "timestamp": 3221.2
+    },
+    {
+      "title": "Expectation-maximization for structure determination directly from cryo-EM micrographs",
+      "url": "https://arxiv.org/abs/2303.02157",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2303.02157v3 Announce Type: replace-cross \nAbstract: A single-particle cryo-electron microscopy (cryo-EM) measurement, called a micrograph, consists of multiple two-dimensional tomographic projections of a three-dimensional (3-D) molecular structure at unknown locations, taken under unknown viewing directions. All existing cryo-EM algorithmic pipeli...",
+      "segment": 34,
+      "timestamp": 3354.42
+    },
+    {
+      "title": "Amortized Phylodynamic Inference with Neural Bayes Estimators and Recursive Neural Networks",
+      "url": "https://arxiv.org/abs/2603.08345",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2603.08345v1 Announce Type: cross \nAbstract: Phylodynamics is used to estimate epidemic dynamics from phylogenetic trees or genomic sequences of pathogens, but the likelihood calculations needed can be challenging for complex models. We present a neural Bayes estimator (NBE) for key epidemic quantities: the reproduction number, prevalence, and cumul...",
+      "segment": 35,
+      "timestamp": 3500.81
+    },
+    {
+      "title": "Learning When to Look: On-Demand Keypoint-Video Fusion for Animal Behavior Analysis",
+      "url": "https://arxiv.org/abs/2603.07279",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2603.07279v1 Announce Type: new \nAbstract: Understanding animal behavior from video is essential for neuroscience research. Modern laboratories typically collect two complementary data streams: skeletal keypoints from pose estimation tools and raw video recordings. Keypoint-based methods are efficient but suffer from geometric ambiguity, environment...",
+      "segment": 36,
+      "timestamp": 3638.52
+    },
+    {
+      "title": "Minority-Triggered Reorientations Yield Macroscopic Cascades and Enhanced Responsiveness in Swarms",
+      "url": "https://arxiv.org/abs/2603.07254",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2603.07254v1 Announce Type: new \nAbstract: Collective motion in animals and cells often exhibits rapid reorientations and scale-free velocity correlations. This allows information to spread rapidly through the group, allowing an adequate collective response to environmental changes and threats such as predators. To explain this phenomenon, we introd...",
+      "segment": 37,
+      "timestamp": 3776.28
+    },
+    {
+      "title": "Optical Manipulation of Erythrocytes via Evanescent Waves: Assessing Glucose-Induced Mobility Variations",
+      "url": "https://arxiv.org/abs/2601.15502",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2601.15502v2 Announce Type: replace-cross \nAbstract: This study investigates the dynamics of red blood cells (RBCs) under the influence of evanescent waves generated by total internal reflection (TIR). Using a 1064 nm laser system and a dual-chamber prism setup, we quantified the mobility of erythrocytes in different glucose environments. Our method...",
+      "segment": 38,
+      "timestamp": 3909.86
+    },
+    {
+      "title": "BNEM: A Boltzmann Sampler Based on Bootstrapped Noised Energy Matching",
+      "url": "https://arxiv.org/abs/2409.09787",
+      "source": "arXiv cs.LG (AI/ML)",
+      "one_liner": "arXiv:2409.09787v5 Announce Type: replace \nAbstract: Developing an efficient sampler capable of generating independent and identically distributed (IID) samples from a Boltzmann distribution is a crucial challenge in scientific research, e.g. molecular dynamics. In this work, we intend to learn neural samplers given energy functions instead of data sample...",
+      "segment": 39,
+      "timestamp": 4102.6
+    }
+  ]
+}
