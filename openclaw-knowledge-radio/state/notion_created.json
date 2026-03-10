@@ -226,5 +226,13 @@
   "2026-03-10|https://www.asimov.press/p/viral-capsids": {
     "page_id": "31f5f58e-a8c2-8195-8c71-c99f4ff5ed49",
     "note": "DD"
+  },
+  "2026-03-10|https://doi.org/10.1146/annurev-biochem-051424-071952": {
+    "page_id": "31f5f58e-a8c2-8152-a845-d89a52b245b6",
+    "note": "DD"
+  },
+  "2026-03-10|https://arxiv.org/abs/2603.07710": {
+    "page_id": "31f5f58e-a8c2-81b4-9549-d5d95dc85e92",
+    "note": "DD"
   }
 }
