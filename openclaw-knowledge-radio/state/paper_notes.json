@@ -346,6 +346,11 @@
       "note": "DD",
       "title": "Predicting Antibody-Antigen Affinity with a Dual-Level Representation Model.",
       "source": "PubMed — Bioinformatics (Oxford, England)"
+    },
+    "https://doi.org/10.1038/s41467-026-70457-5": {
+      "note": "DD",
+      "title": "A paired sequence language model for protein-protein interaction modeling.",
+      "source": "PubMed — Nature communications"
     }
   }
 }
