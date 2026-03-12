@@ -361,6 +361,11 @@
       "note": "DD",
       "title": "A previously unrecognized class of fungal ice-nucleating proteins with bacterial ancestry.",
       "source": "PubMed — Science advances"
+    },
+    "https://doi.org/10.1038/s41467-026-69741-1": {
+      "note": "DD",
+      "title": "CF2H: a cell-free two-hybrid platform for rapid protein binder screening.",
+      "source": "PubMed — Nature communications"
     }
   }
 }
