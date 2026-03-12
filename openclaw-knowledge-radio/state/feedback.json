@@ -653,5 +653,42 @@
       "source": "bioRxiv — molecular biology",
       "title": "Explainable Physicochemical Determinants of Protein Ligand Binding via Non-Covalent Interactions"
     }
+  ],
+  "2026-03-12": [
+    {
+      "url": "https://www.asimov.press/p/antibody-design",
+      "source": "Asimov Press",
+      "title": "How to Design Antibodies"
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.08.710350",
+      "source": "bioRxiv — bioinformatics",
+      "title": "Beyond Binding Affinity: The Kinetic-Compatibility Hypothesis for Nipah Virus Neutralization"
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.10302",
+      "source": "arXiv q-bio.QM",
+      "title": "How to make the most of your masked language model for protein engineering"
+    },
+    {
+      "url": "https://doi.org/10.1038/s41467-026-70457-5",
+      "source": "PubMed — Nature communications",
+      "title": "A paired sequence language model for protein-protein interaction modeling."
+    },
+    {
+      "url": "https://doi.org/10.1093/bioinformatics/btag109",
+      "source": "PubMed — Bioinformatics (Oxford, England)",
+      "title": "Predicting Antibody-Antigen Affinity with a Dual-Level Representation Model."
+    },
+    {
+      "url": "https://doi.org/10.1093/jb/mvag018",
+      "source": "PubMed — Journal of biochemistry",
+      "title": "Observation of redistribution for local conformational dynamics in cross-reactive antibody design."
+    },
+    {
+      "url": "https://doi.org/10.1038/s41467-026-69741-1",
+      "source": "PubMed — Nature communications",
+      "title": "CF2H: a cell-free two-hybrid platform for rapid protein binder screening."
+    }
   ]
 }
