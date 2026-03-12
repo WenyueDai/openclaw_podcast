@@ -351,6 +351,11 @@
       "note": "DD",
       "title": "A paired sequence language model for protein-protein interaction modeling.",
       "source": "PubMed — Nature communications"
+    },
+    "https://doi.org/10.1093/jb/mvag018": {
+      "note": "DD",
+      "title": "Observation of redistribution for local conformational dynamics in cross-reactive antibody design.",
+      "source": "PubMed — Journal of biochemistry"
     }
   }
 }
