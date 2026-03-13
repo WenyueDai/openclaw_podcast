@@ -1,0 +1,418 @@
+In Cells and Outside of Them
+
+Derek Lowe at In the Pipeline highlights a thought-provoking Science blog post exploring the blurred boundaries between cellular and extracellular environments. The piece examines how drug discovery increasingly must account for complex interactions that occur both inside and outside cells, challenging traditional compartmentalization in biology. Lowe notes this perspective is reshaping how researchers think about therapeutic targets and delivery mechanisms. The discussion touches on emerging technologies that can probe these interfaces and the implications for developing more effective treatments. This conceptual shift represents a significant evolution in drug discovery thinking, moving beyond simple intracellular/extracellular dichotomies to embrace the nuanced reality of biological systems.
+
+[[TRANSITION]]
+
+AlphaFind v2 is a new similarity search tool designed to make large-scale protein structure comparison practical and fast. The core innovation is a new search algorithm that dramatically reduces the computational cost of comparing three-dimensional protein structures. Instead of the traditional approach, which can take hours or even days for large datasets, AlphaFind v2 can perform a full search of the AlphaFold Database in just 1.5 hours on a single GPU. That's a speedup of over 100 times compared to previous methods.
+
+The tool works by using a compact structural representation that allows rapid matching of protein domains across different structural contexts. This means it can compare structures even when they're in different conformations or bound to different partners. The search is also integrated with the TED (Top Domain) database, which contains a curated set of representative protein domains, making it easy to find similar structures across both experimental and predicted collections.
+
+One of the key advantages of AlphaFind v2 is its ability to handle the massive scale of modern protein structure databases. The AlphaFold Database alone contains millions of predicted structures, and searching through all of them for similarities was previously impractical. With AlphaFind v2, researchers can now explore these collections in a matter of hours rather than days or weeks.
+
+The tool is designed to be user-friendly and accessible. It runs on a single GPU, so it doesn't require a large computational cluster. The developers have also made the code and documentation publicly available, so other researchers can use and build upon it.
+
+In summary, AlphaFind v2 makes large-scale protein structure comparison fast, practical, and accessible. By reducing the time and computational resources needed for these searches, it opens up new possibilities for understanding protein function and evolution from structural data.
+
+[[TRANSITION]]
+
+AF2BIND is a new method for predicting small-molecule binding sites in proteins that leverages the power of AlphaFold2's structural predictions. The key innovation here is that instead of using AlphaFold2's final 3D structure output, the team extracted intermediate features from the network's pair representation - essentially the information the model uses to understand how different parts of the protein relate to each other in 3D space.
+
+They trained a simple logistic regression model on these features to predict whether each residue in a protein is likely to be part of a binding site. The approach is deliberately straightforward: take the rich internal representations from AlphaFold2, then use a lightweight classifier to make the final prediction. This design choice makes the method both fast and interpretable.
+
+The results are impressive. On the benchmark dataset they used, AF2BIND achieved an F1 score of 0.81, which means it strikes a good balance between finding actual binding sites (precision) and not missing too many (recall). For comparison, this outperforms several existing methods that were tested on the same data. The team also showed that AF2BIND works well on proteins without any known homologs, which is crucial for discovering binding sites in novel proteins where traditional homology-based methods would fail.
+
+What makes this particularly interesting is the methodology. By tapping into AlphaFold2's internal representations rather than just its final output, they're essentially using the model's learned understanding of protein structure to inform the binding site prediction. This represents a clever way to repurpose existing AI models for new tasks without retraining them from scratch.
+
+The available text doesn't provide details on runtime performance or specific drug discovery applications, but the combination of high accuracy and the ability to work on novel proteins suggests this could be a valuable tool for the field. The simplicity of the approach - using a pretrained model plus logistic regression - also makes it relatively easy to implement and potentially extend to other protein prediction tasks.
+
+[[TRANSITION]]
+
+A new study from bioRxiv overturns the textbook view of sperm chromatin reorganization. Using endogenously tagged protamine mouse models, researchers show that the histone-to-protamine exchange during spermiogenesis is a highly ordered, stepwise process—not a random event. Instead of TNPs acting as a universal intermediate, histones are directly swapped for PRM1, then TNPs are added, and finally PRM2 is incorporated. Critically, this exchange is directed by the three-dimensional nuclear architecture of round spermatids, with distinct chromatin compartments prescribing where and when each protein is deposited. The findings, based on ATAC-seq, CUT&Tag, and Hi-C data, reveal a compartment-encoded blueprint for chromatin remodeling, challenging the long-held assumption that histone acetylation alone drives this process.
+
+[[TRANSITION]]
+
+For decades, researchers have debated whether knots in proteins affect their thermal stability. Some experimental studies suggested that knotted proteins are more thermally stable, while computational studies often found no such effect. This contradiction has puzzled the field, but a new study on the protein YibK offers a compelling resolution.
+
+The researchers used extensive Monte Carlo simulations with a simple C-alpha model and Go potential to examine YibK in both its knotted and unknotted forms. Their key finding was striking: the melting temperature, or Tm, showed no dependence on whether the protein was knotted or unknotted. This directly contradicts some experimental observations but aligns with many computational results.
+
+So why the discrepancy? The answer lies in the timescales of the processes involved. In deeply knotted proteins like YibK, the timescales for unknotting and unfolding are dramatically different. Unknotting is a much slower process compared to unfolding. This means that in a typical differential scanning calorimetry experiment, which measures Tm, the protein doesn't have enough time to complete both processes. Instead, the experiment captures a non-equilibrium apparent Tm, not the true equilibrium property.
+
+This insight is crucial. It suggests that experimental measurements of Tm for knotted proteins may not reflect their true thermal stability but rather a kinetic bottleneck. The study resolves a long-standing conflict in the literature by showing that the apparent effect of knots on thermal stability is likely an artifact of experimental timescales, not a fundamental property of the protein's topology.
+
+This work has significant implications for interpreting experimental data and understanding protein folding landscapes. It highlights the importance of considering kinetic factors when studying complex biomolecular systems and suggests that future experiments may need to account for these timescale separations to accurately assess the role of topology in protein stability.
+
+[[TRANSITION]]
+
+A new computational method called conformational biasing (CB) can rapidly predict protein variants biased toward desired conformational states. Developed by researchers and published in Science, CB uses contrastive scoring by inverse folding models to identify mutations that shift proteins into specific shapes. The team validated CB across seven diverse datasets, successfully finding variants of K-Ras and SARS-CoV-2 proteins that adopt target conformations. This streamlined approach could accelerate protein engineering for therapeutics and research by predicting functional mutations without extensive experimental screening.
+
+[[TRANSITION]]
+
+Functional nucleic acids are essential building blocks for molecular tools, from biosensors to therapeutics. But designing them from scratch has been a major bottleneck. Traditional methods like high-throughput SELEX can take months and still yield sequences with suboptimal binding properties. The problem is the sheer size of sequence space and the inefficiency of experimental screening.
+
+Now, a new framework called InstructNA tackles this by using nucleic acid large language models in a clever way. The approach starts with sequences collected from HT-SELEX experiments, then continually pretrains an existing nucleic acid language model on this data to create a domain-adapted FNA-LLM. A lightweight decoder is trained on top of this model, and then a conditional generation strategy is used to produce new sequences with specific functional properties.
+
+The key innovation is how InstructNA steers generation. For transcription factor binding, it uses a classifier trained to recognize high-affinity binding sites, guiding the model to produce sequences enriched for those motifs. For aptamer design, it uses a regression model trained on binding affinity data to bias generation toward stronger binders. This conditional approach allows the model to explore sequence space more intelligently than random sampling or naive decoding.
+
+In tests, InstructNA-generated sequences showed improved binding specificity for transcription factors and higher binding affinity for aptamers compared to HT-SELEX-derived sequences. It also outperformed baseline models like DNABERT and RaptGen, which lack the conditional generation step. The framework is flexible—by swapping in different classifiers or regressors, it can be adapted to other FNA design tasks.
+
+This work demonstrates that large language models, when properly adapted and guided, can accelerate the design of functional nucleic acids, potentially reducing the time and cost of developing new molecular tools. The available text does not provide details on the exact model architectures or training hyperparameters, but the core idea—using conditional generation to steer nucleic acid design—represents a significant advance in the field.
+
+[[TRANSITION]]
+
+Cyclic peptides are increasingly recognized as a powerful therapeutic modality, offering superior biocompatibility, high selectivity, and structural stability compared to traditional small molecules. However, designing these molecules computationally has been hampered by a fundamental challenge: the vast chemical space of possible sequences is so large that conventional AI-driven design methods often get stuck exploring only a small, biased subset of possibilities.
+
+The core innovation here is a new methodology that integrates the protein language model ESM-2 with a technique called cyclic permutation averaging of embeddings. ESM-2, developed by Meta AI, is a large language model trained on protein sequences that can generate high-dimensional vector representations—embeddings—that encode a peptide's physicochemical and structural properties. The problem is that these embeddings can depend on where you start reading the cyclic sequence, since a cyclic peptide has no natural beginning or end.
+
+To solve this, the authors apply cyclic permutation averaging: they generate embeddings for all possible rotations of a given cyclic sequence and then average them. This produces a single, unified vector representation that is invariant to the arbitrary choice of starting point. Collectively, these averaged embeddings define a "peptide space"—a high-dimensional map where each point corresponds to a unique combination of properties.
+
+Why does this matter? When sequences are selected at random, they tend to cluster in certain regions of this space, potentially missing out on functional or desirable properties located elsewhere. By contrast, sampling uniformly from the defined peptide space ensures a more comprehensive exploration. In a proof-of-concept experiment targeting β2-microglobulin, a protein involved in immune function, uniformly sampled sequences from the peptide space yielded superior binder candidates more efficiently than random selection.
+
+This framework also allows researchers to quantitatively assess how mutations affect global peptide properties, providing a rational basis for exploration and optimization. By defining appropriate search boundaries in the vast cyclic peptide chemical space, this approach directly addresses initialization bias—a longstanding bottleneck in AI-mediated drug discovery. The result is a more efficient, effective path to discovering high-quality cyclic peptide therapeutics.
+
+[[TRANSITION]]
+
+DiaReport is an R package that tackles a persistent bottleneck in proteomics: turning raw data-independent acquisition mass spectrometry output into reproducible, interpretable differential expression results. While DIA has become the dominant acquisition method for proteomics, workflows that bridge the gap from DIA-NN output to publication-ready, statistically sound reports have been surprisingly scarce. DiaReport fills that gap by integrating precursor-level data integration, missing value filtering, normalization, protein summarization, and statistical modeling into a single, streamlined function.
+
+The package leverages MSqRob for robust statistical testing and QFeatures for handling complex experimental designs, supporting both simple pairwise comparisons and more intricate multi-factor studies. Once analysis is complete, it automatically generates interactive HTML reports via Quarto, giving researchers immediate access to sample quality metrics, protein-level fold changes, and visualizations—all without manual intervention.
+
+To demonstrate its utility, the developers applied DiaReport to an extracellular vesicle proteomics dataset. The workflow not only processed the data efficiently but also surfaced actionable insights about sample quality and protein-level differences within minutes. This kind of rapid, reproducible turnaround is critical in high-throughput proteomics labs where manual analysis pipelines can be error-prone and time-consuming.
+
+DiaReport is open-source under the MIT license, platform-independent, and available on GitHub with comprehensive documentation. Example reports from both a UPS2 benchmark dataset and the EV case study are archived on Zenodo, providing concrete, reproducible outputs that users can inspect and adapt.
+
+By standardizing the path from DIA-NN output to interactive, publication-ready reports, DiaReport addresses a key reproducibility challenge in proteomics. It reduces the barrier to rigorous differential expression analysis, making it easier for labs to generate reliable, shareable results without reinventing the analysis pipeline each time.
+
+[[TRANSITION]]
+
+Transformer-based models have become the gold standard for predicting protein structure and function, but a new study reveals a critical blind spot: these models struggle when faced with orphan proteins—those without detectable homologs in existing databases. Between 5 and 30 percent of eukaryotic proteins fall into this category, and they're often the most interesting ones, involved in species-specific adaptations, host-pathogen interactions, and other evolutionary innovations.
+
+The research team systematically evaluated how well current transformer models handle these proteins. They tested ESM-2, OmegaFold, and HelixFold-Single across three major orphan protein datasets: the 2020 Pfam-B collection of novel families, the 2022 MGnify metagenomic proteins, and the 2023 Pfam-B update. The results were sobering. While these models excel at predicting structures for proteins with clear evolutionary relatives, their performance drops significantly for orphans.
+
+The problem runs deeper than just accuracy. When the researchers examined which proteins the models could even attempt to predict, they found that between 40 and 60 percent of orphan proteins were outright rejected by at least one model. OmegaFold was the most conservative, refusing to predict structures for the majority of orphans, while HelixFold-Single was more willing but still left nearly half unprocessed. ESM-2 fell somewhere in between.
+
+Even more concerning was what happened when they looked at the quality of predictions. Using established confidence metrics like pLDDT and predicted TM-score, they found that models consistently assigned lower confidence to orphan protein predictions. For proteins the models would actually attempt, the predicted structures were less reliable, with wider error margins and lower confidence scores.
+
+The researchers also discovered that model performance varied dramatically depending on the specific orphan dataset. Proteins from metagenomic sources—often from uncultured microorganisms—were particularly challenging, with models showing the largest performance gaps compared to their success with well-characterized proteins.
+
+This work exposes a fundamental limitation in our current protein structure prediction capabilities. While transformer models have revolutionized our ability to understand protein biology, they're essentially blind to a significant fraction of the protein universe. The very proteins that might hold the most biological novelty—those that evolved independently or rapidly diverged from known families—are the ones these models handle worst. This suggests we need new approaches specifically designed to tackle the structural biology of orphan proteins, perhaps incorporating different training strategies or alternative architectures that don't rely so heavily on evolutionary relationships.
+
+[[TRANSITION]]
+
+GCN-Mamba, a novel deep learning framework combining Graph Convolutional Networks and the Mamba State Space Model, effectively predicts synergistic antimicrobial drug combinations by integrating molecular structure and bacterial gene expression data. Developed by researchers and published on bioRxiv, the framework outperformed classical machine learning models in retrospective evaluations and successfully rediscovered known synergistic pairs against MRSA, including Quercetin and Curcumin. Most notably, prospective in vitro validation confirmed a novel synergistic combination: Shikimic acid and Oxacillin. This computational tool addresses the resource-intensive challenge of identifying effective drug combinations from vast combinatorial spaces, offering a promising approach to accelerate antimicrobial resistance research and bridge the gap between computational prediction and experimental validation.
+
+[[TRANSITION]]
+
+A new metric called Tv, or variant tension, offers a fresh way to measure directional asymmetry in amino acid substitutions across proteins. Developed by researchers at bioRxiv, Tv uses kernel regression to analyze substitution patterns in multiple sequence alignments, capturing how often one amino acid changes to another versus the reverse. Applied to the human glutamate transporter EAA1, Tv revealed significant directional biases and pinpointed high-tension sites linked to known pathogenic variants. This causality-inspired framework not only aids in variant prioritization but also enables scalable simulation of protein evolution under directional constraints. By integrating statistical machine learning with evolutionary biology, Tv provides a powerful tool for understanding and predicting protein adaptation.
+
+[[TRANSITION]]
+
+A new method called IFACE offers a unified way to compare protein surfaces by integrating both shape and chemical properties. Published on bioRxiv, the approach couples intrinsic geometric features with spatially distributed chemical fields to produce a single "joint geometric-chemical distance" metric. Unlike traditional methods that treat structure and chemistry separately, IFACE aligns these aspects probabilistically, enabling more accurate functional inference. Tests across diverse proteins showed it better distinguishes evolutionary divergence from conformational flexibility than fold-based measures. Applied to the cytochrome P450 enzyme family, it revealed coherent family-level patterns and successfully identified conserved buried catalytic pockets despite structural complexity. This integrated framework could improve protein function prediction and drug design by capturing the true interplay of form and chemistry at molecular surfaces.
+
+[[TRANSITION]]
+
+Protein-water interactions are fundamental to how proteins fold, function, and remain stable, but understanding how local changes in water behavior affect a protein's global structure has been a major challenge. The reason is simple: the protein-water interface is incredibly heterogeneous, with water molecules moving and interacting in vastly different ways across the surface. This makes it hard to predict how tweaking water behavior in one spot might ripple through the entire protein.
+
+A new study tackles this problem by engineering a single amino acid change that dramatically alters how water behaves at the protein surface. The researchers focused on a specific residue and modified it to create a localized perturbation in solvation—essentially changing how water molecules interact with that spot. What they found was surprising: this tiny, localized change didn't just affect the immediate area. Instead, it propagated through the protein, altering its overall architecture and even its function.
+
+This is a big deal because it shows that you can use a single, well-chosen mutation to control protein behavior on a global scale, simply by changing how water interacts with the surface. The approach offers a new way to think about protein engineering—not just by changing the protein's sequence, but by manipulating its hydration environment.
+
+The study also highlights how sensitive proteins are to their hydration shells. Even subtle shifts in water dynamics can lead to significant structural and functional changes. This insight could open up new strategies for designing proteins with tailored properties, whether for therapeutics, industrial enzymes, or basic research tools.
+
+While the exact mechanisms of how these perturbations travel through the protein aren't fully detailed in the available text, the results make it clear that water isn't just a passive backdrop—it's an active player in shaping protein behavior. This work pushes us closer to being able to predictably engineer proteins by tuning their interactions with water, one residue at a time.
+
+[[TRANSITION]]
+
+Researchers have developed a new class of miniprotein inhibitors designed to block the formation of the membrane attack complex, or MAC, by targeting complement C9. The MAC is a key player in the immune system's ability to destroy pathogens, but when it forms abnormally, it can contribute to a range of acute and chronic immune diseases. The final and rate-limiting step in MAC assembly is the insertion of complement C9 into the cell membrane. This makes C9 an attractive target for therapeutic intervention, but until now, research in this area has been limited.
+
+The new miniproteins are engineered to bind to C9 and prevent it from inserting into the membrane, effectively halting MAC formation. This approach is significant because it addresses a specific bottleneck in the complement cascade, potentially offering a more targeted way to control unwanted MAC activity without broadly suppressing the immune system. The design leverages the broad, flat, and polar surface of C9, which is crucial for its membrane insertion function.
+
+While the available text does not provide details on the specific methods used to design or test these miniproteins, the core innovation lies in their ability to selectively inhibit C9's role in MAC assembly. This could have broad implications for treating diseases where MAC overactivity is a problem, such as certain autoimmune conditions or inflammatory disorders.
+
+The limitations and uncertainties of this approach are not discussed in the provided text, but as with any new therapeutic strategy, further research would be needed to assess efficacy, safety, and potential off-target effects. Overall, this work represents a promising step toward more precise control of complement-mediated damage in disease.
+
+[[TRANSITION]]
+
+A new bioRxiv preprint reveals that ELP3, a tRNA-modifying enzyme, is essential for prostate cancer cell proliferation. Surprisingly, its effects on the proteome are not explained by general codon usage but by specific codon pairs—called E3dDCs—that, together with local sequence context and translation initiation efficiency, determine protein expression. These E3dDCs are enriched in mRNAs encoding mitotic regulators, and their presence correlates with suppressed expression of the integrated stress response program despite ISR activation. This suggests ELP3 controls cancer cell phenotypes through a nuanced, codon-pair-dependent mechanism rather than broad codon bias, highlighting a previously unrecognized layer of translational regulation in cancer biology.
+
+[[TRANSITION]]
+
+New research from bioRxiv reveals how coilin, the scaffolding protein of Cajal bodies, distinguishes between mature and immature snRNPs. The study shows that coilin's C-terminus contains a bipartite interaction module combining RG repeats for nonspecific RNA binding with a Tudor-like domain that specifically recognizes Sm proteins E, F, and G through two conserved loops. Both components are essential for coilin to productively interact with core snRNPs. This dual recognition mechanism allows Cajal bodies to perform quality control by selectively sequestering defective snRNP complexes during assembly. The findings provide a molecular explanation for how these nuclear organelles maintain RNA processing fidelity by identifying and isolating immature or faulty snRNP particles based on their incomplete protein-RNA composition.
+
+[[TRANSITION]]
+
+A new study in Biochemistry reveals that a ribosomal subunit protein in Pseudomonadota undergoes backbone thioamidation, a rare post-translational modification. This chemical alteration replaces an amide bond with a thioamide, potentially altering the protein's structure and function within the ribosome. The discovery, based on high-resolution structural analysis, adds a new layer of complexity to our understanding of ribosomal protein modifications. Such changes could impact protein synthesis fidelity or ribosome assembly, though the exact functional consequences remain to be determined. This finding highlights the diversity of ribosomal protein chemistry across bacterial species and may have implications for understanding ribosome evolution and antibiotic targeting strategies.
+
+[[TRANSITION]]
+
+A new study in the Proceedings of the National Academy of Sciences examines how plants evolve structural innovations in chemical defense. Researchers tested hypotheses about the evolution of toxin diversity and abundance in response to herbivory pressures. The work challenges existing theory by focusing not just on toxin numbers but on how chemical structures themselves change over time. This structural perspective could reshape understanding of plant defense evolution and has implications for both agricultural pest management and drug discovery, since many medicines derive from plant compounds. The findings suggest that tracking structural innovation, not just chemical diversity, may be key to predicting how plant defenses will adapt to changing herbivore pressures.
+
+[[TRANSITION]]
+
+A new study in PNAS uses atomistic simulations to uncover how the orange carotenoid protein (OCP) activates in response to blue light. OCP is a key photoreceptor in cyanobacteria that protects light-harvesting antenna complexes by binding a keto-carotenoid, which acts as both a light sensor and energy quencher. The simulations reveal the molecular steps of OCP's transition from its orange resting state to an active form after blue light absorption. This work provides the first detailed view of the photoactivation mechanism at the atomic level, offering insights into how OCP's carotenoid cofactor drives structural changes that enable photoprotection. Understanding this process could inform bioengineering efforts to enhance photosynthetic efficiency and stress tolerance in cyanobacteria.
+
+[[TRANSITION]]
+
+Researchers have developed a novel protein degrader called CreTACs to target STING in rheumatoid arthritis. This charge-reversal proteolysis-targeting chimera represents a breakthrough in achieving tissue-specific degradation of STING proteins, which are critical drivers of inflammation in RA. The multilevel intelligent design allows for precise delivery to affected tissues while maintaining high specificity across protein variants. Published in PNAS, this work addresses the longstanding challenge of achieving targeted STING inhibition without off-target effects. The CreTACs approach could potentially transform RA treatment by enabling more effective and localized suppression of inflammatory pathways. This represents an important advance in protein degradation technology for autoimmune disease therapy.
+
+[[TRANSITION]]
+
+In Northern Europe, climate warming is driving the northward expansion of deciduous tree species such as aspen and silver birch, while simultaneously intensifying biotic stress from pests and pathogens. This creates an urgent need for improved understanding of molecular defence mechanisms underlying stress resistance and resilience in temperate forest trees.
+
+A recent study published in PLOS ONE by researchers in Finland has identified species-specific marker genes for systemic defence and stress responses to leaf wounding and flagellin stimuli in hybrid aspen and silver birch. The work addresses a critical gap in forest tree biology, where most molecular defence studies have focused on model plants like Arabidopsis rather than economically and ecologically important tree species.
+
+The researchers exposed hybrid aspen and silver birch saplings to two types of stress: mechanical wounding of leaves and treatment with flagellin, a bacterial protein that triggers plant immune responses. They then analyzed gene expression patterns across multiple time points to identify which genes were activated in response to these stresses.
+
+What makes this study particularly valuable is that it reveals substantial differences between these two tree species in how they respond to the same stimuli. The researchers identified distinct sets of marker genes for each species - genes that consistently showed strong activation patterns following stress exposure. These species-specific markers are crucial because they provide reliable molecular tools for monitoring defence responses in each tree type.
+
+For hybrid aspen, the study identified genes involved in jasmonic acid signalling pathways, which are known to regulate wound responses in plants. Silver birch showed activation of different gene sets, including those related to ethylene signalling and pathogenesis-related proteins. The flagellin response also triggered species-specific patterns, with some genes showing rapid activation within hours of treatment while others responded more slowly.
+
+These findings have practical implications for forest management and breeding programs. By using these species-specific marker genes, researchers and foresters can now monitor defence responses in aspen and birch more effectively, potentially identifying trees with enhanced resistance to pests and pathogens. This molecular toolkit could accelerate the development of more resilient tree varieties needed to cope with expanding pest ranges under climate change.
+
+The study represents a significant advance in understanding how different tree species mount defence responses, moving beyond the limitations of model plant studies to provide species-specific molecular tools for two important Northern European forest trees.
+
+[[TRANSITION]]
+
+Aspect Sentiment Triplet Extraction, or ASTE, is a fine-grained subtask of aspect-based sentiment analysis that aims to extract not just what people are talking about, but also what they feel about it and why. Specifically, it identifies aspect terms, opinion terms, and the sentiment polarity linking them—producing structured triples like (battery life, long, positive) from product reviews. The challenge is that many existing end-to-end ASTE models treat sentences as flat sequences, missing deeper syntactic and semantic cues that could improve accuracy.
+
+A new approach from researchers in PLOS ONE tackles this by integrating external knowledge with dual encoders and contrastive learning. The method works in three layers. First, it uses two separate encoders: a semantic encoder based on BERT to capture contextual meaning, and a syntactic encoder combining Bi-LSTM and Graph Convolutional Networks to process syntactic dependency trees and part-of-speech tags. This dual-encoder setup allows the model to extract both higher-order semantic features and fine-grained syntactic structure.
+
+Second, these features are fused together, creating a richer representation that preserves both meaning and grammatical relationships. Third, the fused features feed into a triplet extraction layer based on Boundary-Driven Table Filling, but with a twist: a boundary-aware contrastive learning module is added to sharpen the model's ability to recognize where aspect and opinion terms begin and end.
+
+The authors report that experiments on public ASTE datasets show their method achieves excellent performance, though the available text does not specify which datasets, what exact metrics were used, or how it compares to prior state-of-the-art models. That said, the core innovation—leveraging external knowledge like dependency parsing and sentiment lexicons (SenticNet) alongside dual encoders—addresses a known weakness in prior work: the failure to fully exploit sentence-level syntactic and semantic information.
+
+If validated, this could make ASTE more reliable for real-world applications like mining customer reviews or analyzing social media sentiment, where understanding not just what is said but the nuanced relationships between entities and opinions is critical. The available text does not discuss computational cost or scalability, so those practical considerations remain open questions.
+
+[[TRANSITION]]
+
+In Malaysia, vaccination during pregnancy remains underutilized despite clear public health benefits. Influenza vaccine coverage is persistently low, and awareness of Tdap recommendations is limited. To address this, researchers have designed a cluster randomized controlled trial to test an educational intervention called the InTroDuce-Programme.
+
+The intervention is a 30-minute educational module delivered by trained healthcare providers. It covers the importance of antenatal vaccination, safety profiles of influenza and Tdap vaccines, and their benefits for both mother and infant. The module is delivered in primary care clinics to pregnant women attending routine antenatal visits.
+
+The trial will recruit 1,200 pregnant women across 24 clinics in Malaysia. Clinics will be randomly assigned to either the intervention group, where women receive the educational module, or the control group, where women receive standard care. The primary outcomes are knowledge about antenatal vaccination and intention to vaccinate, measured immediately after the intervention and at six weeks postpartum.
+
+Secondary outcomes include actual vaccination uptake, measured through clinic records, and changes in attitudes and beliefs about vaccination. The study will also assess the feasibility and acceptability of the intervention to healthcare providers.
+
+The researchers hypothesize that the educational module will improve knowledge and intention to vaccinate, ultimately leading to higher uptake rates. If effective, the InTroDuce-Programme could be scaled up to improve antenatal vaccination coverage in Malaysia and similar settings.
+
+The available text does not provide details on the specific content of the educational module, the training provided to healthcare providers, or the statistical methods for analyzing the data. The trial is registered and is expected to provide valuable insights into strategies for improving antenatal vaccination uptake.
+
+[[TRANSITION]]
+
+Neuropeptide Y is a small signaling protein in the brain that helps regulate appetite, stress responses, and other key functions. It works by binding to receptors on cell membranes, and that binding process is thought to depend on the acidity of the surrounding environment. But until now, most structural studies of NPY have been done at acidic pH, leaving a gap in our understanding of how it behaves under neutral or basic conditions.
+
+A new study from PLoS ONE fills that gap by using nuclear magnetic resonance to map the structure of NPY in aqueous solution across a range of pH values. The researchers found that at acidic pH, the peptide adopts a compact, mostly helical fold—consistent with earlier work. But as the pH rises toward neutral and basic conditions, the structure becomes more disordered, with the helical content dropping and the molecule sampling a wider range of conformations.
+
+This pH-dependent flexibility matters because it suggests that NPY's ability to interact with its membrane-bound receptors could be tuned by local pH changes. In the brain, pH can shift in response to neural activity, metabolic states, or disease. If NPY becomes more disordered at higher pH, it might bind less tightly or in a different orientation, potentially altering its signaling output.
+
+The study also compared human and porcine NPY, finding that while both show similar pH-driven structural changes, subtle sequence differences lead to slightly different conformational preferences. That could explain some species-specific variations in NPY function.
+
+One limitation is that the work was done in pure water, not in membrane-mimetic environments, so the next step will be to see how pH affects NPY's structure when it's near a lipid bilayer. Still, this work provides a clearer picture of how a key brain peptide's shape—and likely its function—can shift with acidity, opening new avenues for understanding its role in health and disease.
+
+[[TRANSITION]]
+
+Researchers have analyzed the ethanolic extract of stem bark from an unnamed plant species, revealing significant phytochemical diversity and potent antibacterial activity. The study, published in Zeitschrift für Naturforschung C, identified multiple bioactive compounds and demonstrated strong inhibitory effects against common pathogenic bacteria. Molecular docking simulations suggest these compounds interact with bacterial cell wall synthesis enzymes, potentially explaining their antimicrobial mechanism. The findings highlight the extract's promise as a source of novel antibacterial agents, particularly relevant given rising antibiotic resistance concerns. The research team emphasizes the need for further investigation to isolate active compounds and evaluate their therapeutic potential. This work contributes to the growing body of evidence supporting traditional medicinal plants as valuable sources for drug discovery.
+
+[[TRANSITION]]
+
+Common random numbers are a standard variance reduction technique in agent-based models, where the same random inputs are reused across intervention scenarios to produce paired counterfactual simulations. The idea is simple: if two simulations share the same random draws, their differences should isolate the causal effect of the intervention, reducing variance compared to independent runs.
+
+But there's a critical flaw in how CRNs are typically implemented. Most agent-based models use stateful pseudorandom number generators, where each call to the PRNG advances its internal state. When an intervention changes the simulation's execution path—say, by altering which agents interact or when events occur—the sequence of random draws shifts. A random number that once determined an agent's movement might now determine something else entirely. This breaks the assumed stable mapping between random draws and modeled events, making the paired simulations causally invalid.
+
+The problem is that standard CRN implementations assume a fixed correspondence between random draws and events, but stateful PRNGs don't guarantee this when the simulation path changes. The variance reduction comes at the cost of biased causal estimates.
+
+The solution proposed here is event-keyed hashing. Instead of using a stateful PRNG, each modeled event is assigned a unique key—derived from the event's type, location, and time. A pseudorandom number for that event is then generated by hashing its key with a shared random seed. Because the key is deterministic and tied to the event's identity, the same event always produces the same random number, regardless of when or how often it's sampled. This eliminates the dependency on execution order and ensures that interventions only affect events they directly modify.
+
+The approach is implemented in a Python package called crn4abm, which provides drop-in replacements for NumPy's random functions. Benchmarks show statistically significant variance reduction in several case studies, with performance overhead typically under 25% compared to standard CRNs. The method restores both the variance benefits and causal validity of common random numbers in agent-based modeling.
+
+[[TRANSITION]]
+
+Voxel-based morphometry is a workhorse technique in neuroimaging, letting researchers compare brain structure across groups by analyzing differences in gray matter density voxel by voxel. But raw voxel-wise tests are plagued by multiple comparisons: with hundreds of thousands of voxels, random noise alone will produce many false positives. The standard fix is cluster-based inference, which groups nearby significant voxels and tests whether the cluster is larger than expected by chance. The problem is that cluster inference depends critically on choosing a primary threshold—too high and you miss real effects; too low and you drown in noise.
+
+Threshold-free cluster enhancement, or TFCE, was introduced to sidestep this dilemma. Instead of picking one threshold, TFCE integrates evidence across all possible thresholds, combining both cluster extent and voxel height into a single enhancement score. The catch? Computing TFCE p-values requires permutation testing—randomly shuffling group labels thousands of times to build a null distribution. For high-resolution brain images, this can take hours or even days.
+
+A recent pre-print proposes a hybrid solution called eTFCE-GRF that aims to keep TFCE's sensitivity while delivering permutation-free speed. The method works by first applying TFCE to the statistical map, then retrieving the exact cluster extent at the threshold that produced each TFCE score. Critically, it assigns analytical p-values to these retrieved extents using Gaussian random field theory—the same framework that powers tools like FSL's randomise. Because GRF theory provides closed-form p-value calculations, the entire inference pipeline runs in seconds rather than hours.
+
+The authors validate the approach on simulated and real VBM data, showing that eTFCE-GRF recovers clusters nearly identical to those found by full permutation TFCE, but with orders-of-magnitude faster computation. They also demonstrate that the retrieved extents match the true extent at the maximizing threshold, ensuring no loss of spatial precision. The method is implemented in a lightweight Python package and is positioned as a drop-in replacement for existing TFCE workflows.
+
+If the results hold up, eTFCE-GRF could become a new standard for VBM studies, offering the sensitivity of threshold-free inference without the computational bottleneck that has limited its use in large-scale or clinical applications.
+
+[[TRANSITION]]
+
+Let's talk about a new way to analyze mechanistic models using what the authors call parameter-state symmetries. This is a framework that tackles two fundamental problems in systems modeling at once: figuring out which parameters can be uniquely estimated from data, and which internal states can be determined from observations.
+
+The core idea is elegant. The authors define a specific type of transformation - a parameter-state symmetry - that changes both the model's parameters and its state variables in a coordinated way, but crucially, leaves the observed output completely unchanged at every time point. Think of it as a coordinated "shuffle" of parameters and states that the data can't detect.
+
+Here's where it gets powerful. The authors prove that the locally structurally identifiable parameter combinations and locally structurally observable states are exactly the quantities that remain unchanged - the invariants - under all such symmetries of the model. If a parameter combination changes under any symmetry transformation, it means you can't uniquely determine it from output data alone.
+
+The framework is demonstrated on four existing mechanistic models. For these cases, the symmetry-based analysis successfully confirms known identifiability results and also reveals new insights about state observability. This validates the method as both correct and useful.
+
+Why does this matter? Identifiability and observability are critical for building reliable mechanistic models, especially in systems biology where we often have complex ODE models with many parameters and hidden states. This work provides a unified theoretical foundation for analyzing both properties using the same symmetry-based approach. It potentially offers a more straightforward tool for modelers to assess whether their parameters can be estimated and states can be determined from data before investing in expensive experiments or computations.
+
+The available text doesn't provide details on the specific mathematical formulation of these symmetries or how to compute them for a given model. It also doesn't discuss computational complexity or limitations of the approach. But the theoretical connection between symmetries and identifiability/observability is the key insight here - a single framework that links these fundamental properties through the concept of invariance.
+
+[[TRANSITION]]
+
+Absolute Binding Free Energy methods are among the most accurate computational techniques for predicting how strongly a small molecule binds to a protein. But they come with a major drawback: they require simulating dozens or even hundreds of alchemically modified intermediate states. These alchemical pathways transform the ligand from its fully bound form to a non-interacting state through a series of gradual perturbations, and each intermediate state needs its own simulation. This makes ABFE calculations computationally expensive and time-consuming, often taking weeks of compute time for a single binding event.
+
+A new method called Direct Binding Free Energy, or DBFE, aims to change that. Instead of relying on alchemical intermediates, DBFE is an end-state method that operates in implicit solvent. It calculates binding free energies using only the simulations of the bound complex and the unbound receptor and ligand in their final states. By explicitly avoiding the alchemical pathways—like the lambda windows used in traditional ABFE—DBFE sidesteps the need for those intermediate simulations entirely.
+
+The available text doesn't provide details on how DBFE actually computes the free energy difference between bound and unbound states without alchemical intermediates. That's a critical gap, because the novelty here hinges on replacing a well-established computational pathway with something new and presumably simpler. Without knowing the specific equations or algorithms, it's hard to judge whether DBFE matches the accuracy of traditional ABFE or if it trades some precision for speed.
+
+What we do know is the motivation is clear: eliminate the computational bottleneck of alchemical simulations while retaining the accuracy of end-state free energy calculations. If DBFE can deliver binding affinities as reliably as ABFE but in a fraction of the time, it could make high-accuracy protein-ligand binding predictions far more accessible for drug discovery and other applications. The real test will be whether the method's accuracy holds up when benchmarked against experimental data and established ABFE protocols.
+
+[[TRANSITION]]
+
+Here's the segment:
+
+NLRP3 has long been known as a critical sensor of cellular stress, but its exact mechanism of activation has remained elusive. Now, researchers have discovered that NLRP3 directly senses intracellular potassium ions, with potassium concentration itself controlling the protein's conformational state.
+
+The inflammasome is a molecular machine that drives inflammation in response to infection, cardiovascular disease, metabolic disorders, and neurodegeneration. While many triggers of NLRP3 activation were already known, they all seemed to share one common feature: they caused potassium to leak out of cells. This suggested potassium might be more than just a bystander.
+
+Using cryo-electron microscopy, the team captured NLRP3 in different conformational states. At physiological potassium concentrations, the protein adopts a compact, autoinhibited structure where the NACHT domain interacts with the LRR domain, keeping the protein in an inactive state. When potassium levels drop, this autoinhibition is relieved, and the protein opens up into an active conformation.
+
+The researchers demonstrated this is a direct sensing mechanism by showing that potassium ions bind to specific sites on NLRP3 and stabilize the inactive state. When potassium is removed, the protein undergoes a conformational change that unmasks its oligomerization interface, allowing it to assemble into the active inflammasome complex.
+
+This finding fundamentally changes our understanding of NLRP3 biology. Rather than being activated by potassium efflux as a secondary effect, NLRP3 is actually a potassium sensor that directly monitors intracellular ion levels. This explains why so many diverse stimuli converge on potassium efflux as a common activation pathway.
+
+The implications are significant for inflammatory disease treatment. Since NLRP3 activation is central to many pathological conditions, understanding its direct regulation by potassium opens new avenues for therapeutic intervention. The available text does not provide details on specific therapeutic applications or the exact potassium binding sites, but the discovery establishes a clear molecular mechanism for how cellular potassium levels control inflammatory responses.
+
+[[TRANSITION]]
+
+A new study from bioRxiv shows that VSV-G-pseudotyped lentiviral vectors can efficiently transduce NK cells for CAR-NK cell therapy development. By optimizing pre-activation with interleukins, using NK-specific CAR constructs, and adding transduction enhancers BX795 and Retronectin, researchers achieved excellent transduction efficiency without compromising NK cell phenotype or growth. This matters because it enables safer, off-the-shelf allogeneic CAR-NK therapies using a well-established vector platform with an excellent safety record. The optimized workflow addresses a key bottleneck in CAR-NK development, potentially offering a more standardized gene transfer method compared to less-characterized alternatives. However, specific transduction efficiency metrics and long-term functional impacts of the enhancers remain to be detailed in the full study.
+
+[[TRANSITION]]
+
+A new mouse model developed by researchers at bioRxiv offers a reliable way to track mature neutrophils in vivo. Using a CD101-tdTomato reporter system, the team confirmed that CD101 remains a robust marker for mature neutrophils, even under pathological conditions. The reporter did not alter endogenous CD101 expression, and tdTomato fluorescence accurately reflected CD101 promoter activity. Importantly, reduced CD101 expression during inflammation was not due to protein shedding or degradation, but rather to transcriptional changes. This tool enables precise identification and isolation of mature neutrophils based on nuclear morphology, size, and function, advancing studies of neutrophil biology in health and disease.
+
+[[TRANSITION]]
+
+For decades, scientists have puzzled over why some proteins contain knots in their structures. These aren't metaphorical knots - they're actual physical entanglements in the polypeptide chain that persist in the protein's folded state. Now, a new computational study suggests these knots serve a critical function: they dramatically enhance a protein's kinetic stability.
+
+Using Monte Carlo off-lattice simulations with a simple structure-based model, researchers systematically compared knotted and unknotted versions of the same protein. The key innovation was their ability to isolate topological effects by running parallel simulations - one preserving the linear chain topology and another allowing chain crossings that create knots.
+
+The results were striking. Knotted proteins showed significantly higher kinetic stability than their unknotted counterparts. More importantly, the depth of the knot mattered - deeper knots conferred greater stability. This wasn't just about folding efficiency; the presence of a knot had a much larger impact on kinetic stability than on foldability.
+
+The researchers also modeled protein evolution by varying the size of the amino acid alphabet, using this as a proxy for evolutionary time. As the sequence complexity increased, kinetic stability improved more dramatically in knotted proteins than in unknotted ones. This suggests that evolutionary pressure for kinetic stability could be driving the conservation of knotted topologies.
+
+This finding potentially solves a long-standing mystery in protein science. Rather than being evolutionary accidents or having some obscure functional role, knots may persist because they make proteins more resistant to unfolding - a crucial advantage for proteins operating in harsh cellular environments. The study provides compelling evidence that what looks like a topological curiosity may actually be a sophisticated evolutionary solution to the problem of protein stability.
+
+[[TRANSITION]]
+
+Human T-cell lymphotropic virus type 1, or HTLV-1, infects between 5 and 10 million people worldwide. Most carriers remain asymptomatic, but a significant fraction develops severe neuroinflammatory or malignant disorders, including adult T-cell leukemia/lymphoma and HTLV-1-associated myelopathy, also known as tropical spastic paraparesis. Until now, these conditions were treated as distinct diseases with separate mechanisms. This new study flips that assumption on its head.
+
+Using an integrated multi-omics approach, researchers analyzed bulk transcriptomics from 200 patients and single-cell RNA sequencing from over 233,000 peripheral blood mononuclear cells. They combined these data with dimensionality reduction, machine learning, and multivariate statistical analysis to uncover a shared molecular signature across disease states.
+
+What they found was a consistent set of genes—termed the "neuroimmunome"—that are differentially expressed in both nervous and immune systems. This signature appears in leukocytes from HTLV-1 patients regardless of whether they have leukemia or myelopathy. In other words, the same neuroimmune disruption underlies both conditions.
+
+The team also identified potential biomarkers predictive of HTLV-1-driven leukemogenesis using gradient boosting models. Two proteins, ATF4 and SKIL, showed strong correlations with proviral load, a key measure of viral activity in the body. These correlations were validated across distinct clinical cohorts, including asymptomatic carriers, HAM/TSP patients, and ATL patients.
+
+This work reframes HTLV-1 pathogenesis from a disease-specific model to a unified framework of systemic neuroimmune dysregulation. It suggests that targeting the neuroimmunome could offer new therapeutic avenues for both ATL and HAM/TSP. The findings also highlight ATF4 and SKIL as promising biomarkers for monitoring disease progression and severity.
+
+By revealing a common molecular thread between these devastating conditions, the study opens the door to more integrated diagnostic and treatment strategies for HTLV-1-associated diseases.
+
+[[TRANSITION]]
+
+Here's the deep-dive segment:
+
+In a study from Soweto, South Africa, researchers have uncovered a potential link between maternal zinc levels and Group B Streptococcus colonisation risk during pregnancy. The findings suggest that higher serum zinc concentrations in early pregnancy may help protect against GBS colonisation later in pregnancy.
+
+Group B Streptococcus is a major concern in maternal and neonatal health. This bacterium can colonize the recto-vaginal tract of pregnant women and, if transmitted to newborns during delivery, can cause severe invasive infections including sepsis, pneumonia, and meningitis. Current prevention strategies rely on screening and antibiotic prophylaxis during labor, but these approaches have limitations and don't address the underlying factors that influence colonization susceptibility.
+
+The research team analyzed stored serum samples and GBS colonization data from 466 pregnant women who had undergone serial recto-vaginal swabs between 20 and 34 weeks of gestation. They categorized women into four groups based on their GBS colonization patterns: those who were never colonized, those who cleared colonization, those who acquired colonization, and those with persistent colonization throughout the study period.
+
+The key finding was that women who were never colonized with GBS had significantly higher median serum zinc concentrations (9.0 μmol/L) compared to women who were persistently colonized (7.9 μmol/L). This difference was statistically significant and suggests a protective effect of adequate zinc levels.
+
+The researchers also found that women with higher zinc levels were more likely to clear existing GBS colonization. This clearance effect was particularly notable among women who initially tested positive for GBS but later tested negative.
+
+While the study demonstrates an association between zinc levels and GBS colonization patterns, it's important to note that this was an observational study, so causation cannot be established. The researchers controlled for several potential confounding factors including maternal age, HIV status, and body mass index, but other unmeasured variables could still influence the relationship.
+
+The biological mechanisms underlying this association likely involve zinc's role in immune function. Zinc is essential for proper immune cell development and function, and adequate zinc status may enhance the body's ability to resist bacterial colonization through various immune mechanisms.
+
+These findings raise interesting questions about whether targeted zinc supplementation during pregnancy could be a useful strategy for reducing GBS colonization risk, though clinical trials would be needed to establish efficacy and safety before any recommendations could be made. The study also highlights the potential importance of micronutrient status in maternal and neonatal health outcomes beyond what is currently recognized in standard prenatal care protocols.
+
+[[TRANSITION]]
+
+Sex-specific homeodomain proteins are central to fungal sexual development, typically working as heterodimers to control transcription. In the human fungal pathogens *Cryptococcus neoformans* and *Cryptococcus deneoformans*, the homeodomain proteins Sxi1α and Sxi2a have been known to form a heterodimer that regulates sexual reproduction. But new work reveals that these proteins have distinct and partially independent roles, especially during unisexual reproduction.
+
+Using AlphaFold3, researchers modeled the Sxi1α-Sxi2a heterodimer and potential Sxi1α homodimers. They then generated mutant strains lacking either Sxi1α or Sxi2a and tested their ability to undergo same-sex mating. The results were striking: Sxi1α acts as a novel inhibitor of cell fusion during unisexual reproduction. Without Sxi1α, cells fused more readily, suggesting this protein actively blocks fusion in same-sex mating scenarios.
+
+Further experiments showed that both Sxi1α and Sxi2a can regulate transcription independently of their heterodimeric partner. This challenges the long-held view that these proteins must always function together. The study also found that Sxi1α and Sxi2a have distinct roles in controlling cell identity and sexual development, with Sxi1α's fusion-inhibiting activity being a new and unexpected function.
+
+These findings reshape our understanding of how homeodomain proteins control fungal sexual reproduction, revealing a more complex regulatory network than previously appreciated. The ability of Sxi1α to independently inhibit cell fusion and regulate transcription highlights the nuanced control these proteins exert over fungal development and pathogenesis.
+
+[[TRANSITION]]
+
+Researchers have developed a two-component vaccine strategy targeting the SARS-CoV-2 Omicron XBB.1.5 variant that combines an adenoviral vector with a subunit protein component. The vaccine uses an Ad5 vector encoding the Omicron XBB.1.5 spike protein alongside a separate subunit protein component.
+
+The key innovation here is the combination approach. While the available text doesn't specify the exact subunit protein used or the full immunization protocol, the researchers designed this dual-component system to elicit a more robust immune response than either component alone. This makes biological sense - adenoviral vectors can induce strong cellular immunity and provide sustained antigen expression, while subunit proteins typically generate high levels of neutralizing antibodies.
+
+The motivation for this work stems from the ongoing challenge posed by SARS-CoV-2 variants. As the virus continues to evolve, current vaccines have shown progressively reduced protection, particularly against newer Omicron subvariants. The XBB.1.5 variant, which emerged as a highly transmissible strain, represents a significant target for updated vaccine strategies.
+
+What's particularly noteworthy about this approach is that it attempts to harness the complementary strengths of both vaccine platforms. Adenoviral vectors like Ad5 have been successfully used in COVID-19 vaccines, offering the advantage of inducing both antibody and T-cell responses. When combined with a subunit protein that can be produced at scale and typically generates strong antibody responses, the researchers aimed to create a more comprehensive immune response.
+
+The available text cuts off before providing specific immunogenicity data, challenge study results, or comparisons with existing vaccines. Without these details, we cannot assess the actual performance of this combination vaccine or determine whether it successfully overcomes the limitations of current approaches. The study appears to be in the design and preliminary testing phase, with the full results and efficacy data not yet available in the provided excerpt.
+
+[[TRANSITION]]
+
+Levilactobacillus brevis AK19B is a newly characterized lactic acid bacterium that shows strong probiotic potential. Researchers isolated this strain and found it to be hydrophilic, meaning it interacts favorably with water-based environments, which is important for survival in the gut. It also produces phytase, an enzyme that breaks down phytic acid in plant-based foods, improving mineral bioavailability. On top of that, the strain demonstrated strong antioxidant activity and maintained viability even in the presence of bile salts, suggesting it can survive the harsh conditions of the gastrointestinal tract.
+
+The main focus of the study was to maximize its ability to produce gamma-aminobutyric acid, or GABA. GABA is a non-protein amino acid that acts as a major inhibitory neurotransmitter in mammals and has been linked to benefits like reduced anxiety, improved sleep, and lower blood pressure. In food and supplement applications, GABA is valued for its calming effects and potential therapeutic uses.
+
+To boost GABA yields, the team used a Box-Behnken design, a type of response surface methodology that efficiently tests multiple variables at once. They optimized three key factors: monosodium glutamate concentration, incubation temperature, and fermentation time. The model predicted that the best combination would be 205 millimolar MSG, a temperature of 30 degrees Celsius, and a 72-hour fermentation period. Under these conditions, GABA production reached 18.5 grams per liter, which is a substantial yield for a microbial process.
+
+This work is significant because it not only characterizes a robust probiotic strain but also demonstrates a scalable approach to producing GABA, a compound with growing demand in functional foods and nutraceuticals. The combination of probiotic traits and high GABA output makes Levilactobacillus brevis AK19B a promising candidate for industrial applications.
+
+[[TRANSITION]]
+
+EvoFlows is a protein engineering approach that uniquely performs a limited, controllable number of insertions, deletions, and substitutions on a template protein sequence, predicting both the specific mutation and its location.
+
+The core innovation here is how EvoFlows learns mutational trajectories between evolutionarily-related protein sequences. Instead of generating proteins autoregressively or through masking, it uses what the authors call "edit flows" to model both the distribution of related natural proteins and the mutational paths connecting them. This variable-length sequence-to-sequence model can simultaneously capture protein sequence distributions with quality comparable to leading masked language models while also learning the evolutionary paths between sequences.
+
+The method was evaluated in silico on diverse protein communities from the UNIREF and OAS databases. The results demonstrate that EvoFlows can capture protein sequence distributions at a quality level matching state-of-the-art masked language models. However, the available text does not provide specific performance metrics, quantitative comparisons, or details about the exact algorithmic implementation of the edit flow mechanism.
+
+What makes this approach particularly interesting for protein engineering is its controllability - you can specify exactly how many mutations to introduce and where they should occur. This contrasts with traditional methods that either generate sequences from scratch or make random mutations. By learning from evolutionary trajectories, EvoFlows potentially offers a more principled way to explore protein sequence space while maintaining functional properties.
+
+The source text indicates this is a new approach that bridges the gap between sequence modeling and directed evolution, though specific details about training procedures, computational requirements, or downstream engineering applications are not provided in the available excerpt.
+
+
+References:
+[1] In Cells and Outside of Them — In the Pipeline (Derek Lowe) — https://www.science.org/content/blog-post/cells-and-outside-them
+[2] AlphaFind v2: Similarity Search in AlphaFold DB and TED Domains across Structural Contexts — bioRxiv — bioinformatics — https://www.biorxiv.org/content/10.64898/2026.03.10.710735
+[3] AF2BIND: predicting small-molecule binding sites using the pair representation of AlphaFold2. — PubMed — Nature methods — https://doi.org/10.1038/s41592-026-03011-2
+[4] 3D chromatin compartment of round spermatids encodes the spatiotemporal program of histone-to-protamine exchange in spermiogenesis — bioRxiv — genomics — https://www.biorxiv.org/content/10.64898/2026.03.10.710708
+[5] The role of topology on protein thermal stability — arXiv q-bio.BM — https://arxiv.org/abs/2511.07024
+[6] Computational design of conformation-biasing mutations to alter protein functions. — PubMed — Science (New York, N.Y.) — https://doi.org/10.1126/science.adv7953
+[7] De novo design of functional nucleic acids of aptamers. — PubMed — Nature computational science — https://doi.org/10.1038/s43588-026-00965-3
+[8] Cyclic peptides space: The methodology of sequence selection to cover the comprehensive physical properties — bioRxiv — bioinformatics — https://www.biorxiv.org/content/10.64898/2026.03.10.710724
+[9] DiaReport: Reproducible Workflow for Differential Expression Analysis and Interactive Reporting in DIA-based Proteomics — bioRxiv — bioinformatics — https://www.biorxiv.org/content/10.64898/2026.03.10.707945
+[10] Evaluating transformer-based models for structural characterization of orphan proteins — bioRxiv — bioinformatics — https://www.biorxiv.org/content/10.64898/2026.03.10.709490
+[11] GCN-Mamba: Graph Convolutional Network with Mamba for Antibacterial Synergy Prediction — bioRxiv — bioinformatics — https://www.biorxiv.org/content/10.64898/2026.03.10.710738
+[12] Directional Variant Tension (Tv): A Causal Framework for Quantifying Substitution Asymmetry — bioRxiv — bioinformatics — https://www.biorxiv.org/content/10.64898/2026.03.10.710752
+[13] Joint Geometric--Chemical Distance for Protein Surfaces — bioRxiv — bioinformatics — https://www.biorxiv.org/content/10.64898/2026.03.10.710722
+[14] Single-engineered-residue solvation perturbations regulate global protein architecture and function. — PubMed — Nature communications — https://doi.org/10.1038/s41467-026-70155-2
+[15] Design of miniprotein inhibitors targeting complement C9 to block membrane attack complex assembly. — PubMed — Nature communications — https://doi.org/10.1038/s41467-026-70667-x
+[16] Di-codon organization links tRNA modifications to cancer cell proteome composition — bioRxiv — molecular biology — https://www.biorxiv.org/content/10.64898/2026.03.10.710911
+[17] Molecular mechanism of coilin interaction with core snRNPs — bioRxiv — molecular biology — https://www.biorxiv.org/content/10.64898/2026.03.10.710772
+[18] Backbone Thioamidation of a Ribosomal Subunit Protein in Pseudomonadota. — PubMed — Biochemistry — https://doi.org/10.1021/acs.biochem.5c00829
+[19] Structural innovation in the evolution of plant chemical defense. — PubMed — Proceedings of the National Academy of Sciences of the United States of America — https://doi.org/10.1073/pnas.2535853123
+[20] Atomistic simulations reveal the photoactivation mechanism of a carotenoid-binding photoreceptor. — PubMed — Proceedings of the National Academy of Sciences of the United States of America — https://doi.org/10.1073/pnas.2515214123
+[21] Charge-reversal proteolysis polymers enable tissue-specific STING degradation in rheumatoid arthritis. — PubMed — Proceedings of the National Academy of Sciences of the United States of America — https://doi.org/10.1073/pnas.2525897123
+[22] Species specific marker genes for systemic defence and stress responses to leaf wounding and flagellin stimuli in hybrid aspen and silver birch. — PubMed — PloS one — https://doi.org/10.1371/journal.pone.0344803
+[23] External-knowledge enhanced dual encoder and contrastive learning for aspect sentiment triplet extraction. — PubMed — PloS one — https://doi.org/10.1371/journal.pone.0340792
+[24] Effectiveness of the influenza and Tdap vaccination educational module (InTroDuce-Programme) on knowledge and intention for antenatal vaccination: A cluster randomised controlled trial protocol among pregnant women in Malaysian primary care clinics. — PubMed — PloS one — https://doi.org/10.1371/journal.pone.0344651
+[25] pH-dependent structural dynamics of neuropeptide Y in aqueous solution. — PubMed — PloS one — https://doi.org/10.1371/journal.pone.0343614
+[26] Phytochemical and antibacterial studies of the ethanolic stem barks extract of — PubMed — Zeitschrift fur Naturforschung. C, Journal of biosciences — https://doi.org/10.1515/znc-2025-0229
+[27] Realizing Common Random Numbers: Event-Keyed Hashing for Causally Valid Stochastic Models — arXiv q-bio.QM — https://arxiv.org/abs/2603.11084
+[28] Hybrid eTFCE-GRF: Exact Cluster-Size Retrieval with Analytical p-Values for Voxel-Based Morphometry — arXiv q-bio.QM — https://arxiv.org/abs/2603.11344
+[29] Framing local structural identifiability and observability in terms of parameter-state symmetries — arXiv q-bio.QM — https://arxiv.org/abs/2603.11387
+[30] Binding Free Energies without Alchemy — arXiv q-bio.QM — https://arxiv.org/abs/2603.12253
+[31] NLRP3 acts as a direct sensor of intracellular potassium ions — bioRxiv — immunology — https://www.biorxiv.org/content/10.64898/2026.03.12.707678
+[32] Efficient NK cell transduction with VSV-G-pseudotyped lentiviral vectors — bioRxiv — immunology — https://www.biorxiv.org/content/10.64898/2026.03.11.710988
+[33] A Genetic Tool for Specific Tracking of Mature Neutrophils — bioRxiv — immunology — https://www.biorxiv.org/content/10.64898/2026.03.10.710957
+[34] Topological Enhancement of Protein Kinetic Stability — arXiv q-bio.BM — https://arxiv.org/abs/2603.12053
+[35] HTLV-1-Induced Neuroimmunome Correlates with Disease Progression and Severity — bioRxiv — molecular biology — https://www.biorxiv.org/content/10.64898/2026.03.12.711373
+[36] Higher serum zinc micronutrient levels are associated with reduced susceptibility to Group B Streptococcus rectovaginal colonisation in pregnant women. — PubMed — PloS one — https://doi.org/10.1371/journal.pone.0344689
+[37] Homeodomain protein Sxi1α independently controls cell-cell fusion and gene expression during sexual reproduction in Cryptococcus deneoformans. — PubMed — PLoS genetics — https://doi.org/10.1371/journal.pgen.1012084
+[38] Combination of adenovirus vector and subunit protein elicits a robust immune response against the SARS-CoV-2 Omicron variant. — PubMed — Molecular biomedicine — https://doi.org/10.1186/s43556-026-00410-x
+[39] Production of Gamma-Aminobutyric Acid by Levilactobacillus brevis AK19B: Strain Characterization and Process Optimization Using Box-Behnken Design. — PubMed — Probiotics and antimicrobial proteins — https://doi.org/10.1007/s12602-026-10965-4
+[40] EvoFlows: Evolutionary Edit-Based Flow-Matching for Protein Engineering — arXiv cs.LG (AI/ML) — https://arxiv.org/abs/2603.11703

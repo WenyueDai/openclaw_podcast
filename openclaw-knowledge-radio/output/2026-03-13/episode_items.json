@@ -1,0 +1,366 @@
+{
+  "timestamps": [
+    0.0,
+    48.09,
+    168.81,
+    297.47,
+    353.07,
+    476.24,
+    518.47,
+    653.3,
+    801.09,
+    933.08,
+    1104.92,
+    1161.36,
+    1215.86,
+    1274.8,
+    1399.82,
+    1503.92,
+    1556.46,
+    1612.2,
+    1662.43,
+    1709.06,
+    1760.56,
+    1810.76,
+    1972.28,
+    2117.84,
+    2237.54,
+    2360.97,
+    2419.58,
+    2555.63,
+    2708.89,
+    2848.95,
+    2978.06,
+    3120.12,
+    3175.43,
+    3227.84,
+    3343.98,
+    3485.19,
+    3664.03,
+    3775.77,
+    3907.46,
+    4031.17
+  ],
+  "items": [
+    {
+      "title": "In Cells and Outside of Them",
+      "url": "https://www.science.org/content/blog-post/cells-and-outside-them",
+      "source": "In the Pipeline (Derek Lowe)",
+      "one_liner": "",
+      "segment": 0,
+      "timestamp": 0.0
+    },
+    {
+      "title": "AlphaFind v2: Similarity Search in AlphaFold DB and TED Domains across Structural Contexts",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.10.710735",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "The availability of large-scale protein structure collections enables structure-based analysis of their function and evolution beyond what is possible from sequence alone. However, applying three-dimensional structure comparison at scale remains computationally demanding and limits practical exploration of large experimental and predicted collections. Thi...",
+      "segment": 1,
+      "timestamp": 48.09
+    },
+    {
+      "title": "AF2BIND: predicting small-molecule binding sites using the pair representation of AlphaFold2.",
+      "url": "https://doi.org/10.1038/s41592-026-03011-2",
+      "source": "PubMed — Nature methods",
+      "one_liner": "Identification of small-molecule binding sites in proteins is an important task for drug discovery. Despite previous homology- and machine-learning-based approaches to this problem, true de novo binding-site prediction remains a challenge. Here we use features from a pretrained neural network to train a logistic regression model, AF2BIND, for accurate pre...",
+      "segment": 2,
+      "timestamp": 168.81
+    },
+    {
+      "title": "3D chromatin compartment of round spermatids encodes the spatiotemporal program of histone-to-protamine exchange in spermiogenesis",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.10.710708",
+      "source": "bioRxiv — genomics",
+      "one_liner": "Sperm formation requires a radical chromatin reorganization, where nucleosomes are replaced by transition proteins (TNPs) and subsequently by protamines (PRM1 and PRM2). Although essential for fertility, the regulatory logic governing this exchange is unknown, but it is presumed to be stochastic and unregulated. Using endogenously tagged PRM mouse models ...",
+      "segment": 3,
+      "timestamp": 297.47
+    },
+    {
+      "title": "The role of topology on protein thermal stability",
+      "url": "https://arxiv.org/abs/2511.07024",
+      "source": "arXiv q-bio.BM",
+      "one_liner": "arXiv:2511.07024v2 Announce Type: replace \nAbstract: For several decades, experimental and computational studies have been used to investigate the potential functional role of knots in protein structures. A property that has attracted considerable attention is thermal stability, i.e., the extent to which a protein retains its native conformation and biolo...",
+      "segment": 4,
+      "timestamp": 353.07
+    },
+    {
+      "title": "Computational design of conformation-biasing mutations to alter protein functions.",
+      "url": "https://doi.org/10.1126/science.adv7953",
+      "source": "PubMed — Science (New York, N.Y.)",
+      "one_liner": "Conformational biasing (CB) is a rapid and streamlined computational method that uses contrastive scoring by inverse folding models to predict protein variants biased toward desired conformational states. We successfully validated CB across seven diverse datasets, identifying variants of K-Ras, the severe acute respiratory syndrome coronavirus 2 (SARS-CoV...",
+      "segment": 5,
+      "timestamp": 476.24
+    },
+    {
+      "title": "De novo design of functional nucleic acids of aptamers.",
+      "url": "https://doi.org/10.1038/s43588-026-00965-3",
+      "source": "PubMed — Nature computational science",
+      "one_liner": "Functional nucleic acids (FNAs) are essential elements for designing advanced molecular tools, yet their de novo design faces challenges due to the vast sequence space and inefficiency of experimental screening methods. Nucleic acid large language models (NA-LLMs) offer new opportunities for FNA design, but their generative capability remains underexplore...",
+      "segment": 6,
+      "timestamp": 518.47
+    },
+    {
+      "title": "Cyclic peptides space: The methodology of sequence selection to cover the comprehensive physical properties",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.10.710724",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Cyclic peptides have emerged as a pivotal modality for next-generation therapeutics, due to their superior biocompatibility, high selectivity, and structural stability. While AI-driven peptide design has advanced rapidly, conventional optimization algorithms are often constrained by initialization biases, which impede the efficient exploration of the vast...",
+      "segment": 7,
+      "timestamp": 653.3
+    },
+    {
+      "title": "DiaReport: Reproducible Workflow for Differential Expression Analysis and Interactive Reporting in DIA-based Proteomics",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.10.707945",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Data-independent acquisition (DIA) has become the preferred data acquisition method for mass spectrometry-based proteomics, yet, reproducible workflows for differential expression (DE) analysis and reporting results remain limited. We present DiaReport, an R package that performs precursor- and protein-level DE analysis from DIA-NN output using MSqRob and...",
+      "segment": 8,
+      "timestamp": 801.09
+    },
+    {
+      "title": "Evaluating transformer-based models for structural characterization of orphan proteins",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.10.709490",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Transformer-based models (TBMs) are state-of-the-art deep learning architectures that predict protein structural and functional features with high accuracy. Despite methodological differences, they all rely on large protein sequence datasets structured by homology, as homologous proteins typically share structure and function. However, 5-30% of eukaryotic...",
+      "segment": 9,
+      "timestamp": 933.08
+    },
+    {
+      "title": "GCN-Mamba: Graph Convolutional Network with Mamba for Antibacterial Synergy Prediction",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.10.710738",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "The escalating crisis of antimicrobial resistance necessitates novel therapeutic strategies, among which drug combination therapy shows great promise by enhancing efficacy and reducing toxicity. However, identifying effective synergistic pairs from the vast combinatorial space remains experimentally challenging and resource-intensive. To address this, we ...",
+      "segment": 10,
+      "timestamp": 1104.92
+    },
+    {
+      "title": "Directional Variant Tension (Tv): A Causal Framework for Quantifying Substitution Asymmetry",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.10.710752",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Amino acid substitutions are often directionally asymmetric due to underlying biophysical constraints and diverse evolutionary pressures. We introduce Tv (variant tension), a kernel regression-based metric that quantifies this directional asymmetry directly from aligned multiple sequence alignments (MSAs). Tv leverages empirical amino acid frequencies and...",
+      "segment": 11,
+      "timestamp": 1161.36
+    },
+    {
+      "title": "Joint Geometric--Chemical Distance for Protein Surfaces",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.10.710722",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Protein function is executed at the molecular surface, where shape and chemistry act together to govern interaction. Yet most comparison methods treat these aspects separately, privileging either global fold or local descriptors and missing their coupled organization. Here we introduce IFACE (Intrinsic Field--Aligned Coupled Embedding), a correspondence-b...",
+      "segment": 12,
+      "timestamp": 1215.86
+    },
+    {
+      "title": "Single-engineered-residue solvation perturbations regulate global protein architecture and function.",
+      "url": "https://doi.org/10.1038/s41467-026-70155-2",
+      "source": "PubMed — Nature communications",
+      "one_liner": "Protein-water interactions fundamentally shape the structure, stability, dynamics, and functionality of proteins. However, the heterogeneous nature of the protein-water interface and the disparity in their dynamic interplay make it challenging to understand how local water perturbations influence protein structural dynamics over space and time. In this st...",
+      "segment": 13,
+      "timestamp": 1274.8
+    },
+    {
+      "title": "Design of miniprotein inhibitors targeting complement C9 to block membrane attack complex assembly.",
+      "url": "https://doi.org/10.1038/s41467-026-70667-x",
+      "source": "PubMed — Nature communications",
+      "one_liner": "The abnormal formation of the membrane attack complex (MAC) is intrinsically linked to a range of acute and chronic immune diseases. The insertion of complement C9 into the membrane is the final step and kinetic bottleneck of MAC formation. However, research on blocking the MAC formation of C9 is currently limited. Given its broad, flat, and polar functio...",
+      "segment": 14,
+      "timestamp": 1399.82
+    },
+    {
+      "title": "Di-codon organization links tRNA modifications to cancer cell proteome composition",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.10.710911",
+      "source": "bioRxiv — molecular biology",
+      "one_liner": "Hormone-signalling modulates levels of tRNA-modifying enzymes, including ELP3, in cancer cells. Here we show that ELP3 is required to sustain proliferation in prostate cancer cells. Intriguingly, although ELP3 modifies tRNA at the U34-position, the ELP3-sensitive proteome was poorly explained by frequencies of codons requiring U34-modified tRNA for decodi...",
+      "segment": 15,
+      "timestamp": 1503.92
+    },
+    {
+      "title": "Molecular mechanism of coilin interaction with core snRNPs",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.10.710772",
+      "source": "bioRxiv — molecular biology",
+      "one_liner": "Cajal bodies (CBs) are nuclear membrane-less organelles that accumulate various short non-coding RNAs and facilitate their biogenesis. They also function in quality control during the assembly of small nuclear ribonucleoprotein particles (snRNPs), sequestering immature or defective complexes. In this paper, we show that coilin, the key scaffolding protein...",
+      "segment": 16,
+      "timestamp": 1556.46
+    },
+    {
+      "title": "Backbone Thioamidation of a Ribosomal Subunit Protein in Pseudomonadota.",
+      "url": "https://doi.org/10.1021/acs.biochem.5c00829",
+      "source": "PubMed — Biochemistry",
+      "one_liner": "The ribosome is an intensively studied machine responsible for protein synthesis. Recent high-resolution structures of the",
+      "segment": 17,
+      "timestamp": 1612.2
+    },
+    {
+      "title": "Structural innovation in the evolution of plant chemical defense.",
+      "url": "https://doi.org/10.1073/pnas.2535853123",
+      "source": "PubMed — Proceedings of the National Academy of Sciences of the United States of America",
+      "one_liner": "Chemical defenses are fundamental in organismal biology and widely used in medicine and agriculture. Plant defense chemistry evolves in response to various selective pressures, particularly herbivory, and theory has emphasized predicting toxin abundance and diversity. Here we test hypotheses about the evolution of structural innovation in chemical defense...",
+      "segment": 18,
+      "timestamp": 1662.43
+    },
+    {
+      "title": "Atomistic simulations reveal the photoactivation mechanism of a carotenoid-binding photoreceptor.",
+      "url": "https://doi.org/10.1073/pnas.2515214123",
+      "source": "PubMed — Proceedings of the National Academy of Sciences of the United States of America",
+      "one_liner": "The orange carotenoid protein (OCP) is a key photoreceptor in the photoprotection of cyanobacterial antenna complexes. Its peculiar activity is governed by a bound keto-carotenoid that functions both as a light sensor and an energy quencher. Upon blue light absorption, OCP transitions from an orange resting state (OCP",
+      "segment": 19,
+      "timestamp": 1709.06
+    },
+    {
+      "title": "Charge-reversal proteolysis polymers enable tissue-specific STING degradation in rheumatoid arthritis.",
+      "url": "https://doi.org/10.1073/pnas.2525897123",
+      "source": "PubMed — Proceedings of the National Academy of Sciences of the United States of America",
+      "one_liner": "Inhibiting stimulator of interferon genes (STING) is critical for treating rheumatoid arthritis (RA), yet achieving precise suppression with high tissue specificity across protein variants remains challenging. Here, we engineer a multilevel, intelligent STING degrader-charge-reversal proteolysis-targeting chimeras (CreTACs)-that efficiently delivers to RA...",
+      "segment": 20,
+      "timestamp": 1760.56
+    },
+    {
+      "title": "Species specific marker genes for systemic defence and stress responses to leaf wounding and flagellin stimuli in hybrid aspen and silver birch.",
+      "url": "https://doi.org/10.1371/journal.pone.0344803",
+      "source": "PubMed — PloS one",
+      "one_liner": "In Northern Europe, climate warming is driving the northward expansion of deciduous tree species such as aspen and silver birch, while simultaneously intensifying biotic stress from pests and pathogens. This creates an urgent need for improved understanding of molecular defence mechanisms underlying stress resistance and resilience in temperate forest tre...",
+      "segment": 21,
+      "timestamp": 1810.76
+    },
+    {
+      "title": "External-knowledge enhanced dual encoder and contrastive learning for aspect sentiment triplet extraction.",
+      "url": "https://doi.org/10.1371/journal.pone.0340792",
+      "source": "PubMed — PloS one",
+      "one_liner": "Aspect Sentiment Triplet Extraction (ASTE) is an emerging subtask of Aspect-Based Sentiment Analysis (ABSA), aiming to extract aspect terms, opinion terms, and the corresponding sentiment polarity from sentences. Many existing ASTE methods neglect to mine the deeper semantics of the sentence as well as ignore the intrinsic meanings of individual words. In...",
+      "segment": 22,
+      "timestamp": 1972.28
+    },
+    {
+      "title": "Effectiveness of the influenza and Tdap vaccination educational module (InTroDuce-Programme) on knowledge and intention for antenatal vaccination: A cluster randomised controlled trial protocol among pregnant women in Malaysian primary care clinics.",
+      "url": "https://doi.org/10.1371/journal.pone.0344651",
+      "source": "PubMed — PloS one",
+      "one_liner": "BACKGROUND: Vaccination during pregnancy represents a critical public health strategy to safeguard both mothers and infants against infections such as influenza and pertussis. However, uptake remains suboptimal both globally and in Malaysia, with influenza vaccine coverage persistently low and limited awareness of Tdap recommendations. These gaps are of c...",
+      "segment": 23,
+      "timestamp": 2117.84
+    },
+    {
+      "title": "pH-dependent structural dynamics of neuropeptide Y in aqueous solution.",
+      "url": "https://doi.org/10.1371/journal.pone.0343614",
+      "source": "PubMed — PloS one",
+      "one_liner": "Neuropeptide Y regulates key molecular processes in the brain. Its interaction with the cell membrane, where it binds to specialized receptors with key physiological roles, likely depends on pH. Available structural ensembles of both porcine and human peptides, solved by nuclear magnetic resonance (NMR) at an acidic pH in aqueous solution, indicate an α-h...",
+      "segment": 24,
+      "timestamp": 2237.54
+    },
+    {
+      "title": "Phytochemical and antibacterial studies of the ethanolic stem barks extract of",
+      "url": "https://doi.org/10.1515/znc-2025-0229",
+      "source": "PubMed — Zeitschrift fur Naturforschung. C, Journal of biosciences",
+      "one_liner": "This study investigates the phytochemical composition, antibacterial efficacy, and molecular interactions of",
+      "segment": 25,
+      "timestamp": 2360.97
+    },
+    {
+      "title": "Realizing Common Random Numbers: Event-Keyed Hashing for Causally Valid Stochastic Models",
+      "url": "https://arxiv.org/abs/2603.11084",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2603.11084v1 Announce Type: cross \nAbstract: Agent-based models (ABMs) are widely used to estimate causal treatment effects via paired counterfactual simulation. A standard variance reduction technique is common random numbers (CRNs), which couples replicates across intervention scenarios by sharing the same random inputs. In practice, CRNs are impl...",
+      "segment": 26,
+      "timestamp": 2419.58
+    },
+    {
+      "title": "Hybrid eTFCE-GRF: Exact Cluster-Size Retrieval with Analytical p-Values for Voxel-Based Morphometry",
+      "url": "https://arxiv.org/abs/2603.11344",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2603.11344v1 Announce Type: cross \nAbstract: Threshold-free cluster enhancement (TFCE) integrates cluster extent across thresholds to improve voxel-wise neuroimaging inference, but permutation testing makes it prohibitively slow for large datasets. Probabilistic TFCE (pTFCE) uses analytical Gaussian random field (GRF) p-values but discretises the th...",
+      "segment": 27,
+      "timestamp": 2555.63
+    },
+    {
+      "title": "Framing local structural identifiability and observability in terms of parameter-state symmetries",
+      "url": "https://arxiv.org/abs/2603.11387",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2603.11387v1 Announce Type: cross \nAbstract: We introduce a subclass of Lie symmetries, called parameter-state symmetries, to analyse the local structural identifiability and observability of mechanistic models consisting of state-dependent ODEs with observed outputs. These symmetries act on parameters and states while preserving observed outputs at...",
+      "segment": 28,
+      "timestamp": 2708.89
+    },
+    {
+      "title": "Binding Free Energies without Alchemy",
+      "url": "https://arxiv.org/abs/2603.12253",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2603.12253v1 Announce Type: new \nAbstract: Absolute Binding Free Energy (ABFE) methods are among the most accurate computational techniques for predicting protein-ligand binding affinities, but their utility is limited by the need for many simulations of alchemically modified intermediate states. We propose Direct Binding Free Energy (DBFE), an end-...",
+      "segment": 29,
+      "timestamp": 2848.95
+    },
+    {
+      "title": "NLRP3 acts as a direct sensor of intracellular potassium ions",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.12.707678",
+      "source": "bioRxiv — immunology",
+      "one_liner": "The NLRP3 inflammasome is a sentinel of cellular homeostasis, and its activation triggers the assembly of a molecular machinery that drives inflammation in infection, cardiovascular, metabolic, and neurodegenerative diseases. The majority of the many triggers known to activate NLRP3 are believed to induce potassium ion (K+) efflux from the cell as a funda...",
+      "segment": 30,
+      "timestamp": 2978.06
+    },
+    {
+      "title": "Efficient NK cell transduction with VSV-G-pseudotyped lentiviral vectors",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.11.710988",
+      "source": "bioRxiv — immunology",
+      "one_liner": "The need for safe, allogeneic cell therapies for cancer is driving a growing interest in CAR-NK-based therapies, which, unlike CAR-T cell therapies, offer the potential for off-the-shelf administration. Lentiviruses pseudotyped with vesicular stomatitis virus glycoprotein G (VSV-G) are commonly used for genetic modification of cell therapy products. Their...",
+      "segment": 31,
+      "timestamp": 3120.12
+    },
+    {
+      "title": "A Genetic Tool for Specific Tracking of Mature Neutrophils",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.10.710957",
+      "source": "bioRxiv — immunology",
+      "one_liner": "Tracking mature neutrophils remains challenging due to the lack of reliable cell surface markers. Although CD101 is a promising candidate for mature neutrophils, its stability under pathological conditions is unclear. Using a CD101-tdTomato reporter mouse model, we confirmed that the reporting system does not alter CD101 expression, and tdTomato fluoresce...",
+      "segment": 32,
+      "timestamp": 3175.43
+    },
+    {
+      "title": "Topological Enhancement of Protein Kinetic Stability",
+      "url": "https://arxiv.org/abs/2603.12053",
+      "source": "arXiv q-bio.BM",
+      "one_liner": "arXiv:2603.12053v1 Announce Type: new \nAbstract: Knotted proteins embed a physical (i.e., open) knot within their native structures. For decades, significant effort has been devoted to elucidating the functional role of knots in proteins, yet no consensus has been reached. Here, using extensive Monte Carlo off-lattice simulations of a simple structure-bas...",
+      "segment": 33,
+      "timestamp": 3227.84
+    },
+    {
+      "title": "HTLV-1-Induced Neuroimmunome Correlates with Disease Progression and Severity",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.12.711373",
+      "source": "bioRxiv — molecular biology",
+      "one_liner": "Human T cell lymphotropic virus type 1 (HTLV 1) is a retrovirus that infects approximately 5 to 10 million people worldwide. While most individuals remain asymptomatic, a significant subset develops debilitating neuroinflammatory or malignant disorders, including adult T-cell leukemia/lymphoma (ATL) and HTLV 1-associated myelopathy/tropical spastic parapa...",
+      "segment": 34,
+      "timestamp": 3343.98
+    },
+    {
+      "title": "Higher serum zinc micronutrient levels are associated with reduced susceptibility to Group B Streptococcus rectovaginal colonisation in pregnant women.",
+      "url": "https://doi.org/10.1371/journal.pone.0344689",
+      "source": "PubMed — PloS one",
+      "one_liner": "BACKGROUND: Maternal recto-vaginal colonisation by Group B Streptococcus (GBS) is a major risk factor for severe invasive GBS disease in newborns. Zinc is a key micronutrient known to promote defence against bacterial infections. We hypothesized that adequate zinc micronutrient levels in pregnant women would negatively affect GBS colonisation and persiste...",
+      "segment": 35,
+      "timestamp": 3485.19
+    },
+    {
+      "title": "Homeodomain protein Sxi1α independently controls cell-cell fusion and gene expression during sexual reproduction in Cryptococcus deneoformans.",
+      "url": "https://doi.org/10.1371/journal.pgen.1012084",
+      "source": "PubMed — PLoS genetics",
+      "one_liner": "Sex-specific homeodomain (HD) proteins are key regulators of cell identity and sexual development in fungi, typically functioning as heterodimers to govern transcription. In the human fungal pathogens Cryptococcus neoformans and Cryptococcus deneoformans, the HD proteins Sxi1α and Sxi2a (Sex-inducer 1α and 2a) have been characterized as interacting compon...",
+      "segment": 36,
+      "timestamp": 3664.03
+    },
+    {
+      "title": "Combination of adenovirus vector and subunit protein elicits a robust immune response against the SARS-CoV-2 Omicron variant.",
+      "url": "https://doi.org/10.1186/s43556-026-00410-x",
+      "source": "PubMed — Molecular biomedicine",
+      "one_liner": "The rapid and ongoing emergence of SARS-CoV-2 variants has progressively reduced the protection offered by current vaccines, underscoring the urgent need for novel vaccine strategies. In this study, we designed a two-component vaccine in which one component is an adenoviral vector encoding the Omicron XBB.1.5 spike protein (Ad5",
+      "segment": 37,
+      "timestamp": 3775.77
+    },
+    {
+      "title": "Production of Gamma-Aminobutyric Acid by Levilactobacillus brevis AK19B: Strain Characterization and Process Optimization Using Box-Behnken Design.",
+      "url": "https://doi.org/10.1007/s12602-026-10965-4",
+      "source": "PubMed — Probiotics and antimicrobial proteins",
+      "one_liner": "Levilactobacillus brevis AK19B strain demonstrated promising probiotic potential as a hydrophilic lactic acid bacterium with valuable phytase activity. It also exhibited strong antioxidant properties and maintained viability in bile salt-rich environments, suggesting robustness in gastrointestinal conditions. To maximize gamma-aminobutyric acid (GABA) pro...",
+      "segment": 38,
+      "timestamp": 3907.46
+    },
+    {
+      "title": "EvoFlows: Evolutionary Edit-Based Flow-Matching for Protein Engineering",
+      "url": "https://arxiv.org/abs/2603.11703",
+      "source": "arXiv cs.LG (AI/ML)",
+      "one_liner": "arXiv:2603.11703v1 Announce Type: new \nAbstract: We introduce EvoFlows, a variable-length sequence-to-sequence protein modeling approach uniquely suited to protein engineering. Unlike autoregressive and masked language models, EvoFlows perform a limited, controllable number of insertions, deletions, and substitutions on a template protein sequence. In oth...",
+      "segment": 39,
+      "timestamp": 4031.17
+    }
+  ]
+}
