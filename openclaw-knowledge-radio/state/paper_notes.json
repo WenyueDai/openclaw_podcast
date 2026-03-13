@@ -367,5 +367,12 @@
       "title": "CF2H: a cell-free two-hybrid platform for rapid protein binder screening.",
       "source": "PubMed — Nature communications"
     }
+  },
+  "2026-03-13": {
+    "https://www.biorxiv.org/content/10.64898/2026.03.10.710735": {
+      "note": "DD",
+      "title": "AlphaFind v2: Similarity Search in AlphaFold DB and TED Domains across Structural Contexts",
+      "source": "bioRxiv — bioinformatics"
+    }
   }
 }
