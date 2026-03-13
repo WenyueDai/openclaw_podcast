@@ -378,6 +378,11 @@
       "note": "DD",
       "title": "AF2BIND: predicting small-molecule binding sites using the pair representation of AlphaFold2.",
       "source": "PubMed — Nature methods"
+    },
+    "https://arxiv.org/abs/2511.07024": {
+      "note": "DD",
+      "title": "The role of topology on protein thermal stability",
+      "source": "arXiv q-bio.BM"
     }
   }
 }
