@@ -388,6 +388,11 @@
       "note": "DD",
       "title": "Computational design of conformation-biasing mutations to alter protein functions.",
       "source": "PubMed — Science (New York, N.Y.)"
+    },
+    "https://doi.org/10.1038/s43588-026-00965-3": {
+      "note": "DD",
+      "title": "De novo design of functional nucleic acids of aptamers.",
+      "source": "PubMed — Nature computational science"
     }
   }
 }
