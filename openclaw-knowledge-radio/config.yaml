@@ -540,8 +540,9 @@ podcast:
   voice: "en-GB-RyanNeural"
   voice_rate: "+0%"
   tts_chunk_chars: 2800
-  synthesis_mode: true      # Deep synthesis of top papers instead of per-paper summaries
-  featured_count: 12        # Number of top papers fed into the synthesis; rest shown greyed-out
+  synthesis_mode: true           # Deep synthesis of top papers instead of per-paper summaries
+  featured_count: 12             # Number of top papers fed into the synthesis; rest shown greyed-out
+  synthesis_section_max_tokens: 1400  # Token budget per section (~700-900 words, ~5 min narration)
   chunking:
     fulltext_threshold_chars: 2500
     tierA_max: 999
