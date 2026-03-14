@@ -360,87 +360,118 @@ SYSTEM_SYNTHESIS_STYLE = """You are an expert scientific podcast host creating a
 VOICE AND STYLE — this is the most important part:
 - Speak naturally, as if you are a brilliant scientist friend thinking aloud over coffee. Pure flowing spoken English — no labels, no structured list items read aloud, no headers spoken as words.
 - Do NOT say things like "Old belief colon" or "Paper one." Do NOT structure your speech as a visible list. Instead, weave ideas together in natural paragraphs that flow one into the next.
-- When you cite a paper, say its title or topic naturally woven into your sentence: "A fascinating paper on antibody escape..." or "The team working on de novo binders found..."
-- Use the KEY RELATED LITERATURE provided for each paper to add depth and historical context — "this connects to the work on X from 2021..." or "similar to what the RFdiffusion team found, this group observed..."
-- Be warm, curious, a little playful. Intellectually generous. Every sentence should carry a real idea.
-- Synthesise across papers — compare them, find tensions, draw connections — rather than describing them one by one.
+- When you cite a paper, use its title or topic naturally woven into a sentence: "A paper on de novo binder design found..." or "The team working on antibody escape showed..."
+- Use the KEY RELATED LITERATURE to add historical depth and connections: "this echoes what the AlphaFold2 paper showed about...", "building on the classic result that..."
+- Be warm, curious, a little playful. Every sentence should carry a real idea.
+- Ground abstract points in CONCRETE EXAMPLES: specific numbers from the papers, actual experimental conditions, named model architectures, particular results. Say "they achieved a binding affinity of 12 nanomolar" not "they achieved strong binding". Say "the model trained on 50 million sequences" not "a large dataset". Use the full-text data provided.
+
+REDUNDANCY RULES — critically important for a multi-section podcast:
+- Each section has a distinct purpose. Do NOT repeat what you said in conceptually earlier sections.
+- If you already described what a paper found in a previous context, here just reference it briefly: "as we saw, that paper showed X — but what I want to highlight now is..." then immediately move to the new angle for this section.
+- No section should re-summarise the papers from scratch. Every section builds on the last.
 
 HARD RULES:
-- Plain text only. No markdown, no asterisks, no dashes at line starts, no colons followed by structured items.
-- Do NOT invent methods, results, numbers, or author intent beyond what is provided in the paper data.
-- If information is genuinely missing, say it naturally: "The paper doesn't tell us exactly how they handled..."
-- TTS-friendly — this will be read aloud by a text-to-speech system.
+- Plain text only. No markdown, no asterisks, no dashes at line starts, no colons introducing structured lists.
+- Do NOT invent methods, results, numbers, or author intent beyond what the provided paper data says.
+- If information is genuinely missing, say it naturally: "The paper doesn't specify how they handled..."
+- TTS-friendly — will be read aloud by a text-to-speech system.
 - Go straight into the ideas. No catchphrases, no "Welcome back", no "In this section we will cover".
 
 LENGTH:
-- This is a single section of a long-form podcast. Write at least 600 words. Be intellectually thorough.
-- Depth over breadth — explore ideas fully. Use the related literature to add context and connections.
+- This is a single section of a long-form podcast. Write at least 600 words.
+- Depth over breadth — use specific examples and concrete numbers from the data provided.
 """
 
 # (section_title, section_instruction) — one entry per section
+# Each section has a sharply distinct purpose to minimise cross-section redundancy.
 _SYNTHESIS_SECTIONS: List[Tuple[str, str]] = [
     (
         "What actually mattered today",
-        """Walk through the five to eight most important scientific insights from today's papers.
-For each one, tell the story of the shift — what the field used to assume, what these new results are now suggesting instead, and why that change of perspective matters more than just adding another data point. Explain what made the evidence convincing: what experiment, computation, or analysis actually demonstrated this. Mention which papers this comes from, woven naturally into your speech. End each insight with what it actually changes for someone doing protein or antibody design today.
-Focus on insights that change how a scientist should THINK, not just what they should know."""
+        """This is the opening section — the listener knows nothing yet. Lay out the key scientific shifts.
+
+Walk through the five to eight most important insights across today's papers. For each one, tell the story of the shift: what the field used to assume or do, what these new results suggest instead, and why that change of perspective actually matters. Ground every insight in a specific example from the paper — a particular experiment, a concrete number, a named model or dataset. Which papers produced this insight? What does it actually change for someone doing protein or antibody design today?
+
+Focus on insights that change how a scientist should THINK, not just what they should know. Start the episode directly in the ideas."""
     ),
     (
         "If I were designing a project inspired by today's papers",
-        """Propose three to five realistic research project ideas that today's papers make you want to pursue.
-For each idea, think aloud: what is the core hypothesis, what is the smallest possible experiment or computation that would test whether the idea has legs, what would success actually look like, and what single result would kill the idea early enough to save time. Be honest about the risk level. Explain why the idea is worth trying despite those risks.
-Focus on research directions a computational protein designer could realistically attempt, not blue-sky fantasy."""
+        """This section is purely forward-looking. Do NOT re-describe what the papers found — assume the listener already knows from section one. Instead, ask: what do these results make you want to do next?
+
+Propose three to five concrete research project ideas. For each, think aloud about the core hypothesis, the smallest experiment or computation that would test it (be specific — name the assay, the model, the computational pipeline), what success looks like with numbers, and what single early result would tell you to stop. Be honest about risk level.
+
+Use specific details from the papers' methods as springboards — "the approach they used to generate binders could be adapted to..." rather than generic ideas."""
     ),
     (
         "Knowledge expansion — connecting to broader science",
-        """For the most important insights from today's papers, explore their deeper connections — to protein physics, evolution, thermodynamics, statistical mechanics, information theory, machine learning theory, or structural biology fundamentals.
-Think aloud about what earlier scientific work today's results resemble. Are these groups rediscovering something old with better tools? What general scientific principle does this reflect? What mental model from another field maps onto what these papers are doing?
-Help build deep intuition rather than just recounting what was found."""
+        """This section is about depth of understanding, not recapping what papers did. Do NOT re-summarise the papers' findings — reference them only briefly to ground a bigger point.
+
+For the most important insights, trace their deeper roots: connections to protein physics, evolution, thermodynamics, information theory, statistical mechanics, or machine learning theory. What earlier scientific work does this resemble? Use the KEY RELATED LITERATURE provided — "this echoes what the AlphaFold2 paper showed about contact maps...", "similar to the free energy landscape arguments from the 1990s...". Are these groups rediscovering an old idea with better tools? What general principle does this reflect?
+
+Help build conceptual intuition. Every paragraph should contain at least one reference to related work or a principle from another field."""
     ),
     (
         "Clever methods and how they proved things",
-        """Pick the most interesting experimental or computational methods from today's papers and explain what made them clever.
-For each one, think through: what question was it designed to answer, why would a simpler approach have failed or been misleading, what controls or orthogonal checks made the result convincing, and what hidden weakness does this method avoid. Then ask whether the same logic could be reused in protein design evaluation, filtering, or screening.
-Look for adversarial tests, model stress tests, clever dataset designs, causal inference tricks, and anything that rules out confounds in an elegant way."""
+        """This section is exclusively about experimental and computational cleverness — not about what was found, but about HOW it was proven. Do NOT repeat the results you covered in section one.
+
+Pick the two or three most interesting methods. For each: what specific question was this method designed to answer, why would a naive approach fail (give a concrete example of what could go wrong), what controls or orthogonal validations make the result convincing, and what you'd steal for your own work. Use specific details — the exact benchmark, the particular ablation, the number of validation experiments.
+
+Look for adversarial testing, clever dataset splits, causal inference tricks, stress tests that could have failed but didn't."""
     ),
     (
         "New design heuristics I should adopt",
-        """Extract practical design rules from today's papers — the kind of if-then judgment a seasoned designer builds up over years.
-For each rule, speak through when it applies, when it breaks down, what warning signs suggest you're in the failure case, and how it translates into antibody or protein design decisions.
-Do not give generic advice. Extract the specific, grounded rule that today's papers actually support — and be honest about how far it generalises."""
+        """This section extracts practical judgment rules — not summaries of papers, not general advice, but specific if-then heuristics a designer can actually use.
+
+For each heuristic: state the rule concretely (if X happens, do Y; avoid trusting Z when W is true; this metric only works as a negative filter). Give a specific example from today's papers that demonstrates it. Explain when the rule breaks down and what warning sign tells you you're in the failure case. How does it apply in antibody or protein design specifically?
+
+Be direct and opinionated. Do not give generic advice like "validate your results". Extract the specific, surprising, grounded rule that today's papers actually demonstrate."""
     ),
     (
         "Where the field might be heading",
-        """Based on today's papers, think aloud about the emerging directions you're noticing — physics-aware machine learning, uncertainty estimation, hybrid compute-experiment loops, generative design, dataset-driven biology, negative design, or whatever patterns emerge from this particular set of papers.
-For each trend, ask: is the signal real or is this hype, what would confirm that this is a genuine direction rather than noise, and what should someone watch over the next two to three years to tell the difference?"""),
+        """This section is entirely future-facing — not what the papers did, but what they signal about where biology and machine learning are heading together.
+
+Identify two to four emerging directions suggested by today's papers. For each: describe the signal you're seeing with a specific example from today's work, distinguish real momentum from hype (be honest about which this is), name what evidence would confirm the direction is real over the next two to three years, and what you'd watch for.
+
+Do not repeat paper summaries. Use them only as evidence for a trend argument."""
+    ),
     (
         "Tensions, contradictions, and healthy skepticism",
-        """Look across today's papers for places where they disagree with each other, or where individual results rest on fragile assumptions.
-Think through: which claims seem overstated given the evidence shown, which results might depend on dataset bias or favorable test cases, and where are the missing validation steps that would really nail down the conclusion?
-Explain what additional evidence would make you genuinely confident. This section should help protect against being swept up in hype."""
+        """This section is deliberately critical — it protects the listener from being swept up in hype. Do NOT be positive here. Look for problems.
+
+Find places where today's papers disagree with each other, or where individual results rest on fragile assumptions. For each: what exactly is the fragile assumption or the contradiction (be specific — cite a number, a benchmark, a claimed result), what dataset bias or favorable test case could explain the result, what validation step is conspicuously missing, and what it would take to make you genuinely confident.
+
+Be specific and cite the papers. "They claimed X but the test set only contained Y, which means Z is a plausible alternative explanation" is good. "Results may not generalise" is not."""
     ),
     (
         "What an expert protein designer would notice",
-        """Think about what an experienced protein designer would see in today's papers that most readers would miss.
-For each observation, contrast the surface reading with the deeper expert reading — what looks like a positive result but actually reveals a hidden limitation, where a model's confidence is probably inflated, what assumption is baked in that the authors didn't explicitly flag, where a failure mode is quietly visible in the supplementary data, where authors accidentally reveal a useful design rule while making a different point.
-Be specific. Connect each observation to the papers it comes from."""
+        """This section surfaces non-obvious readings that only come with deep domain experience. Do NOT repeat the surface-level findings from section one.
+
+For two to four observations: what would most readers take away from this paper, and what would an expert actually notice instead. Examples of what to look for: confidence metrics that are probably inflated, hidden assumptions the authors didn't flag, a failure mode visible in a supplementary figure, a result that accidentally reveals a useful design rule while making a different point, a benchmark that favours the method unfairly.
+
+Be specific. Name the figure, the number, the claim. Connect each observation to why it matters for design decisions."""
     ),
     (
         "History and philosophy of science perspective",
-        """For the major ideas in today's papers, think about what kind of scientific progress this actually represents.
-Is this incremental engineering, a genuine conceptual shift, tool-driven discovery, data-driven pattern finding, or a theory-driven prediction that was then verified? What past developments in biology, physics, or computer science does this most resemble? Does this change how science is being done, or just what is known?
-Take a step back and reflect on where protein design sits as a scientific discipline right now, and what today's papers say about its trajectory."""
+        """This section steps all the way back — not to the papers' results, but to what kind of scientific event today represents.
+
+For each major idea, ask: is this incremental engineering, a conceptual shift, a tool-driven discovery, a data-driven empirical pattern, or a theory-driven prediction that was verified? Give a specific historical parallel — "this resembles how NMR revealed protein dynamics in the 1980s...", "similar to when the first crystal structure of a G-protein-coupled receptor changed the field by...". Use the KEY RELATED LITERATURE where relevant.
+
+Reflect on whether this changes how protein design science is done, or just what is known. Is the field in a phase of paradigm building or paradigm shift? Be opinionated."""
     ),
     (
         "Today's mental model update",
-        """This is the most important section. Speak through what you would actually update in how you think about protein or antibody design, based on today's reading.
-Walk through five things worth revising in your mental model. Then five concrete experiments, analyses, or workflow changes you'd seriously consider running or trying. Then three things these papers make you want to question more carefully.
-Share the most non-obvious insight from today — the one that surprised you or that most readers would miss. End with the most elegant scientific idea you encountered."""
+        """This is the most practically important section. Do NOT re-describe the papers — assume everything has been covered. Speak directly to what you personally would update.
+
+Walk through five specific things worth revising in your mental model of protein or antibody design — not generic lessons, but concrete updates ("I used to think X was the bottleneck; now I think it's Y because of what the de novo binder paper showed about Z"). Then five concrete experiments or workflow changes you'd actually run or try, with enough specificity to be actionable. Then three things these papers make you want to question more carefully.
+
+End with the single most non-obvious insight from today, and the most elegant scientific idea you encountered."""
     ),
     (
         "Personal research expansion notes",
-        """Close with open-ended thinking prompts — questions worth sitting with, ideas worth testing later even if there's no time now, possible improvements to computational workflows, metrics worth tracking, failure modes worth building intuitions around, new datasets worth knowing about.
-This is a space for intellectual generosity. Prompt the listener to keep expanding their domain knowledge in the directions today's papers point toward."""
+        """Close the episode with open-ended prompts for continued thinking — not summaries, not conclusions, but questions and threads worth following.
+
+Generate genuine open questions today's papers raise but don't answer. Suggest specific follow-up reading directions (using the KEY RELATED LITERATURE as starting points). Propose metrics worth tracking, failure modes worth building intuitions about, datasets worth knowing, and computational experiments worth running later.
+
+This is intellectually generous and genuinely exploratory. Help the listener leave with more threads to pull on than they arrived with."""
     ),
 ]
 
@@ -499,11 +530,17 @@ def build_podcast_script_llm_synthesis(
 
     sections: List[str] = []
     for idx, (title, instruction) in enumerate(_SYNTHESIS_SECTIONS, 1):
+        prior_note = (
+            f"Sections 1 through {idx - 1} have already been delivered to the listener."
+            " Do not repeat what was already covered — build on it and bring a new angle."
+            if idx > 1 else ""
+        )
         user = (
             header
-            + f"You are now writing SECTION {idx}: {title}\n\n"
+            + f"You are now writing SECTION {idx}/11: {title}\n\n"
             + instruction
-            + "\n\nDo not invent details beyond what is provided. Write at least 500 words."
+            + (f"\n\n{prior_note}" if prior_note else "")
+            + "\n\nUse concrete examples and specific numbers from the paper data. Do not invent details. Write at least 600 words."
         )
         print(f"[synthesis] Generating section {idx}/11: {title} ...", flush=True)
         seg = _chat_complete(
