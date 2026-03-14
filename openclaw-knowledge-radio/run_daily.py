@@ -19,7 +19,11 @@ from src.collectors.pubmed import collect_pubmed_items
 from src.collectors.biorxiv_authors import collect_biorxiv_author_items
 from src.collectors.biorxiv_keywords import collect_biorxiv_keyword_items
 from src.processing.rank import rank_and_limit
-from src.processing.script_llm import build_podcast_script_llm_chunked, build_podcast_script_llm_chunked_with_map, TRANSITION_MARKER
+from src.processing.script_llm import (
+    build_podcast_script_llm_chunked_with_map,
+    build_podcast_script_llm_synthesis,
+    TRANSITION_MARKER,
+)
 from src.outputs.tts_edge import (
     tts_segment_to_mp3,
     last_tts_backend,
@@ -410,8 +414,41 @@ def main() -> int:
 
         write_jsonl(seed_file, new_items)
 
-    # 3) Rank + limit
-    ranked = rank_and_limit(new_items, cfg)
+    # 3a) Preliminary rank (tier system, no S2 yet) to identify top candidates
+    pre_ranked = rank_and_limit(new_items, cfg)
+
+    # 3b) Optional Semantic Scholar enrichment on top candidates
+    _s2_shared_landscape: list = []
+    _s2_missed_surfaces: list = []
+    _s2_api_key = os.environ.get("S2_API_KEY", "").strip()
+    if _s2_api_key and not REGEN_FROM_CACHE:
+        try:
+            from src.collectors.semantic_scholar import enrich_with_s2
+            _s2_enrich_count = int(cfg.get("semantic_scholar", {}).get("enrich_top_n", 60))
+            pre_ranked, _s2_shared_landscape, _s2_missed_surfaces = enrich_with_s2(
+                pre_ranked,
+                cfg,
+                api_key=_s2_api_key,
+                is_seen=seen.has,
+                max_enrich=_s2_enrich_count,
+            )
+        except Exception as _s2_err:
+            _run_errors.append(f"S2 enrichment failed: {_s2_err}")
+            print(f"[s2] Warning: enrichment failed — {_s2_err}", flush=True)
+
+    # 3c) Final rank (now includes s2_reference_score as tier 8 tiebreaker)
+    ranked = rank_and_limit(pre_ranked, cfg)
+
+    # Save missed surfaces for user review
+    if _s2_missed_surfaces:
+        _surfaced_file = state_dir / "s2_surfaced_papers.json"
+        try:
+            _existing = json.loads(_surfaced_file.read_text(encoding="utf-8")) if _surfaced_file.exists() else {}
+            _existing[today] = _s2_missed_surfaces
+            _surfaced_file.write_text(json.dumps(_existing, indent=2, ensure_ascii=False), encoding="utf-8")
+            print(f"[s2] {len(_s2_missed_surfaces)} missed surface(s) saved to state/s2_surfaced_papers.json", flush=True)
+        except Exception as _e:
+            print(f"[s2] Warning: could not save surfaced papers — {_e}", flush=True)
 
     # Mark only ranked (featured) items as seen so runner-up articles remain
     # available for future runs (e.g. weekend episodes with sparse new content).
@@ -448,18 +485,39 @@ def main() -> int:
         return ""
 
     # 5) LLM podcast script (also returns item→segment mapping)
+    podcast_cfg = cfg.get("podcast", {})
+    synthesis_mode = bool(podcast_cfg.get("synthesis_mode", False))
+    featured_count = int(podcast_cfg.get("featured_count", 12))
+
+    # In synthesis mode: top N papers go into the deep briefing; the rest are
+    # shown on the website greyed-out (available for feedback/notes) but not spoken.
+    if synthesis_mode:
+        featured_items = ranked[:featured_count]
+        background_items = ranked[featured_count:]
+    else:
+        featured_items = ranked
+        background_items = []
+
     script_path = out_dir / f"podcast_script_{today}_llm.txt"
     if REGEN_FROM_CACHE and script_path.exists():
         print("[cache] Reusing existing LLM script", flush=True)
         script_text = script_path.read_text(encoding="utf-8")
-        _item_segments = list(range(len(ranked)))
+        _item_segments = [-1] * len(featured_items) if synthesis_mode else list(range(len(ranked)))
+    elif synthesis_mode:
+        print(f"[script] Synthesis mode: {len(featured_items)} featured, {len(background_items)} greyed-out", flush=True)
+        script_text, _item_segments = build_podcast_script_llm_synthesis(
+            date_str=today,
+            items=featured_items,
+            cfg=cfg,
+            shared_landscape=_s2_shared_landscape or None,
+        )
     else:
         script_text, _item_segments = build_podcast_script_llm_chunked_with_map(date_str=today, items=ranked, cfg=cfg)
 
     # Append explicit citations to comprehensive script (for website readers / Spotify notes)
     refs: List[str] = []
     refs.append("\n\nReferences:")
-    for i, it in enumerate(ranked, 1):
+    for i, it in enumerate(featured_items, 1):
         title = (it.get("title") or "(untitled)").strip()
         src = (it.get("source") or "unknown source").strip()
         url = (it.get("url") or "").strip()
@@ -475,9 +533,14 @@ def main() -> int:
     write_text(script_path_clean, script_text_clean)
 
     # Write episode_items.json (base: segment per item, timestamp=-1 until TTS computes it)
+    # In synthesis mode all 40 items are saved: featured ones are spoken about in the
+    # deep briefing (featured=True), the rest are shown greyed-out on the website
+    # (featured=False) but still available for feedback checkboxes and note-taking.
+    _all_display_items = featured_items + background_items if synthesis_mode else ranked
     _episode_items_list: List[Dict[str, Any]] = []
-    for _i, _it in enumerate(ranked):
-        _seg = _item_segments[_i] if _i < len(_item_segments) else -1
+    for _i, _it in enumerate(_all_display_items):
+        _is_featured = not synthesis_mode or (_i < len(featured_items))
+        _seg = _item_segments[_i] if (not synthesis_mode and _i < len(_item_segments)) else -1
         _episode_items_list.append({
             "title": (_it.get("title") or "").strip(),
             "url": (_it.get("url") or "").strip(),
@@ -485,6 +548,7 @@ def main() -> int:
             "one_liner": _best_summary(_it),
             "segment": _seg,
             "timestamp": -1,
+            "featured": _is_featured,
         })
     _episode_items_file = out_dir / "episode_items.json"
     _episode_items_file.write_text(
@@ -610,6 +674,14 @@ def main() -> int:
     print(json.dumps(status, indent=2))
 
     save_script_to_notion(today, script_path, ranked)
+
+    # Append S2 missed surfaces to Slack errors block so they're visible
+    if _s2_missed_surfaces:
+        _run_errors.append(
+            "S2 surfaced papers not yet in pipeline: "
+            + ", ".join(f"\"{s['title'][:60]}\" ({s['citations']} citations)" for s in _s2_missed_surfaces[:3])
+        )
+
     _notify_slack(today, ranked, cfg, errors=_run_errors)
     return 0
 

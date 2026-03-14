@@ -350,6 +350,9 @@ def rank_and_limit(items: List[Dict[str, Any]], cfg: Dict[str, Any]) -> List[Dic
     def rank_key(it: Dict[str, Any]):
         extracted_chars = int(it.get("extracted_chars", 0) or 0)
         has_fulltext = 1 if _has_fulltext(it, FULLTEXT_THRESHOLD) else 0
+        # s2_reference_score: 0.0–1.0; higher = more protein-design-grounded refs.
+        # Negated so higher score → lower rank key → better position.
+        s2_score = -round(float(it.get("s2_reference_score", 0.0)) * 10)
         return (
             _absolute_author_priority(it, cfg),      # 0) ABSOLUTE: researcher arXiv feeds
             _absolute_blog_priority(it),             # 1) ABSOLUTE: blogs/substacks
@@ -359,8 +362,9 @@ def rank_and_limit(items: List[Dict[str, Any]], cfg: Dict[str, Any]) -> List[Dic
             _topic_keyword_priority(it, cfg),        # 5) config topic keywords
             _journal_quality_priority(it, cfg),      # 6) journal quality
             _bucket_priority(it),                    # 7) research buckets
-            -has_fulltext,                           # 8) fulltext bonus
-            -extracted_chars,                        # 9) longer text tie-break
+            s2_score,                                # 8) S2 reference groundedness (soft tiebreaker)
+            -has_fulltext,                           # 9) fulltext bonus
+            -extracted_chars,                        # 10) longer text tie-break
         )
 
     ranked = sorted(items, key=rank_key)

@@ -540,6 +540,8 @@ podcast:
   voice: "en-GB-RyanNeural"
   voice_rate: "+0%"
   tts_chunk_chars: 2800
+  synthesis_mode: true      # Deep synthesis of top papers instead of per-paper summaries
+  featured_count: 12        # Number of top papers fed into the synthesis; rest shown greyed-out
   chunking:
     fulltext_threshold_chars: 2500
     tierA_max: 999
@@ -655,6 +657,12 @@ biorxiv_authors:
     # ── Anne-Florence Bitbol ─────────────────────────────────────────────────
     - name: "Anne-Florence Bitbol"
       match: "Bitbol, A"
+
+semantic_scholar:
+  # API key is read from the S2_API_KEY environment variable (set in GitHub Actions secrets).
+  # If the variable is absent or empty, all S2 enrichment is silently skipped.
+  enrich_top_n: 60          # How many top-ranked candidates to enrich before final cut
+  missed_min_citations: 5   # Min citation count for a reference to be surfaced as missed
 
 publish:
   enabled: true
