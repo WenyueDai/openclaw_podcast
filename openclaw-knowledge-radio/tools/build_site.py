@@ -379,10 +379,10 @@ def _build_today_summary(episodes) -> str:
     return f'<div class="today-summary">{"".join(rows)}</div>'
 
 
-def _latest_transcript_url(episodes: list) -> str:
-    """Return the transcript URL for the most recent episode that has one."""
+def _latest_transcript_notion_url(transcript_notion_idx: dict, episodes: list) -> str:
+    """Return the Notion transcript URL for the most recent episode that has one."""
     for ep in episodes:  # already sorted newest-first
-        url = ep.get("script_url") or ""
+        url = transcript_notion_idx.get(ep["date"], "")
         if url:
             return url
     return ""
@@ -393,8 +393,8 @@ def render_index(episodes, all_episodes=None):
     missed_papers = _load_missed_papers()   # baked for initial render
     owner_alert = _load_owner_alert()   # baked for initial render
     today_summary = _build_today_summary(episodes)
-    latest_transcript_url = _latest_transcript_url(episodes)
     transcript_notion_idx = _load_transcript_notion_index()  # {date: notion_url}
+    latest_transcript_url = _latest_transcript_notion_url(transcript_notion_idx, episodes)
     cards = []
     for ep in episodes:
         s_link = f'<a href="{html.escape(ep["script_name"])}">script</a>' if ep["script_name"] else ""
