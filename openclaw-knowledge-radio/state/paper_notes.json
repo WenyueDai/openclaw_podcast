@@ -420,6 +420,11 @@
       "note": "DD",
       "title": "BioPipelines: Accessible Computational Protein and Ligand Design for Chemical Biologists",
       "source": "bioRxiv — bioinformatics"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.03.10.710952": {
+      "note": "DD",
+      "title": "Learning the All-Atom Equilibrium Distribution of Biomolecular Interactions at Scale",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
