@@ -197,8 +197,10 @@ def push_site(package_dir: Path, git_root: Path, date: str) -> bool:
                        cwd=git_root, capture_output=True)
 
     try:
+        rel_transcript_index = Path("openclaw-knowledge-radio") / "state" / "transcript_notion_index.json"
+        extra_paths = [str(rel_transcript_index)] if (git_root / rel_transcript_index).exists() else []
         subprocess.run(
-            ["git", "add", "docs/", str(rel_state)],
+            ["git", "add", "docs/", str(rel_state)] + extra_paths,
             cwd=git_root,
             check=True,
             capture_output=True,

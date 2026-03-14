@@ -37,7 +37,7 @@ from src.utils.text import clean_for_tts
 from src.processing.article_extract import extract_article_text
 from src.processing.article_analysis import analyze_article
 from src.outputs.github_publish import upload_episode, push_site
-from src.outputs.notion_publish import save_script_to_notion
+from src.outputs.notion_publish import save_script_to_notion, save_transcript_to_notion
 
 
 import shutil
@@ -674,6 +674,17 @@ def main() -> int:
     print(json.dumps(status, indent=2))
 
     save_script_to_notion(today, script_path, ranked)
+
+    # Save synthesis transcript to dedicated Notion database and record URL
+    _transcript_notion_url = save_transcript_to_notion(today, script_path)
+    if _transcript_notion_url:
+        _transcript_index_file = state_dir / "transcript_notion_index.json"
+        try:
+            _tidx = json.loads(_transcript_index_file.read_text(encoding="utf-8")) if _transcript_index_file.exists() else {}
+            _tidx[today] = _transcript_notion_url
+            _transcript_index_file.write_text(json.dumps(_tidx, indent=2, sort_keys=True), encoding="utf-8")
+        except Exception as _te:
+            print(f"[notion] Could not update transcript_notion_index.json — {_te}", flush=True)
 
     # Append S2 missed surfaces to Slack errors block so they're visible
     if _s2_missed_surfaces:

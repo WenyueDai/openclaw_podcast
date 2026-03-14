@@ -19,10 +19,11 @@ _REPO_ROOT = _PACKAGE_DIR.parent                        # …/openclaw-knowledge
 BASE_OUTPUT = Path(os.environ.get("PODCAST_OUTPUT", str(_PACKAGE_DIR / "output")))
 SITE_DIR    = Path(os.environ.get("SITE_DIR",       str(_REPO_ROOT / "docs")))
 AUDIO_DIR   = SITE_DIR / "audio"
-RELEASE_INDEX = Path(os.environ.get("RELEASE_INDEX", str(_PACKAGE_DIR / "state" / "release_index.json")))
-NOTES_FILE    = Path(os.environ.get("NOTES_FILE",    str(_PACKAGE_DIR / "state" / "paper_notes.json")))
-MISSED_FILE   = Path(os.environ.get("MISSED_FILE",   str(_PACKAGE_DIR / "state" / "missed_papers.json")))
+RELEASE_INDEX    = Path(os.environ.get("RELEASE_INDEX",    str(_PACKAGE_DIR / "state" / "release_index.json")))
+NOTES_FILE       = Path(os.environ.get("NOTES_FILE",       str(_PACKAGE_DIR / "state" / "paper_notes.json")))
+MISSED_FILE      = Path(os.environ.get("MISSED_FILE",      str(_PACKAGE_DIR / "state" / "missed_papers.json")))
 OWNER_ALERT_FILE = Path(os.environ.get("OWNER_ALERT_FILE", str(_PACKAGE_DIR / "state" / "site_alert.json")))
+TRANSCRIPT_INDEX = Path(os.environ.get("TRANSCRIPT_INDEX", str(_PACKAGE_DIR / "state" / "transcript_notion_index.json")))
 
 
 def _load_notes() -> dict:
@@ -52,6 +53,16 @@ def _load_missed_papers() -> list:
         except Exception:
             return []
     return []
+
+
+def _load_transcript_notion_index() -> dict:
+    """Load transcript_notion_index.json → {date: notion_url}."""
+    if TRANSCRIPT_INDEX.exists():
+        try:
+            return json.loads(TRANSCRIPT_INDEX.read_text(encoding="utf-8"))
+        except Exception:
+            return {}
+    return {}
 
 
 def _load_owner_alert() -> dict:
@@ -383,6 +394,7 @@ def render_index(episodes, all_episodes=None):
     owner_alert = _load_owner_alert()   # baked for initial render
     today_summary = _build_today_summary(episodes)
     latest_transcript_url = _latest_transcript_url(episodes)
+    transcript_notion_idx = _load_transcript_notion_index()  # {date: notion_url}
     cards = []
     for ep in episodes:
         s_link = f'<a href="{html.escape(ep["script_name"])}">script</a>' if ep["script_name"] else ""
@@ -458,6 +470,16 @@ def render_index(episodes, all_episodes=None):
             hl_html = "".join([f"<li>{html.escape(h)}</li>" for h in hl]) if hl else "<li>No items yet.</li>"
             section_html = f'<div class="abstract"><h3>Highlights</h3><ul>{hl_html}</ul></div>'
 
+        # Notion transcript button
+        notion_transcript_url = transcript_notion_idx.get(ep["date"], "")
+        if notion_transcript_url:
+            notion_btn_html = (
+                f'<a class="notion-transcript-btn" href="{html.escape(notion_transcript_url)}" target="_blank">'
+                f'Read full transcript in Notion</a>'
+            )
+        else:
+            notion_btn_html = ""
+
         # Transcript panel — inline if text available, download link otherwise
         script_text = ep.get("script_text") or ""
         script_url  = ep.get("script_url") or ""
@@ -499,6 +521,7 @@ def render_index(episodes, all_episodes=None):
   </div>
   {section_html}
   {transcript_html}
+  {notion_btn_html}
 </section>""")
 
     body = "\n".join(cards) if cards else "<section class='card'><p>No episodes yet.</p></section>"
@@ -616,6 +639,9 @@ audio {{ width:100%; margin:0; }}
 .tr-section + .tr-section {{ border-top:1px solid var(--line); padding-top:1.2em; }}
 .transcript-download {{ padding:10px 0; }}
 .transcript-download a {{ color:var(--accent); }}
+.notion-transcript-btn {{ display:inline-flex; align-items:center; gap:7px; margin:12px 0 4px; padding:8px 16px; border-radius:8px; background:rgba(78,201,176,.12); color:var(--accent); font-size:.85rem; font-weight:600; text-decoration:none; border:1px solid rgba(78,201,176,.25); transition:background .15s,border-color .15s; }}
+.notion-transcript-btn:hover {{ background:rgba(78,201,176,.22); border-color:rgba(78,201,176,.5); }}
+.notion-transcript-btn::before {{ content:"📝"; }}
 .abstract h3 {{ margin:0 0 8px; font-size:.95rem; color:#4ec9b0; }}
 .abstract ul {{ margin:0; padding-left:0; list-style:none; }}
 .abstract li {{ margin:0; line-height:1.45; padding:6px 8px; border-radius:8px; transition:background .15s,border-left .15s; border-left:3px solid transparent; }}

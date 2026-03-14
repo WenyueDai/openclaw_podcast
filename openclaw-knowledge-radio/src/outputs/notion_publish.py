@@ -100,6 +100,106 @@ def _api_call(method: str, endpoint: str, payload: Dict[str, Any]) -> Dict[str, 
         return json.loads(resp.read())
 
 
+def _transcript_blocks(script_text: str) -> List[Dict[str, Any]]:
+    """
+    Convert a synthesis script into Notion blocks.
+
+    Each [[TRANSITION]] becomes a heading_2 divider; the surrounding text
+    is split into paragraph blocks (Notion caps rich_text at 2000 chars).
+    """
+    CHUNK = 1900  # stay safely under the 2000-char rich_text limit
+
+    def para(text: str) -> Dict[str, Any]:
+        return {"object": "block", "type": "paragraph",
+                "paragraph": {"rich_text": [_rich(text)]}}
+
+    def h2(text: str) -> Dict[str, Any]:
+        return {"object": "block", "type": "heading_2",
+                "heading_2": {"rich_text": [_rich(text)]}}
+
+    blocks: List[Dict[str, Any]] = []
+    sections = script_text.split("[[TRANSITION]]")
+
+    for i, section in enumerate(sections, 1):
+        section = section.strip()
+        if not section:
+            continue
+
+        # Section heading — use first non-empty line as subtitle
+        first_line = next((l.strip() for l in section.splitlines() if l.strip()), "")
+        subtitle = first_line[:80] + ("…" if len(first_line) > 80 else "")
+        blocks.append(h2(f"Section {i}  —  {subtitle}"))
+
+        # Chunk section text into ≤1900-char paragraphs
+        for start in range(0, len(section), CHUNK):
+            chunk = section[start:start + CHUNK].strip()
+            if chunk:
+                blocks.append(para(chunk))
+
+        blocks.append(para(""))  # breathing room between sections
+
+    return blocks
+
+
+def save_transcript_to_notion(
+    date: str,
+    script_path: Path,
+) -> Optional[str]:
+    """
+    Save the full synthesis transcript to a dedicated Notion database.
+
+    Env vars required:
+      NOTION_TOKEN                  — same integration token as the digest
+      NOTION_TRANSCRIPT_DATABASE_ID — ID of the new Transcript database
+
+    Returns the Notion page URL, or None if skipped/failed.
+    """
+    token = os.environ.get("NOTION_TOKEN", "").strip()
+    db_id = os.environ.get("NOTION_TRANSCRIPT_DATABASE_ID", "").strip().replace("-", "")
+    if not token or not db_id:
+        print("[notion] NOTION_TRANSCRIPT_DATABASE_ID not set — skipping transcript save", flush=True)
+        return None
+
+    if not script_path or not script_path.exists():
+        print(f"[notion] Script file not found: {script_path}", flush=True)
+        return None
+
+    try:
+        script_text = script_path.read_text(encoding="utf-8", errors="ignore")
+        # Strip the References block appended at the end
+        if "\n\nReferences:" in script_text:
+            script_text = script_text[:script_text.index("\n\nReferences:")].strip()
+    except Exception as e:
+        print(f"[notion] Could not read script: {e}", flush=True)
+        return None
+
+    blocks = _transcript_blocks(script_text)
+    first_batch, rest_blocks = blocks[:100], blocks[100:]
+
+    try:
+        page = _api_call("POST", "pages", {
+            "parent": {"database_id": db_id},
+            "properties": {
+                "Name": {"title": [{"type": "text", "text": {"content": f"Transcript — {date}"}}]},
+                "Date": {"date": {"start": date}},
+            },
+            "children": first_batch,
+        })
+
+        page_id = page.get("id", "")
+        page_url = page.get("url", "")
+
+        while rest_blocks:
+            batch, rest_blocks = rest_blocks[:100], rest_blocks[100:]
+            _api_call("PATCH", f"blocks/{page_id}/children", {"children": batch})
+
+        print(f"[notion] Transcript saved: {page_url}", flush=True)
+        return page_url
+    except Exception as e:
+        print(f"[notion] Warning: failed to save transcript — {e}", flush=True)
+        return None
+
+
 def save_script_to_notion(
     date: str,
     script_path: Path,
