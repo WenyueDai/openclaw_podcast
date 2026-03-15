@@ -559,7 +559,6 @@ biorxiv_authors:
     # ── Baker lab / UW Seattle ───────────────────────────────────────────────
     - name: "David Baker"
       match: "Baker, D"
-      institution: "Washington"   # disambiguate from other D. Bakers
     - name: "Frank DiMaio"
       match: "DiMaio, F"
     - name: "Gaurav Bhardwaj"
@@ -587,12 +586,10 @@ biorxiv_authors:
     # ── Stanford ─────────────────────────────────────────────────────────────
     - name: "Po-Ssu Huang"
       match: "Huang, P"
-      institution: "Stanford"
     - name: "Ron Dror"
       match: "Dror, R"
     - name: "Rhiju Das"
       match: "Das, R"
-      institution: "Stanford"
     # ── MIT / Barzilay / Jaakkola / Berger ───────────────────────────────────
     - name: "Regina Barzilay"
       match: "Barzilay, R"
@@ -630,7 +627,6 @@ biorxiv_authors:
     # ── Johns Hopkins / Gray ─────────────────────────────────────────────────
     - name: "Jeffrey Gray"
       match: "Gray, J"
-      institution: "Hopkins"
     # ── Northwestern / Rocklin ───────────────────────────────────────────────
     - name: "Gabriel Rocklin"
       match: "Rocklin, G"
@@ -641,7 +637,6 @@ biorxiv_authors:
     # ── Berkeley / Song ──────────────────────────────────────────────────────
     - name: "Yun Song"
       match: "Song, Y"
-      institution: "Berkeley"
     # ── Toronto / Philip Kim ─────────────────────────────────────────────────
     - name: "Philip Kim"
       match: "Kim, P"
