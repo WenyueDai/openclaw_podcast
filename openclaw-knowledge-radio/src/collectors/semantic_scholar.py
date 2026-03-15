@@ -145,7 +145,7 @@ def fetch_references(paper_id: str, api_key: str) -> List[Dict]:
     if not data:
         return []
     refs = []
-    for item in data.get("data", []):
+    for item in (data.get("data") or []):
         cited = item.get("citedPaper") or {}
         if cited.get("paperId"):
             # isInfluential is an edge property — copy it onto the cited paper dict

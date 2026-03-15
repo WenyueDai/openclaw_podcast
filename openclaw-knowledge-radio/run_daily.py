@@ -1,5 +1,13 @@
 from __future__ import annotations
 
+# Load .env file so API keys work when running manually (not just via cron)
+from pathlib import Path as _Path
+try:
+    from dotenv import load_dotenv as _load_dotenv
+    _load_dotenv(_Path(__file__).parent / ".env", override=False)
+except ImportError:
+    pass
+
 import json
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -468,8 +476,10 @@ def main() -> int:
                 max_enrich=_s2_enrich_count,
             )
         except Exception as _s2_err:
+            import traceback as _tb
             _run_errors.append(f"S2 enrichment failed: {_s2_err}")
             print(f"[s2] Warning: enrichment failed — {_s2_err}", flush=True)
+            _tb.print_exc()
 
     # 3c) Final rank (now includes s2_reference_score as tier 8 tiebreaker)
     ranked = rank_and_limit(pre_ranked, cfg)
