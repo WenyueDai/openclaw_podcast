@@ -336,8 +336,10 @@ def rank_and_limit(items: List[Dict[str, Any]], cfg: Dict[str, Any]) -> List[Dic
     5) On-topic keywords from config (topic_boost_keywords)
     6) Journal/source quality (Nature family, PNAS, etc.)
     7) Bucket steering (protein/journal/ai_bio before news)
-    8) Fulltext as a small tie-breaker
-    9) Longer extracted text as tie-breaker
+    8) S2 reference groundedness score
+    9) S2 influential citation velocity (how many citers build heavily on this paper)
+    10) Fulltext as a small tie-breaker
+    11) Longer extracted text as tie-breaker
     """
     # Limits (keep identical keys / defaults)
     lim = cfg.get("limits", {}) if isinstance(cfg, dict) else {}
@@ -364,6 +366,9 @@ def rank_and_limit(items: List[Dict[str, Any]], cfg: Dict[str, Any]) -> List[Dic
         # s2_reference_score: 0.0–1.0; higher = more protein-design-grounded refs.
         # Negated so higher score → lower rank key → better position.
         s2_score = -round(float(it.get("s2_reference_score", 0.0)) * 10)
+        # influentialCitationCount: how many citers build heavily on this paper.
+        # A 3-month paper with 40 influential citations > a 3-year paper with 400 total.
+        s2_influential = -int(it.get("s2_influential_citation_count", 0) or 0)
         return (
             _absolute_author_priority(it, cfg),      # 0) ABSOLUTE: researcher arXiv feeds
             _absolute_blog_priority(it),             # 1) ABSOLUTE: blogs/substacks
@@ -373,9 +378,10 @@ def rank_and_limit(items: List[Dict[str, Any]], cfg: Dict[str, Any]) -> List[Dic
             _topic_keyword_priority(it, cfg),        # 5) config topic keywords
             _journal_quality_priority(it, cfg),      # 6) journal quality
             _bucket_priority(it),                    # 7) research buckets
-            s2_score,                                # 8) S2 reference groundedness (soft tiebreaker)
-            -has_fulltext,                           # 9) fulltext bonus
-            -extracted_chars,                        # 10) longer text tie-break
+            s2_score,                                # 8) S2 reference groundedness
+            s2_influential,                          # 9) influential citation velocity
+            -has_fulltext,                           # 10) fulltext bonus
+            -extracted_chars,                        # 11) longer text tie-break
         )
 
     ranked = sorted(items, key=rank_key)

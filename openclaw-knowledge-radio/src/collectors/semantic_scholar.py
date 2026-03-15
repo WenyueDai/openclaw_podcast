@@ -137,7 +137,7 @@ def fetch_references(paper_id: str, api_key: str) -> List[Dict]:
     data = _get(
         f"/paper/{paper_id}/references",
         {
-            "fields": "paperId,title,year,authors,citationCount,externalIds,abstract",
+            "fields": "paperId,title,year,authors,citationCount,influentialCitationCount,externalIds,abstract",
             "limit": 100,
         },
         api_key,
@@ -164,7 +164,11 @@ def top_refs_for_synthesis(refs: List[Dict], top_n: int = 8) -> List[Dict]:
     """
     sorted_refs = sorted(
         refs,
-        key=lambda r: (0 if r.get("isInfluential") else 1, -(r.get("citationCount") or 0)),
+        key=lambda r: (
+            0 if r.get("isInfluential") else 1,
+            -(r.get("influentialCitationCount") or 0),
+            -(r.get("citationCount") or 0),
+        ),
     )
     out = []
     for ref in sorted_refs[:top_n]:
@@ -173,6 +177,7 @@ def top_refs_for_synthesis(refs: List[Dict], top_n: int = 8) -> List[Dict]:
             "title": ref.get("title") or "",
             "year": ref.get("year"),
             "citationCount": ref.get("citationCount") or 0,
+            "influentialCitationCount": ref.get("influentialCitationCount") or 0,
             "isInfluential": bool(ref.get("isInfluential", False)),
             "abstract": abstract[:600] + ("…" if len(abstract) > 600 else ""),
         })
@@ -363,6 +368,8 @@ def fetch_recommendations(
         "fields": "paperId,title,authors,year,abstract,externalIds,citationCount",
         "limit": limit,
     }
+    # TODO: pass disliked paper IDs as negativePaperIds once a "not interested"
+    # button is added to the site and writes to state/disliked.json
     body = {"positivePaperIds": paper_ids, "negativePaperIds": []}
 
     try:
@@ -510,6 +517,19 @@ def enrich_with_s2(
         if not paper_id:
             item["s2_reference_score"] = 0.0
             continue
+
+        # Fetch the paper's own influentialCitationCount (a velocity signal:
+        # how many papers that cite this one build heavily on it)
+        time.sleep(_DELAY)
+        paper_meta = _get(
+            f"/paper/{paper_id}",
+            {"fields": "influentialCitationCount"},
+            api_key,
+        )
+        if paper_meta:
+            item["s2_influential_citation_count"] = int(
+                paper_meta.get("influentialCitationCount") or 0
+            )
 
         refs = fetch_references(paper_id, api_key)
         item["s2_reference_score"] = score_references(refs, cfg)
