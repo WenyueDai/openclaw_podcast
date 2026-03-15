@@ -22,7 +22,7 @@ from typing import Any, Dict, List, Optional
 import requests
 
 S2_BASE = "https://api.semanticscholar.org/graph/v1"
-_DELAY = 0.12   # 10 req/s with API key; conservative at ~8 req/s
+_DELAY = 0.2    # ~5 req/s with API key; conservative to avoid 429s
 _PAPER_FIELDS = "title,abstract,year,publicationDate,externalIds,url"
 
 
