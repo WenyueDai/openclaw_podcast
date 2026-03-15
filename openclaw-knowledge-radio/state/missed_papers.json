@@ -190,8 +190,14 @@
     "title": "FLIP2: Expanding Protein Fitness Landscape Benchmarks for Real-World Machine Learning Applications",
     "url": null,
     "date_submitted": "2026-03-15",
-    "processed": false,
-    "diagnosis": null,
-    "keywords_added": []
+    "processed": true,
+    "diagnosis": "low_ranking",
+    "keywords_added": [
+      "protein fitness landscape",
+      "machine learning",
+      "real-world applications"
+    ],
+    "rss_feed_found": "",
+    "notion_page_id": "3245f58e-a8c2-8111-8b72-f3a146675137"
   }
 ]
