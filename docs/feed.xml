@@ -8,7 +8,7 @@
     <atom:link href="https://wenyuedai.github.io/protein_design_podcast/feed.xml" rel="self" type="application/rss+xml" />
     <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
     <language>en</language>
-    <lastBuildDate>Sun, 15 Mar 2026 15:20:33 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 15 Mar 2026 15:55:28 GMT</lastBuildDate>
     <itunes:author>Eva Dai</itunes:author>
     <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
     <itunes:owner>
@@ -22,10 +22,10 @@
       <title>Daily Podcast 2026-03-15</title>
       <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-15/podcast_2026-03-15.mp3</guid>
       <pubDate>Sun, 15 Mar 2026 08:00:00 GMT</pubDate>
-      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-15/podcast_2026-03-15.mp3" length="12512853" type="audio/mpeg" />
-      <description>Today&#x27;s papers reveal a striking shift in how we think about protein design at interfaces, antibiotic discovery, and the integration of quantum computing with machine learning. | Marinka Zitnik&#x27;s Fleming AI agent represents another conceptual leap, moving beyond traditional high-throughput screening to an integrative approach that contextualizes chemical predictions within biological networks. | The quantum machine learning paper from Scientific Reports tackles a different challenge: how to make quantum algorithms practical despite hardware noise.</description>
+      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-15/podcast_2026-03-15.mp3" length="13220877" type="audio/mpeg" />
+      <description>Today&#x27;s papers reveal a striking shift in how we think about protein design at interfaces and the role of environmental forces. | The Zitnik team&#x27;s Fleming AI agent for tuberculosis antibiotic design represents another conceptual shift: moving from single-criterion drug design to multi-objective optimization. | The quantum machine learning paper adds yet another dimension, showing that controlled noise can actually simplify quantum neural network architectures by reducing qubit requirements.</description>
       <itunes:author>Eva Dai</itunes:author>
-      <itunes:summary>Today&#x27;s papers reveal a striking shift in how we think about protein design at interfaces, antibiotic discovery, and the integration of quantum computing with machine learning. | Marinka Zitnik&#x27;s Fleming AI agent represents another conceptual leap, moving beyond traditional high-throughput screening to an integrative approach that contextualizes chemical predictions within biological networks. | The quantum machine learning paper from Scientific Reports tackles a different challenge: how to make quantum algorithms practical despite hardware noise.</itunes:summary>
+      <itunes:summary>Today&#x27;s papers reveal a striking shift in how we think about protein design at interfaces and the role of environmental forces. | The Zitnik team&#x27;s Fleming AI agent for tuberculosis antibiotic design represents another conceptual shift: moving from single-criterion drug design to multi-objective optimization. | The quantum machine learning paper adds yet another dimension, showing that controlled noise can actually simplify quantum neural network architectures by reducing qubit requirements.</itunes:summary>
       <itunes:explicit>false</itunes:explicit>
       <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
     </item>
