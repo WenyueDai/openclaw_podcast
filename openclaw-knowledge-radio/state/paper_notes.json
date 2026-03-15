@@ -431,5 +431,12 @@
       "title": "Per-residue optimisation of protein structures: Rapid alternative to optimisation with constrained alpha carbons",
       "source": "bioRxiv — bioinformatics"
     }
+  },
+  "2026-03-15": {
+    "https://www.biorxiv.org/content/10.64898/2026.03.11.711149": {
+      "note": "DD",
+      "title": "ProteinMCP: An Agentic AI Framework for Autonomous Protein Engineering",
+      "source": "bioRxiv — bioinformatics"
+    }
   }
 }
