@@ -181,7 +181,7 @@ def save_transcript_to_notion(
             "parent": {"database_id": db_id},
             "properties": {
                 "Name": {"title": [{"type": "text", "text": {"content": f"Transcript — {date}"}}]},
-                "Date": {"date": {"start": date}},
+                "date": {"date": {"start": date}},
             },
             "children": first_batch,
         })
