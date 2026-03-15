@@ -470,16 +470,6 @@ def render_index(episodes, all_episodes=None):
             hl_html = "".join([f"<li>{html.escape(h)}</li>" for h in hl]) if hl else "<li>No items yet.</li>"
             section_html = f'<div class="abstract"><h3>Highlights</h3><ul>{hl_html}</ul></div>'
 
-        # Notion transcript button
-        notion_transcript_url = transcript_notion_idx.get(ep["date"], "")
-        if notion_transcript_url:
-            notion_btn_html = (
-                f'<a class="notion-transcript-btn" href="{html.escape(notion_transcript_url)}" target="_blank">'
-                f'Read full transcript in Notion</a>'
-            )
-        else:
-            notion_btn_html = ""
-
         # Transcript panel — inline if text available, download link otherwise
         script_text = ep.get("script_text") or ""
         script_url  = ep.get("script_url") or ""
@@ -521,7 +511,6 @@ def render_index(episodes, all_episodes=None):
   </div>
   {section_html}
   {transcript_html}
-  {notion_btn_html}
 </section>""")
 
     body = "\n".join(cards) if cards else "<section class='card'><p>No episodes yet.</p></section>"
@@ -639,9 +628,6 @@ audio {{ width:100%; margin:0; }}
 .tr-section + .tr-section {{ border-top:1px solid var(--line); padding-top:1.2em; }}
 .transcript-download {{ padding:10px 0; }}
 .transcript-download a {{ color:var(--accent); }}
-.notion-transcript-btn {{ display:inline-flex; align-items:center; gap:7px; margin:12px 0 4px; padding:8px 16px; border-radius:8px; background:rgba(78,201,176,.12); color:var(--accent); font-size:.85rem; font-weight:600; text-decoration:none; border:1px solid rgba(78,201,176,.25); transition:background .15s,border-color .15s; }}
-.notion-transcript-btn:hover {{ background:rgba(78,201,176,.22); border-color:rgba(78,201,176,.5); }}
-.notion-transcript-btn::before {{ content:"📝"; }}
 .abstract h3 {{ margin:0 0 8px; font-size:.95rem; color:#4ec9b0; }}
 .abstract ul {{ margin:0; padding-left:0; list-style:none; }}
 .abstract li {{ margin:0; line-height:1.45; padding:6px 8px; border-radius:8px; transition:background .15s,border-left .15s; border-left:3px solid transparent; }}
