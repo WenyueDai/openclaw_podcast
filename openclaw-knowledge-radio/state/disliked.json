@@ -1,0 +1,24 @@
+{
+  "2026-03-15": [
+    {
+      "url": "https://www.semanticscholar.org/paper/8a1f13a6d9fe8cb1012dbb342e1b1947e8a9004c",
+      "source": "Marinka Zitnik (S2)",
+      "title": "Fleming: An AI Agent for Antibiotic Design for Mycobacterium tuberculosis"
+    },
+    {
+      "url": "https://doi.org/10.1038/s41598-026-42216-5",
+      "source": "PubMed — Scientific reports",
+      "title": "Design of a hybrid quantum machine learning architecture and analysis of quantum noise effects."
+    },
+    {
+      "url": "https://doi.org/10.1016/j.omtn.2026.102855",
+      "source": "PubMed — Molecular therapy. Nucleic acids",
+      "title": "Knowledge-graph-enhanced multi-scale modeling for drug-drug interaction prediction."
+    },
+    {
+      "url": "https://doi.org/10.1016/j.jfp.2026.100754",
+      "source": "PubMed — Journal of food protection",
+      "title": "A Multidisciplinary Approach for Predicting the Microbiological Spoilage of Chicken Breast Fillets due to Cold-chain Dis"
+    }
+  ]
+}
