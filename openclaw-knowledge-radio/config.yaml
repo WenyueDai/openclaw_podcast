@@ -552,6 +552,10 @@ podcast:
     roundup_max_tokens: 1200
     use_merge_llm: false
 
+s2_authors:
+  enabled: true
+  lookback_days: 4  # S2 ingests papers within 1-3 days; 4-day window ensures nothing slips through
+
 biorxiv_authors:
   enabled: true
   lookback_days: 3

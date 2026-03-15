@@ -17,6 +17,7 @@ from src.collectors.daily_knowledge import collect_daily_knowledge_items
 from src.collectors.wiki_context import collect_wiki_context_items
 from src.collectors.pubmed import collect_pubmed_items
 from src.collectors.biorxiv_authors import collect_biorxiv_author_items
+from src.collectors.s2_authors import collect_s2_author_items
 from src.collectors.biorxiv_keywords import collect_biorxiv_keyword_items
 from src.processing.rank import rank_and_limit
 from src.processing.script_llm import (
@@ -279,6 +280,7 @@ def main() -> int:
         "pubmed": 0,
         "biorxiv_keywords": 0,
         "biorxiv_authors": 0,
+        "s2_authors": 0,
         "daily_knowledge": 0,
         "wiki_context": 0,
     }
@@ -338,6 +340,15 @@ def main() -> int:
             biorxiv_author_items = collect_biorxiv_author_items(cfg)
             collector_counts["biorxiv_authors"] = len(biorxiv_author_items)
             items.extend(biorxiv_author_items)
+        # S2 author collection: permanent author IDs, 4-day lookback, zero false positives
+        if cfg.get("s2_authors", {}).get("enabled", True):
+            _s2_api_key = os.environ.get("S2_API_KEY", "").strip()
+            if _s2_api_key:
+                s2_author_items = collect_s2_author_items(cfg, api_key=_s2_api_key)
+                collector_counts["s2_authors"] = len(s2_author_items)
+                items.extend(s2_author_items)
+            else:
+                print("[s2_authors] S2_API_KEY not set — skipping", flush=True)
         if cfg.get("daily_knowledge", {}).get("enabled", True):
             daily_items = collect_daily_knowledge_items(tz=tz)
             collector_counts["daily_knowledge"] = len(daily_items)
