@@ -894,8 +894,7 @@ audio {{ width:100%; margin:0; }}
           <div class="quick-links">
             <a href="https://clear-squid-8e3.notion.site/3155f58ea8c280258959fba00c0149ab?v=3155f58ea8c2803c8c0d000c76d1bfba" target="_blank">Paper Collection</a>
             <a href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a>
-            {f'<a href="{html.escape(latest_transcript_url)}" target="_blank">Latest Transcript</a>' if latest_transcript_url else ''}
-            <a href="https://www.notion.so/Openclaw_weekly_summary-3235f58ea8c280e4bbcbe4edac796ca6" target="_blank">Weekly Summary</a>
+<a href="https://www.notion.so/Openclaw_weekly_summary-3235f58ea8c280e4bbcbe4edac796ca6" target="_blank">Weekly Summary</a>
           </div>
         </div>
         {today_summary}
