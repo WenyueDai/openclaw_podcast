@@ -329,7 +329,7 @@ audio { width:100%; margin:0; }
 <a href="https://www.notion.so/Openclaw_weekly_summary-3235f58ea8c280e4bbcbe4edac796ca6" target="_blank">Weekly Summary</a>
           </div>
         </div>
-        <div class="today-summary"><div class="ts-row"><span class="ts-date">&#128197; 2026-03-15</span><span class="ts-sep">·</span><span><strong>20</strong> papers in today&rsquo;s episode</span></div><div class="ts-row ts-dim">&#128300; No tracked researcher papers today</div><div class="ts-row ts-dim">&#128221; No blog updates today</div></div>
+        <div class="today-summary"><div class="ts-row"><span class="ts-date">&#128197; 2026-03-15</span><span class="ts-sep">·</span><span><strong>20</strong> papers in today&rsquo;s episode</span></div><div class="ts-row"><span class="ts-label ts-researcher">&#128300; Tracked researchers</span><span class="ts-dim">Mohammed AlQuraishi (S2) · Nicholas Polizzi (S2)</span></div><div class="ts-row ts-dim">&#128221; No blog updates today</div></div>
       </div>
       <section class="site-alert hero-panel" id="site-alert-panel">
         <div class="site-alert-flag" id="site-alert-flag"></div>
@@ -358,7 +358,7 @@ audio { width:100%; margin:0; }
 <section class='card'>
   <div class='card-head'>
     <h2>Daily Podcast 2026-03-15</h2>
-    
+    <p class='meta'><a href="podcast_script_2026-03-15_llm.txt">script</a></p>
   </div>
   <div class='player-box'>
     <audio id="audio-2026-03-15" controls preload="metadata"><source src="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-15/podcast_2026-03-15.mp3" type="audio/mpeg"></audio>
@@ -618,13 +618,13 @@ function bindOwnerAlertEditor() {
 
 // ── Visit tracking ────────────────────────────────────────────────────────
 function _visitEndpoint() {
-  var base = "https://visitor-message-worker.wenyuedai.workers.dev/";
+  var base = "https://visitor-message-worker.wenyuedai.workers.dev";
   if (!base) return '';
   return base.replace(/\/+$/, '') + '/visit';
 }
 
 function _visitStatsEndpoint() {
-  var base = "https://visitor-message-worker.wenyuedai.workers.dev/";
+  var base = "https://visitor-message-worker.wenyuedai.workers.dev";
   if (!base) return '';
   return base.replace(/\/+$/, '') + '/visit-stats';
 }
@@ -725,7 +725,7 @@ function saveVisitorDraft() {
 }
 
 function sendVisitorMessage() {
-  var endpoint = "https://visitor-message-worker.wenyuedai.workers.dev/";
+  var endpoint = "https://visitor-message-worker.wenyuedai.workers.dev";
   var message = (document.getElementById('visitor-message').value || '').trim();
   if (!message) {
     _setVisitorStatus('Please write a message first.');

@@ -592,7 +592,8 @@ def main() -> int:
             "one_liner": _best_summary(_it),
             "segment": _seg,
             "timestamp": -1,
-            "featured": _is_featured,
+            "highlighted": _is_featured,
+            "tags": _it.get("tags") or [],
         })
     _episode_items_file = out_dir / "episode_items.json"
     _episode_items_file.write_text(

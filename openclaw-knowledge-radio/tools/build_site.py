@@ -309,6 +309,16 @@ def _load_author_sources() -> tuple[set, set]:
                 researchers.add(name)
             else:
                 blogs.add(name)
+        # S2 author collector: source = "{author_name} (S2)"
+        s2_ids_file = _PACKAGE_DIR / "state" / "s2_author_ids.json"
+        if s2_ids_file.exists():
+            import json as _json
+            for author_name in _json.loads(s2_ids_file.read_text(encoding="utf-8")):
+                researchers.add(f"{author_name} (S2)")
+        # bioRxiv author collector: source = "{author_name} (bioRxiv)"
+        for entry in (cfg.get("biorxiv_authors") or {}).get("authors", []):
+            if entry.get("name"):
+                researchers.add(f"{entry['name']} (bioRxiv)")
         return researchers, blogs
     except Exception:
         return set(), set()
