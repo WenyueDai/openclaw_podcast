@@ -165,3 +165,11 @@ References:
 [3] Flipper: An advanced framework for identifyingdifferential RNA binding behavior with eCLIP data — bioRxiv — bioinformatics — https://www.biorxiv.org/content/10.64898/2026.03.13.711628
 [4] Design of a hybrid quantum machine learning architecture and analysis of quantum noise effects. — PubMed — Scientific reports — https://doi.org/10.1038/s41598-026-42216-5
 [5] Knowledge-graph-enhanced multi-scale modeling for drug-drug interaction prediction. — PubMed — Molecular therapy. Nucleic acids — https://doi.org/10.1016/j.omtn.2026.102855
+
+
+References:
+[1] Impact of solvent forces and broken symmetry on the assembly of designed proteins at a liquid-solid interface. — David Baker (S2) — https://www.semanticscholar.org/paper/58151ecf5afbcfce9210a16d4ec78fda3a0f34e6
+[2] Fleming: An AI Agent for Antibiotic Design for Mycobacterium tuberculosis — Marinka Zitnik (S2) — https://www.semanticscholar.org/paper/8a1f13a6d9fe8cb1012dbb342e1b1947e8a9004c
+[3] Flipper: An advanced framework for identifyingdifferential RNA binding behavior with eCLIP data — bioRxiv — bioinformatics — https://www.biorxiv.org/content/10.64898/2026.03.13.711628
+[4] Design of a hybrid quantum machine learning architecture and analysis of quantum noise effects. — PubMed — Scientific reports — https://doi.org/10.1038/s41598-026-42216-5
+[5] Knowledge-graph-enhanced multi-scale modeling for drug-drug interaction prediction. — PubMed — Molecular therapy. Nucleic acids — https://doi.org/10.1016/j.omtn.2026.102855
