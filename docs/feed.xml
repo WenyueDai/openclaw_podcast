@@ -8,7 +8,7 @@
     <atom:link href="https://wenyuedai.github.io/protein_design_podcast/feed.xml" rel="self" type="application/rss+xml" />
     <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
     <language>en</language>
-    <lastBuildDate>Sat, 14 Mar 2026 20:30:24 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 15 Mar 2026 05:19:43 GMT</lastBuildDate>
     <itunes:author>Eva Dai</itunes:author>
     <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
     <itunes:owner>
@@ -18,6 +18,17 @@
     <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
     <itunes:explicit>false</itunes:explicit>
     
+    <item>
+      <title>Daily Podcast 2026-03-15</title>
+      <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-15/podcast_2026-03-15.mp3</guid>
+      <pubDate>Sun, 15 Mar 2026 08:00:00 GMT</pubDate>
+      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-15/podcast_2026-03-15.mp3" length="24628053" type="audio/mpeg" />
+      <description>Let me walk you through what actually mattered in today&#x27;s protein engineering landscape. | First, the ProteinMCP framework represents a fundamental shift in how we approach computational protein design. | The RNA structure prediction landscape just got a sobering reality check.</description>
+      <itunes:author>Eva Dai</itunes:author>
+      <itunes:summary>Let me walk you through what actually mattered in today&#x27;s protein engineering landscape. | First, the ProteinMCP framework represents a fundamental shift in how we approach computational protein design. | The RNA structure prediction landscape just got a sobering reality check.</itunes:summary>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
+    </item>
     <item>
       <title>Daily Podcast 2026-03-14</title>
       <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-14/podcast_2026-03-14.mp3</guid>
@@ -88,10 +99,10 @@
       <title>Daily Podcast 2026-03-08</title>
       <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-08/podcast_2026-03-08.mp3</guid>
       <pubDate>Sun, 08 Mar 2026 08:00:00 GMT</pubDate>
-      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-08/podcast_2026-03-08.mp3" length="27500709" type="audio/mpeg" />
-      <description>In 2024, bioarchaeologists made a breakthrough in medieval forensics when they identified the remains of a murdered 14th-century nobleman using a combination of DNA analysis, radiocarbon dating, and historical records. | The team extracted mitochondrial DNA from the bones and compared it to living descendants of the noble family. | This identification was significant because it demonstrated that modern forensic techniques could solve medieval cold cases with reasonable certainty.</description>
+      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-08/podcast_2026-03-08.mp3" length="0" type="audio/mpeg" />
+      <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
       <itunes:author>Eva Dai</itunes:author>
-      <itunes:summary>In 2024, bioarchaeologists made a breakthrough in medieval forensics when they identified the remains of a murdered 14th-century nobleman using a combination of DNA analysis, radiocarbon dating, and historical records. | The team extracted mitochondrial DNA from the bones and compared it to living descendants of the noble family. | This identification was significant because it demonstrated that modern forensic techniques could solve medieval cold cases with reasonable certainty.</itunes:summary>
+      <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
       <itunes:explicit>false</itunes:explicit>
       <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
     </item>
@@ -99,10 +110,10 @@
       <title>Daily Podcast 2026-03-07</title>
       <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-07/podcast_2026-03-07.mp3</guid>
       <pubDate>Sat, 07 Mar 2026 08:00:00 GMT</pubDate>
-      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-07/podcast_2026-03-07.mp3" length="35657229" type="audio/mpeg" />
-      <description>Derek Lowe at In the Pipeline reports on a biotech startup called Dupeless that&#x27;s rethinking drug discovery by focusing on &quot;undruggable&quot; targets. | Researchers have developed a rapid on-site detection method for identifying acetaminophen adulteration in herbal tea using gold nanoparticle immunochromatography. | The ability to predict the three-dimensional structure of a protein from its amino acid sequence has potential to provide insights into its function, and in the context of disease, its pathogenic mechanisms and potential drug targets.</description>
+      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-07/podcast_2026-03-07.mp3" length="0" type="audio/mpeg" />
+      <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
       <itunes:author>Eva Dai</itunes:author>
-      <itunes:summary>Derek Lowe at In the Pipeline reports on a biotech startup called Dupeless that&#x27;s rethinking drug discovery by focusing on &quot;undruggable&quot; targets. | Researchers have developed a rapid on-site detection method for identifying acetaminophen adulteration in herbal tea using gold nanoparticle immunochromatography. | The ability to predict the three-dimensional structure of a protein from its amino acid sequence has potential to provide insights into its function, and in the context of disease, its pathogenic mechanisms and potential drug targets.</itunes:summary>
+      <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
       <itunes:explicit>false</itunes:explicit>
       <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
     </item>
@@ -154,10 +165,10 @@
       <title>Daily Podcast 2026-03-02</title>
       <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-02/podcast_2026-03-02.mp3</guid>
       <pubDate>Mon, 02 Mar 2026 08:00:00 GMT</pubDate>
-      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-02/podcast_2026-03-02.mp3" length="28542741" type="audio/mpeg" />
-      <description>When ruminants shift from a forage-based diet to a high-grain diet, the rumen environment changes dramatically. | A new study published in the Journal of Animal Science and Biotechnology tracked how the rumen papillae—the finger-like projections in the rumen wall that absorb nutrients—respond at the molecular level during this dietary transition. | What they found was striking: the adaptation process isn&#x27;t a single, uniform response.</description>
+      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-02/podcast_2026-03-02.mp3" length="0" type="audio/mpeg" />
+      <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
       <itunes:author>Eva Dai</itunes:author>
-      <itunes:summary>When ruminants shift from a forage-based diet to a high-grain diet, the rumen environment changes dramatically. | A new study published in the Journal of Animal Science and Biotechnology tracked how the rumen papillae—the finger-like projections in the rumen wall that absorb nutrients—respond at the molecular level during this dietary transition. | What they found was striking: the adaptation process isn&#x27;t a single, uniform response.</itunes:summary>
+      <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
       <itunes:explicit>false</itunes:explicit>
       <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
     </item>
@@ -165,10 +176,10 @@
       <title>Daily Podcast 2026-03-01</title>
       <guid isPermaLink="false">https://github.com/WenyueDai/openclaw_podcast/releases/download/episode-2026-03-01/podcast_2026-03-01.mp3</guid>
       <pubDate>Sun, 01 Mar 2026 08:00:00 GMT</pubDate>
-      <enclosure url="https://github.com/WenyueDai/openclaw_podcast/releases/download/episode-2026-03-01/podcast_2026-03-01.mp3" length="32983533" type="audio/mpeg" />
-      <description>Coral reefs are often celebrated for their colorful fish and intricate structures, but beneath the surface lies an even more complex world: the microbial communities living inside and around corals. | The research team collected coral fragments and seawater samples from 99 reefs across 32 islands in the Pacific Ocean. | By combining this new data with publicly available coral and sponge microbiome datasets, the researchers built what they call the Reef Microbiome Database, or RMD.</description>
+      <enclosure url="https://github.com/WenyueDai/openclaw_podcast/releases/download/episode-2026-03-01/podcast_2026-03-01.mp3" length="0" type="audio/mpeg" />
+      <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
       <itunes:author>Eva Dai</itunes:author>
-      <itunes:summary>Coral reefs are often celebrated for their colorful fish and intricate structures, but beneath the surface lies an even more complex world: the microbial communities living inside and around corals. | The research team collected coral fragments and seawater samples from 99 reefs across 32 islands in the Pacific Ocean. | By combining this new data with publicly available coral and sponge microbiome datasets, the researchers built what they call the Reef Microbiome Database, or RMD.</itunes:summary>
+      <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
       <itunes:explicit>false</itunes:explicit>
       <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
     </item>
