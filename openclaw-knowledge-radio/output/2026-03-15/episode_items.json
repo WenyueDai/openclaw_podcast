@@ -1,18 +1,36 @@
 {
   "timestamps": [
     0.0,
-    146.8,
-    414.57,
-    590.58,
-    731.67,
-    869.26,
-    1017.24,
-    1184.83,
-    1368.42,
-    1523.0,
-    1683.13
+    163.27,
+    293.39,
+    426.78,
+    582.73,
+    729.96,
+    898.51,
+    1040.11,
+    1234.55,
+    1371.71,
+    1517.91
   ],
   "items": [
+    {
+      "title": "The impact of productivity in enhancing the competitiveness of residential neighbourhoods",
+      "url": "https://www.semanticscholar.org/paper/18c0142ba019135b1434baad4c3956f08cf3359f",
+      "source": "Mohammed AlQuraishi (S2)",
+      "one_liner": "",
+      "segment": -1,
+      "timestamp": -1,
+      "featured": true
+    },
+    {
+      "title": "AF2BIND: predicting small-molecule binding sites using the pair representation of AlphaFold2",
+      "url": "https://www.semanticscholar.org/paper/ee8a44c58c40d6df48b0d5d0ca43c33f6ecc5b6f",
+      "source": "Nicholas Polizzi (S2)",
+      "one_liner": "Identification of small-molecule binding sites in proteins is an important task for drug discovery. Despite previous homology- and machine-learning-based approaches to this problem, true de novo binding-site prediction remains a challenge. Here we use features from a pretrained neural network to train a logistic regression model, AF2BIND, for accurate prediction of de novo binding sites. AF2BIND i",
+      "segment": -1,
+      "timestamp": -1,
+      "featured": true
+    },
     {
       "title": "Do AI Models for Protein Structure Prediction Get Electrostatics Right?",
       "url": "https://www.biorxiv.org/content/10.64898/2026.03.11.711144",
@@ -47,7 +65,7 @@
       "one_liner": "Deep learning methods for protein structure generation, sequence design, and structure and property prediction have created unprecedented opportunities for protein engineering and drug discovery. However, using these tools often requires navigating incompatible software environments, diverse input/output formats, and high-performance computing infrastruct...",
       "segment": -1,
       "timestamp": -1,
-      "featured": true
+      "featured": false
     },
     {
       "title": "Learning the All-Atom Equilibrium Distribution of Biomolecular Interactions at Scale",
@@ -56,7 +74,7 @@
       "one_liner": "Biomolecular functions are governed by dynamic conformational ensembles rather than static structures. While models like AlphaFold have revolutionized static structure prediction, accurately capturing the equilibrium distribution of all-atom biomolecular interactions remains a significant challenge due to the high computational cost of molecular dynamics ...",
       "segment": -1,
       "timestamp": -1,
-      "featured": true
+      "featured": false
     },
     {
       "title": "Limits of deep-learning-based RNA prediction methods",
@@ -131,6 +149,15 @@
       "featured": false
     },
     {
+      "title": "ACENet: a graph neural network for predicting enzyme pHmin using structure and sequence insights",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.11.711222",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "The acid activity of enzymes, characterized by the minimum pH at which enzymes remain active (pHmin), is crucial for industrial applications in acidic environments. However, the rational design of acid-active enzymes remains challenging due to limited understanding of sequence-structure-activity relationships under acidic conditions. Here, we propose ACEN...",
+      "segment": -1,
+      "timestamp": -1,
+      "featured": false
+    },
+    {
       "title": "RepliCNN: High-resolution inference of the DNA replication program from strand-specific 3' DNA end sequencing",
       "url": "https://www.biorxiv.org/content/10.64898/2026.03.12.710907",
       "source": "bioRxiv — bioinformatics",
@@ -158,28 +185,10 @@
       "featured": false
     },
     {
-      "title": "ACENet: a graph neural network for predicting enzyme pHmin using structure and sequence insights",
-      "url": "https://www.biorxiv.org/content/10.64898/2026.03.11.711222",
-      "source": "bioRxiv — bioinformatics",
-      "one_liner": "The acid activity of enzymes, characterized by the minimum pH at which enzymes remain active (pHmin), is crucial for industrial applications in acidic environments. However, the rational design of acid-active enzymes remains challenging due to limited understanding of sequence-structure-activity relationships under acidic conditions. Here, we propose ACEN...",
-      "segment": -1,
-      "timestamp": -1,
-      "featured": false
-    },
-    {
       "title": "Improving Local Ancestry Inference through Neural Networks",
       "url": "https://www.biorxiv.org/content/10.64898/2026.03.11.711082",
       "source": "bioRxiv — bioinformatics",
       "one_liner": "Motivation: Local Ancestry Inference (LAI) allows us to study evolutionary processes in admixed populations, uncover ancestry-specific disease risk factors, and to better understand the demographic history of these populations. Many methods for LAI exist, however, these methods usually focus on cases of intercontinental admixture. In this work, we evaluat...",
-      "segment": -1,
-      "timestamp": -1,
-      "featured": false
-    },
-    {
-      "title": "Roche’s breast cancer failure; BioNTech co-founders to depart; Eli Lilly’s quest to stay on top; and more",
-      "url": "https://endpoints.news/roches-breast-cancer-failure-biontech-co-founders-to-depart-eli-lillys-quest-to-stay-on-top-and-more/",
-      "source": "Endpoints News",
-      "one_liner": "Welcome back to Endpoints Weekly! We have a few deep dives in today’s issue, including a look at how Eli Lilly is shaping its future and a piece on how GLP-1 compounders have changed the ...",
       "segment": -1,
       "timestamp": -1,
       "featured": false
