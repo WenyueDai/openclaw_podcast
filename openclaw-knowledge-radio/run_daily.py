@@ -533,12 +533,19 @@ def main() -> int:
         featured_items = ranked
         background_items = []
 
-    # 5a) For synthesis mode: use S2 to fetch full text for featured papers via openAccessPdf
+    # 5a) For synthesis mode: use S2 to fetch full text + recommendations for featured papers
+    _s2_recommendations: list = []
     if synthesis_mode and _s2_api_key and not REGEN_FROM_CACHE:
         try:
-            from src.collectors.semantic_scholar import enrich_featured_fulltext
+            from src.collectors.semantic_scholar import enrich_featured_fulltext, fetch_recommendations
             print(f"[s2] Fetching full text for {len(featured_items)} featured papers…", flush=True)
             enrich_featured_fulltext(featured_items, api_key=_s2_api_key)
+            # Fetch S2 recommendations based on featured paper IDs
+            featured_paper_ids = [it["s2_paper_id"] for it in featured_items if it.get("s2_paper_id")]
+            if featured_paper_ids:
+                print(f"[s2] Fetching recommendations for {len(featured_paper_ids)} featured papers…", flush=True)
+                _s2_recommendations = fetch_recommendations(featured_paper_ids, api_key=_s2_api_key)
+                print(f"[s2] Got {len(_s2_recommendations)} recommendations.", flush=True)
         except Exception as _s2_ft_err:
             print(f"[s2] Warning: full-text enrichment failed — {_s2_ft_err}", flush=True)
 
@@ -554,6 +561,7 @@ def main() -> int:
             items=featured_items,
             cfg=cfg,
             shared_landscape=_s2_shared_landscape or None,
+            recommendations=_s2_recommendations or None,
         )
     else:
         script_text, _item_segments = build_podcast_script_llm_chunked_with_map(date_str=today, items=ranked, cfg=cfg)

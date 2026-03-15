@@ -128,7 +128,10 @@ def fetch_references(paper_id: str, api_key: str) -> List[Dict]:
     """
     Fetch up to 100 references for a paper.
     Returns a list of cited-paper dicts with keys:
-      paperId, title, year, authors, citationCount, externalIds, abstract
+      paperId, title, year, authors, citationCount, externalIds, abstract, isInfluential
+
+    isInfluential is an S2 edge property indicating the citing paper builds
+    substantially on this reference (not just a passing mention).
     """
     time.sleep(_DELAY)
     data = _get(
@@ -145,17 +148,24 @@ def fetch_references(paper_id: str, api_key: str) -> List[Dict]:
     for item in data.get("data", []):
         cited = item.get("citedPaper") or {}
         if cited.get("paperId"):
+            # isInfluential is an edge property — copy it onto the cited paper dict
+            cited["isInfluential"] = bool(item.get("isInfluential", False))
             refs.append(cited)
     return refs
 
 
 def top_refs_for_synthesis(refs: List[Dict], top_n: int = 8) -> List[Dict]:
     """
-    Pick the top N most-cited references to inject as related literature context
-    in the synthesis prompt.  Returns a trimmed list of dicts:
-      {title, year, citationCount, abstract}
+    Pick the top N references to inject as related literature context.
+
+    Sorting: influential references first (S2 marked the citing paper as
+    building heavily on them), then by citation count within each group.
+    Returns trimmed dicts: {title, year, citationCount, abstract, isInfluential}
     """
-    sorted_refs = sorted(refs, key=lambda r: -(r.get("citationCount") or 0))
+    sorted_refs = sorted(
+        refs,
+        key=lambda r: (0 if r.get("isInfluential") else 1, -(r.get("citationCount") or 0)),
+    )
     out = []
     for ref in sorted_refs[:top_n]:
         abstract = (ref.get("abstract") or "").strip()
@@ -163,7 +173,7 @@ def top_refs_for_synthesis(refs: List[Dict], top_n: int = 8) -> List[Dict]:
             "title": ref.get("title") or "",
             "year": ref.get("year"),
             "citationCount": ref.get("citationCount") or 0,
-            # Truncate abstract so it doesn't explode the prompt
+            "isInfluential": bool(ref.get("isInfluential", False)),
             "abstract": abstract[:600] + ("…" if len(abstract) > 600 else ""),
         })
     return out
@@ -199,14 +209,15 @@ def score_references(refs: List[Dict], cfg: Dict) -> float:
         authors = " ".join(
             (a.get("name") or "") for a in (ref.get("authors") or [])
         ).lower()
+        influential = bool(ref.get("isInfluential", False))
 
         if any(k in title for k in abs_kws):
-            hits += 3
+            hits += 5 if influential else 3
         elif any(k in title for k in topic_kws):
-            hits += 1
+            hits += 2 if influential else 1
 
         if any(t in authors for t in tracked):
-            hits += 2
+            hits += 4 if influential else 2
 
     return min(hits / 20.0, 1.0)
 
@@ -323,6 +334,62 @@ def find_missed_surfaces(
             })
 
     return sorted(surfaced, key=lambda x: -x["citations"])[:10]
+
+
+# ---------------------------------------------------------------------------
+# Idea 4: Recommendations — related papers the pipeline hasn't seen yet
+# ---------------------------------------------------------------------------
+
+def fetch_recommendations(
+    paper_ids: List[str],
+    api_key: str,
+    limit: int = 10,
+) -> List[Dict]:
+    """
+    Call the S2 Recommendations API with today's featured papers as positive
+    examples.  Returns up to `limit` related papers S2 thinks are similar but
+    that the pipeline didn't collect today.
+
+    API: POST https://api.semanticscholar.org/recommendations/v1/papers/
+    """
+    if not paper_ids:
+        return []
+
+    headers: Dict = {"Content-Type": "application/json"}
+    if api_key:
+        headers["x-api-key"] = api_key
+
+    params = {
+        "fields": "paperId,title,authors,year,abstract,externalIds,citationCount",
+        "limit": limit,
+    }
+    body = {"positivePaperIds": paper_ids, "negativePaperIds": []}
+
+    try:
+        time.sleep(_DELAY)
+        r = requests.post(
+            "https://api.semanticscholar.org/recommendations/v1/papers/",
+            params=params,
+            headers=headers,
+            json=body,
+            timeout=20,
+        )
+        if r.status_code == 200:
+            return r.json().get("recommendedPapers", [])
+        if r.status_code == 429:
+            time.sleep(10)
+            r = requests.post(
+                "https://api.semanticscholar.org/recommendations/v1/papers/",
+                params=params,
+                headers=headers,
+                json=body,
+                timeout=20,
+            )
+            if r.status_code == 200:
+                return r.json().get("recommendedPapers", [])
+    except Exception:
+        pass
+    return []
 
 
 # ---------------------------------------------------------------------------

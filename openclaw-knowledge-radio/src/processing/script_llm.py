@@ -147,13 +147,15 @@ def _format_item_block(it: Dict[str, Any]) -> str:
     # Inject Semantic Scholar related literature if available
     top_refs: List[Dict] = it.get("s2_top_refs") or []
     if top_refs:
-        lines.append("KEY RELATED LITERATURE (papers this work cites, by citation count):")
+        lines.append("KEY RELATED LITERATURE (papers this work cites; INFLUENTIAL = this paper builds heavily on it):")
         for ref in top_refs:
             ref_title = ref.get("title") or ""
             ref_year = ref.get("year") or ""
             ref_cites = ref.get("citationCount") or 0
             ref_abstract = ref.get("abstract") or ""
-            lines.append(f"  [{ref_cites} citations, {ref_year}] {ref_title}")
+            influential = ref.get("isInfluential", False)
+            tag = "INFLUENTIAL, " if influential else ""
+            lines.append(f"  [{tag}{ref_cites} citations, {ref_year}] {ref_title}")
             if ref_abstract:
                 lines.append(f"    Abstract: {ref_abstract}")
 
@@ -489,6 +491,7 @@ def build_podcast_script_llm_synthesis(
     items: List[Dict[str, Any]],
     cfg: Dict[str, Any],
     shared_landscape: Optional[List[Dict]] = None,
+    recommendations: Optional[List[Dict]] = None,
 ) -> Tuple[str, List[int]]:
     """
     Generate a deep 11-section synthesis podcast from the top featured papers.
@@ -496,9 +499,9 @@ def build_podcast_script_llm_synthesis(
     Makes one LLM call per section so each gets its own token budget and the
     model can't shortcut the whole script in a single lazy pass.
 
-    shared_landscape: optional list of {title, year, cited_by_count} dicts
-      from Semantic Scholar — foundational papers cited by multiple featured
-      papers today.
+    shared_landscape: foundational papers cited by multiple featured papers today.
+    recommendations: papers S2 recommends based on today's featured set —
+      related work the pipeline didn't collect, injected as context.
 
     All featured items map to segment -1.
     Returns (script_text, item_segments).
@@ -527,9 +530,31 @@ def build_podcast_script_llm_synthesis(
             lines.append(f"  Cited by {count} papers: \"{title}\" ({year})")
         landscape_block = "\n".join(lines) + "\n\n"
 
+    recommendations_block = ""
+    if recommendations:
+        lines = [
+            "S2 RECOMMENDED PAPERS (related work S2 found based on today's featured set —"
+            " use these to expand context, spot gaps, and generate hypotheses):"
+        ]
+        for rec in recommendations:
+            rec_title = (rec.get("title") or "").strip()
+            rec_year = rec.get("year") or ""
+            rec_cites = rec.get("citationCount") or 0
+            rec_authors = ", ".join(
+                (a.get("name") or "") for a in (rec.get("authors") or [])[:3]
+            )
+            rec_abstract = (rec.get("abstract") or "").strip()[:300]
+            lines.append(f"  [{rec_cites} citations, {rec_year}] {rec_title}")
+            if rec_authors:
+                lines.append(f"    Authors: {rec_authors}")
+            if rec_abstract:
+                lines.append(f"    Abstract: {rec_abstract}")
+        recommendations_block = "\n".join(lines) + "\n\n"
+
     header = (
         f"DATE: {date_str}\n\n"
         + landscape_block
+        + recommendations_block
         + f"TODAY'S FEATURED PAPERS ({len(items)} papers):\n\n"
         + papers_block
         + "\n\n"
