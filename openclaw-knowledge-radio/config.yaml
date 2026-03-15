@@ -7,8 +7,8 @@ paths:
   state_dir: "state"
 
 limits:
-  max_items_total: 40
-  max_items_protein: 38
+  max_items_total: 20
+  max_items_protein: 18
   max_items_daily_knowledge: 5
   source_caps:
     "Endpoints News": 2
