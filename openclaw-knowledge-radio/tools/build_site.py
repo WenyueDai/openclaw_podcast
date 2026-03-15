@@ -472,11 +472,26 @@ def render_index(episodes, all_episodes=None):
                     f'</div>'
                     f'{summary_part}{note_part}</li>'
                 )
-            items_html = "".join(rows)
+            featured_rows = [r for r, it in zip(rows, items) if it.get("highlighted", it.get("featured", True))]
+            not_featured_rows = [r for r, it in zip(rows, items) if not it.get("highlighted", it.get("featured", True))]
+            featured_html = "".join(featured_rows)
+            not_featured_html = "".join(not_featured_rows)
+            deep_dive_section = (
+                f'<div class="deep-dive-section">'
+                f'<h3 class="section-label">Deep Dive ({len(featured_rows)})</h3>'
+                f'<ul>{featured_html}</ul>'
+                f'</div>'
+            ) if featured_rows else ""
+            also_collected_section = (
+                f'<details class="also-collected">'
+                f'<summary>Also collected ({len(not_featured_rows)})</summary>'
+                f'<ul>{not_featured_html}</ul>'
+                f'</details>'
+            ) if not_featured_rows else ""
             section_html = (
                 f'<div class="abstract">'
-                f'<h3>Papers &amp; News ({len(items)})</h3>'
-                f'<ul>{items_html}</ul>'
+                f'{deep_dive_section}'
+                f'{also_collected_section}'
                 f'</div>'
             )
         else:
@@ -559,9 +574,12 @@ body {{ margin:0; font-family:"Hiragino Sans","Noto Sans JP",Inter,system-ui,-ap
 .layout {{ display:flex; gap:24px; max-width:1320px; margin:0 auto; padding:28px 16px 40px; align-items:flex-start; }}
 .main-col {{ flex:1; min-width:0; width:100%; }}
 .hero {{ display:flex; flex-direction:column; gap:16px; margin-bottom:16px; }}
-.hero-panel {{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:18px 20px; box-shadow:0 10px 24px rgba(0,0,0,.4); width:min(100%, 52rem); }}
-.hero-panel h1 {{ margin:0 0 8px; letter-spacing:.2px; font-size:clamp(1.8rem,3.2vw,2.5rem); line-height:1.05; }}
-.hero-kicker {{ margin:0 0 12px; font-size:.94rem; color:var(--muted); line-height:1.6; width:100%; }}
+.hero-panel {{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 20px; box-shadow:0 10px 24px rgba(0,0,0,.4); width:min(100%, 52rem); }}
+.hero-panel h1 {{ margin:0 0 8px; letter-spacing:.2px; font-size:clamp(1.4rem,2.4vw,2rem); line-height:1.05; }}
+.hero-kicker {{ margin:0 0 10px; font-size:.88rem; color:var(--muted); line-height:1.6; width:100%; }}
+.nav-links {{ display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }}
+.nav-link {{ display:inline-flex; align-items:center; padding:4px 10px; border-radius:999px; background:rgba(78,201,176,.1); border:1px solid rgba(78,201,176,.25); font-size:.8rem; font-weight:600; color:var(--accent); text-decoration:none; }}
+.nav-link:hover {{ background:rgba(78,201,176,.18); text-decoration:none; }}
 .intro-stack {{ display:flex; flex-direction:column; gap:8px; align-items:flex-start; width:100%; }}
 .hero-line {{ display:flex; align-items:flex-start; gap:8px; color:var(--muted); width:100%; }}
 .hero-icon {{ width:1.25rem; flex-shrink:0; text-align:center; line-height:1.55; }}
@@ -623,8 +641,11 @@ audio {{ width:100%; margin:0; }}
 .num {{ color:var(--muted); font-size:.72rem; font-weight:600; min-width:24px; flex-shrink:0; opacity:.75; padding-top:2px; }}
 .num.seekable {{ color:var(--muted); cursor:pointer; }}
 .num.seekable:hover {{ text-decoration:underline; }}
-.not-featured {{ opacity:.38; }}
-.not-featured:hover {{ opacity:.65; transition:opacity .15s; }}
+.deep-dive-section h3.section-label {{ font-size:.82rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:0 0 8px; }}
+.also-collected {{ margin-top:14px; }}
+.also-collected > summary {{ font-size:.82rem; color:var(--muted); cursor:pointer; list-style:none; padding:4px 0; opacity:.7; }}
+.also-collected > summary:hover {{ opacity:1; }}
+.also-collected > summary::-webkit-details-marker {{ display:none; }}
 .src {{ display:inline-flex; align-items:center; width:max-content; max-width:100%; color:var(--muted); font-size:.75rem; padding:1px 8px; border-radius:999px; background:rgba(78,201,176,.08); }}
 .summary {{ color:var(--muted); font-size:.87rem; margin-left:38px; display:block; margin-top:3px; overflow-wrap:anywhere; }}
 .tip {{ font-size:.75rem; font-weight:400; color:var(--muted); }}
@@ -684,7 +705,7 @@ audio {{ width:100%; margin:0; }}
 .diag-guide dt {{ padding-top:1px; }}
 .diag-guide dd {{ margin:0; color:var(--text); }}
 .diag-guide code {{ font-size:.8rem; background:var(--bg2); padding:1px 5px; border-radius:4px; }}
-.today-summary {{ font-size:.83rem; color:var(--text); background:var(--card); border:1px solid var(--line); border-radius:10px; padding:10px 14px; margin-bottom:14px; display:flex; flex-direction:column; gap:5px; }}
+.today-summary {{ font-size:.82rem; color:var(--text); margin-top:12px; padding-top:12px; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:4px; background:none; border-radius:0; border-left:none; border-right:none; border-bottom:none; padding-left:0; padding-right:0; }}
 .ts-row {{ display:flex; flex-wrap:wrap; gap:4px 10px; align-items:center; }}
 .ts-date {{ font-weight:600; color:var(--accent); }}
 .ts-sep {{ color:var(--line); }}
@@ -725,10 +746,14 @@ audio {{ width:100%; margin:0; }}
 .visitor-actions .primary {{ background:var(--accent); color:#fff; }}
 .visitor-actions .secondary {{ background:transparent; color:var(--accent); }}
 #visitor-status {{ font-size:.84rem; color:var(--muted); }}
+.visitor-collapse {{ background:var(--card); border:1px solid var(--line); border-radius:14px; margin-top:12px; width:min(100%,52rem); overflow:hidden; }}
+.visitor-collapse > summary {{ font-size:.85rem; color:var(--muted); cursor:pointer; padding:10px 14px; list-style:none; }}
+.visitor-collapse > summary::-webkit-details-marker {{ display:none; }}
+.visitor-collapse[open] .visitor-message {{ border:none; border-radius:0; margin:0; }}
 .site-metrics {{ position:sticky; bottom:0; left:0; right:0; z-index:30; margin:24px 0 0; padding:10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); text-align:center; font-size:.84rem; color:#858585; background:rgba(30,30,30,0.96); border-top:1px solid #3e3e42; box-shadow:0 -4px 14px rgba(0,0,0,0.3); backdrop-filter:saturate(130%) blur(3px); }}
 .site-metrics strong {{ color:#d4d4d4; font-weight:700; }}
 .layout :is(h2, h3, p, li, a, label, span, button, input, textarea, summary, dt, dd) {{ font-family:inherit; font-size:var(--body-size); line-height:var(--body-line); }}
-.hero-panel h1 {{ font-size:clamp(1.8rem,3.2vw,2.5rem); line-height:1.05; }}
+.hero-panel h1 {{ font-size:clamp(1.4rem,2.4vw,2rem); line-height:1.05; }}
 @media (max-width: 1080px) {{
   .layout {{ flex-direction:column; align-items:stretch; max-width:1080px; }}
   .sidebar {{ width:100%; position:static; max-width:none; }}
@@ -813,81 +838,76 @@ audio {{ width:100%; margin:0; }}
   <div class="main-col">
     <section class="hero">
       <div class="hero-panel">
-        <h1>Protein Design Podcast</h1>
-        <p class="hero-kicker">A daily automated digest of new papers on <strong>protein design, antibody engineering, and enzyme design</strong>. The pipeline runs every morning, ranks new papers from 42 sources, and narrates them into a roughly hour-long episode.</p>
-        <div class="intro-stack">
-          <div class="hero-line">
-            <span class="hero-icon">&#9432;</span>
-            <p class="hero-note">Built on free resources only, so the audio is best used for triage: find papers worth reading, then read the originals.</p>
-          </div>
-          <div class="hero-line">
-            <span class="hero-icon">&#128218;</span>
-            <p class="hero-note">Older releases move to the archive.</p>
-          </div>
-          <details class="owner-tools">
-            <summary>
-              <span class="hero-icon">&#9881;&#65039;</span>
-              <span>Owner tools &mdash; add missing paper</span>
-            </summary>
-            <div class="missed-section">
-              <h3>&#128231; Submit a missed paper</h3>
-              <p>Log a paper the pipeline missed — triggers an automatic diagnosis and boosts similar papers in future rankings.</p>
-              <div class="missed-form">
-                <input type="text" id="missed-title" placeholder="Paper title (required)">
-                <input type="text" id="missed-url" placeholder="URL (optional)">
-                <button onclick="submitMissedPaper()">Submit</button>
-                <span id="missed-status"></span>
-              </div>
-              <div id="missed-list"></div>
-              <details class="diag-guide">
-                <summary>&#128270; Diagnosis guide</summary>
-                <dl>
-                  <dt><span class="diag-badge diag-collected">already collected</span></dt>
-                  <dd>Already in a previous episode — check the archive.</dd>
-                  <dt><span class="diag-badge diag-excluded">excluded term</span></dt>
-                  <dd>Title matched a term in <code>excluded_terms</code> (e.g. &ldquo;mouse&rdquo;). Narrow the filter in <code>config.yaml</code> if too aggressive.</dd>
-                  <dt><span class="diag-badge diag-source">source not in RSS</span></dt>
-                  <dd>Domain not in any RSS feed — pipeline can&rsquo;t see it. Add to <code>rss_sources</code> or check <code>extra_rss_sources.json</code> for auto-discovered feeds.</dd>
-                  <dt><span class="diag-badge diag-ranking">low ranking</span></dt>
-                  <dd>In RSS but cut below the episode cap. Add keywords to <code>absolute_title_keywords</code> or increase <code>max_items_total</code>.</dd>
-                  <dt><span class="diag-badge diag-pending">pending</span></dt>
-                  <dd>Workflow hasn&rsquo;t run yet — diagnosis appears within ~2 minutes.</dd>
-                </dl>
-              </details>
-              <div class="owner-feedback">
-                <strong>Feedback:</strong>
-                <span id="sel-count">0 checked</span> &nbsp;
-                <button onclick="saveFeedback()">Save to GitHub</button>
-                <button class="sec" onclick="openSettings()">&#9881; Settings</button>
-                <span id="fb-status"></span>
-              </div>
-            </div>
-          </details>
-        </div>
-      </div>
-      <div class="hero-panel hero-links">
-        <div>
-          <div class="section-head">
-            <h2>Reference collections</h2>
-          </div>
-          <div class="quick-links">
-<a href="https://www.notion.so/3235f58ea8c280e3859edbc7015a4714?v=3235f58ea8c2804fbfdc000c874d048d" target="_blank">Daily Transcripts</a>
-<a href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a>
-<a href="https://www.notion.so/Openclaw_weekly_summary-3235f58ea8c280e4bbcbe4edac796ca6" target="_blank">Weekly Summary</a>
+        <div class="hero-top">
+          <div>
+            <h1>Protein Design Podcast</h1>
+            <p class="hero-kicker">Daily digest &middot; protein design &middot; antibody engineering &middot; enzyme design</p>
+            <nav class="nav-links">
+              <a class="nav-link" href="https://www.notion.so/3235f58ea8c280e3859edbc7015a4714?v=3235f58ea8c2804fbfdc000c874d048d" target="_blank">Daily Transcripts</a>
+              <a class="nav-link" href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a>
+              <a class="nav-link" href="https://www.notion.so/Openclaw_weekly_summary-3235f58ea8c280e4bbcbe4edac796ca6" target="_blank">Weekly Summary</a>
+            </nav>
           </div>
         </div>
         {today_summary}
-      </div>
-      <section class="site-alert hero-panel" id="site-alert-panel">
-        <div class="site-alert-flag" id="site-alert-flag"></div>
-        <div class="site-alert-editor">
-          <textarea id="owner-alert-input" placeholder="Owner note for visitors. Example: Today&rsquo;s episode may have incomplete bioRxiv coverage due to API timeouts."></textarea>
-          <div class="site-alert-editor-row">
-            <span id="owner-alert-status"></span>
+        <details class="owner-tools">
+          <summary>
+            <span class="hero-icon">&#9881;&#65039;</span>
+            <span>Owner tools &mdash; add missing paper</span>
+          </summary>
+          <div class="missed-section">
+            <h3>&#128231; Submit a missed paper</h3>
+            <p>Log a paper the pipeline missed — triggers an automatic diagnosis and boosts similar papers in future rankings.</p>
+            <div class="missed-form">
+              <input type="text" id="missed-title" placeholder="Paper title (required)">
+              <input type="text" id="missed-url" placeholder="URL (optional)">
+              <button onclick="submitMissedPaper()">Submit</button>
+              <span id="missed-status"></span>
+            </div>
+            <div id="missed-list"></div>
+            <details class="diag-guide">
+              <summary>&#128270; Diagnosis guide</summary>
+              <dl>
+                <dt><span class="diag-badge diag-collected">already collected</span></dt>
+                <dd>Already in a previous episode — check the archive.</dd>
+                <dt><span class="diag-badge diag-excluded">excluded term</span></dt>
+                <dd>Title matched a term in <code>excluded_terms</code> (e.g. &ldquo;mouse&rdquo;). Narrow the filter in <code>config.yaml</code> if too aggressive.</dd>
+                <dt><span class="diag-badge diag-source">source not in RSS</span></dt>
+                <dd>Domain not in any RSS feed — pipeline can&rsquo;t see it. Add to <code>rss_sources</code> or check <code>extra_rss_sources.json</code> for auto-discovered feeds.</dd>
+                <dt><span class="diag-badge diag-ranking">low ranking</span></dt>
+                <dd>In RSS but cut below the episode cap. Add keywords to <code>absolute_title_keywords</code> or increase <code>max_items_total</code>.</dd>
+                <dt><span class="diag-badge diag-pending">pending</span></dt>
+                <dd>Workflow hasn&rsquo;t run yet — diagnosis appears within ~2 minutes.</dd>
+              </dl>
+            </details>
+            <div class="owner-feedback">
+              <strong>Feedback:</strong>
+              <span id="sel-count">0 checked</span> &nbsp;
+              <button onclick="saveFeedback()">Save to GitHub</button>
+              <button class="sec" onclick="openSettings()">&#9881; Settings</button>
+              <span id="fb-status"></span>
+            </div>
           </div>
+        </details>
+      </div>
+    </section>
+    <div class="content-grid">
+      <div class="content-main">
+        {body}
+      </div>
+    </div>
+    <section class="site-alert" id="site-alert-panel" style="width:min(100%,52rem);margin-top:14px;">
+      <div class="site-alert-flag" id="site-alert-flag"></div>
+      <div class="site-alert-editor">
+        <textarea id="owner-alert-input" placeholder="Owner note for visitors. Example: Today&rsquo;s episode may have incomplete bioRxiv coverage due to API timeouts."></textarea>
+        <div class="site-alert-editor-row">
+          <span id="owner-alert-status"></span>
         </div>
-      </section>
-      <section class="visitor-message hero-panel">
+      </div>
+    </section>
+    <details class="visitor-collapse">
+      <summary>&#128172; Leave a message</summary>
+      <section class="visitor-message">
         <h3>&#128172; Leave a message</h3>
         <div class="visitor-form">
           <textarea id="visitor-message" placeholder="Leave a note, share a thought, or say hello. The message will directly send to site owner. Please add an email in your message if you want to receive reply."></textarea>
@@ -898,12 +918,7 @@ audio {{ width:100%; margin:0; }}
           </div>
         </div>
       </section>
-    </section>
-    <div class="content-grid">
-      <div class="content-main">
-        {body}
-      </div>
-    </div>
+    </details>
 </div>
   {sidebar_html}
 </div>
