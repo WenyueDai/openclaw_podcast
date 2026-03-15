@@ -452,6 +452,11 @@
       "note": "DD",
       "title": "Impact of solvent forces and broken symmetry on the assembly of designed proteins at a liquid-solid interface.",
       "source": "PubMed — Nature communications"
+    },
+    "https://doi.org/10.1093/bioinformatics/btag121": {
+      "note": "DD",
+      "title": "ET-Pfam: Ensemble transfer learning for protein family prediction.",
+      "source": "PubMed — Bioinformatics (Oxford, England)"
     }
   }
 }
