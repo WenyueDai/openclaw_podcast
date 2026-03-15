@@ -470,28 +470,7 @@ def render_index(episodes, all_episodes=None):
             hl_html = "".join([f"<li>{html.escape(h)}</li>" for h in hl]) if hl else "<li>No items yet.</li>"
             section_html = f'<div class="abstract"><h3>Highlights</h3><ul>{hl_html}</ul></div>'
 
-        # Transcript panel — inline if text available, download link otherwise
-        script_text = ep.get("script_text") or ""
-        script_url  = ep.get("script_url") or ""
-        if script_text:
-            transcript_inner = _format_transcript_html(script_text)
-            transcript_html = (
-                f'<details class="transcript-panel">'
-                f'<summary class="transcript-toggle">Transcript</summary>'
-                f'<div class="transcript-body">{transcript_inner}</div>'
-                f'</details>'
-            )
-        elif script_url:
-            transcript_html = (
-                f'<details class="transcript-panel">'
-                f'<summary class="transcript-toggle">Transcript</summary>'
-                f'<div class="transcript-body transcript-download">'
-                f'<a href="{html.escape(script_url)}" target="_blank">Download transcript (.txt)</a>'
-                f'</div>'
-                f'</details>'
-            )
-        else:
-            transcript_html = ""
+        transcript_html = ""
 
         cards.append(f"""
 <section class='card'>
@@ -614,20 +593,6 @@ audio {{ width:100%; margin:0; }}
 .speed-row span {{ margin-right:1px; opacity:.85; }}
 .speed-row button {{ font-size:.76rem; padding:2px 8px; border:1px solid rgba(62,62,66,.95); border-radius:999px; background:transparent; color:var(--muted); cursor:pointer; }}
 .speed-row button:hover {{ color:var(--accent); border-color:var(--accent); }}
-.transcript-panel {{ margin-top:14px; border:1px solid var(--line); border-radius:12px; overflow:hidden; }}
-.transcript-toggle {{ display:flex; align-items:center; gap:8px; padding:10px 14px; cursor:pointer; font-size:.9rem; font-weight:600; color:var(--accent); list-style:none; user-select:none; }}
-.transcript-toggle::-webkit-details-marker {{ display:none; }}
-.transcript-toggle::before {{ content:"Transcript"; }}
-.transcript-panel[open] .transcript-toggle::before {{ content:"Transcript"; }}
-.transcript-toggle::after {{ content:"▸"; font-size:.75rem; margin-left:auto; transition:transform .2s; }}
-.transcript-panel[open] .transcript-toggle::after {{ transform:rotate(90deg); }}
-.transcript-body {{ padding:14px 18px 18px; border-top:1px solid var(--line); max-height:60vh; overflow-y:auto; font-size:.88rem; line-height:1.7; }}
-.transcript-body p {{ margin:0 0 .75em; }}
-.tr-section {{ margin-bottom:1.4em; }}
-.tr-section-label {{ display:inline-block; font-size:.72rem; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:.4em; }}
-.tr-section + .tr-section {{ border-top:1px solid var(--line); padding-top:1.2em; }}
-.transcript-download {{ padding:10px 0; }}
-.transcript-download a {{ color:var(--accent); }}
 .abstract h3 {{ margin:0 0 8px; font-size:.95rem; color:#4ec9b0; }}
 .abstract ul {{ margin:0; padding-left:0; list-style:none; }}
 .abstract li {{ margin:0; line-height:1.45; padding:6px 8px; border-radius:8px; transition:background .15s,border-left .15s; border-left:3px solid transparent; }}
@@ -892,8 +857,7 @@ audio {{ width:100%; margin:0; }}
             <h2>Reference collections</h2>
           </div>
           <div class="quick-links">
-            <a href="https://www.notion.so/3235f58ea8c280e3859edbc7015a4714?v=3235f58ea8c2804fbfdc000c874d048d" target="_blank">Daily Transcripts</a>
-            <a href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a>
+<a href="https://clear-squid-8e3.notion.site/3165f58ea8c280498f72c770028aec0d?v=3165f58ea8c28020983c000cec9807e6" target="_blank">Deep Dive Notes</a>
 <a href="https://www.notion.so/Openclaw_weekly_summary-3235f58ea8c280e4bbcbe4edac796ca6" target="_blank">Weekly Summary</a>
           </div>
         </div>
