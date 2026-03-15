@@ -12,9 +12,10 @@ from dateutil import parser as dtparser
 from src.utils.timeutils import cutoff_datetime
 
 _FETCH_HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; feedbot/1.0; +https://github.com)"}
-# arXiv allows ~3 req/sec; use 2 workers + 0.4s delay to stay well under the limit
-_ARXIV_MAX_WORKERS = 2
-_ARXIV_DELAY = 0.4  # seconds between arXiv requests
+# arXiv rate limit: 1 request per 3s recommended; use 1 worker + 3.5s delay
+_ARXIV_MAX_WORKERS = 1
+_ARXIV_DELAY = 3.5  # seconds between arXiv requests
+_ARXIV_429_BACKOFF = 15.0  # seconds to wait after a 429
 
 
 def _parse_dt(dt_str: str) -> Optional[datetime]:
@@ -39,25 +40,30 @@ def _fetch_source(
     source_url = src.get("url", "")
     is_arxiv = "arxiv" in source_name.lower() or "arxiv" in source_url.lower()
 
+    max_attempts = 3 if is_arxiv else 1
+    for attempt in range(1, max_attempts + 1):
+        try:
+            resp = _requests.get(source_url, timeout=30, headers=_FETCH_HEADERS)
+            if resp.status_code == 429 and attempt < max_attempts:
+                print(f"[rss] arXiv 429 for {source_name}, backing off {_ARXIV_429_BACKOFF}s (attempt {attempt})", flush=True)
+                time.sleep(_ARXIV_429_BACKOFF)
+                continue
+            resp.raise_for_status()
+            break
+        except _requests.RequestException as exc:
+            if attempt == max_attempts:
+                print(
+                    f"[rss] Warning: HTTP fetch failed for {source_name}: "
+                    f"{exc.__class__.__name__}: {exc}",
+                    flush=True,
+                )
+                return []
+            time.sleep(_ARXIV_429_BACKOFF)
     try:
-        resp = _requests.get(source_url, timeout=30, headers=_FETCH_HEADERS)
-        resp.raise_for_status()
         feed = feedparser.parse(resp.content)
-    except _requests.RequestException as exc:
-        print(
-            f"[rss] Warning: HTTP fetch failed for {source_name}: "
-            f"{exc.__class__.__name__}: {exc}",
-            flush=True,
-        )
-        return []
     except Exception as exc:
-        print(
-            f"[rss] Warning: parse failed for {source_name}: "
-            f"{exc.__class__.__name__}: {exc}",
-            flush=True,
-        )
+        print(f"[rss] Warning: parse failed for {source_name}: {exc.__class__.__name__}: {exc}", flush=True)
         return []
-
     if getattr(feed, "bozo", 0):
         bozo_exc = getattr(feed, "bozo_exception", None)
         print(
