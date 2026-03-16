@@ -474,6 +474,11 @@
       "note": "DD",
       "title": "Multi-objective Genetic Programming with Multi-view Multi-level Feature for Enhanced Protein Secondary Structure Predict",
       "source": "arXiv cs.LG (AI/ML)"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.03.11.711233": {
+      "note": "DD",
+      "title": "Efficient protein structure prediction fromcompact computers to datacenters withOpenFold-TRT",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
