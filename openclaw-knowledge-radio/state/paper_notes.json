@@ -480,5 +480,12 @@
       "title": "Efficient protein structure prediction fromcompact computers to datacenters withOpenFold-TRT",
       "source": "bioRxiv — bioinformatics"
     }
+  },
+  "2026-03-17": {
+    "https://doi.org/10.1016/j.jbiotec.2026.03.012": {
+      "note": "DD",
+      "title": "Deep Learning Revolutionizes Protein Research: Advances in Structure Prediction, Functional Annotation, and Engineered D",
+      "source": "PubMed — Journal of biotechnology"
+    }
   }
 }
