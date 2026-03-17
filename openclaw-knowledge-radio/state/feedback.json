@@ -737,5 +737,27 @@
       "source": "Nature - Antibodies",
       "title": "Mining antibody functionality via AI-guided structural landscape profiling"
     }
+  ],
+  "2026-03-17": [
+    {
+      "url": "https://www.owlposting.com/p/reasons-to-be-pessimistic-and-optimistic",
+      "source": "Owl Posting (Abhishaike Mahajan)",
+      "title": "Reasons to be pessimistic (and optimistic) on the future of biosecurity"
+    },
+    {
+      "url": "https://doi.org/10.1016/j.jbiotec.2026.03.012",
+      "source": "PubMed — Journal of biotechnology",
+      "title": "Deep Learning Revolutionizes Protein Research: Advances in Structure Prediction, Functional Annotation, and Engineered D"
+    },
+    {
+      "url": "https://arxiv.org/abs/2510.11750",
+      "source": "arXiv q-bio.QM",
+      "title": "PRISM: Enhancing Protein Inverse Folding through Fine-Grained Retrieval on Structure-Sequence Multimodal Representations"
+    },
+    {
+      "url": "https://arxiv.org/abs/2602.23179",
+      "source": "arXiv q-bio.BM",
+      "title": "Induction Meets Biology: Mechanisms of Repeat Detection in Protein Language Models"
+    }
   ]
 }
