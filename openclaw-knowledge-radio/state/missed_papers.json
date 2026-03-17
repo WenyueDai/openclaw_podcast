@@ -235,8 +235,14 @@
     "title": "What Molecular ML Can Learn from the Vision Community’s Representation Revolution",
     "url": null,
     "date_submitted": "2026-03-17",
-    "processed": false,
-    "diagnosis": null,
-    "keywords_added": []
+    "processed": true,
+    "diagnosis": "low_ranking",
+    "keywords_added": [
+      "molecular machine learning",
+      "representation revolution",
+      "vision community"
+    ],
+    "rss_feed_found": "",
+    "notion_page_id": "3265f58e-a8c2-8150-8558-f4b1f37aa8a8"
   }
 ]
