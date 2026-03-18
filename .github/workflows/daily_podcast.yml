@@ -38,6 +38,7 @@ jobs:
           SLACK_WEBHOOK_URL:    ${{ secrets.SLACK_WEBHOOK_URL }}
           NOTION_TOKEN:         ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID:   ${{ secrets.NOTION_DATABASE_ID }}
+          NOTION_TRANSCRIPT_DATABASE_ID: ${{ secrets.NOTION_TRANSCRIPT_DATABASE_ID }}
           VISITOR_MESSAGE_ENDPOINT: ${{ secrets.VISITOR_MESSAGE_ENDPOINT }}
         run: python run_daily.py
 

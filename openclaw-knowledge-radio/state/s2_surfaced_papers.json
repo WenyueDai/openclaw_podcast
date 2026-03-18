@@ -1,0 +1,146 @@
+{
+  "2026-03-15": [
+    {
+      "title": "The Llama 3 Herd of Models",
+      "year": 2024,
+      "citations": 13336,
+      "arxiv_id": "2407.21783",
+      "doi": null
+    },
+    {
+      "title": "Qwen2.5 Technical Report",
+      "year": 2024,
+      "citations": 3376,
+      "arxiv_id": "2412.15115",
+      "doi": "10.48550/arXiv.2412.15115"
+    },
+    {
+      "title": "Gemma: Open Models Based on Gemini Research and Technology",
+      "year": 2024,
+      "citations": 940,
+      "arxiv_id": "2403.08295",
+      "doi": "10.48550/arXiv.2403.08295"
+    },
+    {
+      "title": "PubChem 2025 update.",
+      "year": 2024,
+      "citations": 694,
+      "arxiv_id": null,
+      "doi": "10.1093/nar/gkae1059"
+    },
+    {
+      "title": "Same Task, More Tokens: the Impact of Input Length on the Reasoning Performance of Large Language Models",
+      "year": 2024,
+      "citations": 174,
+      "arxiv_id": "2402.14848",
+      "doi": "10.48550/arXiv.2402.14848"
+    },
+    {
+      "title": "Machine learning for antimicrobial peptide identification and design",
+      "year": 2024,
+      "citations": 152,
+      "arxiv_id": null,
+      "doi": "10.1038/s44222-024-00152-x"
+    },
+    {
+      "title": "Drug-resistant tuberculosis: a persistent global health concern",
+      "year": 2024,
+      "citations": 143,
+      "arxiv_id": null,
+      "doi": "10.1038/s41579-024-01025-1"
+    },
+    {
+      "title": "Generative AI for designing and validating easily synthesizable and structurally novel antibiotics",
+      "year": 2024,
+      "citations": 136,
+      "arxiv_id": null,
+      "doi": "10.1038/s42256-024-00809-7"
+    },
+    {
+      "title": "Language agents achieve superhuman synthesis of scientific knowledge",
+      "year": 2024,
+      "citations": 99,
+      "arxiv_id": "2409.13740",
+      "doi": "10.48550/arXiv.2409.13740"
+    },
+    {
+      "title": "Peptide-based drug discovery through artificial intelligence: towards an autonomous design of therapeutic peptides",
+      "year": 2024,
+      "citations": 85,
+      "arxiv_id": null,
+      "doi": "10.1093/bib/bbae275"
+    }
+  ],
+  "2026-03-18": [
+    {
+      "title": "Connecting Large Language Models with Evolutionary Algorithms Yields Powerful Prompt Optimizers",
+      "year": 2024,
+      "citations": 227,
+      "arxiv_id": null,
+      "doi": "10.48550/arXiv.2309.08532"
+    },
+    {
+      "title": "Comparative Toxicogenomics Database’s 20th anniversary: update 2025",
+      "year": 2024,
+      "citations": 138,
+      "arxiv_id": null,
+      "doi": "10.1093/nar/gkae883"
+    },
+    {
+      "title": "The diversification of methods for studying cell–cell interactions and communication",
+      "year": 2024,
+      "citations": 133,
+      "arxiv_id": null,
+      "doi": "10.1038/s41576-023-00685-8"
+    },
+    {
+      "title": "Emergence of large-scale cell death through ferroptotic trigger waves",
+      "year": 2024,
+      "citations": 113,
+      "arxiv_id": null,
+      "doi": "10.1038/s41586-024-07623-6"
+    },
+    {
+      "title": "Survey of Bias In Text-to-Image Generation: Definition, Evaluation, and Mitigation",
+      "year": 2024,
+      "citations": 77,
+      "arxiv_id": "2404.01030",
+      "doi": "10.48550/arXiv.2404.01030"
+    },
+    {
+      "title": "OpenBias: Open-Set Bias Detection in Text-to-Image Generative Models",
+      "year": 2024,
+      "citations": 76,
+      "arxiv_id": "2404.07990",
+      "doi": "10.1109/CVPR52733.2024.01162"
+    },
+    {
+      "title": "Jailbreaking Prompt Attack: A Controllable Adversarial Attack against Diffusion Models",
+      "year": 2024,
+      "citations": 68,
+      "arxiv_id": "2404.02928",
+      "doi": "10.48550/arXiv.2404.02928"
+    },
+    {
+      "title": "Condensate interfacial forces reposition DNA loci and probe chromatin viscoelasticity.",
+      "year": 2024,
+      "citations": 50,
+      "arxiv_id": null,
+      "doi": "10.1016/j.cell.2024.07.034"
+    },
+    {
+      "title": "Time will tell: comparing timescales to gain insight into transcriptional bursting",
+      "year": 2024,
+      "citations": 47,
+      "arxiv_id": null,
+      "doi": "10.1016/j.tig.2023.11.003"
+    },
+    {
+      "title": "Balancing Act: Distribution-Guided Debiasing in Diffusion Models",
+      "year": 2024,
+      "citations": 46,
+      "arxiv_id": "2402.18206",
+      "doi": "10.1109/CVPR52733.2024.00637"
+    }
+  ]
+}
