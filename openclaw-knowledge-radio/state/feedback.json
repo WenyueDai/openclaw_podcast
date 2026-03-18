@@ -759,5 +759,27 @@
       "source": "arXiv q-bio.BM",
       "title": "Induction Meets Biology: Mechanisms of Repeat Detection in Protein Language Models"
     }
+  ],
+  "2026-03-18": [
+    {
+      "url": "https://www.semanticscholar.org/paper/df161cae5544b2cee311cd299becb525623bc80e",
+      "source": "David Baker (S2)",
+      "title": "Elucidating molecular level interfacial interactions between a\n de novo\n protein and nucleated calcite with solid-state "
+    },
+    {
+      "url": "https://doi.org/10.1016/j.sbi.2026.103247",
+      "source": "PubMed — Current opinion in structural biology",
+      "title": "Artificial intelligence methods for protein structure and interaction prediction: Recent advances and challenges."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.13.711260",
+      "source": "bioRxiv — bioinformatics",
+      "title": "Decoding conformational heterogeneity across disordered proteomes"
+    },
+    {
+      "url": "https://www.nature.com/articles/d41586-026-00854-9",
+      "source": "Nature (main journal)",
+      "title": "Knock knock, no one’s there. Study finds scientists’ jokes mostly fall flat"
+    }
   ]
 }
