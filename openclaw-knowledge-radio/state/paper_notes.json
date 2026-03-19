@@ -530,6 +530,11 @@
       "note": "DD",
       "title": "Why Lab Coats are White",
       "source": "Asimov Press"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.03.15.711852": {
+      "note": "DD",
+      "title": "Millisecond Prediction of Protein Contact Maps from Amino AcidSequences",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
