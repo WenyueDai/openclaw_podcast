@@ -540,6 +540,11 @@
       "note": "DD",
       "title": "De novo design of therapeutic scFvs and multi-specific engagers from sequence alone",
       "source": "bioRxiv — bioinformatics"
+    },
+    "https://doi.org/10.1080/19420862.2026.2644655": {
+      "note": "DD",
+      "title": "AbDist: a lightweight, distance-based model for antibody affinity prediction as an interpretable benchmark for machine l",
+      "source": "PubMed — mAbs"
     }
   }
 }
