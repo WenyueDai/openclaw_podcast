@@ -567,6 +567,11 @@
       "note": "DD",
       "title": "ProteinSage: From implicit learning to explicit structural constraints for efficient protein language modeling",
       "source": "bioRxiv — bioinformatics"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.03.17.712308": {
+      "note": "DD",
+      "title": "StrucTTY: An Interactive, Terminal-Native Protein Structure Viewer",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
