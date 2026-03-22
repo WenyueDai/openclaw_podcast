@@ -606,6 +606,11 @@
       "note": "DD",
       "title": "High-resolution phage-host assignment through key proteins using large language models.",
       "source": "PubMed — Nature communications"
+    },
+    "https://doi.org/10.1038/s41467-026-70722-7": {
+      "note": "DD",
+      "title": "Cryo-EM structure of TRPM1 reveals a non-canonical architecture with an inverted transmembrane domain.",
+      "source": "PubMed — Nature communications"
     }
   }
 }
