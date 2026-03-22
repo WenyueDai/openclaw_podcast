@@ -616,6 +616,11 @@
       "note": "DD",
       "title": "Functional and structural basis of a negative allostery within GABA",
       "source": "PubMed — Nature communications"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.03.17.712533": {
+      "note": "DD",
+      "title": "TriGraphQA: a triple graph learning framework for model quality assessment of protein complexes",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
