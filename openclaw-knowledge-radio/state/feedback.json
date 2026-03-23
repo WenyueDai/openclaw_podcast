@@ -810,5 +810,12 @@
       "source": "PubMed — Nature communications",
       "title": "Functional and structural basis of a negative allostery within GABA"
     }
+  ],
+  "2026-03-23": [
+    {
+      "url": "https://doi.org/10.1093/bioinformatics/btag136",
+      "source": "PubMed — Bioinformatics (Oxford, England)",
+      "title": "Evaluating Deep Learning Based Structure Prediction Methods on Antibody-Antigen Complexes."
+    }
   ]
 }
