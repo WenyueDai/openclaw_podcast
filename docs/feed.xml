@@ -8,7 +8,7 @@
     <atom:link href="https://wenyuedai.github.io/protein_design_podcast/feed.xml" rel="self" type="application/rss+xml" />
     <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
     <language>en</language>
-    <lastBuildDate>Sun, 22 Mar 2026 05:06:49 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 23 Mar 2026 05:12:44 GMT</lastBuildDate>
     <itunes:author>Eva Dai</itunes:author>
     <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
     <itunes:owner>
@@ -19,13 +19,24 @@
     <itunes:explicit>false</itunes:explicit>
     
     <item>
+      <title>Daily Podcast 2026-03-23</title>
+      <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-23/podcast_2026-03-23.mp3</guid>
+      <pubDate>Mon, 23 Mar 2026 08:00:00 GMT</pubDate>
+      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-23/podcast_2026-03-23.mp3" length="13769517" type="audio/mpeg" />
+      <description>The biggest shift today comes from how we think about antibody-antigen prediction. | Another fundamental shift comes from the senescence field, where researchers have overturned the assumption that enhancer RNAs are just transcriptional noise. | The bacterial pathogen prediction space is seeing its own conceptual shift.</description>
+      <itunes:author>Eva Dai</itunes:author>
+      <itunes:summary>The biggest shift today comes from how we think about antibody-antigen prediction. | Another fundamental shift comes from the senescence field, where researchers have overturned the assumption that enhancer RNAs are just transcriptional noise. | The bacterial pathogen prediction space is seeing its own conceptual shift.</itunes:summary>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
+    </item>
+    <item>
       <title>Daily Podcast 2026-03-22</title>
       <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-22/podcast_2026-03-22.mp3</guid>
       <pubDate>Sun, 22 Mar 2026 08:00:00 GMT</pubDate>
-      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-22/podcast_2026-03-22.mp3" length="11862933" type="audio/mpeg" />
-      <description>The biggest shift today comes from a paper on NiFe CO-dehydrogenases that challenges how we think about gas diffusion in metalloenzymes. | Another major insight comes from the urban soil microbiome study, which used long-read sequencing to recover nearly 8,000 high-quality microbial genomes from just 58 samples. | The third major shift comes from the lncRNA work in rice, which identifies a long non-coding RNA that acts as an enhancer RNA to confer pathogen resistance.</description>
+      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-22/podcast_2026-03-22.mp3" length="0" type="audio/mpeg" />
+      <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
       <itunes:author>Eva Dai</itunes:author>
-      <itunes:summary>The biggest shift today comes from a paper on NiFe CO-dehydrogenases that challenges how we think about gas diffusion in metalloenzymes. | Another major insight comes from the urban soil microbiome study, which used long-read sequencing to recover nearly 8,000 high-quality microbial genomes from just 58 samples. | The third major shift comes from the lncRNA work in rice, which identifies a long non-coding RNA that acts as an enhancer RNA to confer pathogen resistance.</itunes:summary>
+      <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
       <itunes:explicit>false</itunes:explicit>
       <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
     </item>
