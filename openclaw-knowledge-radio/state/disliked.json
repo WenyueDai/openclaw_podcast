@@ -37,5 +37,37 @@
       "source": "bioRxiv — bioinformatics",
       "title": "Long-read metagenomic sequencing reveals novel lineages and functional diversity in urban soil microbiome"
     }
+  ],
+  "2026-03-23": [
+    {
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.20.713302",
+      "source": "bioRxiv — genomics",
+      "title": "Stress-responsive enhancer RNAs couple chromatin reprogramming to post-transcriptional control of senescence"
+    },
+    {
+      "url": "https://doi.org/10.1093/bioinformatics/btag129",
+      "source": "PubMed — Bioinformatics (Oxford, England)",
+      "title": "Whole-genome prediction of bacterial pathogenic capacity on novel bacteria using protein language models with PathogenFi"
+    },
+    {
+      "url": "https://doi.org/10.1016/j.ab.2026.116116",
+      "source": "PubMed — Analytical biochemistry",
+      "title": "Prediction of cyclin-dependent proteins using pre-trained protein language models and effective neural network architect"
+    },
+    {
+      "url": "https://doi.org/10.1007/s10238-025-01996-2",
+      "source": "PubMed — Clinical and experimental medicine",
+      "title": "Unveiling the prognostic and therapeutic landscape of the zinc transporter protein SLC39A family in colorectal cancer th"
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.19577",
+      "source": "arXiv q-bio.QM",
+      "title": "Stochastic Averaging and Statistical Inference of Glycolytic Pathway"
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.19326",
+      "source": "arXiv q-bio.QM",
+      "title": "Mathematical Modeling of Cancer-Bacterial Therapy: Analysis and Numerical Simulation via Physics-Informed Neural Network"
+    }
   ]
 }
