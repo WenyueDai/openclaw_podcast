@@ -662,6 +662,11 @@
       "note": "DD",
       "title": "Fragment-to-Lead Successes in 2024 – 10th Anniversary Edition",
       "source": "BLOPIG (Oxford Protein Informatics Group)"
+    },
+    "https://doi.org/10.1021/acs.jcim.5c03224": {
+      "note": "DD",
+      "title": "ProtCross: Bridging the PDB-AlphaFold Gap for Binding Site Prediction with Protein Point Clouds.",
+      "source": "PubMed — Journal of chemical information and modeling"
     }
   }
 }
