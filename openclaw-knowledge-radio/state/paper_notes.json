@@ -672,6 +672,11 @@
       "note": "DD",
       "title": "A high-affinity split-HaloTag for live-cell protein labeling",
       "source": "Nature - Protein Design"
+    },
+    "https://arxiv.org/abs/2603.22330": {
+      "note": "DD",
+      "title": "Fair splits flip the leaderboard: CHANRG reveals limited generalization in RNA secondary-structure prediction",
+      "source": "arXiv q-bio.BM"
     }
   }
 }
