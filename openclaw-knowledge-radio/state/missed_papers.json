@@ -265,8 +265,10 @@
     "title": "High-Affinity Protein Binder Design via Flow Matching and In Silico Maturation",
     "url": null,
     "date_submitted": "2026-03-26",
-    "processed": false,
-    "diagnosis": null,
-    "keywords_added": []
+    "processed": true,
+    "diagnosis": "excluded_term",
+    "keywords_added": [],
+    "rss_feed_found": "",
+    "notion_page_id": "32f5f58e-a8c2-81d3-8cff-d82b808efc40"
   }
 ]
