@@ -689,6 +689,11 @@
       "note": "DD",
       "title": "Fentanyl's Membrane Behavior",
       "source": "In the Pipeline (Derek Lowe)"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.03.24.713847": {
+      "note": "DD",
+      "title": "Co-folding of Membrane Proteins and Lipid Molecules Improves Membrane-Protein Structure Prediction Accuracy",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
