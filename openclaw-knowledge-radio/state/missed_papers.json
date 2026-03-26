@@ -276,8 +276,14 @@
     "title": "Stable de novo protein design via joint conformational landscape and sequence optimization",
     "url": null,
     "date_submitted": "2026-03-26",
-    "processed": false,
-    "diagnosis": null,
-    "keywords_added": []
+    "processed": true,
+    "diagnosis": "low_ranking",
+    "keywords_added": [
+      "protein design",
+      "conformational landscape",
+      "sequence optimization"
+    ],
+    "rss_feed_found": "",
+    "notion_page_id": "32f5f58e-a8c2-8160-9a3a-d96b7aa2427d"
   }
 ]
