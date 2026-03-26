@@ -684,6 +684,11 @@
       "note": "DD",
       "title": "SigmaDock: untwisting molecular docking with fragment-based SE(3) diffusion",
       "source": "BLOPIG (Oxford Protein Informatics Group)"
+    },
+    "https://www.science.org/content/blog-post/fentanyl-s-membrane-behavior": {
+      "note": "DD",
+      "title": "Fentanyl's Membrane Behavior",
+      "source": "In the Pipeline (Derek Lowe)"
     }
   }
 }
