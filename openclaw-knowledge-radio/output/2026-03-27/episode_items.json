@@ -1,0 +1,294 @@
+{
+  "timestamps": [
+    0.0,
+    147.84,
+    295.58,
+    430.76,
+    569.82,
+    696.44,
+    835.03,
+    969.5,
+    1104.21,
+    1257.52,
+    1394.89
+  ],
+  "items": [
+    {
+      "title": "Evaluating AlphaFold Tools and Related Scoring Functions for Protein-peptide Complex Prediction.",
+      "url": "https://doi.org/10.1093/gpbjnl/qzag026",
+      "source": "PubMed — Genomics, proteomics & bioinformatics",
+      "one_liner": "Determining the three-dimensional structures of protein-peptide complexes is crucial for elucidating biological processes and designing peptide-based drugs. Protein-peptide docking has become essential for predicting complex structures. AlphaFold-Multimer, ColabFold, and AlphaFold3 provided groundbreaking tools to enhance the protein-peptide docking accur...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": true,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "Evaluation of protein-RNA Docking Web Servers for Template-Free Docking and Comparison with the AlphaFold Server.",
+      "url": "https://doi.org/10.1021/acs.jctc.5c01990",
+      "source": "PubMed — Journal of chemical theory and computation",
+      "one_liner": "Protein-RNA docking is a valuable tool for predicting the structures of protein-RNA complexes, which allow us to understand the structural basis for gene expression and regulation, thus facilitating drug development. Despite the development of several protein-RNA docking programs, the field remains relatively underdeveloped compared to protein-protein doc...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": true,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "Constrained Diffusion for Protein Design with Hard Structural Constraints",
+      "url": "https://arxiv.org/abs/2510.14989",
+      "source": "arXiv q-bio.BM",
+      "one_liner": "arXiv:2510.14989v2 Announce Type: replace \nAbstract: Diffusion models offer a powerful means of capturing the manifold of realistic protein structures, enabling rapid design for protein engineering tasks. However, existing approaches observe critical failure modes when precise constraints are necessary for functional design. To this end, we present a cons...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": true,
+      "tags": [
+        "protein-design",
+        "preprint",
+        "arxiv"
+      ]
+    },
+    {
+      "title": "Effects of protein interface mutations on protein quality and affinity",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.24.713863",
+      "source": "bioRxiv — molecular biology",
+      "one_liner": "Accurately modeling antibody-antigen interactions requires distinguishing intrinsic binding affinity ('protein-interaction') from protein biophysical properties ('protein-quality'), including folding, stability, and expression. However, high-throughput mutational measurements commonly used to train and benchmark computational models often conflate these e...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": true,
+      "tags": [
+        "biorxiv",
+        "preprint",
+        "biology"
+      ]
+    },
+    {
+      "title": "Energy landscape statistics and thermodynamics of a machine-learned model of water.",
+      "url": "https://doi.org/10.1073/pnas.2534303123",
+      "source": "PubMed — Proceedings of the National Academy of Sciences of the United States of America",
+      "one_liner": "Water's anomalous thermodynamic behavior arises from the presence of intricate hydrogen-bond networks that are highly sensitive to many-body interactions, challenging molecular modeling for decades. The ongoing machine learning revolution has opened the possibility of performing quantum-accurate liquid-structure calculations at affordable computational co...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": true,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "Intelligent identification of rice leaf diseases via improved faster-RCNN with multi-feature scale fusion.",
+      "url": "https://doi.org/10.1371/journal.pone.0345005",
+      "source": "PubMed — PloS one",
+      "one_liner": "Many Artificial Intelligence and Machine Learning technologies have been applied to detect rice diseases. These approaches are either unable to identify the diseases or have a slow recognition speed. Therefore, an improved Faster-RCNN (Faster-RCNN-Pro) model is proposed to overcome these issues. First, SENet attention modules are embedded in the backbone ...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "LAMBDA: A Prophage Detection Benchmark for Genomic Language Models",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.26.714501",
+      "source": "bioRxiv — genomics",
+      "one_liner": "Transformer-based genomic sequence models represent an emerging frontier in computational biology. Yet, their embeddings have not yet shown the same level of predictive power as natural and protein language models, indicating a gap between current implementations and theoretical promise. Existing benchmarks for DNA language models primarily focus on class...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "biorxiv",
+        "preprint",
+        "biology"
+      ]
+    },
+    {
+      "title": "Spatial-temporal graph neural network with autoencoder pretraining for intrusion detection in healthcare IoT ecosystems.",
+      "url": "https://doi.org/10.1038/s41598-026-45041-y",
+      "source": "PubMed — Scientific reports",
+      "one_liner": "The integration of Internet of Things (IoT) technologies in healthcare has enabled continuous patient monitoring and intelligent clinical decision-making but has also exposed critical infrastructures to sophisticated cyber threats. Traditional intrusion detection systems, including classical machine learning and conventional deep learning methods, often f...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "Predicting Unseen Gene Perturbation Response Using Graph Neural Networks with Biological Priors",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.23.713780",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Predicting transcriptional responses to genetic perturbations is a central challenge in functional genomics. CRISPR Perturb-seq experiments measure gene expression changes induced by targeted perturbations, yet experimentally testing all possible perturbations remains infeasible. Computational models that infer responses for unseen perturbations are there...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "biorxiv",
+        "preprint",
+        "biology"
+      ]
+    },
+    {
+      "title": "Is metabolism spatially optimized? Structural modeling of consecutive enzyme pairs reveals no evidence for spatial optimization of catalytic site proximity.",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.24.713955",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Metabolic pathways are often hypothesized to benefit from the spatial organization of enzymes, facilitating substrate transfer through mechanisms such as metabolic channeling or metabolon formation. However, it remains unclear whether the spatial proximity of catalytic sites represents a general organizational principle of metabolism or is restricted to s...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "biorxiv",
+        "preprint",
+        "biology"
+      ]
+    },
+    {
+      "title": "Seqwin: Ultrafast identification of signature sequences in microbial genomes",
+      "url": "https://www.biorxiv.org/content/10.1101/2025.11.07.687294",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Motivation: Polymerase chain reaction (PCR) enables rapid, cost-effective diagnostics but requires prior identification of genomic regions that allow sensitive and specific detection of target microbial groups, herein referred to as microbial signature sequences. We introduce Seqwin, an open-source framework designed to automate microbial genome signature...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "biorxiv",
+        "preprint",
+        "biology"
+      ]
+    },
+    {
+      "title": "Experimental mismatch in benchmarking PELSA and LiP-MS",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.24.713688",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Limited proteolysis coupled to mass spectrometry (LiP-MS) is a peptide-centric conformational proteomics approach during which a brief incubation with a non-specific protease (e.g., proteinase K) under native conditions generates structural fingerprints that report on treatment-induced conformational changes, which is followed by a tryptic digest under de...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "biorxiv",
+        "preprint",
+        "biology"
+      ]
+    },
+    {
+      "title": "STRmie-HD enables interruption-aware HTT repeat genotyping and somatic mosaicism profiling across sequencing platforms",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.21.713334",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Short tandem repeat expansions in exon 1 of the HTT gene drive Huntingtons disease (HD) pathogenesis, with disease onset and progression heavily influenced by somatic mosaicism and sequence interruptions. While sequencing technologies enable repeat sizing, many computational tools lack the resolution to capture subtle interruption motifs and allele-specif...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "biorxiv",
+        "preprint",
+        "biology"
+      ]
+    },
+    {
+      "title": "Emergent Biological Realism in RL-Trained DNA Language Models",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.24.713963",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Reinforcement learning has driven the mass adoption of large language models by unlocking unexpected capabilities, yet this approach remains largely underexplored for generative DNA models. We investigate whether similar post-training techniques can induce emergent biological realism in DNA language models, using plasmid generation as a testbed due to pla...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "biorxiv",
+        "preprint",
+        "biology"
+      ]
+    },
+    {
+      "title": "Atlas of predicted protein complex structures across kingdoms.",
+      "url": "https://doi.org/10.1038/s41467-026-70884-4",
+      "source": "PubMed — Nature communications",
+      "one_liner": "Protein complexes are fundamental to all biological processes. Public repositories have expanded to include millions of potential protein-protein interactions (PPIs) from human and diverse model organisms. Yet, large-scale structural characterization of these complexes-especially across different biological kingdoms-has lagged far behind, leaving most pot...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "Huge lung-cancer screening campaign boosts early diagnosis",
+      "url": "https://www.nature.com/articles/d41586-026-00954-6",
+      "source": "Nature (main journal)",
+      "one_liner": "Nature, Published online: 27 March 2026; doi:10.1038/d41586-026-00954-6 A programme that offers scans to smokers between the ages of 55 and 74 detects a large number of early-stage lung tumours.",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "nature",
+        "journal"
+      ]
+    },
+    {
+      "title": "OpenCap Monocular: 3D Human Kinematics and Musculoskeletal Dynamics from a Single Smartphone Video",
+      "url": "https://arxiv.org/abs/2603.24733",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2603.24733v1 Announce Type: cross \nAbstract: Quantifying human movement (kinematics) and musculoskeletal forces (kinetics) at scale, such as estimating quadriceps force during a sit-to-stand movement, could transform prediction, treatment, and monitoring of mobility-related conditions. However, quantifying kinematics and kinetics traditionally requi...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "quantitative-biology",
+        "preprint",
+        "arxiv"
+      ]
+    },
+    {
+      "title": "A Bayesian Gamma-power-mixture survival regression model: predicting the recurrence of prostate cancer post-prostatectomy",
+      "url": "https://arxiv.org/abs/2603.25455",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2603.25455v1 Announce Type: cross \nAbstract: In a dataset of 423 patients who had had radical prostatectomy for localised prostate cancer we estimated the apparent Shannon information (ASI) about time to biochemical recurrence in various subsets of the available pre-op variables using a Bayesian Gamma-power-mixture survival regression model.\n  In al...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "quantitative-biology",
+        "preprint",
+        "arxiv"
+      ]
+    },
+    {
+      "title": "Manifold Generalization Provably Proceeds Memorization in Diffusion Models",
+      "url": "https://arxiv.org/abs/2603.23792",
+      "source": "arXiv cs.LG (AI/ML)",
+      "one_liner": "arXiv:2603.23792v1 Announce Type: new \nAbstract: Diffusion models often generate novel samples even when the learned score is only \\emph{coarse} -- a phenomenon not accounted for by the standard view of diffusion training as density estimation. In this paper, we show that, under the \\emph{manifold hypothesis}, this behavior can instead be explained by coa...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "machine-learning",
+        "arxiv"
+      ]
+    },
+    {
+      "title": "Polynomial Speedup in Diffusion Models with the Multilevel Euler-Maruyama Method",
+      "url": "https://arxiv.org/abs/2603.24594",
+      "source": "arXiv cs.LG (AI/ML)",
+      "one_liner": "arXiv:2603.24594v1 Announce Type: new \nAbstract: We introduce the Multilevel Euler-Maruyama (ML-EM) method compute solutions of SDEs and ODEs using a range of approximators $f^1,\\dots,f^k$ to the drift $f$ with increasing accuracy and computational cost, only requiring a few evaluations of the most accurate $f^k$ and many evaluations of the less costly $f...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "machine-learning",
+        "arxiv"
+      ]
+    }
+  ]
+}
