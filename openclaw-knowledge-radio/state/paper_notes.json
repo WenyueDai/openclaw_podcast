@@ -736,6 +736,11 @@
       "note": "DD",
       "title": "Constrained Diffusion for Protein Design with Hard Structural Constraints",
       "source": "arXiv q-bio.BM"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.03.24.713863": {
+      "note": "DD",
+      "title": "Effects of protein interface mutations on protein quality and affinity",
+      "source": "bioRxiv — molecular biology"
     }
   }
 }
