@@ -731,6 +731,11 @@
       "note": "DD",
       "title": "Evaluation of protein-RNA Docking Web Servers for Template-Free Docking and Comparison with the AlphaFold Server.",
       "source": "PubMed — Journal of chemical theory and computation"
+    },
+    "https://arxiv.org/abs/2510.14989": {
+      "note": "DD",
+      "title": "Constrained Diffusion for Protein Design with Hard Structural Constraints",
+      "source": "arXiv q-bio.BM"
     }
   }
 }
