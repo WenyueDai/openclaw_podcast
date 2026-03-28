@@ -747,5 +747,12 @@
       "title": "Atlas of predicted protein complex structures across kingdoms.",
       "source": "PubMed — Nature communications"
     }
+  },
+  "2026-03-28": {
+    "https://www.biorxiv.org/content/10.64898/2026.03.25.714128": {
+      "note": "DD",
+      "title": "Teaching Diffusion Models Physics: Reinforcement Learning for Physically Valid Diffusion-Based Docking",
+      "source": "Charlotte Deane (bioRxiv)"
+    }
   }
 }
