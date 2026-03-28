@@ -753,6 +753,11 @@
       "note": "DD",
       "title": "Teaching Diffusion Models Physics: Reinforcement Learning for Physically Valid Diffusion-Based Docking",
       "source": "Charlotte Deane (bioRxiv)"
+    },
+    "https://doi.org/10.1126/sciadv.aea4617": {
+      "note": "DD",
+      "title": "Fast sampling of protein conformational dynamics.",
+      "source": "PubMed — Science advances"
     }
   }
 }
