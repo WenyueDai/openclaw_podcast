@@ -8,7 +8,7 @@
     <atom:link href="https://wenyuedai.github.io/protein_design_podcast/feed.xml" rel="self" type="application/rss+xml" />
     <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
     <language>en</language>
-    <lastBuildDate>Fri, 27 Mar 2026 16:38:48 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 28 Mar 2026 05:12:57 GMT</lastBuildDate>
     <itunes:author>Eva Dai</itunes:author>
     <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
     <itunes:owner>
@@ -18,6 +18,17 @@
     <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
     <itunes:explicit>false</itunes:explicit>
     
+    <item>
+      <title>Daily Podcast 2026-03-28</title>
+      <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-28/podcast_2026-03-28.mp3</guid>
+      <pubDate>Sat, 28 Mar 2026 08:00:00 GMT</pubDate>
+      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-28/podcast_2026-03-28.mp3" length="11933877" type="audio/mpeg" />
+      <description>Today&#x27;s papers reveal a striking shift in how we think about protein design and dynamics. | The chromatin organization paper in Asgard archaea offers a different kind of insight — it&#x27;s forcing us to reconsider where eukaryotic complexity actually came from. | The AI-driven protein engineering review for plant traits shows how far we&#x27;ve come in practical applications.</description>
+      <itunes:author>Eva Dai</itunes:author>
+      <itunes:summary>Today&#x27;s papers reveal a striking shift in how we think about protein design and dynamics. | The chromatin organization paper in Asgard archaea offers a different kind of insight — it&#x27;s forcing us to reconsider where eukaryotic complexity actually came from. | The AI-driven protein engineering review for plant traits shows how far we&#x27;ve come in practical applications.</itunes:summary>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
+    </item>
     <item>
       <title>Daily Podcast 2026-03-27</title>
       <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-27/podcast_2026-03-27.mp3</guid>
