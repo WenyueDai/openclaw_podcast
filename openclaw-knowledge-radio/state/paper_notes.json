@@ -787,6 +787,11 @@
       "note": "DD",
       "title": "AlphaFold Database expands to proteome-scale quaternary structures",
       "source": "bioRxiv — synthetic biology"
+    },
+    "https://doi.org/10.1038/s41467-026-70953-8": {
+      "note": "DD",
+      "title": "Small-molecule binding and sensing with a designed protein family.",
+      "source": "PubMed — Nature communications"
     }
   }
 }
