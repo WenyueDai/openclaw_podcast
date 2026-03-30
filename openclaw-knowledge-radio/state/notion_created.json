@@ -582,5 +582,17 @@
   "2026-03-30|https://www.biorxiv.org/content/10.64898/2026.03.27.714458": {
     "page_id": "3265f58e-a8c2-81a1-a760-d52a96448983",
     "note": "DD"
+  },
+  "2026-03-30|https://doi.org/10.1038/s41467-026-70953-8": {
+    "page_id": "3335f58e-a8c2-810e-b026-fcc42acf7353",
+    "note": "DD"
+  },
+  "2026-03-30|https://doi.org/10.1093/bioinformatics/btag150": {
+    "page_id": "3335f58e-a8c2-8156-be13-cfe03e370aab",
+    "note": "DD"
+  },
+  "2026-03-30|https://www.biorxiv.org/content/10.1101/2025.04.17.649309": {
+    "page_id": "3335f58e-a8c2-817a-a426-c5b42c64f733",
+    "note": "DD"
   }
 }
