@@ -797,6 +797,11 @@
       "note": "DD",
       "title": "Enhancing Mutation Impact Prediction in Protein Protein Interactions through Interpretable Graph-Based Multi-Level Featu",
       "source": "PubMed — Bioinformatics (Oxford, England)"
+    },
+    "https://www.biorxiv.org/content/10.1101/2025.04.17.649309": {
+      "note": "DD",
+      "title": "Protein Electrostatic Properties are Finetuned Through Evolution",
+      "source": "bioRxiv — biophysics"
     }
   }
 }
