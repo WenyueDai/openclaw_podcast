@@ -854,6 +854,11 @@
       "note": "DD",
       "title": "Bridging the gap between hybrid and sequence-only protein language models.",
       "source": "PubMed — Nature methods"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.01.14.699425": {
+      "note": "DD",
+      "title": "On the rise of AI technologies in virtual screening",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
