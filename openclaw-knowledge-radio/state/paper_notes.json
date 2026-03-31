@@ -839,6 +839,11 @@
       "note": "DD",
       "title": "Symmetric Self-play Online Preference Optimization for Protein Inverse Folding",
       "source": "bioRxiv — bioinformatics"
+    },
+    "https://doi.org/10.1038/s41467-026-71206-4": {
+      "note": "DD",
+      "title": "Deep homology and design of proteasome chaperone proteins in Candidozyma auris.",
+      "source": "PubMed — Nature communications"
     }
   }
 }
