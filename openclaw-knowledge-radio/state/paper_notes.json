@@ -814,6 +814,11 @@
       "note": "DD",
       "title": "FoldaVirus, a knowledge-based icosahedral capsid builder using AlphaFold",
       "source": "bioRxiv — bioinformatics"
+    },
+    "https://doi.org/10.1371/journal.pcbi.1013431": {
+      "note": "DD",
+      "title": "ECOD: Classification of domains in AFDB Swiss-Prot structure predictions.",
+      "source": "PubMed — PLoS computational biology"
     }
   }
 }
