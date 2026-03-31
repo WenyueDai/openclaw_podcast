@@ -849,6 +849,11 @@
       "note": "DD",
       "title": "Compressing the collective knowledge of ESM into a single protein language model.",
       "source": "PubMed — Nature methods"
+    },
+    "https://doi.org/10.1038/s41592-026-03049-2": {
+      "note": "DD",
+      "title": "Bridging the gap between hybrid and sequence-only protein language models.",
+      "source": "PubMed — Nature methods"
     }
   }
 }
