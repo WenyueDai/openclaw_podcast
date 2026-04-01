@@ -871,6 +871,11 @@
       "note": "DD",
       "title": "Machine learning, docking, or physics for structure prediction of ligand-induced ternary complexes.",
       "source": "PubMed — Current opinion in structural biology"
+    },
+    "https://doi.org/10.1016/j.compbiomed.2026.111598": {
+      "note": "DD",
+      "title": "GraphUnet-SS: A novel deep learning model for protein secondary structure prediction based on U-Net architecture.",
+      "source": "PubMed — Computers in biology and medicine"
     }
   }
 }
