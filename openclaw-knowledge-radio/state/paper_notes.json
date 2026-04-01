@@ -860,5 +860,12 @@
       "title": "On the rise of AI technologies in virtual screening",
       "source": "bioRxiv — bioinformatics"
     }
+  },
+  "2026-04-01": {
+    "https://doi.org/10.1016/j.sbi.2025.103216": {
+      "note": "DD",
+      "title": "From sequence to structure: A comprehensive review of deep learning models for RNA structure prediction.",
+      "source": "PubMed — Current opinion in structural biology"
+    }
   }
 }
