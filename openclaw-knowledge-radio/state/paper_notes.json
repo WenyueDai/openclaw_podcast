@@ -866,6 +866,11 @@
       "note": "DD",
       "title": "From sequence to structure: A comprehensive review of deep learning models for RNA structure prediction.",
       "source": "PubMed — Current opinion in structural biology"
+    },
+    "https://doi.org/10.1016/j.sbi.2025.103217": {
+      "note": "DD",
+      "title": "Machine learning, docking, or physics for structure prediction of ligand-induced ternary complexes.",
+      "source": "PubMed — Current opinion in structural biology"
     }
   }
 }
