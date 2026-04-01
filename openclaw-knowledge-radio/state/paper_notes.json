@@ -891,6 +891,11 @@
       "note": "DD",
       "title": "HORI-EN: Atomic-level energetic profiling and higher-order network identification in protein structures",
       "source": "bioRxiv — bioinformatics"
+    },
+    "https://arxiv.org/abs/2603.29727": {
+      "note": "DD",
+      "title": "Latent-Y: A Lab-Validated Autonomous Agent for De Novo Drug Design",
+      "source": "arXiv q-bio.BM"
     }
   }
 }
