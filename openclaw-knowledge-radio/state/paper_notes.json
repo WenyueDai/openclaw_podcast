@@ -876,6 +876,11 @@
       "note": "DD",
       "title": "GraphUnet-SS: A novel deep learning model for protein secondary structure prediction based on U-Net architecture.",
       "source": "PubMed — Computers in biology and medicine"
+    },
+    "https://doi.org/10.1016/j.bmcl.2025.130512": {
+      "note": "DD",
+      "title": "AI-guided design of cyclic peptide binders targeting TREM2 using CycleRFdiffusion and experimental validation.",
+      "source": "PubMed — Bioorganic & medicinal chemistry letters"
     }
   }
 }
