@@ -1,0 +1,296 @@
+{
+  "timestamps": [
+    0.0,
+    150.09,
+    311.9,
+    438.66,
+    582.42,
+    701.21,
+    831.12,
+    982.41,
+    1128.57,
+    1274.89,
+    1431.25
+  ],
+  "items": [
+    {
+      "title": "Determinants of metal import and specificity in a bacterial transporter",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.30.714904",
+      "source": "Debora Marks (bioRxiv)",
+      "one_liner": "Membrane transporters have evolved finely tuned substrate specificity within a limited repertoire of structural superfamilies, but the biophysical origins of transporter specificity remain unclear. We have systematically investigated the determinants of import and specificity in the model Deinococcus radiodurans (Dra)Nramp metal importer by testing targeted structure- and evolution-guided librarie",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": true,
+      "tags": [
+        "protein-design",
+        "author"
+      ]
+    },
+    {
+      "title": "Right Through the Skull",
+      "url": "https://www.science.org/content/blog-post/right-through-skull",
+      "source": "In the Pipeline (Derek Lowe)",
+      "one_liner": "",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": true,
+      "tags": [
+        "drug-discovery",
+        "biotech",
+        "author"
+      ]
+    },
+    {
+      "title": "From sequence to structure: A comprehensive review of deep learning models for RNA structure prediction.",
+      "url": "https://doi.org/10.1016/j.sbi.2025.103216",
+      "source": "PubMed — Current opinion in structural biology",
+      "one_liner": "RNA structure prediction remains one of the most challenging problems in computational biology, with significant implications for understanding gene regulation, drug design, and synthetic biology. While deep learning has revolutionized protein structure prediction, RNA presents unique challenges including limited training data, complex noncanonical intera...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": true,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "Machine learning, docking, or physics for structure prediction of ligand-induced ternary complexes.",
+      "url": "https://doi.org/10.1016/j.sbi.2025.103217",
+      "source": "PubMed — Current opinion in structural biology",
+      "one_liner": "Proteolysis-targeting chimeras (PROTACs) and molecular glues promote targeted protein degradation by recruiting an E3 ligase to proteins of interest (POIs). An accurate 3D structure of the ternary complex formed by E3 ligase, ligand, and POI is central to the rational design of degraders. Elucidating this structure with crystallography or cryo-EM can be c...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": true,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "AlphaFold modeling of the white spot syndrome virus polymerase.",
+      "url": "https://doi.org/10.1016/j.virol.2026.110818",
+      "source": "PubMed — Virology",
+      "one_liner": "White spot syndrome virus (WSSV) infects crustaceans, causing severe losses in the global shrimp industry. Several properties, including the DNA genome sequence and the virion morphology, place WSSV as the single member of the Whispovirus genus of the Nimaviridae family. The DNA polymerase is one of the few gene products of the predicted 184 open reading ...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": true,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "GraphUnet-SS: A novel deep learning model for protein secondary structure prediction based on U-Net architecture.",
+      "url": "https://doi.org/10.1016/j.compbiomed.2026.111598",
+      "source": "PubMed — Computers in biology and medicine",
+      "one_liner": "Prediction of the 3-D structure of a protein, which can be used to determine its function, is one of the most challenging problems in the bioinformatics field. Protein secondary structure prediction (PSSP) is a crucial step for protein 3-D structure prediction. Recent studies that focused on deep learning methods obtained significant improvements in PSSP....",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "AI-guided design of cyclic peptide binders targeting TREM2 using CycleRFdiffusion and experimental validation.",
+      "url": "https://doi.org/10.1016/j.bmcl.2025.130512",
+      "source": "PubMed — Bioorganic & medicinal chemistry letters",
+      "one_liner": "Triggering receptor expressed on myeloid cells 2 (TREM2) plays a central role in regulating microglial function in the central nervous system and has emerged as a promising therapeutic target for Alzheimer's disease. Despite advances in antibody-based therapeutics, small molecules and peptides capable of modulating TREM2 remain limited. Here, we present a...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "Protein sequence domain annotation using a language model",
+      "url": "https://www.biorxiv.org/content/10.1101/2024.06.04.596712",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Protein domain annotation underlies large-scale functional inference and is commonly performed by scanning sequences against libraries of profile hidden Markov models (profile HMMs). We describe PSALM, a protein domain annotation method that combines (i) a pretrained protein language model (ESM-2) with (ii) a per-residue domain-state classifier and (iii) ...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "biorxiv",
+        "preprint",
+        "biology"
+      ]
+    },
+    {
+      "title": "Protein Language Model Decoys for Target Decoy Competition in Proteomics: Quality Assessment and Benchmarks",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.27.714819",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Large-scale proteomics relies heavily on target--decoy competition for false discovery rate estimation in peptide identification, and the performance of this strategy depends strongly on the design of the decoy database. Classical generators such as reversal and shuffling remain widely used. Here, we introduce protein language model-based (PLM) decoy gene...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "biorxiv",
+        "preprint",
+        "biology"
+      ]
+    },
+    {
+      "title": "HORI-EN: Atomic-level energetic profiling and higher-order network identification in protein structures",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.03.29.715065",
+      "source": "bioRxiv — bioinformatics",
+      "one_liner": "Motivation: Characterizing atomic-level stability and cooperative interaction networks is essential for understanding protein function and evolution. However, existing tools often lack the precision to integrate detailed physicochemical energies with higher-order graph-theoretic analyses. Results: We present HORI-EN, an updated implementation to the HORI ...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "biorxiv",
+        "preprint",
+        "biology"
+      ]
+    },
+    {
+      "title": "Single-molecule neuromorphic device with aJ-level power consumption per switching.",
+      "url": "https://doi.org/10.1038/s41467-026-71127-2",
+      "source": "PubMed — Nature communications",
+      "one_liner": "Artificial neural network-based machine learning provides foundations for artificial intelligence (AI), yet requires high energy costs for training. Beyond software-level simulation of neural networks, hardware-level implementation via neuromorphic devices becomes the next milestone in nanoscience towards energy-sustainable AI. Single-molecule devices hav...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "Latent-Y: A Lab-Validated Autonomous Agent for De Novo Drug Design",
+      "url": "https://arxiv.org/abs/2603.29727",
+      "source": "arXiv q-bio.BM",
+      "one_liner": "arXiv:2603.29727v1 Announce Type: new \nAbstract: Drug discovery relies on iterative expert workflows that are slow to parallelize and difficult to scale. Here we introduce Latent-Y, an AI agent that autonomously executes complete antibody design campaigns from text prompts, covering literature review, target analysis, epitope identification, candidate des...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "protein-design",
+        "preprint",
+        "arxiv"
+      ]
+    },
+    {
+      "title": "Multimodal Machine Learning for Early Prediction of Metastasis in a Swedish Multi-Cancer Cohort",
+      "url": "https://arxiv.org/abs/2603.29793",
+      "source": "arXiv q-bio.QM",
+      "one_liner": "arXiv:2603.29793v1 Announce Type: cross \nAbstract: Multimodal Machine Learning offers a holistic view of a patient's status, integrating structured and unstructured data from electronic health records (EHR). We propose a framework to predict metastasis risk one month prior to diagnosis, using six months of clinical history from EHR data. Data from four ca...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "quantitative-biology",
+        "preprint",
+        "arxiv"
+      ]
+    },
+    {
+      "title": "ProteinMCP: An agentic AI framework for autonomous protein engineering.",
+      "url": "https://doi.org/10.1002/pro.70547",
+      "source": "PubMed — Protein science : a publication of the Protein Society",
+      "one_liner": "Computational protein design is often constrained by slow, complex, inaccessible, and highly sophisticated and expert-dependent workflows that hinder its transferrability and generalization power for broader applications. We present ProteinMCP, an agentic AI framework designed to accelerate and democratize protein engineering. ProteinMCP automates end-to-...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "SegDesign: A modular framework for controllable protein segment engineering.",
+      "url": "https://doi.org/10.1002/pro.70542",
+      "source": "PubMed — Protein science : a publication of the Protein Society",
+      "one_liner": "Local protein structure engineering, such as targeted remodeling of loops or flexible regions, is critical for mechanistic studies and protein optimization but remains challenging to perform in a controllable and reproducible manner. Despite advances in protein foundation models and generative structure design, most existing methods emphasize global scaff...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "Phosphoester hydrolysis using a de novo designed protein: A combined experimental and computational study.",
+      "url": "https://doi.org/10.1016/j.jinorgbio.2026.113215",
+      "source": "PubMed — Journal of inorganic biochemistry",
+      "one_liner": "Metallohydrolases use metal cations in their active sites to catalyze the hydrolytic cleavage of biological substrates. We used a simple model protein Due Ferri single chain (DFsc) in combination with Mn-Mn and Zn-Zn to study the effect of the nature of metal ions on its reactivity. The ICP-OES analysis confirmed the metal ion binding with desired ratios....",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "Increasing the rigidity of haptens to enhance the immunological performance of monoclonal antibodies against organophosphorus nerve agents.",
+      "url": "https://doi.org/10.1016/j.talanta.2025.129258",
+      "source": "PubMed — Talanta",
+      "one_liner": "Development of efficient and rapid detection technologies for organophosphorus nerve agents (OPNAs) is of great significance for public safety, ecological environment and medical treatment. Immunochromatographic test strips offer advantages including rapid detection, simple operation, and easy result interpretation, making them widely used in fields such ...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "De Novo Design and Directed Evolution Refinement of Mirror-Image Protein Binders Targeting Interleukin-4.",
+      "url": "https://doi.org/10.1002/advs.202515425",
+      "source": "PubMed — Advanced science (Weinheim, Baden-Wurttemberg, Germany)",
+      "one_liner": "Human interleukin-4 (IL-4) is a critical therapeutic target for allergic diseases and cancer, yet current biologics face stability and specificity limitations. We report a novel strategy combining de novo computational design with directed evolution to engineer a D-protein inhibitor targeting IL-4. Unlike stochastic screening, our approach enables epitope...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "Multiplexed Metabolic and Protein Engineering for D-Limonene Overproduction in Saccharomyces cerevisiae.",
+      "url": "https://doi.org/10.1002/bit.70133",
+      "source": "PubMed — Biotechnology and bioengineering",
+      "one_liner": "d-limonene, a monocyclic monoterpene compound, is widely used in biopesticides, food additives, and pharmaceuticals. In this study, we integrated metabolic and enzyme engineering approaches to develop a high-producing Saccharomyces cerevisiae platform for d-limonene biosynthesis. Initial analysis showed that the previously used d-limonene synthase (LS) fr...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    },
+    {
+      "title": "Recent advances in machine learning-enhanced extracellular vesicle omics for oncology.",
+      "url": "https://doi.org/10.1186/s12951-026-04342-0",
+      "source": "PubMed — Journal of nanobiotechnology",
+      "one_liner": "Extracellular vesicles (EVs) are nanoscale, membrane-bound particles that carry nucleic acids, proteins, metabolites, and lipids. Their omics profiles can reflect tumor and microenvironmental states, making EVs a promising source of liquid biopsy biomarkers. Machine learning (ML) is well suited to EV omics because it can learn predictive signatures from h...",
+      "segment": -1,
+      "timestamp": -1,
+      "highlighted": false,
+      "tags": [
+        "pubmed",
+        "journal",
+        "biology"
+      ]
+    }
+  ]
+}
