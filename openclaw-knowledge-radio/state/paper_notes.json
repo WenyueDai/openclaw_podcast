@@ -886,6 +886,11 @@
       "note": "DD",
       "title": "Protein sequence domain annotation using a language model",
       "source": "bioRxiv — bioinformatics"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.03.29.715065": {
+      "note": "DD",
+      "title": "HORI-EN: Atomic-level energetic profiling and higher-order network identification in protein structures",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
