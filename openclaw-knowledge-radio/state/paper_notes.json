@@ -923,6 +923,11 @@
       "note": "DD",
       "title": "Biologic Summit 2026",
       "source": "BLOPIG (Oxford Protein Informatics Group)"
+    },
+    "https://doi.org/10.1038/s41592-026-03047-4": {
+      "note": "DD",
+      "title": "AlphaFold as a prior: experimental structure determination conditioned on a pretrained neural network.",
+      "source": "PubMed — Nature methods"
     }
   }
 }
