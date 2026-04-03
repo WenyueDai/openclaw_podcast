@@ -955,6 +955,11 @@
       "note": "DD",
       "title": "Predicting the protein interaction landscape of a free-living bacterium with pooled-AlphaFold3.",
       "source": "PubMed — Molecular systems biology"
+    },
+    "https://doi.org/10.1016/j.sbi.2026.103253": {
+      "note": "DD",
+      "title": "The landscape of machine learning approaches for modeling protein conformational ensembles.",
+      "source": "PubMed — Current opinion in structural biology"
     }
   }
 }
