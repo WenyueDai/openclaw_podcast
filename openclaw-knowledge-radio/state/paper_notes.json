@@ -945,6 +945,11 @@
       "note": "DD",
       "title": "Say \"Chameleonicity\" Three Times Fast. Or Read This Post.",
       "source": "In the Pipeline (Derek Lowe)"
+    },
+    "https://doi.org/10.1016/j.sbi.2026.103257": {
+      "note": "DD",
+      "title": "More protein-ligand data are needed for AlphaFold-like models to enable drug discovery.",
+      "source": "PubMed — Current opinion in structural biology"
     }
   }
 }
