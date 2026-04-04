@@ -997,6 +997,11 @@
       "note": "DD",
       "title": "Supervised learning of protein variant effects across large-scale mutagenesis datasets.",
       "source": "PubMed — Protein science : a publication of the Protein Society"
+    },
+    "https://doi.org/10.1021/acs.biochem.5c00800": {
+      "note": "DD",
+      "title": "Recombinant Expression and Automated Flow Synthesis of Fold-Switching Proteins Derived from",
+      "source": "PubMed — Biochemistry"
     }
   }
 }
