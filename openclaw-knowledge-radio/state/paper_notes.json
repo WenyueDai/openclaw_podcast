@@ -982,6 +982,11 @@
       "note": "DD",
       "title": "AI-based methods for simulating, sampling, and predicting protein ensembles.",
       "source": "PubMed — Current opinion in structural biology"
+    },
+    "https://doi.org/10.1109/TPAMI.2026.3680437": {
+      "note": "DD",
+      "title": "How Can State Space Models Enhance Machine Learning on Graphs?",
+      "source": "PubMed — IEEE transactions on pattern analysis and machine intelligence"
     }
   }
 }
