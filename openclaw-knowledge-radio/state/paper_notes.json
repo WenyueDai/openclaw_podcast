@@ -992,6 +992,11 @@
       "note": "DD",
       "title": "StabLyzeGraph: High-throughput screening of combinatorial mutations using graph neural networks.",
       "source": "PubMed — Protein science : a publication of the Protein Society"
+    },
+    "https://doi.org/10.1002/pro.70526": {
+      "note": "DD",
+      "title": "Supervised learning of protein variant effects across large-scale mutagenesis datasets.",
+      "source": "PubMed — Protein science : a publication of the Protein Society"
     }
   }
 }
