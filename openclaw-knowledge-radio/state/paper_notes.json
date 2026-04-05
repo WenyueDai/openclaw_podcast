@@ -1013,5 +1013,12 @@
       "title": "Graph neural networks for molecular dynamics simulations.",
       "source": "PubMed — Current opinion in structural biology"
     }
+  },
+  "2026-04-05": {
+    "https://www.biorxiv.org/content/10.64898/2026.04.02.716051": {
+      "note": "DD",
+      "title": "Systematic Validation of AlphaFold-Predicted Interactomes with LUCIA",
+      "source": "bioRxiv — microbiology"
+    }
   }
 }
