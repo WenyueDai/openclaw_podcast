@@ -742,5 +742,21 @@
   "2026-04-04|https://doi.org/10.1002/pro.70526": {
     "page_id": "3385f58e-a8c2-814c-8d63-e407b155102e",
     "note": "DD"
+  },
+  "2026-04-04|https://doi.org/10.1021/acs.biochem.5c00800": {
+    "page_id": "3385f58e-a8c2-8103-bf48-ece31297a868",
+    "note": "DD"
+  },
+  "2026-04-04|https://doi.org/10.1021/acs.biochem.6c00099": {
+    "page_id": "3385f58e-a8c2-8190-b413-edb573efe4c5",
+    "note": "DD"
+  },
+  "2026-04-04|https://doi.org/10.1016/j.sbi.2026.103238": {
+    "page_id": "3385f58e-a8c2-81b2-8807-f2129a9bc6ae",
+    "note": "DD"
+  },
+  "2026-04-05|https://www.biorxiv.org/content/10.64898/2026.04.02.716051": {
+    "page_id": "3395f58e-a8c2-8141-9631-cd017465f542",
+    "note": "DD"
   }
 }
