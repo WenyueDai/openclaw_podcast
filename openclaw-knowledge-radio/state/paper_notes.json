@@ -1019,6 +1019,11 @@
       "note": "DD",
       "title": "Systematic Validation of AlphaFold-Predicted Interactomes with LUCIA",
       "source": "bioRxiv — microbiology"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.04.02.716037": {
+      "note": "DD",
+      "title": "Several multiple sequence alignment perturbation methods enhance AlphaFold3 sampling of alternative protein states",
+      "source": "bioRxiv — biophysics"
     }
   }
 }
