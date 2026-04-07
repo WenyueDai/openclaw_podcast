@@ -1071,6 +1071,11 @@
       "note": "DD",
       "title": "RinPy, a Python Package for Residue Interaction Network Model to Analyze Protein Structures and Predict Ligand Binding S",
       "source": "PubMed — Journal of chemical information and modeling"
+    },
+    "https://doi.org/10.1038/s41467-026-71373-4": {
+      "note": "DD",
+      "title": "Structural and mechanistic basis for antibody neutralization of the measles fusion protein.",
+      "source": "PubMed — Nature communications"
     }
   }
 }
