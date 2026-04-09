@@ -1110,6 +1110,11 @@
       "note": "DD",
       "title": "Protein Language Models Encode Evolutionary Grammar but Conflate Topological and Thermodynamic Phases",
       "source": "bioRxiv — biophysics"
+    },
+    "https://doi.org/10.1038/s41598-026-46916-w": {
+      "note": "DD",
+      "title": "Exploring quantum annealing for coarse-grained protein folding.",
+      "source": "PubMed — Scientific reports"
     }
   }
 }
