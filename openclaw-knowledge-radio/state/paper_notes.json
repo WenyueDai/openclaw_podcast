@@ -1198,6 +1198,11 @@
       "note": "DD",
       "title": "Interpretable Antibody-Antigen Structural Interface Prediction via Adaptive Graph Learning and Cyclic Transfer",
       "source": "bioRxiv — bioinformatics"
+    },
+    "https://doi.org/10.1038/s41467-026-71166-9": {
+      "note": "DD",
+      "title": "Combining structural modeling and deep learning to calculate the E. coli protein interactome and functional networks.",
+      "source": "PubMed — Nature communications"
     }
   }
 }
