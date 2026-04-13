@@ -1203,6 +1203,11 @@
       "note": "DD",
       "title": "Combining structural modeling and deep learning to calculate the E. coli protein interactome and functional networks.",
       "source": "PubMed — Nature communications"
+    },
+    "https://arxiv.org/abs/2604.09369": {
+      "note": "DD",
+      "title": "Biologically-Grounded Multi-Encoder Architectures as Developability Oracles for Antibody Design",
+      "source": "arXiv q-bio.BM"
     }
   }
 }
