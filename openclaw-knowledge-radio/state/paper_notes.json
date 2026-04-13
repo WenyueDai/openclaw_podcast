@@ -1187,5 +1187,12 @@
       "title": "The amyloid packing difference: a pairwise comparison metric for amyloid structures",
       "source": "bioRxiv — molecular biology"
     }
+  },
+  "2026-04-13": {
+    "https://www.biorxiv.org/content/10.64898/2026.04.08.717280": {
+      "note": "DD",
+      "title": "Cyclome: Large-scale replica-exchange dynamics of 930 cyclic peptide reveal thermal stability and critical metal-binding",
+      "source": "bioRxiv — bioinformatics"
+    }
   }
 }
