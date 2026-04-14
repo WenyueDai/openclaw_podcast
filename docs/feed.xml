@@ -8,7 +8,7 @@
     <atom:link href="https://wenyuedai.github.io/protein_design_podcast/feed.xml" rel="self" type="application/rss+xml" />
     <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
     <language>en</language>
-    <lastBuildDate>Mon, 13 Apr 2026 06:00:51 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 14 Apr 2026 05:44:05 GMT</lastBuildDate>
     <itunes:author>Eva Dai</itunes:author>
     <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
     <itunes:owner>
@@ -19,13 +19,24 @@
     <itunes:explicit>false</itunes:explicit>
     
     <item>
+      <title>Daily Podcast 2026-04-14</title>
+      <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-14/podcast_2026-04-14.mp3</guid>
+      <pubDate>Tue, 14 Apr 2026 08:00:00 GMT</pubDate>
+      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-14/podcast_2026-04-14.mp3" length="12417333" type="audio/mpeg" />
+      <description>Today&#x27;s papers bring a mix of sobering reality checks and exciting technical advances that will reshape how we think about protein modeling and design. | Starting with the reality check: Derek Lowe&#x27;s commentary on antibody binding prediction delivers a crucial message that many in the field need to hear. | On the technical front, the mitofusin structural modeling paper demonstrates something remarkable about AlphaFold&#x27;s capabilities.</description>
+      <itunes:author>Eva Dai</itunes:author>
+      <itunes:summary>Today&#x27;s papers bring a mix of sobering reality checks and exciting technical advances that will reshape how we think about protein modeling and design. | Starting with the reality check: Derek Lowe&#x27;s commentary on antibody binding prediction delivers a crucial message that many in the field need to hear. | On the technical front, the mitofusin structural modeling paper demonstrates something remarkable about AlphaFold&#x27;s capabilities.</itunes:summary>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
+    </item>
+    <item>
       <title>Daily Podcast 2026-04-13</title>
       <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-13/podcast_2026-04-13.mp3</guid>
       <pubDate>Mon, 13 Apr 2026 08:00:00 GMT</pubDate>
-      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-13/podcast_2026-04-13.mp3" length="13240509" type="audio/mpeg" />
-      <description>Today&#x27;s papers reveal a striking shift in how we approach protein design — moving from isolated predictions toward integrated, multi-modal systems that combine structural, evolutionary, and biophysical signals. | The most fundamental change comes from the E. | The antibody developability paper introduces CrossAbSense, which takes this integration further by creating property-specific neural oracles that combine frozen protein language models with biologically-grounded encoders for aggregation, stability, and expression.</description>
+      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-13/podcast_2026-04-13.mp3" length="0" type="audio/mpeg" />
+      <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
       <itunes:author>Eva Dai</itunes:author>
-      <itunes:summary>Today&#x27;s papers reveal a striking shift in how we approach protein design — moving from isolated predictions toward integrated, multi-modal systems that combine structural, evolutionary, and biophysical signals. | The most fundamental change comes from the E. | The antibody developability paper introduces CrossAbSense, which takes this integration further by creating property-specific neural oracles that combine frozen protein language models with biologically-grounded encoders for aggregation, stability, and expression.</itunes:summary>
+      <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
       <itunes:explicit>false</itunes:explicit>
       <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
     </item>
