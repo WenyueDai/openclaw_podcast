@@ -1225,6 +1225,11 @@
       "note": "DD",
       "title": "AlphaFold 3 captures oligomeric states and interaction dynamics of MLO ion channels",
       "source": "bioRxiv — plant biology"
+    },
+    "https://arxiv.org/abs/2510.07286": {
+      "note": "DD",
+      "title": "Evolutionary Profiles for Protein Fitness Prediction",
+      "source": "arXiv q-bio.BM"
     }
   }
 }
