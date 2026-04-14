@@ -1209,5 +1209,12 @@
       "title": "Biologically-Grounded Multi-Encoder Architectures as Developability Oracles for Antibody Design",
       "source": "arXiv q-bio.BM"
     }
+  },
+  "2026-04-14": {
+    "https://www.science.org/content/blog-post/predicting-antibody-binding-no-champagne-just-yet": {
+      "note": "DD",
+      "title": "Predicting Antibody Binding: No Champagne Just Yet",
+      "source": "In the Pipeline (Derek Lowe)"
+    }
   }
 }
