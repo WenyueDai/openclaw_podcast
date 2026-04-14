@@ -1215,6 +1215,11 @@
       "note": "DD",
       "title": "Predicting Antibody Binding: No Champagne Just Yet",
       "source": "In the Pipeline (Derek Lowe)"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.04.10.717648": {
+      "note": "DD",
+      "title": "Full-Length Structural Modeling of Mitofusins with AlphaFold Reveals a Novel Cross-Type Dimerization and Insights into O",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
