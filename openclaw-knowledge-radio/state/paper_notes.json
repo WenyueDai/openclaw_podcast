@@ -1242,6 +1242,11 @@
       "note": "DD",
       "title": "Answers and Reasons and Knowing and Thinking",
       "source": "In the Pipeline (Derek Lowe)"
+    },
+    "https://arxiv.org/abs/2604.12026": {
+      "note": "DD",
+      "title": "TriFit: Trimodal Fusion with Protein Dynamics for Mutation Fitness Prediction",
+      "source": "arXiv q-bio.BM"
     }
   }
 }
