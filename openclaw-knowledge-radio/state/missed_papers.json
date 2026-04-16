@@ -387,8 +387,10 @@
     "title": "A Generative Neuro-Symbolic AI for Protein Sequence Design",
     "url": null,
     "date_submitted": "2026-04-16",
-    "processed": false,
-    "diagnosis": null,
-    "keywords_added": []
+    "processed": true,
+    "diagnosis": "excluded_term",
+    "keywords_added": [],
+    "rss_feed_found": "",
+    "notion_page_id": "3445f58e-a8c2-8130-a5ea-d94ce978295c"
   }
 ]
