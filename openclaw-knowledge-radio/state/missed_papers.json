@@ -366,5 +366,14 @@
     ],
     "rss_feed_found": "",
     "notion_page_id": "3445f58e-a8c2-81bf-8aea-cbe19a0f8b47"
+  },
+  {
+    "id": "1776321977976",
+    "title": "Ankh-score produces better sequence alignments than AlphaFold3",
+    "url": null,
+    "date_submitted": "2026-04-16",
+    "processed": false,
+    "diagnosis": null,
+    "keywords_added": []
   }
 ]
