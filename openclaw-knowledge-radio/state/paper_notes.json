@@ -1279,6 +1279,11 @@
       "note": "DD",
       "title": "Beyond Structure and Affinity: Context-Dependent Signals for de novo Binder Success",
       "source": "bioRxiv — bioinformatics"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.04.13.718222": {
+      "note": "DD",
+      "title": "Predicting Antibody Self-Association with Sequence Structure Fusion Models: The Central Role of CSI-BLI in Early Develop",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
