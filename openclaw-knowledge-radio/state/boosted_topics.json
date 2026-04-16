@@ -59,5 +59,8 @@
   "geometry analysis",
   "synonymous codon selection",
   "transformer model",
-  "codon usage"
+  "codon usage",
+  "sequence alignment",
+  "alphafold3",
+  "ankh-score"
 ]
