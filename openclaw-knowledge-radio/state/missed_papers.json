@@ -342,8 +342,14 @@
     "title": "Decoupling Topology from Geometry: Detecting Large-Scale Conformational Changes via Conformational Scanning",
     "url": null,
     "date_submitted": "2026-04-16",
-    "processed": false,
-    "diagnosis": null,
-    "keywords_added": []
+    "processed": true,
+    "diagnosis": "low_ranking",
+    "keywords_added": [
+      "conformational changes",
+      "topology detection",
+      "geometry analysis"
+    ],
+    "rss_feed_found": "",
+    "notion_page_id": "3445f58e-a8c2-8142-945a-f84039660cd9"
   }
 ]
