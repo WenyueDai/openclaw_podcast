@@ -1274,6 +1274,11 @@
       "note": "DD",
       "title": "BOAT: Navigating the Sea of In Silico Predictors for Antibody Design via Multi-Objective Bayesian Optimization",
       "source": "arXiv q-bio.QM"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.04.13.718094": {
+      "note": "DD",
+      "title": "Beyond Structure and Affinity: Context-Dependent Signals for de novo Binder Success",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
