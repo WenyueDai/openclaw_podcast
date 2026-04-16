@@ -1258,5 +1258,12 @@
       "title": "Phage-assisted evolution of allosteric protein switches.",
       "source": "PubMed — Nature communications"
     }
+  },
+  "2026-04-16": {
+    "https://www.biorxiv.org/content/10.64898/2026.04.14.718427": {
+      "note": "DD",
+      "title": "Benchmarking MSA pairing for protein-protein complex structure prediction reveals a depth-over-pairing principle",
+      "source": "bioRxiv — bioinformatics"
+    }
   }
 }
