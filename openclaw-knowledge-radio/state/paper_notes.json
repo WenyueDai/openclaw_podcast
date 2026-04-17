@@ -1306,6 +1306,11 @@
       "note": "DD",
       "title": "Transforming macromolecular structures into simulations of self-assembly with ioNERDSS",
       "source": "bioRxiv — biophysics"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.04.14.718479": {
+      "note": "Dd",
+      "title": "ProteomeScan: A Toolkit For Target Validation By Proteome-Wide Docking And Analysis",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
