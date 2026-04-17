@@ -1291,6 +1291,11 @@
       "note": "DD",
       "title": "Anti-Amyloid Antibodies for Alzheimer: You Already Know",
       "source": "In the Pipeline (Derek Lowe)"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.04.14.718378": {
+      "note": "DD",
+      "title": "Sampling antibody conformational ensembles withABodyBuilder4-STEROIDS",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
