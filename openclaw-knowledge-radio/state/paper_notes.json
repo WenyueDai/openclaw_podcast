@@ -1296,6 +1296,11 @@
       "note": "DD",
       "title": "Sampling antibody conformational ensembles withABodyBuilder4-STEROIDS",
       "source": "bioRxiv — bioinformatics"
+    },
+    "https://doi.org/10.1093/bioinformatics/btag172": {
+      "note": "DD",
+      "title": "From Atoms to Fragments: A Coarse Representation for Efficient and Functional Protein Design.",
+      "source": "PubMed — Bioinformatics (Oxford, England)"
     }
   }
 }
