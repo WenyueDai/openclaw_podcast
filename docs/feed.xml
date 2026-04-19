@@ -8,7 +8,7 @@
     <atom:link href="https://wenyuedai.github.io/protein_design_podcast/feed.xml" rel="self" type="application/rss+xml" />
     <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
     <language>en</language>
-    <lastBuildDate>Sat, 18 Apr 2026 05:16:39 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 19 Apr 2026 05:33:05 GMT</lastBuildDate>
     <itunes:author>Eva Dai</itunes:author>
     <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
     <itunes:owner>
@@ -19,13 +19,24 @@
     <itunes:explicit>false</itunes:explicit>
     
     <item>
+      <title>Daily Podcast 2026-04-19</title>
+      <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-19/podcast_2026-04-19.mp3</guid>
+      <pubDate>Sun, 19 Apr 2026 08:00:00 GMT</pubDate>
+      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-19/podcast_2026-04-19.mp3" length="13006917" type="audio/mpeg" />
+      <description>Today&#x27;s papers reveal some fascinating shifts in how we understand protein function and design. | First, the Desulfovibrio vulgaris biofilm paper shows us that bacterial adhesion systems we thought we understood are actually more complex than we realized. | The MyD88 oligomerization paper gives us a beautiful example of how receptor-triggered protein assembly works in innate immunity.</description>
+      <itunes:author>Eva Dai</itunes:author>
+      <itunes:summary>Today&#x27;s papers reveal some fascinating shifts in how we understand protein function and design. | First, the Desulfovibrio vulgaris biofilm paper shows us that bacterial adhesion systems we thought we understood are actually more complex than we realized. | The MyD88 oligomerization paper gives us a beautiful example of how receptor-triggered protein assembly works in innate immunity.</itunes:summary>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
+    </item>
+    <item>
       <title>Daily Podcast 2026-04-18</title>
       <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-18/podcast_2026-04-18.mp3</guid>
       <pubDate>Sat, 18 Apr 2026 08:00:00 GMT</pubDate>
-      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-18/podcast_2026-04-18.mp3" length="12853749" type="audio/mpeg" />
-      <description>Today&#x27;s papers bring a set of shifts that matter for anyone designing proteins or antibodies. | The Rb degradation paper adds another layer: UBR5-mediated turnover of Rb is enhanced when Rb is chromatin-associated, not when it&#x27;s free in the nucleoplasm. | The gypsy insulator study in Drosophila shows that Effete and Cullin4 don&#x27;t just tag proteins for degradation — they actively shape the 3D nuclear organization of insulator complexes.</description>
+      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-18/podcast_2026-04-18.mp3" length="0" type="audio/mpeg" />
+      <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
       <itunes:author>Eva Dai</itunes:author>
-      <itunes:summary>Today&#x27;s papers bring a set of shifts that matter for anyone designing proteins or antibodies. | The Rb degradation paper adds another layer: UBR5-mediated turnover of Rb is enhanced when Rb is chromatin-associated, not when it&#x27;s free in the nucleoplasm. | The gypsy insulator study in Drosophila shows that Effete and Cullin4 don&#x27;t just tag proteins for degradation — they actively shape the 3D nuclear organization of insulator complexes.</itunes:summary>
+      <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
       <itunes:explicit>false</itunes:explicit>
       <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
     </item>
