@@ -1312,5 +1312,12 @@
       "title": "ProteomeScan: A Toolkit For Target Validation By Proteome-Wide Docking And Analysis",
       "source": "bioRxiv — bioinformatics"
     }
+  },
+  "2026-04-20": {
+    "https://www.biorxiv.org/content/10.64898/2026.04.17.719295": {
+      "note": "DD",
+      "title": "The Synthetic Epitope Atlas: High-Throughput Design and Validation of De Novo Antibody-Antigen Complexes",
+      "source": "bioRxiv — synthetic biology"
+    }
   }
 }
