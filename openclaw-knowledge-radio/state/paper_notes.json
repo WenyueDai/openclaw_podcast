@@ -1355,6 +1355,11 @@
       "note": "DD",
       "title": "MOSAIC: Codon Harmonization of Monte Carlo-Based Simulated Annealing for Linked Codons in Heterologous Protein Expressio",
       "source": "arXiv q-bio.QM"
+    },
+    "https://doi.org/10.7554/eLife.111070": {
+      "note": "DD",
+      "title": "Taking the biology seriously makes models better.",
+      "source": "PubMed — eLife"
     }
   }
 }
