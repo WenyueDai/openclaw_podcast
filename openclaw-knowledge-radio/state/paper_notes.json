@@ -1340,6 +1340,11 @@
       "note": "DD",
       "title": "Boltzmann Machine Learning with a Parallel, Persistent Markov chain Monte Carlo method for Estimating Evolutionary Field",
       "source": "arXiv q-bio.BM"
+    },
+    "https://arxiv.org/abs/2604.18559": {
+      "note": "DD",
+      "title": "ConforNets: Latents-Based Conformational Control in OpenFold3",
+      "source": "arXiv q-bio.BM"
     }
   }
 }
