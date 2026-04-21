@@ -1350,6 +1350,11 @@
       "note": "DD",
       "title": "RosettaSearch: Multi-Objective Inference-Time Search for Protein Sequence Design",
       "source": "arXiv q-bio.BM"
+    },
+    "https://arxiv.org/abs/2511.10708": {
+      "note": "DD",
+      "title": "MOSAIC: Codon Harmonization of Monte Carlo-Based Simulated Annealing for Linked Codons in Heterologous Protein Expressio",
+      "source": "arXiv q-bio.QM"
     }
   }
 }
