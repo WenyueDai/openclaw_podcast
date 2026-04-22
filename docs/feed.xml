@@ -8,7 +8,7 @@
     <atom:link href="https://wenyuedai.github.io/protein_design_podcast/feed.xml" rel="self" type="application/rss+xml" />
     <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
     <language>en</language>
-    <lastBuildDate>Tue, 21 Apr 2026 06:53:41 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 22 Apr 2026 05:23:33 GMT</lastBuildDate>
     <itunes:author>Eva Dai</itunes:author>
     <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
     <itunes:owner>
@@ -18,6 +18,17 @@
     <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
     <itunes:explicit>false</itunes:explicit>
     
+    <item>
+      <title>Daily Podcast 2026-04-22</title>
+      <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-22/podcast_2026-04-22.mp3</guid>
+      <pubDate>Wed, 22 Apr 2026 08:00:00 GMT</pubDate>
+      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-22/podcast_2026-04-22.mp3" length="12014709" type="audio/mpeg" />
+      <description>The biggest shift today comes from a deep dive into AlphaFold 3&#x27;s diffusion sampling. | On the PPI screening front, PPIscreenML shows that AlphaFold2&#x27;s accuracy on docked protein pairs is high enough to use as a first-pass filter for interaction relevance. | The heteropolymer folding paper adds a theoretical lens: folding chains in the Iori model follow a power-law diffusion D ~ t^ν, with ν dropping from about 0.67 to 0.5 as the chain collapses.</description>
+      <itunes:author>Eva Dai</itunes:author>
+      <itunes:summary>The biggest shift today comes from a deep dive into AlphaFold 3&#x27;s diffusion sampling. | On the PPI screening front, PPIscreenML shows that AlphaFold2&#x27;s accuracy on docked protein pairs is high enough to use as a first-pass filter for interaction relevance. | The heteropolymer folding paper adds a theoretical lens: folding chains in the Iori model follow a power-law diffusion D ~ t^ν, with ν dropping from about 0.67 to 0.5 as the chain collapses.</itunes:summary>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
+    </item>
     <item>
       <title>Daily Podcast 2026-04-21</title>
       <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-21/podcast_2026-04-21.mp3</guid>
