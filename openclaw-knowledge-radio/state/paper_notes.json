@@ -1387,6 +1387,11 @@
       "note": "DD",
       "title": "A combined study of molecular dynamics simulations, information theory, molecular graph theory, and machine learning in ",
       "source": "PubMed — Journal of computer-aided molecular design"
+    },
+    "https://doi.org/10.1016/j.crmeth.2026.101414": {
+      "note": "DD",
+      "title": "A protein surface-aware multimodal framework for residue-level metal-binding site recognition.",
+      "source": "PubMed — Cell reports methods"
     }
   }
 }
