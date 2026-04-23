@@ -418,6 +418,7 @@ def main() -> int:
         # Second pass: parallel article extract + analysis
         max_workers = int(cfg.get("fetch_workers", 8))
         analysis_model = cfg.get("llm", {}).get("analysis_model") or cfg.get("llm", {}).get("model")
+        analysis_fallbacks: List[str] = cfg.get("llm", {}).get("analysis_model_fallbacks", [])
 
         _fetch_s2_api_key = os.environ.get("S2_API_KEY", "").strip()
 
@@ -443,7 +444,7 @@ def main() -> int:
                     pass
             it["extracted_chars"] = len(body or "")
             it["has_fulltext"] = bool(body and len(body) > 1500)
-            it["analysis"] = analyze_article(url, body, model=analysis_model)
+            it["analysis"] = analyze_article(url, body, model=analysis_model, fallback_models=analysis_fallbacks)
             return it
 
         with ThreadPoolExecutor(max_workers=max_workers) as pool:

@@ -2,7 +2,7 @@ import hashlib
 import os
 import time
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Dict, Any, List, Optional
 from openai import OpenAI
 try:
     from openai import RateLimitError as _RateLimitError
@@ -51,19 +51,13 @@ def hash_url(url: str) -> str:
     return hashlib.sha1(url.encode()).hexdigest()[:16]
 
 
-def analyze_article(url: str, text: str, model: str = "stepfun/step-3.5-flash:free") -> str:
-    text = (text or "").strip()
-    if not text:
-        return ""
+def _is_daily_quota(e: Exception) -> bool:
+    s = str(e)
+    return "per-day" in s or "per_day" in s
 
-    cache_file = CACHE_DIR / f"{hash_url(url)}.txt"
 
-    # Cache check
-    if not DEBUG_MODE and cache_file.exists():
-        return cache_file.read_text()
-
-    client = _get_client()
-
+def _try_one_model(client: OpenAI, model: str, url: str, text: str) -> str:
+    """Attempt analysis with a single model; 3 retries on transient 429s."""
     for attempt in range(1, 4):
         try:
             response = client.chat.completions.create(
@@ -73,15 +67,53 @@ def analyze_article(url: str, text: str, model: str = "stepfun/step-3.5-flash:fr
                     {"role": "user", "content": f"URL: {url}\n\nARTICLE:\n{text[:12000]}"}
                 ],
                 temperature=0.1,
-                max_tokens=900
+                max_tokens=900,
             )
-            break
-        except _RateLimitError:
+            return (response.choices[0].message.content or "").strip()
+        except _RateLimitError as e:
+            if _is_daily_quota(e):
+                raise  # hard daily limit — propagate immediately
             if attempt < 3:
-                time.sleep(65 * attempt)
+                wait = 65 * attempt
+                print(f"[analysis] 429 on {model} attempt {attempt}/3 — waiting {wait}s …", flush=True)
+                time.sleep(wait)
             else:
                 raise
+    return ""  # unreachable
 
-    analysis = (response.choices[0].message.content or "").strip()
-    cache_file.write_text(analysis, encoding="utf-8")
-    return analysis
+
+def analyze_article(
+    url: str,
+    text: str,
+    model: str = "inclusionai/ling-2.6-flash:free",
+    fallback_models: Optional[List[str]] = None,
+) -> str:
+    text = (text or "").strip()
+    if not text:
+        return ""
+
+    cache_file = CACHE_DIR / f"{hash_url(url)}.txt"
+
+    # Cache hit — skip API call entirely
+    if not DEBUG_MODE and cache_file.exists():
+        return cache_file.read_text(encoding="utf-8")
+
+    client = _get_client()
+    all_models = [model] + (fallback_models or [])
+    last_err: Optional[Exception] = None
+
+    for m in all_models:
+        try:
+            analysis = _try_one_model(client, m, url, text)
+            if m != model:
+                print(f"[analysis] Used fallback model {m!r} (primary {model!r} failed)", flush=True)
+            cache_file.write_text(analysis, encoding="utf-8")
+            return analysis
+        except Exception as e:
+            print(f"[analysis] Model {m!r} failed: {e}", flush=True)
+            last_err = e
+
+    # All models failed — return empty string so the paper is still included
+    # without analysis rather than crashing the whole pipeline
+    print(f"[analysis] All models failed for {url} — continuing without analysis", flush=True)
+    return ""

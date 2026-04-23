@@ -6,8 +6,9 @@ edge-tts==7.2.7
 openai==1.40.0
 httpx==0.27.2
 gTTS==2.5.4
-newspaper4k
-beautifulsoup4
-lxml
-mutagen
-pdfminer.six
+newspaper4k==0.9.5
+nltk==3.9.4
+beautifulsoup4==4.14.3
+lxml==6.1.0
+mutagen==1.47.0
+pdfminer.six==20260107
