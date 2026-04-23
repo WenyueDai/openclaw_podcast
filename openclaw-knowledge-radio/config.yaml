@@ -736,8 +736,8 @@ publish:
 llm:
   enabled: true
   provider: "openrouter"
-  model: "nvidia/nemotron-3-super-120b-a12b:free"
-  analysis_model: "google/gemma-4-26b-a4b-it:free"
+  model: "inclusionai/ling-2.6-1t:free"
+  analysis_model: "inclusionai/ling-2.6-flash:free"
   api_key_env: "OPENROUTER_API_KEY"
   temperature: 0.25
   max_output_tokens: 8192
