@@ -1393,5 +1393,12 @@
       "title": "A protein surface-aware multimodal framework for residue-level metal-binding site recognition.",
       "source": "PubMed — Cell reports methods"
     }
+  },
+  "2026-04-24": {
+    "https://doi.org/10.1038/s41467-026-72093-5": {
+      "note": "DD",
+      "title": "In silico discovery of nanobody binders to a G-protein coupled receptor using AlphaFold-Multimer.",
+      "source": "PubMed — Nature communications"
+    }
   }
 }
