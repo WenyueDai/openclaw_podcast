@@ -1404,6 +1404,11 @@
       "note": "Dd",
       "title": "Using experimental results of protein design to guide biomolecular energy-function development.",
       "source": "PubMed — PLoS computational biology"
+    },
+    "https://doi.org/10.1039/d6lc00021e": {
+      "note": "DD",
+      "title": "LEGO®-inspired electrically-actuated microfluidics for on-chip protein crystallization and",
+      "source": "PubMed — Lab on a chip"
     }
   }
 }
