@@ -1410,5 +1410,12 @@
       "title": "LEGO®-inspired electrically-actuated microfluidics for on-chip protein crystallization and",
       "source": "PubMed — Lab on a chip"
     }
+  },
+  "2026-04-25": {
+    "https://www.biorxiv.org/content/10.64898/2026.04.22.720175": {
+      "note": "DD",
+      "title": "AlphaInterp: Probing AlphaFold 3's Internal Representations Reveals Evolutionary Determinants of Predicted Structure and",
+      "source": "bioRxiv — bioinformatics"
+    }
   }
 }
