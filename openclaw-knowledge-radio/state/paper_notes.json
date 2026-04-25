@@ -1421,6 +1421,11 @@
       "note": "DD",
       "title": "AlphaFind v2: similarity search in AlphaFold DB and TED domains across structural contexts.",
       "source": "PubMed — Nucleic acids research"
+    },
+    "https://doi.org/10.1126/sciadv.aef7163": {
+      "note": "DD",
+      "title": "Repertoire-scale antibody structural prediction informs therapeutic design.",
+      "source": "PubMed — Science advances"
     }
   }
 }
