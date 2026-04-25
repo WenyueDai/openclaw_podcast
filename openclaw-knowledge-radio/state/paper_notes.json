@@ -1416,6 +1416,11 @@
       "note": "DD",
       "title": "AlphaInterp: Probing AlphaFold 3's Internal Representations Reveals Evolutionary Determinants of Predicted Structure and",
       "source": "bioRxiv — bioinformatics"
+    },
+    "https://doi.org/10.1093/nar/gkag372": {
+      "note": "DD",
+      "title": "AlphaFind v2: similarity search in AlphaFold DB and TED domains across structural contexts.",
+      "source": "PubMed — Nucleic acids research"
     }
   }
 }
