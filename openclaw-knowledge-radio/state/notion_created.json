@@ -1050,5 +1050,17 @@
   "2026-04-25|https://www.biorxiv.org/content/10.64898/2026.04.22.720175": {
     "page_id": "34d5f58e-a8c2-8134-a88d-fbd6f287898e",
     "note": "DD"
+  },
+  "2026-04-25|https://doi.org/10.1093/nar/gkag372": {
+    "page_id": "34d5f58e-a8c2-812e-a702-ffd161623594",
+    "note": "DD"
+  },
+  "2026-04-25|https://doi.org/10.1126/sciadv.aef7163": {
+    "page_id": "34d5f58e-a8c2-818f-aa83-fc9d317aed53",
+    "note": "DD"
+  },
+  "2026-04-25|https://www.biorxiv.org/content/10.1101/2025.07.01.662578": {
+    "page_id": "34d5f58e-a8c2-81a1-abc6-e3f06a592042",
+    "note": "DD"
   }
 }
