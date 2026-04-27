@@ -1074,5 +1074,13 @@
   "2026-04-27|https://www.biorxiv.org/content/10.64898/2026.04.22.720259": {
     "page_id": "34f5f58e-a8c2-81e2-a705-fc0391d1866b",
     "note": "DD"
+  },
+  "2026-04-27|https://arxiv.org/abs/2512.05794": {
+    "page_id": "34f5f58e-a8c2-811b-be0c-ff7c35ed8e11",
+    "note": "DD"
+  },
+  "2026-04-27|https://doi.org/10.1186/s12859-026-06415-1": {
+    "page_id": "34f5f58e-a8c2-81ea-9ebf-e4694410ef8b",
+    "note": "DD"
   }
 }
