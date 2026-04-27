@@ -1062,5 +1062,17 @@
   "2026-04-25|https://www.biorxiv.org/content/10.1101/2025.07.01.662578": {
     "page_id": "34d5f58e-a8c2-81a1-abc6-e3f06a592042",
     "note": "DD"
+  },
+  "2026-04-25|https://doi.org/10.1073/pnas.2525920123": {
+    "page_id": "34d5f58e-a8c2-81be-b664-d5d59f4ac91b",
+    "note": "DD"
+  },
+  "2026-04-25|https://doi.org/10.1016/j.pep.2026.106934": {
+    "page_id": "34d5f58e-a8c2-81dd-bbfb-d3f41e0d1122",
+    "note": "DD"
+  },
+  "2026-04-27|https://www.biorxiv.org/content/10.64898/2026.04.22.720259": {
+    "page_id": "34f5f58e-a8c2-81e2-a705-fc0391d1866b",
+    "note": "DD"
   }
 }
