@@ -1458,6 +1458,11 @@
       "note": "DD",
       "title": "A structural bioinformatics framework for prioritizing pH-sensitive proteins from 3D structural features.",
       "source": "PubMed — BMC bioinformatics"
+    },
+    "https://arxiv.org/abs/2602.21750": {
+      "note": "DD",
+      "title": "From Words to Amino Acids: Does the Curse of Depth Persist?",
+      "source": "arXiv cs.LG (AI/ML)"
     }
   }
 }
