@@ -2,8 +2,8 @@ name: Daily Podcast
 
 on:
   schedule:
-    # Runs at 03:00 UTC every day (= 3am London winter / 11am Beijing+8)
-    - cron: "0 3 * * *"
+    # Runs at 02:00 UTC every day (= 3am BST / 2am GMT)
+    - cron: "0 2 * * *"
   workflow_dispatch:
     inputs:
       run_date:
