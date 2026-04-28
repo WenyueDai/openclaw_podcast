@@ -1480,6 +1480,11 @@
       "note": "DD",
       "title": "BilboMD: a web-accessible SAXS and AlphaFold-guided modeling pipeline.",
       "source": "PubMed — Nucleic acids research"
+    },
+    "https://doi.org/10.1093/bioinformatics/btag188": {
+      "note": "DD",
+      "title": "Much ado about nothing: Modeling amino acid replacement with predicted protein structures.",
+      "source": "PubMed — Bioinformatics (Oxford, England)"
     }
   }
 }
