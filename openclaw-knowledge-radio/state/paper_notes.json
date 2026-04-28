@@ -1485,6 +1485,11 @@
       "note": "DD",
       "title": "Much ado about nothing: Modeling amino acid replacement with predicted protein structures.",
       "source": "PubMed — Bioinformatics (Oxford, England)"
+    },
+    "https://doi.org/10.1021/acs.jcim.6c00044": {
+      "note": "DD",
+      "title": "De Novo Molecular Design via Shape-Constrained Diffusion Models.",
+      "source": "PubMed — Journal of chemical information and modeling"
     }
   }
 }
