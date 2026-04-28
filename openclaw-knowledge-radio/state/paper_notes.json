@@ -1475,6 +1475,11 @@
       "note": "DD",
       "title": "Curious cases of financial engineering in biotech",
       "source": "Owl Posting (Abhishaike Mahajan)"
+    },
+    "https://doi.org/10.1093/nar/gkag377": {
+      "note": "DD",
+      "title": "BilboMD: a web-accessible SAXS and AlphaFold-guided modeling pipeline.",
+      "source": "PubMed — Nucleic acids research"
     }
   }
 }
