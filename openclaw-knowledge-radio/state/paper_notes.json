@@ -1464,5 +1464,12 @@
       "title": "From Words to Amino Acids: Does the Curse of Depth Persist?",
       "source": "arXiv cs.LG (AI/ML)"
     }
+  },
+  "2026-04-28": {
+    "https://www.blopig.com/blog/2026/04/speeding-up-python-through-profiling/": {
+      "note": "DD",
+      "title": "Speeding up python through profiling",
+      "source": "BLOPIG (Oxford Protein Informatics Group)"
+    }
   }
 }
