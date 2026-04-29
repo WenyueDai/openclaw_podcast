@@ -1507,6 +1507,11 @@
       "note": "DD",
       "title": "Adjuvant databases and knowledge bases for data-driven research: a computational biology perspective.",
       "source": "PubMed — Current opinion in virology"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.04.24.720574": {
+      "note": "DD",
+      "title": "ActSeekN: A Structural-Motif-Based Pipeline for Interpretable Enzyme Function Annotation",
+      "source": "bioRxiv — bioinformatics"
     }
   }
 }
