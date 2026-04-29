@@ -1502,6 +1502,11 @@
       "note": "DD",
       "title": "Learning Structure, Energy, and Dynamics: A Survey of Artificial Intelligence for Protein Dynamics",
       "source": "arXiv q-bio.BM"
+    },
+    "https://doi.org/10.1016/j.coviro.2026.101542": {
+      "note": "DD",
+      "title": "Adjuvant databases and knowledge bases for data-driven research: a computational biology perspective.",
+      "source": "PubMed — Current opinion in virology"
     }
   }
 }
