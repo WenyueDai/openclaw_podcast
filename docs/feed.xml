@@ -8,7 +8,7 @@
     <atom:link href="https://wenyuedai.github.io/protein_design_podcast/feed.xml" rel="self" type="application/rss+xml" />
     <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
     <language>en</language>
-    <lastBuildDate>Tue, 28 Apr 2026 06:23:15 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 29 Apr 2026 10:10:24 GMT</lastBuildDate>
     <itunes:author>Eva Dai</itunes:author>
     <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
     <itunes:owner>
@@ -19,13 +19,24 @@
     <itunes:explicit>false</itunes:explicit>
     
     <item>
+      <title>Daily Podcast 2026-04-29</title>
+      <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-29/podcast_2026-04-29.mp3</guid>
+      <pubDate>Wed, 29 Apr 2026 08:00:00 GMT</pubDate>
+      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-29/podcast_2026-04-29.mp3" length="11049453" type="audio/mpeg" />
+      <description>The field of computational protein design is quietly reorganizing itself around a few ideas that should change how you think about your next project. | The first shift is about what we even try to model. | The second shift is more unsettling.</description>
+      <itunes:author>Eva Dai</itunes:author>
+      <itunes:summary>The field of computational protein design is quietly reorganizing itself around a few ideas that should change how you think about your next project. | The first shift is about what we even try to model. | The second shift is more unsettling.</itunes:summary>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
+    </item>
+    <item>
       <title>Daily Podcast 2026-04-28</title>
       <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-28/podcast_2026-04-28.mp3</guid>
       <pubDate>Tue, 28 Apr 2026 08:00:00 GMT</pubDate>
-      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-28/podcast_2026-04-28.mp3" length="12995877" type="audio/mpeg" />
-      <description>The old reflex is to treat Python overhead as inevitable noise in a protein pipeline, yet the Oxford group shows that a Raspberry Pi toggling a pin through Python RPI.GPIO can still hit seventy kilohertz while naive shell scripting drops to forty hertz, which means runtime hotspots are often where we assume they are not. | Over in integrative modeling, BilboMD marries AlphaFold priors with SAXS and neutron scattering at the SIBYLS beamline and NERSC so that flexible macromolecules that once looked like blurred averages in solution can be rebuilt with explicit uncertainty. | Meanwhile, the Bioinformatics paper asks why substitution matrices still ignore three-dimensional context when AlphaFold now delivers millions of predicted structures.</description>
+      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-04-28/podcast_2026-04-28.mp3" length="0" type="audio/mpeg" />
+      <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
       <itunes:author>Eva Dai</itunes:author>
-      <itunes:summary>The old reflex is to treat Python overhead as inevitable noise in a protein pipeline, yet the Oxford group shows that a Raspberry Pi toggling a pin through Python RPI.GPIO can still hit seventy kilohertz while naive shell scripting drops to forty hertz, which means runtime hotspots are often where we assume they are not. | Over in integrative modeling, BilboMD marries AlphaFold priors with SAXS and neutron scattering at the SIBYLS beamline and NERSC so that flexible macromolecules that once looked like blurred averages in solution can be rebuilt with explicit uncertainty. | Meanwhile, the Bioinformatics paper asks why substitution matrices still ignore three-dimensional context when AlphaFold now delivers millions of predicted structures.</itunes:summary>
+      <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
       <itunes:explicit>false</itunes:explicit>
       <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
     </item>
