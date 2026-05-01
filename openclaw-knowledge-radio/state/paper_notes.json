@@ -1534,6 +1534,11 @@
       "note": "DD",
       "title": "Structure-Aware Compound-Protein Affinity Prediction via Graph Neural Networks with Group Lasso Regularization.",
       "source": "PubMed — Computational and structural biotechnology journal"
+    },
+    "https://doi.org/10.1038/s41401-025-01721-5": {
+      "note": "DD",
+      "title": "Benchmarking co-folding methods to predict the structures of covalent protein-ligand complexes.",
+      "source": "PubMed — Acta pharmacologica Sinica"
     }
   }
 }
