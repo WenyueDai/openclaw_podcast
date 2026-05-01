@@ -1539,6 +1539,11 @@
       "note": "DD",
       "title": "Benchmarking co-folding methods to predict the structures of covalent protein-ligand complexes.",
       "source": "PubMed — Acta pharmacologica Sinica"
+    },
+    "https://doi.org/10.1016/j.biotechadv.2026.108843": {
+      "note": "DD",
+      "title": "A unified survey on drug-target interaction and binding affinity prediction: Models, representations, and challenges.",
+      "source": "PubMed — Biotechnology advances"
     }
   }
 }
