@@ -1524,6 +1524,11 @@
       "note": "DD",
       "title": "ConforFold recovers alternative protein conformations beyond MSA subsampling.",
       "source": "PubMed — Protein science : a publication of the Protein Society"
+    },
+    "https://doi.org/10.1107/S2059798326003013": {
+      "note": "DD",
+      "title": "Alphafuser: a parsimonious approach to predicting higher-order protein complexes.",
+      "source": "PubMed — Acta crystallographica. Section D, Structural biology"
     }
   }
 }
