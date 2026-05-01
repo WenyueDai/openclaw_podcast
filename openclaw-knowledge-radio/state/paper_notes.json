@@ -1544,6 +1544,11 @@
       "note": "DD",
       "title": "A unified survey on drug-target interaction and binding affinity prediction: Models, representations, and challenges.",
       "source": "PubMed — Biotechnology advances"
+    },
+    "https://doi.org/10.1016/j.cmpb.2026.109282": {
+      "note": "DD",
+      "title": "Harnessing angular geometry in deep learning for protein-ligand binding affinity prediction.",
+      "source": "PubMed — Computer methods and programs in biomedicine"
     }
   }
 }
