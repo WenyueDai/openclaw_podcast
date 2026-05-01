@@ -1513,5 +1513,12 @@
       "title": "ActSeekN: A Structural-Motif-Based Pipeline for Interpretable Enzyme Function Annotation",
       "source": "bioRxiv — bioinformatics"
     }
+  },
+  "2026-05-01": {
+    "https://doi.org/10.1002/pro.70541": {
+      "note": "DD",
+      "title": "pLM-Repeat: Exploiting the sequence representations of protein language models for sensitive repeat detection.",
+      "source": "PubMed — Protein science : a publication of the Protein Society"
+    }
   }
 }
