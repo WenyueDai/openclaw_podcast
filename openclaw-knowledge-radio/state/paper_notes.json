@@ -1549,6 +1549,11 @@
       "note": "DD",
       "title": "Harnessing angular geometry in deep learning for protein-ligand binding affinity prediction.",
       "source": "PubMed — Computer methods and programs in biomedicine"
+    },
+    "https://doi.org/10.1021/acsami.6c02130": {
+      "note": "DD",
+      "title": "Switchable DNA-Scaffolded Multivalent Aptamer through Stimuli-Responsive Plug-and-Play Modules for Protein Regulation.",
+      "source": "PubMed — ACS applied materials & interfaces"
     }
   }
 }
