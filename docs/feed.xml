@@ -8,7 +8,7 @@
     <atom:link href="https://wenyuedai.github.io/protein_design_podcast/feed.xml" rel="self" type="application/rss+xml" />
     <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
     <language>en</language>
-    <lastBuildDate>Fri, 01 May 2026 08:59:26 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 02 May 2026 06:32:22 GMT</lastBuildDate>
     <itunes:author>Eva Dai</itunes:author>
     <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
     <itunes:owner>
@@ -19,13 +19,24 @@
     <itunes:explicit>false</itunes:explicit>
     
     <item>
+      <title>Daily Podcast 2026-05-02</title>
+      <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-05-02/podcast_2026-05-02.mp3</guid>
+      <pubDate>Sat, 02 May 2026 08:00:00 GMT</pubDate>
+      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-05-02/podcast_2026-05-02.mp3" length="12464397" type="audio/mpeg" />
+      <description>An open letter to Jay Bhattacharya reminds us that public health choices ripple into bench science in ways we seldom model, and that uncertainty in human behavior can scramble even tidy therapeutic timelines, so when we look at the protein work today we have to keep the clinical reality in the room. | The GMFCC-UMA framework tempts me to ask whether fragment-level quantum mechanical energies can steer sequence search without ever touching a force field during inference, so I would build a pipeline that freezes GMFCC-UMA as an energy oracle and couples it to a lightweight transformer that proposes mutations on a Rossmann scaffold, then ask if the oracle alone can rank designs that later express. | Building on the physics-informed machine learning review, I want to see if a neural ordinary differential equation trained on sparse kinetic traces can guide active learning for a de novo binder, so I would embed a NODE inside a loop that proposes sequences, runs short explicit-solvent dynamics, and fits residue-wise fluxes to experimental binding kinetics from a single microfluidic titration.</description>
+      <itunes:author>Eva Dai</itunes:author>
+      <itunes:summary>An open letter to Jay Bhattacharya reminds us that public health choices ripple into bench science in ways we seldom model, and that uncertainty in human behavior can scramble even tidy therapeutic timelines, so when we look at the protein work today we have to keep the clinical reality in the room. | The GMFCC-UMA framework tempts me to ask whether fragment-level quantum mechanical energies can steer sequence search without ever touching a force field during inference, so I would build a pipeline that freezes GMFCC-UMA as an energy oracle and couples it to a lightweight transformer that proposes mutations on a Rossmann scaffold, then ask if the oracle alone can rank designs that later express. | Building on the physics-informed machine learning review, I want to see if a neural ordinary differential equation trained on sparse kinetic traces can guide active learning for a de novo binder, so I would embed a NODE inside a loop that proposes sequences, runs short explicit-solvent dynamics, and fits residue-wise fluxes to experimental binding kinetics from a single microfluidic titration.</itunes:summary>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
+    </item>
+    <item>
       <title>Daily Podcast 2026-05-01</title>
       <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-05-01/podcast_2026-05-01.mp3</guid>
       <pubDate>Fri, 01 May 2026 08:00:00 GMT</pubDate>
-      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-05-01/podcast_2026-05-01.mp3" length="13293285" type="audio/mpeg" />
-      <description>The way we think about protein structure prediction is quietly shifting, and today&#x27;s papers capture that momentum in several different directions at once. | The most tangible shift is in how we approach higher-order protein complexes. | A second shift is in conformational diversity.</description>
+      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-05-01/podcast_2026-05-01.mp3" length="0" type="audio/mpeg" />
+      <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
       <itunes:author>Eva Dai</itunes:author>
-      <itunes:summary>The way we think about protein structure prediction is quietly shifting, and today&#x27;s papers capture that momentum in several different directions at once. | The most tangible shift is in how we approach higher-order protein complexes. | A second shift is in conformational diversity.</itunes:summary>
+      <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
       <itunes:explicit>false</itunes:explicit>
       <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
     </item>
@@ -661,17 +672,6 @@
       <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-03/podcast_2026-03-03.mp3</guid>
       <pubDate>Tue, 03 Mar 2026 08:00:00 GMT</pubDate>
       <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-03/podcast_2026-03-03.mp3" length="0" type="audio/mpeg" />
-      <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
-      <itunes:author>Eva Dai</itunes:author>
-      <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
-      <itunes:explicit>false</itunes:explicit>
-      <itunes:image href="https://wenyuedai.github.io/protein_design_podcast/cover.svg" />
-    </item>
-    <item>
-      <title>Daily Podcast 2026-03-02</title>
-      <guid isPermaLink="false">https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-02/podcast_2026-03-02.mp3</guid>
-      <pubDate>Mon, 02 Mar 2026 08:00:00 GMT</pubDate>
-      <enclosure url="https://github.com/WenyueDai/protein_design_podcast/releases/download/episode-2026-03-02/podcast_2026-03-02.mp3" length="0" type="audio/mpeg" />
       <description>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</description>
       <itunes:author>Eva Dai</itunes:author>
       <itunes:summary>Daily automated digest of protein design, antibody engineering &amp; enzyme design research</itunes:summary>
