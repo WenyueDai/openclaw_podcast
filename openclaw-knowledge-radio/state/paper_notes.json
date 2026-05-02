@@ -1571,6 +1571,11 @@
       "note": "DD",
       "title": "The virus lesson: Teaching viral structure and quasi-symmetry in mixed reality.",
       "source": "PubMed — Protein science : a publication of the Protein Society"
+    },
+    "https://doi.org/10.1002/pro.70548": {
+      "note": "DD",
+      "title": "MAVISp: A modular structure-based framework for protein variant effects.",
+      "source": "PubMed — Protein science : a publication of the Protein Society"
     }
   }
 }
