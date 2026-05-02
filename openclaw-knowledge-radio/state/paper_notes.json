@@ -1561,6 +1561,11 @@
       "note": "DD",
       "title": "GMFCC-UMA: A Fragment-Based Machine Learning Framework for Scalable Ab Initio-Quality Protein Energies.",
       "source": "PubMed — Journal of chemical theory and computation"
+    },
+    "https://doi.org/10.1021/acs.jcim.6c00612": {
+      "note": "DD",
+      "title": "Controlled Protein Design via Statistical Energy Functions: A Rossmann Fold Case Study.",
+      "source": "PubMed — Journal of chemical information and modeling"
     }
   }
 }
