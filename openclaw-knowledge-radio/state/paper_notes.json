@@ -1576,6 +1576,11 @@
       "note": "DD",
       "title": "MAVISp: A modular structure-based framework for protein variant effects.",
       "source": "PubMed — Protein science : a publication of the Protein Society"
+    },
+    "https://doi.org/10.1073/pnas.2532810123": {
+      "note": "DD",
+      "title": "Deep mining of the human antibody repertoire identifies frequent and genetically diverse CDRH3 topologies targetable by ",
+      "source": "PubMed — Proceedings of the National Academy of Sciences of the United States of America"
     }
   }
 }
