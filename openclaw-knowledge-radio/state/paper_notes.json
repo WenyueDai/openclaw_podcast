@@ -1555,5 +1555,12 @@
       "title": "Switchable DNA-Scaffolded Multivalent Aptamer through Stimuli-Responsive Plug-and-Play Modules for Protein Regulation.",
       "source": "PubMed — ACS applied materials & interfaces"
     }
+  },
+  "2026-05-02": {
+    "https://doi.org/10.1021/acs.jctc.6c00459": {
+      "note": "DD",
+      "title": "GMFCC-UMA: A Fragment-Based Machine Learning Framework for Scalable Ab Initio-Quality Protein Energies.",
+      "source": "PubMed — Journal of chemical theory and computation"
+    }
   }
 }
